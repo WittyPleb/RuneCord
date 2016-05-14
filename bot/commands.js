@@ -399,8 +399,6 @@ var commands = {
                         table.setTitle("VIEWING RS3 STATS FOR " + suffix.toUpperCase());
                         table.setHeading("Skill", "Level", "Experience", "Rank");
 
-                        console.log(result[0][1]);
-
                         for (var i = 0; i < 28; i++) {
                             table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]), numeral(result[i][0]));
                         }
