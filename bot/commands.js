@@ -384,11 +384,6 @@ var commands = {
 
                     // It was a success
                     if (!err && res.statusCode == 200) {
-                        // We got the data!
-                        if (debug) {
-                            console.log(cDebug(" DEBUG ") + " Stats successfully grabbed for " + suffix);
-                        }
-
                         // Let's start parsing this data
                         var stat_data = body.split("\n");
                         var result = [];
@@ -404,8 +399,15 @@ var commands = {
                         table.setTitle("VIEWING RS3 STATS FOR " + suffix.toUpperCase());
                         table.setHeading("Skill", "Level", "Experience", "Rank");
 
-                        for (var x = 0; x < 28; x++) {
-                            table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]).format("0,0"), numeral(result[i][0]).format("0,0"));
+                        console.log(result[0][1]);
+
+                        for (var i = 0; i < 28; i++) {
+                            table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]), numeral(result[i][0]));
+                        }
+
+                        // We got the data!
+                        if (debug) {
+                            console.log(cDebug(" DEBUG ") + " Stats successfully grabbed for " + suffix);
                         }
 
                         // Let everyone see that pretty table
@@ -667,7 +669,7 @@ var commands = {
                         table.setTitle("VIEWING OLDSCHOOL STATS FOR " + suffix.toUpperCase());
                         table.setHeading("Skill", "Level", "Experience", "Rank");
 
-                        for (var x = 0; x < 24; x++) {
+                        for (var i = 0; i < 24; i++) {
                             table.addRow(getSkillName(i, "oldschool"), result[i][1], numeral(result[i][2]).format("0,0"), numeral(result[i][0]).format("0,0"));
                         }
 
