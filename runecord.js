@@ -10,17 +10,17 @@ var clk = new chalk.constructor({
     enabled: true
 });
 
-var cWarn = clk.bgYellow.black;
-var cError = clk.bgRed.black;
-var cDebug = clk.bgWhite.black;
-var cGreen = clk.bold.green;
-var cGrey = clk.bold.grey;
-var cYellow = clk.bold.yellow;
-var cBlue = clk.bold.blue;
-var cRed = clk.bold.red;
-var cServer = clk.bold.magenta;
-var cUYellow = clk.bold.underline.yellow;
-var cBgGreen = clk.bgGreen.black;
+cWarn = clk.bgYellow.black;
+cError = clk.bgRed.black;
+cDebug = clk.bgWhite.black;
+cGreen = clk.bold.green;
+cGrey = clk.bold.grey;
+cYellow = clk.bold.yellow;
+cBlue = clk.bold.blue;
+cRed = clk.bold.red;
+cServer = clk.bold.magenta;
+cUYellow = clk.bold.underline.yellow;
+cBgGreen = clk.bgGreen.black;
 
 checkConfig();
 
