@@ -1,7 +1,7 @@
 RuneCord
 ========
-[![Build Status](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord) 
-<span class="badge-paypal"><a href="https://paypal.me/unlucky4ever" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span> 
+[![Build Status](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
+<span class="badge-paypal"><a href="https://paypal.me/unlucky4ever" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
 <a href="https://zenhub.io"><img src="https://img.shields.io/badge/RuneCord-Zenhub.io-blue.svg"></a>
 
 <img src="http://i.imgur.com/TkiKjWM.png" alt="RuneCord Icon" align="right" />
@@ -21,7 +21,7 @@ RuneCord is a bot for [Discord](https://discordapp.com) which allows you to use 
 * `~warbands` -- Displays when the next Warbands will be.
 * `~bigchin` -- Displays when the next Big Chinchompa will be.
 * `~invasion <skill level>` -- Displays how much XP you'd gain in troll invasion if your level was `<skill level>` and you finished the entire thing.
-* `~lamp `small|med|large|huge` `<skill level>` -- Displays how much XP you'd gain from a lamp based on skill level and size.
+* `~lamp` `small|med|large|huge` `<skill level>` -- Displays how much XP you'd gain from a lamp based on skill level and size.
 * `~roll <number>` -- Rolls a number between 1 and `<number>`.
 * `~twitch <username>` -- Displays twitch information based on `<username>`.
 
