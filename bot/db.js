@@ -152,7 +152,7 @@ exports.checkServers = function(bot) {
     inactive = [];
     var now = Date.now();
     Object.keys(Times).map(function(id) {
-        if (!bot.servers.find(id)) {
+        if (!bot.servers.find(s => s.id == id)) {
             delete Times[id];
         }
     });
