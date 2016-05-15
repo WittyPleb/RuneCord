@@ -400,7 +400,7 @@ var commands = {
                         table.setHeading("Skill", "Level", "Experience", "Rank");
 
                         for (var i = 0; i < 28; i++) {
-                            table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]), numeral(result[i][0]));
+                            table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
                         }
 
                         // We got the data!
@@ -668,7 +668,7 @@ var commands = {
                         table.setHeading("Skill", "Level", "Experience", "Rank");
 
                         for (var i = 0; i < 24; i++) {
-                            table.addRow(getSkillName(i, "oldschool"), result[i][1], numeral(result[i][2]).format("0,0"), numeral(result[i][0]).format("0,0"));
+                            table.addRow(getSkillName(i, "oldschool"), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
                         }
 
                         // Let everyone see that pretty table
