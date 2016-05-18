@@ -45,7 +45,7 @@ Features
 * `)settings welcome WELCOME MESSAGE` -- Set a welcome message for new users to your server. Based on the example it would make it `WELCOME MESSAGE`.*
 * `)settings welcome none` -- Disables the welcome message.*
 
-** \*Must have `manageServer` permissions to use this command.**
+**\* Must have `manageServer` permissions to use this command.**
 
 Add RuneCord to your Server
 ---------------------------
