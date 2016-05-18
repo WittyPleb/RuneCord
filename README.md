@@ -7,8 +7,10 @@ RuneCord
 <img src="http://i.imgur.com/TkiKjWM.png" alt="RuneCord Icon" align="right" />
 RuneCord is a bot for [Discord](https://discordapp.com) which allows you to use certain commands to get [RuneScape](http://www.runescape.com/) information easily.
 
-#### Features
-* `~help` -- Shows all available commands.
+Features
+--------
+
+##### RuneScape Commands
 * `~vos` -- Displays the current Voice of Seren districts.
 * `~stats <username>` -- Displays the stats of `<username>`.
 * `~osstats <username>` -- Displays the oldschool stats of `<username>`.
@@ -22,8 +24,28 @@ RuneCord is a bot for [Discord](https://discordapp.com) which allows you to use 
 * `~bigchin` -- Displays when the next Big Chinchompa will be.
 * `~invasion <skill level>` -- Displays how much XP you'd gain in troll invasion if your level was `<skill level>` and you finished the entire thing.
 * `~lamp` `small|med|large|huge` `<skill level>` -- Displays how much XP you'd gain from a lamp based on skill level and size.
+
+##### General Commands
+* `~invite` -- Generates an invite link for you to invite the bot to your server (same link as below).
 * `~roll <number>` -- Rolls a number between 1 and `<number>`.
 * `~twitch <username>` -- Displays twitch information based on `<username>`.
+* `~about` -- Displays some useful information about the bot.
+* `~id [channel]` -- If you supply `channel` as the suffix, it returns the channel id, if no suffix is provided, it returns your user id.
+
+##### Moderator Commands
+* `)stats` -- Displays some cool statistics about the bot.
+* `)changelog` -- View the latest changes to the bot.
+* `)serverinfo` -- Get some useful information about the server the bot is in.
+* `)announce <message>` -- Sends a PM to all users in your server.*
+* `)ignore` -- Makes the bot ignore **ALL** commands in the channel this message is said in.*
+* `)unignore` -- Makes the bot start listening to **ALL** commands in the channel this message is said in.*
+* `)settings check` -- Check what settings the bot is using in the current server.*
+* `)settings enable|disable settingName` -- Enables or disables a specific setting based on `settingName`. View the [Documentation](https://unlucky4ever.github.io/RuneCord/) to see possible settings.*
+* `)settings notify here` -- Makes your default notification channel the channel you said this in.*
+* `)settings welcome WELCOME MESSAGE` -- Set a welcome message for new users to your server. Based on the example it would make it `WELCOME MESSAGE`.*
+* `)settings welcome none` -- Disables the welcome message.*
+
+** \*Must have `manageServer` permissions to use this command.**
 
 Add RuneCord to your Server
 ---------------------------
@@ -44,29 +66,28 @@ This bot is written to run on top of node.js. Please see https://nodejs.org/en/d
   - [Python 2.7](https://www.python.org/downloads/)  
 
   ___
-2. Once you have everything setup, and `npm install` was a success, you **must** create a twitter widget, make sure you set the username on the widget to `@JagexClock`, leave the rest of the settings at their defaults. To get the `twitter_api` needed for the bot to work, look at the embed code, and you will see a large number that will look similiar to this: `937151197101446304`. Copy that number, then edit `bot/config.json` and add your `twitter_api`.
+2. Now you must rename `config.json.example` to `config.json` and edit the values `token` and `twitter_api` with your information.
 
-3. To get the bot token to allow your bot to login, you can go https://discordapp.com/developers and create a new application. Name it whatever you want your bot to be called. Once your app is created, create a bot user for the application, and then you will see a token for the bot. Use that token and edit `bot/config.json` with the value of your token.
-
-4. Last but not least, you must create a folder called `db` and inside that folder create two files, `servers.json` and `times.json` and each one will have an initial content of `{}`, the files will be auto updated with the bot.
-
-5. After you get the you entire config set up, you can run `node test/runecord-test.js` to test your bot, to make sure it can log in. If all of it passes, you are free to use `node runecord.js` to start your bot.
+3. Once complete, you may run `npm test` to test your bot, if it all passes, you are free to run `npm start` to start the bot officially.
 
 **Congratulations! You just installed RuneCord!**
 
+Twitter API
+-----------
+To get the value for your `twitter_api` in the `config.json` you must go to [Twitter](https://twitter.com/) and create a widget by going to `Settings->Widget`. Set the username for the twitter widget to `JagexClock`, then click 'Create Widget'.
+
+Once the widget is created, you will see a textbox area with some source code. You will see a long number named `data-widget-id` in the source code, you must select that number, and add it to your `config.json`, that is the value for your `twitter_api`. If you fail to add this, the `~vos` command **will not** work.
+
 Issues
 ------
-
 Before reporting a problem, please read how to [File an issue](https://github.com/unlucky4ever/RuneCord/blob/master/CONTRIBUTING.md#file-an-issue).
 
 Development / Contributing
 --------------------------
-
 See the [Contributing Guide](https://github.com/unlucky4ever/RuneCord/blob/master/CONTRIBUTING.md#development)
 
 #### Author
 [unlucky4ever](https://github.com/unlucky4ever) ([@WittyRS](https://twitter.com/WittyRS))
 
 #### Contributers
-
 https://github.com/unlucky4ever/RuneCord/graphs/contributors
