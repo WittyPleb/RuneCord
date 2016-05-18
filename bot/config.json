@@ -1,11 +1,7 @@
 {
-    "token": "",
-    "app_id": "168215284161708032",
     "command_prefix": "~",
     "mod_command_prefix": ")",
     "non_essential_event_listeners": true,
-    "twitter_api": "",
-    "admin_id": "124627910232375296",
     "debug": true,
     "show_warn": true,
     "carbon_key": "",
