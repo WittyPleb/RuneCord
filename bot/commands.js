@@ -88,7 +88,7 @@ var commands = {
                     bot.sendMessage(msg, toSend);
                 } else {
                     bot.sendMessage(msg, "Command `" + suffix + "` not found. Aliases aren't allowed.", function(err, msg) {
-                        bot.deleteMessage(wMessage, {
+                        bot.deleteMessage(msg, {
                             "wait": 10000
                         });
                     });
@@ -147,7 +147,6 @@ var commands = {
                 }
                 return i;
             }
-
             var d = new Date();
             var h = addZero(d.getUTCHours());
             var m = addZero(d.getUTCMinutes());
@@ -160,25 +159,18 @@ var commands = {
         usage: "",
         cooldown: 30,
         process: function(bot, msg) {
-            // Get the time right now
             var now = Date.now();
-
-            // Create a fake date, set it to tomorrow's 00:00:00 (UTC MIDNIGHT)
             var then = new Date();
             then.setUTCHours(24, 0, 0, 0);
 
-            // Get the time remaining
             var resetTime = then - now;
 
-            // Convert it to hours
             var hours = Math.floor(resetTime / 1000 / 60 / 60);
             resetTime -= hours * 1000 * 60 * 60;
 
-            // Convert it to minutes
             var minutes = Math.floor(resetTime / 1000 / 60);
             resetTime -= minutes * 1000 * 60;
 
-            // Put it all together
             var timestr = "";
 
             if (hours > 0) {
@@ -281,10 +273,7 @@ var commands = {
         usage: "",
         cooldown: 15,
         process: function(bot, msg) {
-
-            // Get the data from Twitter
             request("https://cdn.syndication.twimg.com/widgets/timelines/" + config.twitter_api + "?&lang=en&supress_response_codes=true&rnd=" + Math.random(), function(err, res, body) {
-
                 if (res.statusCode == 404 || err) {
                     bot.sendMessage(msg, "Unable to grab the VoS, please try again.");
 
@@ -296,18 +285,15 @@ var commands = {
 
                 if (!err && res.statusCode == 200) {
                     var vosBody = body; // The entire data
-                    var vosStart = vosBody.indexOf("The Voice of Seren is now active in the "); // Let's only grab where it says this
-                    var vosText = vosBody.slice(vosStart, vosBody.length); // Now get rid of all the other text
+                    var vosStart = vosBody.indexOf("The Voice of Seren is now active in the ");
+                    var vosText = vosBody.slice(vosStart, vosBody.length);
 
-                    // Bold the district name
                     vosText = vosText.replace(/Amlodd|Cadarn|Crwys|Hefin|Iorwerth|Ithell|Meilyr|Trahaearn/gi, function(x) {
                         return "**" + x + "**";
                     });
 
-                    // Append districts to the end of the names
                     vosText = vosText.slice(0, vosText.indexOf("districts") + 10);
 
-                    // Send the information to the channel
                     bot.sendMessage(msg, vosText + ".");
                 }
             });
@@ -317,44 +303,58 @@ var commands = {
         usage: "small|med|large|huge <skill level>",
         desc: "Displays how much XP you'd get from a lamp based on <skill level>.",
         process: function(bot, msg, suffix) {
-            var xp = 0;
-            var suffixes = msg.content.split(" ");
-
-            var size = suffixes[1];
-            var level = suffixes[2];
-
-            if (size === "small") {
-                size = "Small";
-                xp = getLampXp(level, "small");
-            } else if (size === "med" || size === "medium") {
-                size = "Medium";
-                xp = getLampXp(level, "medium");
-            } else if (size === "large") {
-                size = "Large";
-                xp = getLampXp(level, "large");
-            } else if (size === "huge") {
-                size = "Huge";
-                xp = getLampXp(level, "huge");
-            } else {
-                bot.sendMessage(msg, "You have entered a lamp size I do not recognize, please use \"small\", \"med\", \"large\", or \"huge\".");
-                return;
-            }
-
-
-            if (isNaN(level)) {
-                bot.sendMessage(msg, "Please enter a real number for your skill level.");
-                return;
-            } else if (!isInteger(level)) {
-                bot.sendMessage(msg, "According to my calculations... that isn't even a real number to me.");
-                return;
-            } else if (level < 1) {
-                bot.sendMessage(msg, "You can't have a skill level of 0, please use a real level...");
-                return;
-            } else if (level > 120) {
-                bot.sendMessage(msg, "The highest skill level is 120, please don't go higher...");
+            if (!suffix) {
+                correctUsage("lamp", this.usage, msg, bot);
                 return;
             } else {
-                bot.sendMessage(msg, "If you were level **" + level + "**, you'd gain **" + numeral(xp).format() + "** XP from a **" + size + "** lamp.");
+
+                var size = msg.content.split(" ")[1];
+                var level = msg.content.split(" ")[2];
+                var xp = 0;
+
+                if (size && level) {
+                    if (size && !isInteger(size)) {
+                        if (size === "small") {
+                            size = "Small";
+                            xp = getLampXp(level, "small");
+                        } else if (size === "med" || size === "medium") {
+                            size = "Medium";
+                            xp = getLampXp(level, "medium");
+                        } else if (size === "large") {
+                            size = "Large";
+                            xp = getLampXp(level, "large");
+                        } else if (size === "huge") {
+                            size = "Huge";
+                            xp = getLampXp(level, "huge");
+                        } else {
+                            correctUsage("lamp", this.usage, msg, bot);
+                        }
+                    } else {
+                        correctUsage("lamp", this.usage, msg, bot);
+                        return;
+                    }
+
+                    if (level) {
+                        if (isNaN(level)) {
+                            correctUsage("lamp", this.usage, msg, bot);
+                            return;
+                        } else if (!isInteger(level)) {
+                            correctUsage("lamp", this.usage, msg, bot);
+                            return;
+                        } else if (level < 1) {
+                            correctUsage("lamp", this.usage, msg, bot);
+                            return;
+                        } else if (level > 120) {
+                            correctUsage("lamp", this.usage, msg, bot);
+                            return;
+                        } else {
+                            bot.sendMessage(msg, "If you were level **" + level + "**, you'd gain **" + numeral(xp).format() + "** XP from a **" + size + "** lamp.");
+                        }
+                    }
+                } else {
+                    correctUsage("lamp", this.usage, msg, bot);
+                    return;
+                }
             }
         }
     },
@@ -363,17 +363,14 @@ var commands = {
         desc: "Display stats of the username given.",
         cooldown: 30,
         process: function(bot, msg, suffix) {
-            // If username was provided
             if (!suffix) {
-                bot.sendMessage(msg, "You must supply a username!");
+                correctUsage("stats", this.usage, msg, bot);
                 return;
             } else {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
                 }
                 request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, function(err, res, body) {
-
-                    // Unable to find the player name supplied
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
@@ -382,18 +379,14 @@ var commands = {
                         return;
                     }
 
-                    // It was a success
                     if (!err && res.statusCode == 200) {
-                        // Let's start parsing this data
                         var stat_data = body.split("\n");
                         var result = [];
 
-                        // Loop through all the skills
                         for (var i = 0; i < 28; i++) {
                             result[i] = stat_data[i].split(",");
                         }
 
-                        // Create a fancy table for all this data
                         var table = new AsciiTable();
 
                         table.setTitle("VIEWING RS3 STATS FOR " + suffix.toUpperCase());
@@ -403,12 +396,10 @@ var commands = {
                             table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
                         }
 
-                        // We got the data!
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Stats successfully grabbed for " + suffix);
                         }
 
-                        // Let everyone see that pretty table
                         bot.sendMessage(msg, "```" + table + "```");
                     }
                 });
@@ -420,26 +411,17 @@ var commands = {
         desc: "Displays the current grand exchange info for <item name>",
         cooldown: 30,
         process: function(bot, msg, suffix) {
-            // Search term was empty
             if (!suffix) {
-                bot.sendMessage(msg, "You must supply a search term after the command.");
+                correctUsage("price", this.usage, msg, bot);
                 return;
-            } else { // Wasn't empty, now search for it
-
-                // Log it
+            } else {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Attempting to retrieve grand exchange data for '" + suffix + "'...");
                 }
-
-                // Request the information
                 request("http://rscript.org/lookup.php?type=ge&search=" + suffix + "&exact=1", function(err, res, body) {
-
-                    // It was a success
                     if (!err && res.statusCode == 200) {
-                        // Grab how many results returned
                         var results = body.split("RESULTS: ");
 
-                        // If only 1 result returned, grab all the data
                         if (results[1].substring(0, 1) == 1 && suffix !== null) {
 
                             if (debug) {
@@ -459,12 +441,12 @@ var commands = {
                             toSend.push("**Change in last 24 hours** -- `" + result[3].slice(0, -5) + " GP`" + (result[3].substring(0, 1) === 0 ? ":arrow_right:" : result[3].substring(0, 1) === "-" ? ":arrow_down:" : ":arrow_up:"));
 
                             bot.sendMessage(msg, toSend);
-                        } else if (results[1].substring(0, 1) > 1) { // More than 1 result was obtained, user must refine their search term more
+                        } else if (results[1].substring(0, 1) > 1) {
                             if (debug) {
                                 console.log(cDebug(" DEBUG ") + " Too many results returned for " + suffix);
                             }
                             bot.sendMessage(msg, "Too many results, please refine your search term better.");
-                        } else { // The user supplied an invalid name, no results returned at all
+                        } else {
                             if (debug) {
                                 console.log(cDebug(" DEBUG ") + " Error finding item '" + suffix);
                             }
@@ -484,8 +466,6 @@ var commands = {
                 console.log(cDebug(" DEBUG ") + " Attempting to grab viswax combination...");
             }
             request("http://warbandtracker.com/goldberg/index.php", function(err, res, body) {
-
-                // Something went wrong
                 if (res.statusCode == 404 || err) {
                     if (debug) {
                         console.log(cDebug(" DEBUG ") + " Unable to grab viswax combination: " + err);
@@ -500,47 +480,37 @@ var commands = {
                     }
                     var visBody = body;
 
-                    // Get the first rune
                     var firstRuneStart = visBody.indexOf("First Rune");
-                    var firstRuneText = visBody.slice(firstRuneStart, visBody.length); // Name of the rune
-                    var firstRunePct = firstRuneText.slice(firstRuneText.indexOf("Reported by ") + 12, firstRuneText.indexOf("%.</td>")); // Percentage for rune
+                    var firstRuneText = visBody.slice(firstRuneStart, visBody.length);
+                    var firstRunePct = firstRuneText.slice(firstRuneText.indexOf("Reported by ") + 12, firstRuneText.indexOf("%.</td>"));
                     firstRuneText = firstRuneText.slice(firstRuneText.indexOf("<b>") + 3, firstRuneText.indexOf("</b>"));
 
-                    // Get the second runes
                     var secondRuneStart = visBody.indexOf("Second Rune");
                     var secondRuneText = visBody.slice(secondRuneStart, visBody.length);
 
-                    // Second rune #1
-                    var secondRuneText1 = secondRuneText.slice(secondRuneText.indexOf("<b>") + 3, secondRuneText.indexOf("</b>")); // Name of the rune
-                    var secondRunePct1 = secondRuneText.slice(secondRuneText.indexOf("Reported by ") + 12, secondRuneText.indexOf("%.</td>")); // Percentage for rune
+                    var secondRuneText1 = secondRuneText.slice(secondRuneText.indexOf("<b>") + 3, secondRuneText.indexOf("</b>"));
+                    var secondRunePct1 = secondRuneText.slice(secondRuneText.indexOf("Reported by ") + 12, secondRuneText.indexOf("%.</td>"));
                     secondRuneText = secondRuneText.slice(secondRuneText.indexOf("%.</td>") + 7, secondRuneText.length);
 
-                    var secondRuneText2 = secondRuneText.slice(secondRuneText.indexOf("<b>") + 3, secondRuneText.indexOf("</b>")); // Name of the rune
-                    var secondRunePct2 = secondRuneText.slice(secondRuneText.indexOf("Reported by ") + 12, secondRuneText.indexOf("%.</td>")); // Percentage for rune
+                    var secondRuneText2 = secondRuneText.slice(secondRuneText.indexOf("<b>") + 3, secondRuneText.indexOf("</b>"));
+                    var secondRunePct2 = secondRuneText.slice(secondRuneText.indexOf("Reported by ") + 12, secondRuneText.indexOf("%.</td>"));
                     secondRuneText = secondRuneText.slice(secondRuneText.indexOf("%.</td>") + 7, secondRuneText.length);
 
-                    var secondRunePct3 = secondRuneText.slice(secondRuneText.indexOf("Reported by ") + 12, secondRuneText.indexOf("%.</td>")); // Percentage for rune
-                    var secondRuneText3 = secondRuneText.slice(secondRuneText.indexOf("<b>") + 3, secondRuneText.indexOf("</b>")); // Name of the rune
+                    var secondRunePct3 = secondRuneText.slice(secondRuneText.indexOf("Reported by ") + 12, secondRuneText.indexOf("%.</td>"));
+                    var secondRuneText3 = secondRuneText.slice(secondRuneText.indexOf("<b>") + 3, secondRuneText.indexOf("</b>"));
 
                     var toSend = [];
 
                     toSend.push("**First Rune**: *" + firstRuneText + "* `" + firstRunePct + "%`");
                     toSend.push("**Second Rune**: *" + secondRuneText1 + "* `" + secondRunePct1 + "%`, *" + secondRuneText2 + "* `" + secondRunePct2 + "%`" + ", *" + secondRuneText3 + "* `" + secondRunePct3 + "%`");
 
-                    // Get the time now
                     var now = Date.now();
-
-                    // Create a fake date and set it to tomorrow's 00:00:00 (UTC Time)
                     var then = new Date();
                     then.setUTCHours(24, 0, 0, 0);
 
-                    // Get the time remaining
                     var resetTime = then - now;
-
-                    // Get the hours
                     var hours = Math.floor(resetTime / 1000 / 60 / 60);
 
-                    // If the game just reset, let people know.
                     if (hours >= 22) {
                         toSend.push("Please Note: `Since reset was so recent, these runes may be inaccurate...`");
                     }
@@ -555,21 +525,26 @@ var commands = {
         usage: "<skill level>",
         desc: "Determine how much XP you get for completing troll invasion based on <skill level>.",
         process: function(bot, msg, suffix) {
-            if (isNaN(suffix)) {
-                bot.sendMessage(msg, "Please enter a real number for your skill level.");
-                return;
-            } else if (!isInteger(suffix)) {
-                bot.sendMessage(msg, "According to my calculations... that isn't even a real number to me.");
-                return;
-            } else if (suffix < 1) {
-                bot.sendMessage(msg, "You can't have a skill level of 0, please use a real level...");
-                return;
-            } else if (suffix > 120) {
-                bot.sendMessage(msg, "The highest skill level is 120, please don't go higher...");
+            if (!suffix) {
+                correctUsage("invasion", this.usage, msg, bot);
                 return;
             } else {
-                var formula = 8 * (20 / 20) * (Math.pow(suffix, 2) - 2 * suffix + 100);
-                bot.sendMessage(msg, "If you were to **fully** complete Troll Invasion, you'd gain **" + numeral(formula).format() + "** XP if you were level **" + suffix + "**.");
+                if (isNaN(suffix)) {
+                    correctUsage("invasion", this.usage, msg, bot);
+                    return;
+                } else if (!isInteger(suffix)) {
+                    correctUsage("invasion", this.usage, msg, bot);
+                    return;
+                } else if (suffix < 1) {
+                    correctUsage("invasion", this.usage, msg, bot);
+                    return;
+                } else if (suffix > 120) {
+                    correctUsage("invasion", this.usage, msg, bot);
+                    return;
+                } else {
+                    var formula = 8 * (20 / 20) * (Math.pow(suffix, 2) - 2 * suffix + 100);
+                    bot.sendMessage(msg, "If you were to **fully** complete Troll Invasion, you'd gain **" + numeral(formula).format() + "** XP if you were level **" + suffix + "**.");
+                }
             }
         }
     },
@@ -577,17 +552,14 @@ var commands = {
         usage: "<username>",
         desc: "Display the adventure log of <username>.",
         process: function(bot, msg, suffix) {
-
-            if (!suffix) { // No username was supplied
-                bot.sendMessage(msg, "You must supply a username after the command.");
+            if (!suffix) {
+                correctUsage("alog", this.usage, msg, bot);
                 return;
             } else {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Attempting to grab adventure log for '" + suffix + "'...");
                 }
                 request("http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=" + suffix, function(err, res, body) {
-
-                    // No adventure log was found
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Unable to retrieve adventure log for '" + suffix + "': " + err);
@@ -595,8 +567,6 @@ var commands = {
                         bot.sendMessage(msg, "Unable to retrieve adventure log for '" + suffix + "'.");
                         return;
                     }
-
-                    // It was a success
                     if (!err && res.statusCode == 200) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Adventure log successfully grabbed for " + suffix);
@@ -614,7 +584,6 @@ var commands = {
                             table.addRow(alog_data[i].slice(alog_data[i].indexOf("<title>") + 7, alog_data[i].indexOf("</title>")), alog_data[i].slice(alog_data[i].indexOf("<pubDate>") + 9, alog_data[i].indexOf("00:00:00") - 1));
                         }
 
-
                         bot.sendMessage(msg, "```" + table + "```");
                     }
                 });
@@ -626,17 +595,14 @@ var commands = {
         desc: "Display old school stats of the username given.",
         cooldown: 30,
         process: function(bot, msg, suffix) {
-            // If username was provided
             if (!suffix) {
-                bot.sendMessage(msg, "You must supply a username!");
+                correctUsage("osstats", this.usage, msg, bot);
                 return;
             } else {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
                 }
                 request("http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + suffix, function(err, res, body) {
-
-                    // Unable to find the player name supplied
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
@@ -645,23 +611,18 @@ var commands = {
                         return;
                     }
 
-                    // It was a success
                     if (!err && res.statusCode == 200) {
-                        // We got the data!
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Stats successfully grabbed for " + suffix);
                         }
 
-                        // Let's start parsing this data
                         var stat_data = body.split("\n");
                         var result = [];
 
-                        // Loop through all the skills
                         for (var i = 0; i < 24; i++) {
                             result[i] = stat_data[i].split(",");
                         }
 
-                        // Create a fancy table for all this data
                         var table = new AsciiTable();
 
                         table.setTitle("VIEWING OLDSCHOOL STATS FOR " + suffix.toUpperCase());
@@ -671,7 +632,6 @@ var commands = {
                             table.addRow(getSkillName(i, "oldschool"), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
                         }
 
-                        // Let everyone see that pretty table
                         bot.sendMessage(msg, "```" + table + "```");
                     }
                 });
@@ -683,21 +643,33 @@ var commands = {
         usage: "<number>",
         cooldown: 5,
         process: function(bot, msg, suffix) {
-            if (isNaN(suffix)) {
-                bot.sendMessage(msg, "That's not even a number...");
-                return;
-            } else if (suffix == 3.14) {
-                bot.sendMessage(msg, "Come to the nerd side, we have Pi.");
-                return;
-            } else if (!isInteger(suffix)) {
-                bot.sendMessage(msg, "Please use a whole number...");
-                return;
-            } else if (suffix <= 1) {
-                bot.sendMessage(msg, "You must supply a number greater than 1!");
+            if (!suffix) {
+                correctUsage("roll", this.usage, msg, bot);
                 return;
             } else {
-                var roll = Math.floor(Math.random() * suffix) + 1;
-                msg.reply(":game_die: Rolled a **" + roll + "** out of **" + suffix + "**.");
+                if (isNaN(suffix)) {
+                    correctUsage("roll", this.usage, msg, bot);
+                    return;
+                } else if (!isInteger(suffix)) {
+                    correctUsage("roll", this.usage, msg, bot);
+                    return;
+                } else if (suffix <= 1) {
+                    correctUsage("roll", this.usage, msg, bot);
+                    return;
+                } else if (suffix > Number.MAX_SAFE_INTEGER) {
+                    bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", That number is too high for me to process, please use a smaller number", (err, wMessage) => {
+                        bot.deleteMessage(wMessage, {
+                            "wait": 10000
+                        });
+                    });
+                    bot.deleteMessage(msg, {
+                        "wait": 10000
+                    });
+                    return;
+                } else {
+                    var roll = Math.floor(Math.random() * suffix) + 1;
+                    msg.reply(":game_die: Rolled a **" + roll + "** out of **" + suffix + "**.");
+                }
             }
         }
     },
@@ -706,18 +678,14 @@ var commands = {
         desc: "Displays twitch information based on <username>.",
         cooldown: 30,
         process: function(bot, msg, suffix) {
-
-            // No username given
             if (!suffix) {
-                bot.sendMessage(msg, "You must enter a username!");
+                correctUsage("twitch", this.usage, msg, bot);
                 return;
             } else {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + "Attempting to retrieve twitch status for '" + suffix + "'...");
                 }
                 request("https://api.twitch.tv/kraken/streams/" + suffix, function(err, res, body) {
-
-                    // Unable to find the username
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + "Unable to retrieve twitch status for '" + suffix + "'");
@@ -726,7 +694,6 @@ var commands = {
                         return;
                     }
 
-                    // It was a success
                     if (!err && res.statusCode == 200) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + "Successfully grabbed twitch status for '" + suffix + "'");
