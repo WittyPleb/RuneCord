@@ -34,5 +34,3 @@ node_modules
 
 # Private files
 bot/config.json
-db/servers.json
-db/times.json
