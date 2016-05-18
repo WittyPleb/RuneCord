@@ -473,7 +473,7 @@ function reload() {
     delete require.cache[require.resolve(__dirname + "/bot/versioncheck.js")];
     delete require.cache[require.resolve(__dirname + "/bot/db.js")];
     config = require(__dirname + "/bot/config.json");
-    versioncheck = require(__dirname + "/bot/versioncheck.js");
+    versionCheck = require(__dirname + "/bot/versioncheck.js");
     db = require(__dirname + "/bot/db.js");
     try {
         commands = require(__dirname + "/bot/commands.js");
