@@ -27,7 +27,7 @@ checkConfig();
 var lastExecTime = {};
 var pmCoolDown = {};
 
-setInterval(function() {
+setInterval(() => {
     lastExecTime = {};
     pmCoolDown = {};
 }, 3600000);
@@ -41,26 +41,26 @@ var bot = new discord.Client({
     forceFetchUsers: true
 });
 
-bot.on("error", function(m) {
+bot.on("error", (m) => {
     console.log(cError(" WARN ") + " " + m);
 });
 
-bot.on("warn", function(m) {
+bot.on("warn", (m) => {
     if (show_warn) {
         console.log(cWarn(" WARN ") + " " + m);
     }
 });
 
-bot.on("debug", function(m) {
+bot.on("debug", (m) => {
     if (debug) {
         console.log(cDebug(" DEBUG ") + " " + m);
     }
 });
 
-bot.on("ready", function() {
+bot.on("ready", () => {
     console.log(cGreen("RuneCord is ready!") + " Listening to " + bot.channels.length + " channels on " + bot.servers.length + " servers");
     versionCheck.checkForUpdate();
-    setTimeout(function() {
+    setTimeout(() => {
         db.checkServers(bot);
     }, 10000);
     if (config.carbon_key) {
@@ -74,7 +74,7 @@ bot.on("ready", function() {
                 "key": config.carbon_key,
                 "servercount": bot.servers.length
             }
-        }, function(err, res) {
+        }, (err, res) => {
             if (config.debug) {
                 console.log(cDebug(" DEBUG ") + " Updated Carbon server count");
             }
@@ -90,23 +90,23 @@ bot.on("ready", function() {
     }
 });
 
-bot.on("disconnected", function() {
+bot.on("disconnected", () => {
     console.log(cRed("Disconnected") + " from Discord");
     commandsProcessed = 0;
     lastExecTime = {};
-    setTimeout(function() {
+    setTimeout(() => {
         console.log("Attempting to log in...");
-        bot.loginWithToken(config.token, function(err, token) {
+        bot.loginWithToken(config.token, (err, token) => {
             if (err) {
                 console.log(err);
-                setTimeout(function() {
+                setTimeout(() => {
                     process.exit(1);
                 }, 2000);
             }
 
             if (!token) {
                 console.log(cWarn(" WARN ") + " failed to connect");
-                setTimeout(function() {
+                setTimeout(() => {
                     process.exit(0);
                 }, 2000);
             }
@@ -114,7 +114,7 @@ bot.on("disconnected", function() {
     });
 });
 
-bot.on("message", function(msg) {
+bot.on("message", (msg) => {
     if (msg.author.id == bot.user.id) return;
 
     if (msg.channel.isPrivate) {
@@ -336,7 +336,7 @@ function execCommand(msg, cmd, suffix, type) {
     }
 }
 
-bot.on("serverNewMember", function(objServer, objUser) {
+bot.on("serverNewMember", (objServer, objUser) => {
     if (config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].welcome != "none") {
         if (!objUser.username || !ServerSettings[objServer.id].welcome || !objServer.name) {
             return;
@@ -348,7 +348,7 @@ bot.on("serverNewMember", function(objServer, objUser) {
     }
 });
 
-bot.on("channelDeleted", function(channel) {
+bot.on("channelDeleted", (channel) => {
     if (channel.isPrivate) {
         return;
     }
@@ -362,7 +362,7 @@ bot.on("channelDeleted", function(channel) {
     }
 });
 
-bot.on("userBanned", function(objUser, objServer) {
+bot.on("userBanned", (objUser, objServer) => {
     if (config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].banAlerts === true) {
         console.log(objUser.username + cRed(" banned on ") + objServer.name);
 
@@ -376,24 +376,24 @@ bot.on("userBanned", function(objUser, objServer) {
     }
 });
 
-bot.on("userUnbanned", function(objUser, objServer) {
+bot.on("userUnbanned", (objUser, objServer) => {
     if (objServer.members.length <= 500 && config.non_essential_event_listeners) {
         console.log(objUser.username + " unbanned on " + objServer.name);
     }
 });
 
-bot.on("serverDeleted", function(objServer) {
+bot.on("serverDeleted", (objServer) => {
     console.log(cUYellow("Left server") + " " + objServer.name);
     db.handleLeave(objServer);
 });
 
-bot.on("serverCreated", function(server) {
+bot.on("serverCreated", (server) => {
     if (db.serverIsNew(server)) {
         console.log(cGreen("Joined server: ") + server.name);
         if (config.banned_server_ids && config.banned_server_ids.indexOf(server.id) > -1) {
             console.log(cRed("Joined server but it was on the ban list") + ": " + server.name);
             bot.sendMessage(server.defaultChannel, "This server is on the ban list");
-            setTimeout(function() {
+            setTimeout(() => {
                 bot.leaveServer(server);
             }, 1000);
         } else {
@@ -410,17 +410,17 @@ bot.on("serverCreated", function(server) {
 });
 
 console.log("Logging in...");
-bot.loginWithToken(config.token, function(err, token) {
+bot.loginWithToken(config.token, (err, token) => {
     if (err) {
         console.log(err);
-        setTimeout(function() {
+        setTimeout(() => {
             process.exit(1);
         }, 2000);
     }
 
     if (!token) {
         console.log(cWarn(" WARN ") + " failed to connect");
-        setTimeout(function() {
+        setTimeout(() => {
             process.exit(0);
         }, 2000);
     }
@@ -512,7 +512,7 @@ function checkConfig() {
 }
 
 if (config.carbon_key) {
-    setInterval(function() {
+    setInterval(() => {
         request.post({
             "url": "https://www.carbonitex.net/discord/data/botdata.php",
             "headers": {
@@ -523,7 +523,7 @@ if (config.carbon_key) {
                 "key": config.carbon_key,
                 "servercount": bot.servers.length
             }
-        }, function(err, res) {
+        }, (err, res) => {
             if (config.debug) {
                 console.log(cDebug(" DEBUG ") + " Updated Carbon server count");
             }
