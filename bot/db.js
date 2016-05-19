@@ -190,7 +190,7 @@ exports.checkServers = (bot) => {
         } else if (config.whitelist.indexOf(server.id) == -1 && now - Times[server.id] >= 604800000) {
             inactive.push(server.id);
             if (debug) {
-              var days = ((now - Times[server.id]) / 1000 / 60 / 60 / 24).toFixed(1);
+                var days = ((now - Times[server.id]) / 1000 / 60 / 60 / 24).toFixed(1);
                 console.log(cDebug(" DEBUG ") + " " + server.name + "(" + server.id + ")" + " hasn\"t used the bot for " + days + " days.");
             }
         }
@@ -219,7 +219,7 @@ exports.remInactive = (bot, msg, delay) => {
     var remInterval = setInterval(function() {
         var server = bot.servers.get("id", inactive[passedOver]);
         if (server) {
-          var days = ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1);
+            var days = ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1);
             toSend += "\n**" + (cnt + 1) + ":** " + server.name.replace(/@/g, "@\u200b") + " (" + days + " days)";
             server.leave();
             console.log(cUYellow("Left server") + " " + server.name);
