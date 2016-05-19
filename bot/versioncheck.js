@@ -1,8 +1,11 @@
-var request = require("request");
-var version = require("../package.json").version;
+/**
+ * Required Dependencies
+ */
+const request = require("request");
+const version = require("../package.json").version;
 
 exports.checkForUpdate = function() {
-    request("https://raw.githubusercontent.com/unlucky4ever/RuneCord/master/package.json", function(err, response, body) {
+    request("https://raw.githubusercontent.com/unlucky4ever/RuneCord/master/package.json", (err, response, body) => {
         if (err) {
             console.log(cWarn = " WARN " + " Version check error: " + err);
         } else if (response.statusCode == 200) {
