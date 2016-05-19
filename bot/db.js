@@ -218,7 +218,7 @@ exports.remInactive = function(bot, msg, delay) {
                 delete Times[server.id];
                 updatedT = true;
                 if (debug) {
-                  console.log(cDebug(" DEBUG ") + " Removed server from times.json");
+                    console.log(cDebug(" DEBUG ") + " Removed server from times.json");
                 }
             }
             cnt++;
