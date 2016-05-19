@@ -61,7 +61,7 @@ var commands = {
                 if (toSend.length >= 1990) {
                     bot.sendMessage(msg.author, toSend.substr(0, 1990).substr(0, toSend.substr(0, 1990).lastIndexOf("\n\t")) + "```");
                     setTimeout(function() {
-                        bot.sendMessage(msg.author, "```gls1" + toSend.substr(toSend.substr(0, 1990).lastIndexOf("\n\t")) + "```");
+                        bot.sendMessage(msg.author, "```" + toSend.substr(toSend.substr(0, 1990).lastIndexOf("\n\t")) + "```");
                     }, 1000);
                 } else {
                     bot.sendMessage(msg, toSend + "```");
