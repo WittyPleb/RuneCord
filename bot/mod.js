@@ -2,12 +2,12 @@
  * Required Dependencies
  */
 const os = require("os");
+const version = require("../package.json").version;
 
 /**
  * Required Files
  */
 var config = require("./config.json");
-var version = require("../package.json").version;
 var db = require("./db.js");
 
 // Create confirmCodes array, this is used for creating confirmation codes for the announce command

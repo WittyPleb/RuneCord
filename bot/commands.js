@@ -4,12 +4,12 @@
 const AsciiTable = require("ascii-table");
 const numeral = require("numeral");
 const request = require("request");
+const version = require("../package.json").version;
 
 /**
  * Required Files
  */
 var config = require("./config.json");
-var version = require("../package.json").version;
 
 function correctUsage(cmd, usage, msg, bot, delay) {
     bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", the correct usage is *`" + config.command_prefix + cmd + " " + usage + "`*", (erro, wMessage) => {
