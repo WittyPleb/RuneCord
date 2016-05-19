@@ -66,17 +66,35 @@ This bot is written to run on top of node.js. Please see https://nodejs.org/en/d
   - [Python 2.7](https://www.python.org/downloads/)  
 
   ___
-2. Now you must rename `config.json.example` to `config.json` and edit the values `token` and `twitter_api` with your information.
+2. Now you must rename `.env.example` to `.env` and edit the values `TOKEN`, `TWITTER_API`, `APP_ID`, `ADMIN_ID`, and `CARBON_KEY` with your information.
+> If you do not have a `CARBON_KEY` remove the value from your `.env` file.
 
 3. Once complete, you may run `npm test` to test your bot, if it all passes, you are free to run `npm start` to start the bot officially.
 
 **Congratulations! You just installed RuneCord!**
 
-Twitter API
------------
-To get the value for your `twitter_api` in the `config.json` you must go to [Twitter](https://twitter.com/) and create a widget by going to `Settings->Widget`. Set the username for the twitter widget to `JagexClock`, then click 'Create Widget'.
+Getting your private stuff
+--------------------------
+###### `TOKEN`
+To get the value for `TOKEN` you must first create an application on [Discord](https://discordapp.com/developers/docs/intro).
 
-Once the widget is created, you will see a textbox area with some source code. You will see a long number named `data-widget-id` in the source code, you must select that number, and add it to your `config.json`, that is the value for your `twitter_api`. If you fail to add this, the `~vos` command **will not** work.
+You may name the application whatever you wish, but whatever you name it, will be the name of your bot.
+
+After your application is created, you have to click on the button 'Create a Bot User'. Then you will see a value for token, but it is hidden. Just click on 'click to reveal' and your token is right there. Copy the entire token and paste it in your `.env` file for the value of `TOKEN`.
+
+###### `APP_ID`
+To get your `APP_ID` you just simply copy the `Client/Application ID` for your application. **NOT YOUR BOTS ID**.
+
+###### `ADMIN_ID`
+To get your `ADMIN_ID` you can enter the official [Discord](https://discord.me/runecord) channel and type `~id` in the `#testing` channel. The value given is what you use for `ADMIN_ID` in your `.env`.
+
+###### `TWITTER_API`
+To get the value for your `TWITTER_API` in the `.env` you must go to [Twitter](https://twitter.com/) and create a widget by going to `Settings->Widget`. Set the username for the twitter widget to `JagexClock`, then click 'Create Widget'.
+
+Once the widget is created, you will see a textbox area with some source code. You will see a long number named `data-widget-id` in the source code, you must select that number, and add it to your `.env`, that is the value for your `TWITTER_API`. If you fail to add this, the `~vos` command **will not** work.
+
+###### `CARBON_KEY`
+You will get this key when you add your bot to [Carbon](https://www.carbonitex.net/discord/).
 
 Issues
 ------
