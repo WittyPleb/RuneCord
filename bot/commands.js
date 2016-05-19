@@ -101,7 +101,7 @@ var commands = {
         usage: "",
         deleteCommand: true,
         process: function(bot, msg) {
-            bot.sendMessage(msg, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + config.app_id + "&scope=bot&permissions=12659727>");
+            bot.sendMessage(msg, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + process.env.APP_ID + "&scope=bot&permissions=12659727>");
         }
     },
     "id": {
@@ -273,7 +273,7 @@ var commands = {
         usage: "",
         cooldown: 15,
         process: function(bot, msg) {
-            request("https://cdn.syndication.twimg.com/widgets/timelines/" + config.twitter_api + "?&lang=en&supress_response_codes=true&rnd=" + Math.random(), function(err, res, body) {
+            request("https://cdn.syndication.twimg.com/widgets/timelines/" + process.env.TWITTER_API + "?&lang=en&supress_response_codes=true&rnd=" + Math.random(), function(err, res, body) {
                 if (res.statusCode == 404 || err) {
                     bot.sendMessage(msg, "Unable to grab the VoS, please try again.");
 
