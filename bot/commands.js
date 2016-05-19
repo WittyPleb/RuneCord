@@ -1,11 +1,18 @@
+/**
+ * Required Dependencies
+ */
+const AsciiTable = require("ascii-table");
+const numeral = require("numeral");
+const request = require("request");
+
+/**
+ * Required Files
+ */
 var config = require("./config.json");
 var version = require("../package.json").version;
-var request = require("request");
-var AsciiTable = require("ascii-table");
-var numeral = require("numeral");
 
 function correctUsage(cmd, usage, msg, bot, delay) {
-    bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", the correct usage is *`" + config.command_prefix + cmd + " " + usage + "`*", function(erro, wMessage) {
+    bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", the correct usage is *`" + config.command_prefix + cmd + " " + usage + "`*", (erro, wMessage) => {
         bot.deleteMessage(wMessage, {
             "wait": delay || 10000
         });
@@ -38,15 +45,15 @@ var commands = {
         deleteCommand: true,
         shouldDisplay: false,
         cooldown: 1,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             var toSend = [];
 
             if (!suffix) {
                 toSend.push("Use `" + config.command_prefix + "help <command name>` to get more info on a command.\n");
                 toSend.push("Mod commands can be found using `" + config.mod_command_prefix + "help`.\n");
                 toSend.push("You can find the list online at **https://unlucky4ever.github.io/RuneCord/**\n");
-                toSend.push("**Commands:**```gls1\n");
-                Object.keys(commands).forEach(function(cmd) {
+                toSend.push("**Commands:**```\n");
+                Object.keys(commands).forEach((cmd) => {
                     if (commands[cmd].hasOwnProperty("shouldDisplay")) {
                         if (commands[cmd].shouldDisplay) {
                             toSend.push("\n" + config.command_prefix + cmd + " " + commands[cmd].usage + "\n\t#" + commands[cmd].desc);
@@ -60,7 +67,7 @@ var commands = {
 
                 if (toSend.length >= 1990) {
                     bot.sendMessage(msg.author, toSend.substr(0, 1990).substr(0, toSend.substr(0, 1990).lastIndexOf("\n\t")) + "```");
-                    setTimeout(function() {
+                    setTimeout(() => {
                         bot.sendMessage(msg.author, "```" + toSend.substr(toSend.substr(0, 1990).lastIndexOf("\n\t")) + "```");
                     }, 1000);
                 } else {
@@ -87,7 +94,7 @@ var commands = {
 
                     bot.sendMessage(msg, toSend);
                 } else {
-                    bot.sendMessage(msg, "Command `" + suffix + "` not found. Aliases aren't allowed.", function(err, msg) {
+                    bot.sendMessage(msg, "Command `" + suffix + "` not found. Aliases aren't allowed.", (err, msg) => {
                         bot.deleteMessage(msg, {
                             "wait": 10000
                         });
@@ -100,7 +107,7 @@ var commands = {
         desc: "Get my invite link",
         usage: "",
         deleteCommand: true,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             bot.sendMessage(msg, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + process.env.APP_ID + "&scope=bot&permissions=12659727>");
         }
     },
@@ -110,7 +117,7 @@ var commands = {
         deleteCommand: true,
         cooldown: 2,
         shouldDisplay: false,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (suffix && suffix.trim().replace("\"", "") === "channel") {
                 bot.sendMessage(msg, "This channel's ID is: " + msg.channel.id);
             } else {
@@ -123,7 +130,7 @@ var commands = {
         deleteCommand: true,
         cooldown: 10,
         usage: "",
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             var toSend = [];
 
             toSend.push("__Author:__ Witty (unlucky4ever) <obruza@gmail.com>");
@@ -140,7 +147,7 @@ var commands = {
         desc: "Displays the current game-time",
         usage: "",
         cooldown: 30,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             function addZero(i) {
                 if (i < 10) {
                     i = "0" + i;
@@ -158,7 +165,7 @@ var commands = {
         desc: "Displays how long till reset time.",
         usage: "",
         cooldown: 30,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             var now = Date.now();
             var then = new Date();
             then.setUTCHours(24, 0, 0, 0);
@@ -188,7 +195,7 @@ var commands = {
         desc: "Displays when the next Big Chinchompa is.",
         usage: "",
         cooldown: 30,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             var d = new Date();
             var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
             var minutesUntil = Math.floor(secondsUntil / 60);
@@ -210,7 +217,7 @@ var commands = {
         desc: "Displays when the next Guthixian Cache is.",
         usage: "",
         cooldown: 30,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             var d = new Date();
             var hoursUntil = 2 - d.getUTCHours() % 3;
             var minutesUntil = 60 - d.getUTCMinutes();
@@ -241,7 +248,7 @@ var commands = {
         desc: "Displays when the next Warbands will be.",
         usage: "",
         cooldown: 30,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             var d = new Date();
             var hoursUntil = 6 - d.getUTCHours() % 7;
             var minutesUntil = 60 - d.getUTCMinutes();
@@ -272,8 +279,8 @@ var commands = {
         desc: "Display the current Voice of Seren districts.",
         usage: "",
         cooldown: 15,
-        process: function(bot, msg) {
-            request("https://cdn.syndication.twimg.com/widgets/timelines/" + process.env.TWITTER_API + "?&lang=en&supress_response_codes=true&rnd=" + Math.random(), function(err, res, body) {
+        process: (bot, msg) => {
+            request("https://cdn.syndication.twimg.com/widgets/timelines/" + process.env.TWITTER_API + "?&lang=en&supress_response_codes=true&rnd=" + Math.random(), (err, res, body) => {
                 if (res.statusCode == 404 || err) {
                     bot.sendMessage(msg, "Unable to grab the VoS, please try again.");
 
@@ -284,7 +291,7 @@ var commands = {
                 }
 
                 if (!err && res.statusCode == 200) {
-                    var vosBody = body; // The entire data
+                    var vosBody = body;
                     var vosStart = vosBody.indexOf("The Voice of Seren is now active in the ");
                     var vosText = vosBody.slice(vosStart, vosBody.length);
 
@@ -302,7 +309,7 @@ var commands = {
     "lamp": {
         usage: "small|med|large|huge <skill level>",
         desc: "Displays how much XP you'd get from a lamp based on <skill level>.",
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("lamp", this.usage, msg, bot);
                 return;
@@ -362,7 +369,7 @@ var commands = {
         usage: "<username>",
         desc: "Display stats of the username given.",
         cooldown: 30,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("stats", this.usage, msg, bot);
                 return;
@@ -370,7 +377,7 @@ var commands = {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
                 }
-                request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, function(err, res, body) {
+                request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, (err, res, body) => {
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
@@ -410,7 +417,7 @@ var commands = {
         usage: "<item name>",
         desc: "Displays the current grand exchange info for <item name>",
         cooldown: 30,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("price", this.usage, msg, bot);
                 return;
@@ -418,7 +425,7 @@ var commands = {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Attempting to retrieve grand exchange data for '" + suffix + "'...");
                 }
-                request("http://rscript.org/lookup.php?type=ge&search=" + suffix + "&exact=1", function(err, res, body) {
+                request("http://rscript.org/lookup.php?type=ge&search=" + suffix + "&exact=1", (err, res, body) => {
                     if (!err && res.statusCode == 200) {
                         var results = body.split("RESULTS: ");
 
@@ -461,11 +468,11 @@ var commands = {
         desc: "Display the current Vis Wax combinations.",
         usage: "",
         cooldown: 15,
-        process: function(bot, msg) {
+        process: (bot, msg) => {
             if (debug) {
                 console.log(cDebug(" DEBUG ") + " Attempting to grab viswax combination...");
             }
-            request("http://warbandtracker.com/goldberg/index.php", function(err, res, body) {
+            request("http://warbandtracker.com/goldberg/index.php", (err, res, body) => {
                 if (res.statusCode == 404 || err) {
                     if (debug) {
                         console.log(cDebug(" DEBUG ") + " Unable to grab viswax combination: " + err);
@@ -524,7 +531,7 @@ var commands = {
     "invasion": {
         usage: "<skill level>",
         desc: "Determine how much XP you get for completing troll invasion based on <skill level>.",
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("invasion", this.usage, msg, bot);
                 return;
@@ -551,7 +558,7 @@ var commands = {
     "alog": {
         usage: "<username>",
         desc: "Display the adventure log of <username>.",
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("alog", this.usage, msg, bot);
                 return;
@@ -559,7 +566,7 @@ var commands = {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Attempting to grab adventure log for '" + suffix + "'...");
                 }
-                request("http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=" + suffix, function(err, res, body) {
+                request("http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=" + suffix, (err, res, body) => {
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Unable to retrieve adventure log for '" + suffix + "': " + err);
@@ -594,7 +601,7 @@ var commands = {
         usage: "<username>",
         desc: "Display old school stats of the username given.",
         cooldown: 30,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("osstats", this.usage, msg, bot);
                 return;
@@ -602,7 +609,7 @@ var commands = {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
                 }
-                request("http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + suffix, function(err, res, body) {
+                request("http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + suffix, (err, res, body) => {
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
@@ -642,7 +649,7 @@ var commands = {
         desc: "Roll a random number between 1 and <number>.",
         usage: "<number>",
         cooldown: 5,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("roll", this.usage, msg, bot);
                 return;
@@ -677,7 +684,7 @@ var commands = {
         usage: "<username>",
         desc: "Displays twitch information based on <username>.",
         cooldown: 30,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
                 correctUsage("twitch", this.usage, msg, bot);
                 return;
@@ -685,7 +692,7 @@ var commands = {
                 if (debug) {
                     console.log(cDebug(" DEBUG ") + "Attempting to retrieve twitch status for '" + suffix + "'...");
                 }
-                request("https://api.twitch.tv/kraken/streams/" + suffix, function(err, res, body) {
+                request("https://api.twitch.tv/kraken/streams/" + suffix, (err, res, body) => {
                     if (res.statusCode == 404 || err) {
                         if (debug) {
                             console.log(cDebug(" DEBUG ") + "Unable to retrieve twitch status for '" + suffix + "'");
