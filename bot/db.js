@@ -4,7 +4,6 @@ ServerSettings = require("../db/servers.json");
 Times = require("../db/times.json");
 
 var inactive = [];
-//var whitelist = require("./config.json").whitelist;
 
 var updatedS = false;
 var updatedT = false;
@@ -104,7 +103,6 @@ exports.changeSetting = function(key, value, serverId) {
         return;
     }
 
-    /* eslint-disable indent */
     switch (key) {
         case "banAlerts":
             ServerSettings[serverId].banAlerts = value;
@@ -121,7 +119,6 @@ exports.changeSetting = function(key, value, serverId) {
         case "welcome":
             ServerSettings[serverId].welcome = value;
             break;
-        /* eslint-enable indent */
     }
     updatedS = true;
 };
@@ -220,7 +217,9 @@ exports.remInactive = function(bot, msg, delay) {
             if (Times.hasOwnProperty(server.id)) {
                 delete Times[server.id];
                 updatedT = true;
-                if (debug) console.log(cDebug(" DEBUG ") + " Removed server from times.json");
+                if (debug) {
+                  console.log(cDebug(" DEBUG ") + " Removed server from times.json");
+                }
             }
             cnt++;
         }
