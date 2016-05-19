@@ -44,7 +44,7 @@ client.on("ready", () => {
 
 client.loginWithToken(process.env.TOKEN).then(() => {
     pass("Valid login token");
-}).catch(function(e) {
+}).catch((e) => {
     err("Bad token");
     console.log("Error logging in: " + e);
 });
@@ -64,10 +64,10 @@ if (process.env.TWITTER_API) {
 function exit() {
     section("Exiting");
 
-    client.logout().then(function() {
+    client.logout().then(() => {
         pass("Logged out.");
         done();
-    }).catch(function(e) {
+    }).catch((e) => {
         err("Couldn't log out: " + e);
     });
 }
