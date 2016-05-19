@@ -1,14 +1,24 @@
-var fs = require("fs");
+/**
+ * Module Dependencies
+ */
+const fs = require("fs");
+
+/**
+ * Required Files
+ */
 var config = require("../bot/config.json");
+
+/**
+ * Global variables
+ */
 ServerSettings = require("../db/servers.json");
 Times = require("../db/times.json");
 
 var inactive = [];
-
 var updatedS = false;
 var updatedT = false;
 
-setInterval(function() {
+setInterval(() => {
     if (updatedS) {
         updatedS = false;
         updateServers();
@@ -21,22 +31,21 @@ setInterval(function() {
 }, 60000);
 
 function updateServers() {
-    fs.writeFile(__dirname + "/../db/servers-temp.json", JSON.stringify(ServerSettings), function(error) {
+    fs.writeFile(__dirname + "/../db/servers-temp.json", JSON.stringify(ServerSettings), (error) => {
         if (error) {
             console.log(error);
         } else {
-            fs.stat(__dirname + "/../db/servers-temp.json", function(err, stats) {
+            fs.stat(__dirname + "/../db/servers-temp.json", (err, stats) => {
                 if (err) {
                     console.log(err);
                 } else if (stats["size"] < 5) {
                     console.log("Prevented server settings database from being overwritten");
                 } else {
-                    fs.rename(__dirname + "/../db/servers-temp.json", __dirname + "/../db/servers.json", function(e) {
+                    fs.rename(__dirname + "/../db/servers-temp.json", __dirname + "/../db/servers.json", (e) => {
                         if (e) {
                             console.log(e);
                         }
                     });
-
                     if (debug) {
                         console.log(cDebug(" DEBUG ") + " Updated servers.json");
                     }
@@ -47,22 +56,21 @@ function updateServers() {
 }
 
 function updateTimes() {
-    fs.writeFile(__dirname + "/../db/times-temp.json", JSON.stringify(Times), function(error) {
+    fs.writeFile(__dirname + "/../db/times-temp.json", JSON.stringify(Times), (error) => {
         if (error) {
             console.log(error);
         } else {
-            fs.stat(__dirname + "/../db/times-temp.json", function(err, stats) {
+            fs.stat(__dirname + "/../db/times-temp.json", (err, stats) => {
                 if (err) {
                     console.log(err);
                 } else if (stats["size"] < 5) {
                     console.log("Prevented times database from being overwritten");
                 } else {
-                    fs.rename(__dirname + "/../db/times-temp.json", __dirname + "/../db/times.json", function(e) {
+                    fs.rename(__dirname + "/../db/times-temp.json", __dirname + "/../db/times.json", (e) => {
                         if (e) {
                             console.log(e);
                         }
                     });
-
                     if (debug) {
                         console.log(cDebug(" DEBUG ") + " Updated times.json");
                     }
@@ -72,7 +80,7 @@ function updateTimes() {
     });
 }
 
-exports.serverIsNew = function(server) {
+exports.serverIsNew = (server) => {
     if (Times.hasOwnProperty(server.id)) {
         return false;
     }
@@ -80,7 +88,7 @@ exports.serverIsNew = function(server) {
     return true;
 };
 
-exports.addServer = function(server) {
+exports.addServer = (server) => {
     if (!server) {
         return;
     }
@@ -98,11 +106,10 @@ exports.addServer = function(server) {
     }
 };
 
-exports.changeSetting = function(key, value, serverId) {
+exports.changeSetting = (key, value, serverId) => {
     if (!key || value == undefined || value == null || !serverId) {
         return;
     }
-
     switch (key) {
         case "banAlerts":
             ServerSettings[serverId].banAlerts = value;
@@ -123,7 +130,7 @@ exports.changeSetting = function(key, value, serverId) {
     updatedS = true;
 };
 
-exports.ignoreChannel = function(channelId, serverId) {
+exports.ignoreChannel = (channelId, serverId) => {
     if (!channelId || !serverId) {
         return;
     }
@@ -134,7 +141,7 @@ exports.ignoreChannel = function(channelId, serverId) {
     }
 };
 
-exports.unignoreChannel = function(channelId, serverId) {
+exports.unignoreChannel = (channelId, serverId) => {
     if (!channelId || !serverId) {
         return;
     }
@@ -145,16 +152,16 @@ exports.unignoreChannel = function(channelId, serverId) {
     }
 };
 
-exports.checkServers = function(bot) {
+exports.checkServers = (bot) => {
     inactive = [];
     var now = Date.now();
-    Object.keys(Times).map(function(id) {
+    Object.keys(Times).map((id) => {
         if (!bot.servers.find(s => s.id == id)) {
             delete Times[id];
         }
     });
 
-    bot.servers.map(function(server) {
+    bot.servers.map((server) => {
         if (server == undefined) {
             return;
         }
@@ -165,7 +172,7 @@ exports.checkServers = function(bot) {
             if (config.banned_server_ids && config.banned_server_ids.indexOf(server.id) > -1) {
                 console.log(cRed("Joined server but it was on the ban list") + ": " + server.name);
                 bot.sendMessage(server.defaultChannel, "This server is on the ban list");
-                setTimeout(function() {
+                setTimeout(() => {
                     bot.leaveServer(server);
                 }, 1000);
             } else {
@@ -183,7 +190,8 @@ exports.checkServers = function(bot) {
         } else if (config.whitelist.indexOf(server.id) == -1 && now - Times[server.id] >= 604800000) {
             inactive.push(server.id);
             if (debug) {
-                console.log(cDebug(" DEBUG ") + " " + server.name + "(" + server.id + ")" + " hasn\"t used the bot for " + ((now - Times[server.id]) / 1000 / 60 / 60 / 24).toFixed(1) + " days.");
+              var days = ((now - Times[server.id]) / 1000 / 60 / 60 / 24).toFixed(1);
+                console.log(cDebug(" DEBUG ") + " " + server.name + "(" + server.id + ")" + " hasn\"t used the bot for " + days + " days.");
             }
         }
     });
@@ -196,7 +204,7 @@ exports.checkServers = function(bot) {
     }
 };
 
-exports.remInactive = function(bot, msg, delay) {
+exports.remInactive = (bot, msg, delay) => {
     if (!bot || !msg) {
         return;
     }
@@ -206,12 +214,13 @@ exports.remInactive = function(bot, msg, delay) {
     }
     var cnt = 0;
     var passedOver = 0;
-    var toSend = "__Left servers for inactivity:__",
-        now1 = new Date();
+    var toSend = "__Left servers for inactivity:__";
+    var now1 = new Date();
     var remInterval = setInterval(function() {
         var server = bot.servers.get("id", inactive[passedOver]);
         if (server) {
-            toSend += "\n**" + (cnt + 1) + ":** " + server.name.replace(/@/g, "@\u200b") + " (" + ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1) + " days)";
+          var days = ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1);
+            toSend += "\n**" + (cnt + 1) + ":** " + server.name.replace(/@/g, "@\u200b") + " (" + days + " days)";
             server.leave();
             console.log(cUYellow("Left server") + " " + server.name);
             if (Times.hasOwnProperty(server.id)) {
@@ -241,7 +250,7 @@ exports.remInactive = function(bot, msg, delay) {
     }, delay || 10000);
 };
 
-exports.handleLeave = function(server) {
+exports.handleLeave = (server) => {
     if (!server || !server.id) {
         return;
     }
@@ -254,7 +263,7 @@ exports.handleLeave = function(server) {
     }
 };
 
-exports.addServerToTimes = function(server) {
+exports.addServerToTimes = (server) => {
     if (!server || !server.id) {
         return;
     }
@@ -281,7 +290,7 @@ function addServer(server) {
     }
 }
 
-exports.updateTimestamp = function(server) {
+exports.updateTimestamp = (server) => {
     if (!server || !server.id) {
         return;
     }
