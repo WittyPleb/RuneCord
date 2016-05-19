@@ -1,13 +1,20 @@
+/**
+ * Required Dependencies
+ */
+const os = require("os");
+
+/**
+ * Required Files
+ */
 var config = require("./config.json");
 var version = require("../package.json").version;
 var db = require("./db.js");
-var os = require("os");
 
 // Create confirmCodes array, this is used for creating confirmation codes for the announce command
-var confirmCodes = [];
+const confirmCodes = [];
 
 // Create the announceMessages array, this is used in the announce command
-var announceMessages = [];
+const announceMessages = [];
 
 function correctUsage(cmd, usage, msg, bot) {
     bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", the correct usage is *`" + config.mod_command_prefix + cmd + " " + usage + "`*", function(erro, wMessage) {
@@ -18,16 +25,6 @@ function correctUsage(cmd, usage, msg, bot) {
     bot.deleteMessage(msg, {
         "wait": 10000
     });
-}
-
-function unMute(bot, msg, users, time, role) {
-    setTimeout(function() {
-        users.map(function(user) {
-            if (msg.channel.server.members.get("name", user.username) && msg.channel.server.roles.get("name", role.name) && bot.memberHasRole(user, role)) {
-                bot.removeMemberFromRole(user, role);
-            }
-        });
-    }, time * 60000);
 }
 
 // Aliases for every command
@@ -48,14 +45,14 @@ var commands = {
         usage: "[command]",
         deleteCommand: true, // delete the command afterwards (eg ")help" will be deleted)
         shouldDisplay: false, // does it display in the `)help` command?
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             var toSend = [];
             if (!suffix) {
                 toSend.push("Use `" + config.mod_command_prefix + "help <command name>` to get more info on a command.\n");
                 toSend.push("Normal commands can be found using `" + config.command_prefix + "help`.\n");
                 toSend.push("You can find the list online at **https://unlucky4ever.github.io/RuneCord/**\n");
                 toSend.push("**Commands:**```\n");
-                Object.keys(commands).forEach(function(cmd) {
+                Object.keys(commands).forEach((cmd) => {
                     if (commands[cmd].hasOwnProperty("shouldDisplay")) {
                         if (commands[cmd].shouldDisplay) {
                             toSend.push("\n" + config.mod_command_prefix + cmd + " " + commands[cmd].usage + "\n\t#" + commands[cmd].desc);
@@ -90,7 +87,7 @@ var commands = {
                     }
                     bot.sendMessage(msg, toSend);
                 } else {
-                    bot.sendMessage(msg, "Command `" + suffix + "` not found. Aliases aren't allowed.", function(erro, wMessage) {
+                    bot.sendMessage(msg, "Command `" + suffix + "` not found. Aliases aren't allowed.", (erro, wMessage) => {
                         bot.deleteMessage(wMessage, {
                             "wait": 10000
                         });
@@ -105,7 +102,7 @@ var commands = {
         cooldown: 99999999,
         shouldDisplay: false, // does it display in the `)help` command?
         deleteCommand: true, // delete the command afterwards (eg ")remove-inactive" will be deleted)
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (suffix && /^\d+$/.test(suffix) && msg.author.id == config.admin_id) {
                 db.remInactive(bot, msg, parseInt(suffix));
             } else if (msg.author.id == config.admin_id) {
@@ -118,9 +115,9 @@ var commands = {
         deleteCommand: false,
         usage: "<message>",
         cooldown: 1,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (!suffix) {
-                bot.sendMessage(msg, "You must specify a message to announce", function(erro, wMessage) {
+                bot.sendMessage(msg, "You must specify a message to announce", (erro, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 8000
                     });
@@ -128,7 +125,7 @@ var commands = {
                 return;
             }
             if (msg.channel.isPrivate && msg.author.id != config.admin_id) {
-                bot.sendMessage(msg, "You can't do this outside of a server", function(erro, wMessage) {
+                bot.sendMessage(msg, "You can't do this outside of a server", (erro, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
@@ -137,7 +134,7 @@ var commands = {
             }
             if (!msg.channel.isPrivate) {
                 if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
-                    bot.sendMessage(msg, "Server admins only", function(erro, wMessage) {
+                    bot.sendMessage(msg, "Server admins only", (erro, wMessage) => {
                         bot.deleteMessage(wMessage, {
                             "wait": 8000
                         });
@@ -149,7 +146,7 @@ var commands = {
                 if (/^\d+$/.test(suffix)) {
                     var index = confirmCodes.indexOf(parseInt(suffix));
                     if (index == -1) {
-                        bot.sendMessage(msg, "Code not found", function(erro, wMessage) {
+                        bot.sendMessage(msg, "Code not found", (erro, wMessage) => {
                             bot.deleteMessage(wMessage, {
                                 "wait": 8000
                             });
@@ -167,7 +164,7 @@ var commands = {
                         bot.sendMessage(msg.channel.server.members[loopIndex], "📢 " + announceMessages[index] + " - from " + msg.author + " on " + msg.channel.server.name);
                         loopIndex++;
                     }
-                    var annTimerS = setInterval(function() {
+                    var annTimerS = setInterval(() => {
                         annLoopS();
                     }, 1100);
                     delete confirmCodes[index];
@@ -180,11 +177,11 @@ var commands = {
                     confirmCodes.push(code);
                     bot.sendMessage(msg, ":warning: This will send a message to **all** users in this server. If you're sure you want to do this say `" + config.mod_command_prefix + "announce " + code + "`");
                 }
-            } else if (msg.channel.isPrivate && msg.author.id == config.admin_id) {
+            } else if (msg.channel.isPrivate && msg.author.id == process.env.ADMIN_ID) {
                 if (/^\d+$/.test(suffix)) {
                     var index = confirmCodes.indexOf(parseInt(suffix));
                     if (index == -1) {
-                        bot.sendMessage(msg, "Code not found", function(erro, wMessage) {
+                        bot.sendMessage(msg, "Code not found", (erro, wMessage) => {
                             bot.deleteMessage(wMessage, {
                                 "wait": 8000
                             });
@@ -200,11 +197,11 @@ var commands = {
                             return;
                         }
                         if (bot.servers[loopIndex].name.indexOf("Discord API") == -1 && bot.servers[loopIndex].name.indexOf("Discord Bots") == -1 && bot.servers[loopIndex].name.indexOf("Discord Developers") == -1) {
-                            bot.sendMessage(bot.servers[loopIndex].defaultChannel, "📢 " + announceMessages[index] + " - " + msg.author.username);
+                            bot.sendMessage(bot.servers[loopIndex].defaultChannel, ":loudspeaker: " + announceMessages[index] + " - " + msg.author.username);
                             loopIndex++;
                         }
                     }
-                    var annTimer = setInterval(function() {
+                    var annTimer = setInterval(() => {
                         annLoop();
                     }, 1100);
                     delete confirmCodes[index];
@@ -225,9 +222,9 @@ var commands = {
         usage: "<enable/disable> <setting> | notify here | welcome <welcome message> | check",
         deleteCommand: false,
         cooldown: 3,
-        process: function(bot, msg, suffix) {
+        process: (bot, msg, suffix) => {
             if (msg.channel.isPrivate) {
-                bot.sendMessage(msg, "Can't do this in a PM!", function(erro, wMessage) {
+                bot.sendMessage(msg, "Can't do this in a PM!", (erro, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
@@ -236,7 +233,7 @@ var commands = {
             }
 
             if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
-                bot.sendMessage(msg, "You must have permission to manage the server!", function(erro, wMessage) {
+                bot.sendMessage(msg, "You must have permission to manage the server!", (erro, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
@@ -329,48 +326,31 @@ var commands = {
         usage: "",
         cooldown: 30, // 30 second cooldown
         deleteCommand: true, // delete the command afterwards (eg ")stats" will be deleted)
-        process: function(bot, msg) {
-
-            // Convert uptime to days
+        process: (bot, msg) => {
             var days = Math.round(bot.uptime / (1000 * 60 * 60 * 24));
-            // Convert uptime to hours
             var hours = Math.round(bot.uptime / (1000 * 60 * 60)) % 24;
-            // Convert uptime to minutes
             var minutes = Math.round(bot.uptime / (1000 * 60) % 60);
 
-            // Initialize timestr so we can build it
             var timestr = "";
 
-            // If days > 0 add the days to the timestr
             if (days > 0) {
                 timestr += days + " day" + (days > 1 ? "s " : " ");
             }
-
-            // If hours > 0 add the hours to the timestr
             if (hours > 0) {
                 timestr += hours + " hour" + (hours > 1 ? "s " : " ");
             }
-
-            // If hours are >= 1 add an and to the minutes so it shows "x hour(s) and y minute(s)"
             if (hours >= 1) {
                 timestr += "and " + minutes + " minute" + (minutes > 0 && minutes < 2 ? "" : "s");
-            } else { // Just show the minutes
+            } else {
                 timestr += minutes + " minute" + (minutes > 0 && minutes < 2 ? "" : "s");
             }
 
-            // Get the memory used for the current process, convert it from bytes to megabytes
             var memUsed = Math.round(process.memoryUsage().rss / 1024 / 1024);
-
-            // Get the total memory in the system, convert it from bytes to megabytes
             var totalMem = Math.round(os.totalmem() / 1024 / 1024);
-
-            // Calculate the total memory used, and convert it to a percentage
             var percentUsed = Math.round((memUsed / totalMem) * 100);
 
-            // Create the toSend array to build it later
             var toSend = [];
 
-            // Start building the toSend array
             toSend.push("```xl");
             toSend.push("Uptime: " + timestr + ".");
             toSend.push("Connected to " + bot.servers.length + " servers with " + bot.channels.length + " channels and " + bot.users.length + " users.");
@@ -379,7 +359,6 @@ var commands = {
             toSend.push("Commands this session: " + commandsProcessed + " (avg " + (commandsProcessed / (bot.uptime / (1000 * 60))).toFixed(2) + "/min)");
             toSend.push("```");
 
-            // Send the array
             bot.sendMessage(msg, toSend);
         }
     },
@@ -388,34 +367,30 @@ var commands = {
         deleteCommand: true, // delete the command afterwards (eg ")changelog" will be deleted)
         usage: "",
         cooldown: 30, // 30 second cooldown
-        process: function(bot, msg) {
-            // Get the messages in the official changelog channel (on the official RuneCord server)
-            var changelogChannel = bot.channels.get("id", "176439631108243457");
+        process: (bot, msg) => {
+            const changelogChannel = bot.channels.get("id", "176439631108243457");
 
-            // If it can"t find it, let the user know, then delete the message 8 seconds later
             if (!changelogChannel) {
-                bot.sendMessage(msg, "The bot is not in the RuneCord Official Server", function(err, wMessage) {
+                bot.sendMessage(msg, "The bot is not in the RuneCord Official Server", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 8000
                     });
                 });
-            } else { // It found the changelog channel
-                bot.getChannelLogs(changelogChannel, 2, function(err, messages) {
-                    if (err) { // Something went wrong while reading the messages, print the error out
+            } else {
+                bot.getChannelLogs(changelogChannel, 2, (err, messages) => {
+                    if (err) {
                         bot.sendMessage(msg, "Error getting changelogs: " + err);
                         return;
                     }
 
-                    // Create the toSend array with an initial value of "*Changeslogs:*"
-                    var toSend = ["*Changelogs:*"];
+                    var toSend = [];
 
-                    // Build onto the toSend array
+                    toSend.push("*Changelogs:*");
                     toSend.push("━━━━━━━━━━━━━━━━━━━");
-                    toSend.push(messages[0]); // The latest message in the channel (aka latest version)
+                    toSend.push(messages[0]);
                     toSend.push("━━━━━━━━━━━━━━━━━━━");
-                    toSend.push(messages[1]); // The previous message in the channel (aka the previous version)
+                    toSend.push(messages[1]);
 
-                    // Send the array
                     bot.sendMessage(msg, toSend);
                 });
             }
@@ -426,41 +401,33 @@ var commands = {
         usage: "",
         cooldown: 3, // 3 seconds cooldown
         deleteCommand: true, // delete the command afterwards (eg ")ignore" will be deleted)
-        process: function(bot, msg) {
-
-            // If someone tried to send this command to the bot in a private message, let them know, and delete the message 10 seconds later
+        process: (bot, msg) => {
             if (msg.channel.isPrivate) {
-                bot.sendMessage(msg, "Can't do this in a PM!", function(err, wMessage) {
+                bot.sendMessage(msg, "Can't do this in a PM!", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
                 });
                 return;
             }
-
-            // If the user does not have the "manageServer" permission, let them know, and delete the message 10 seconds later
             if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
-                bot.sendMessage(msg, "You must have permission to manage the server!", function(err, wMessage) {
+                bot.sendMessage(msg, "You must have permission to manage the server!", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
                 });
                 return;
             }
-
-            // If the server is not in the server database, add it
             if (!ServerSettings.hasOwnProperty(msg.channel.server.id)) {
                 db.addServer(msg.channel.server);
             }
-
-            // If the server channel is already ignored, let user know, and delete message 10 seconds later
             if (ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) > -1) {
-                bot.sendMessage(msg, "This channel is already ignored", function(err, wMessage) {
+                bot.sendMessage(msg, "This channel is already ignored", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
                 });
-            } else { // Add current channel to the ignore list
+            } else {
                 db.ignoreChannel(msg.channel.id, msg.channel.server.id);
                 bot.sendMessage(msg, ":mute:  Ok, I'll ignore normal commands here now.");
             }
@@ -471,41 +438,33 @@ var commands = {
         usage: "",
         cooldown: 3, // 3 second cooldown
         deleteCommand: true, // delete the command afterwards (eg ")unignore" will be deleted)
-        process: function(bot, msg) {
-
-            // If someone tried to send this command to the bot in a private message, let them know, and delete the message 10 seconds later
+        process: (bot, msg) => {
             if (msg.channel.isPrivate) {
-                bot.sendMessage(msg, "Can't do this in a PM!", function(err, wMessage) {
+                bot.sendMessage(msg, "Can't do this in a PM!", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
                 });
                 return;
             }
-
-            // If the user does not have the "manageServer" permission, let them know, and delete the message 10 seconds later
             if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
-                bot.sendMessage(msg, "You must have permission to manage the server!", function(err, wMessage) {
+                bot.sendMessage(msg, "You must have permission to manage the server!", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
                 });
                 return;
             }
-
-            // If the server is not in the server database, add it
             if (!ServerSettings.hasOwnProperty(msg.channel.server.id)) {
                 db.addServer(msg.channel.server);
             }
-
-            // If the server channel isn"t ignored, let user know, and delete message 10 seconds later
             if (ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) == -1) {
-                bot.sendMessage(msg, "This channel isn't ignored", function(err, wMessage) {
+                bot.sendMessage(msg, "This channel isn't ignored", (err, wMessage) => {
                     bot.deleteMessage(wMessage, {
                         "wait": 10000
                     });
                 });
-            } else { // Remove current channel from the ignore list
+            } else {
                 db.unignoreChannel(msg.channel.id, msg.channel.server.id);
                 bot.sendMessage(msg, ":loud_sound:  Ok, I'll stop ignoring this channel.");
             }
@@ -516,12 +475,9 @@ var commands = {
         usage: "",
         cooldown: 30, // 30 second cooldown
         deleteCommand: true, // delete the command afterwards (eg ")serverinfo" will be deleted)
-        process: function(bot, msg) {
-
-            // Create toSend array to build later
+        process: (bot, msg) => {
             var toSend = [];
 
-            // Start building toSend array
             toSend.push("```xl");
             toSend.push("Server Name: " + msg.channel.server.name);
             toSend.push("Server Owner: " + msg.channel.server.owner.username);
@@ -533,14 +489,10 @@ var commands = {
             toSend.push("Server Icon: " + msg.channel.server.iconURL);
             toSend.push("```");
 
-            // Send toSend array
             bot.sendMessage(msg, toSend);
         }
     }
 };
 
-// Export commands variable for use in main file
 exports.commands = commands;
-
-// Export aliases variable for use in main file
 exports.aliases = aliases;
