@@ -1,7 +1,25 @@
 const expect = require("chai").expect;
+const assert = require("chai");
 const request = require("request");
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const glob = require("glob-all");
+const CLIEngine = require("eslint").CLIEngine;
+const engine = new CLIEngine({
+    envs: ["node", "mocha"],
+    useEslintrc: true
+});
+
+const paths = glob.sync([
+    "./+(bot|test)/**/*.js",
+    "./*.js"
+]);
+
+const results = engine.executeOnFiles(paths).results;
+
+describe("ESLint", () => {
+    results.forEach((result) => generateTest(result));
+});
 
 describe("Token", () => {
     it("valid token", () => {
@@ -36,3 +54,24 @@ describe("Logout", () => {
         });
     });
 });
+
+function generateTest(result) {
+    const {
+        filePath,
+        messages
+    } = result;
+
+    it("validates " + filePath, () => {
+        if (messages.length > 0) {
+            assert.fail(false, true, formatMessages(messages));
+        }
+    });
+}
+
+function formatMessages(messages) {
+    const errors = messages.map((message) => {
+        return message.line + ":" + message.column + " " + message.message.slice(0, -1) + " - " + message.ruleId + "\n";
+    });
+
+    return "\n" + errors.join("");
+}
