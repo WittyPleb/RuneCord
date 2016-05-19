@@ -1,6 +1,6 @@
 RuneCord
 ========
-[![Build Status](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
+[![Dependencies](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
 <span class="badge-paypal"><a href="https://paypal.me/unlucky4ever" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
 <a href="https://zenhub.io"><img src="https://img.shields.io/badge/RuneCord-Zenhub.io-blue.svg"></a>
 
@@ -54,52 +54,15 @@ https://discordapp.com/oauth2/authorize?&client_id=168215284161708032&scope=bot&
 
 Installation
 ------------
-This bot is written to run on top of node.js. Please see [Node.js Downloads](https://nodejs.org/en/download/).  
-**NodeJS version 6.0.0+ is REQUIRED.**
+See the [Setup Guide](https://github.com/unlucky4ever/RuneCord/wiki/Setup-Guide)
 
-1. Once you have node installed, running `npm install` from the bot directory should install all the needed packages. If this command prints errors the bot won't work!
-  ___
-  #### Windows Users
-  Please note that you must have a working C compiler and Python in your path for `npm install` to work. The bot has been tested to work on Windows using Visual Studio 2015 Community Edition, and Python 2.7.
-  - [Install Node on Windows](http://blog.teamtreehouse.com/install-node-js-npm-windows)
-  - [npm errors on Windows](http://stackoverflow.com/questions/21365714/nodejs-error-installing-with-npm)
-  - [Visual Studio 2015 Community Edition](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
-  - [Python 2.7](https://www.python.org/downloads/)  
+Bugs/Support/Suggesting
+-------------------------
+If you find a problem with the bot, be it running locally, or the official one, please file an issue. Same goes for suggestions too.
 
-  ___
-2. Now you must rename `.env.example` to `.env` and edit the values `TOKEN`, `TWITTER_API`, `APP_ID`, `ADMIN_ID`, and `CARBON_KEY` with your information.
-> If you do not have a `CARBON_KEY` remove the value from your `.env` file.
+Before file an issue, please read how to [File an issue](https://github.com/unlucky4ever/RuneCord/blob/master/CONTRIBUTING.md#file-an-issue).
 
-3. Once complete, you may run `npm test` to test your bot, if it all passes, you are free to run `npm start` to start the bot officially.
-
-**Congratulations! You just installed RuneCord!**
-
-Getting your private stuff
---------------------------
-###### `TOKEN`
-To get the value for `TOKEN` you must first create an application on [Discord](https://discordapp.com/developers/docs/intro).
-
-You may name the application whatever you wish, but whatever you name it, will be the name of your bot.
-
-After your application is created, you have to click on the button 'Create a Bot User'. Then you will see a value for token, but it is hidden. Just click on 'click to reveal' and your token is right there. Copy the entire token and paste it in your `.env` file for the value of `TOKEN`.
-
-###### `APP_ID`
-To get your `APP_ID` you just simply copy the `Client/Application ID` for your application. **NOT YOUR BOTS ID**.
-
-###### `ADMIN_ID`
-To get your `ADMIN_ID` you can enter the official [Discord](https://discord.me/runecord) channel and type `~id` in the `#testing` channel. The value given is what you use for `ADMIN_ID` in your `.env`.
-
-###### `TWITTER_API`
-To get the value for your `TWITTER_API` in the `.env` you must go to [Twitter](https://twitter.com/) and create a widget by going to `Settings->Widget`. Set the username for the twitter widget to `JagexClock`, then click 'Create Widget'.
-
-Once the widget is created, you will see a textbox area with some source code. You will see a long number named `data-widget-id` in the source code, you must select that number, and add it to your `.env`, that is the value for your `TWITTER_API`. If you fail to add this, the `~vos` command **will not** work.
-
-###### `CARBON_KEY`
-You will get this key when you add your bot to [Carbon](https://www.carbonitex.net/discord/).
-
-Issues
-------
-Before reporting a problem, please read how to [File an issue](https://github.com/unlucky4ever/RuneCord/blob/master/CONTRIBUTING.md#file-an-issue).
+If you need support with anything that can't be handled in an issue, please join the [Official Discord Server](https://discord.me/runecord).
 
 Development / Contributing
 --------------------------
