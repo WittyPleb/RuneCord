@@ -32,8 +32,6 @@
     "cServer",
     "cUYellow",
     "cBgGreen",
-    "describe",
-    "it",
     "done"
   },
   "extends": "eslint:recommended"
