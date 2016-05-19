@@ -1,17 +1,17 @@
-var Discord = require("discord.js");
-var chalk = require("chalk");
-var clk = new chalk.constructor({
+/**
+ * Required Dependencies
+ */
+const Discord = require("discord.js");
+const chalk = require("chalk");
+const client = new Discord.Client();
+
+const clk = new chalk.constructor({
     enabled: true
 });
-var client = new Discord.Client();
-var config = require("../bot/config.json");
 
 cYellow = clk.bold.yellow;
 cRed = clk.bold.red;
 cGreen = clk.bold.green;
-
-var passes = 0,
-    failes = 0;
 
 function section(s) {
     console.log(cYellow("\n    ") + cYellow(s));
@@ -36,7 +36,7 @@ client.on("ready", function() {
     exit();
 });
 
-client.loginWithToken(config.token).then(function() {
+client.loginWithToken(process.env.TOKEN).then(function() {
     pass("Valid login token");
 }).catch(function(e) {
     err("Bad token");
