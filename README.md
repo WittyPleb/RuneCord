@@ -1,7 +1,9 @@
 RuneCord
 ========
+[![Build Status](https://travis-ci.org/unlucky4ever/RuneCord.svg?branch=master)](https://travis-ci.org/unlucky4ever/RuneCord)
 [![Dependencies](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
 <span class="badge-paypal"><a href="https://paypal.me/unlucky4ever" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+<a href="https://discord.me/runecord"><img src="https://img.shields.io/badge/RuneCord-Discord-blue.svg"></a>
 <a href="https://zenhub.io"><img src="https://img.shields.io/badge/RuneCord-Zenhub.io-blue.svg"></a>
 
 <img src="http://i.imgur.com/TkiKjWM.png" alt="RuneCord Icon" align="right" />
