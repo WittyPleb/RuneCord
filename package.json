@@ -1,11 +1,11 @@
 {
   "name": "runecord",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "RuneCord",
   "main": "runecord.js",
   "scripts": {
     "start": "node runecord.js --harmony",
-    "test": "node test/runecord-test.js --harmony"
+    "test": "./node_modules/.bin/mocha --reporter spec"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,9 @@
   },
   "engines": {
     "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
   }
 }
