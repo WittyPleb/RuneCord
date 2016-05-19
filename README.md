@@ -54,7 +54,8 @@ https://discordapp.com/oauth2/authorize?&client_id=168215284161708032&scope=bot&
 
 Installation
 ------------
-This bot is written to run on top of node.js. Please see https://nodejs.org/en/download/
+This bot is written to run on top of node.js. Please see [Node.js Downloads](https://nodejs.org/en/download/).  
+**NodeJS version 6.0.0+ is REQUIRED.**
 
 1. Once you have node installed, running `npm install` from the bot directory should install all the needed packages. If this command prints errors the bot won't work!
   ___
