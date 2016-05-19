@@ -1,12 +1,20 @@
-var dotenv = require("dotenv");
+/**
+ * Module Dependencies
+ */
+const dotenv = require("dotenv");
+const discord = require("discord.js");
+const request = require("request");
+const chalk = require("chalk");
+
+/**
+ * Required Files
+ */
 var commands = require("./bot/commands.js");
 var mod = require("./bot/mod.js");
 var config = require("./bot/config.json");
 var versionCheck = require("./bot/versioncheck.js");
-var discord = require("discord.js");
 var db = require("./bot/db.js");
-var request = require("request");
-var chalk = require("chalk");
+
 var clk = new chalk.constructor({
     enabled: true
 });
@@ -44,7 +52,7 @@ commandsProcessed = 0;
 show_warn = config.show_warn;
 debug = config.debug;
 
-var bot = new discord.Client({
+const bot = new discord.Client({
     maxCachedMessages: 10,
     forceFetchUsers: true
 });
@@ -83,7 +91,7 @@ bot.on("ready", () => {
                 "servercount": bot.servers.length
             }
         }, (err, res) => {
-            if (config.debug) {
+            if (debug) {
                 console.log(cDebug(" DEBUG ") + " Updated Carbon server count");
             }
 
@@ -123,8 +131,9 @@ bot.on("disconnected", () => {
 });
 
 bot.on("message", (msg) => {
-    if (msg.author.id == bot.user.id) return;
-
+    if (msg.author.id == bot.user.id) {
+      return;
+    }
     if (msg.channel.isPrivate) {
         if (/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)) {
             bot.sendMessage(msg.author, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + process.env.APP_ID + "&scope=bot&permissions=12659727>");
@@ -194,7 +203,7 @@ bot.on("message", (msg) => {
             evaluateString(msg);
             return;
         } else {
-            bot.sendMessage(msg, "You do not have permission to use that command!");
+            bot.sendMessage(msg, "```diff\n- You do not have permission to use that command!```");
             return;
         }
     }
@@ -265,7 +274,7 @@ function execCommand(msg, cmd, suffix, type) {
                 } else {
                     var now = Date.now();
                     if (now < lastExecTime[cmd][msg.author.id] + (commands.commands[cmd].cooldown * 1000)) {
-                        bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", you need to *cooldown* (" + Math.round(((lastExecTime[cmd][msg.author.id] + commands.commands[cmd].cooldown * 1000) - now) / 1000) + " seconds)", function(e, m) {
+                        bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", you need to *cooldown* (" + Math.round(((lastExecTime[cmd][msg.author.id] + commands.commands[cmd].cooldown * 1000) - now) / 1000) + " seconds)", (e, m) => {
                             bot.deleteMessage(m, {
                                 "wait": 6000
                             });
@@ -309,7 +318,7 @@ function execCommand(msg, cmd, suffix, type) {
                 } else {
                     var now = Date.now();
                     if (now < lastExecTime[cmd][msg.author.id] + (mod.commands[cmd].cooldown * 1000)) {
-                        bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", you need to *cooldown* (" + Math.round(((lastExecTime[cmd][msg.author.id] + mod.commands[cmd].cooldown * 1000) - now) / 1000) + " seconds)", function(e, m) {
+                        bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", you need to *cooldown* (" + Math.round(((lastExecTime[cmd][msg.author.id] + mod.commands[cmd].cooldown * 1000) - now) / 1000) + " seconds)", (e, m) => {
                             bot.deleteMessage(m, {
                                 "wait": 6000
                             });
@@ -375,12 +384,12 @@ bot.on("userBanned", (objUser, objServer) => {
         console.log(objUser.username + cRed(" banned on ") + objServer.name);
 
         if (ServerSettings[objServer.id].notifyChannel != "general") {
-            bot.sendMessage(ServerSettings[objServer.id].notifyChannel, "⚠ " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
+            bot.sendMessage(ServerSettings[objServer.id].notifyChannel, ":warning: " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
         } else {
-            bot.sendMessage(objServer.defaultChannel, "🍌🔨 " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
+            bot.sendMessage(objServer.defaultChannel, ":banana::hammer: " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
         }
 
-        bot.sendMessage(objUser, "🍌🔨 You were banned from " + objServer.name);
+        bot.sendMessage(objUser, ":banana::hammer: You were banned from " + objServer.name);
     }
 });
 
@@ -520,7 +529,7 @@ if (process.env.CARBON_KEY) {
                 "servercount": bot.servers.length
             }
         }, (err, res) => {
-            if (config.debug) {
+            if (debug) {
                 console.log(cDebug(" DEBUG ") + " Updated Carbon server count");
             }
 
