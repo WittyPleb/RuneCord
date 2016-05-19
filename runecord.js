@@ -1,3 +1,4 @@
+var dotenv = require("dotenv");
 var commands = require("./bot/commands.js");
 var mod = require("./bot/mod.js");
 var config = require("./bot/config.json");
@@ -8,6 +9,13 @@ var request = require("request");
 var chalk = require("chalk");
 var clk = new chalk.constructor({
     enabled: true
+});
+
+/**
+ * Load the environment variables in the .env file
+ */
+dotenv.load({
+    path: ".env"
 });
 
 cWarn = clk.bgYellow.black;
@@ -96,7 +104,7 @@ bot.on("disconnected", () => {
     lastExecTime = {};
     setTimeout(() => {
         console.log("Attempting to log in...");
-        bot.loginWithToken(config.token, (err, token) => {
+        bot.loginWithToken(process.env.TOKEN, (err, token) => {
             if (err) {
                 console.log(err);
                 setTimeout(() => {
@@ -119,7 +127,7 @@ bot.on("message", (msg) => {
 
     if (msg.channel.isPrivate) {
         if (/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)) {
-            bot.sendMessage(msg.author, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + config.app_id + "&scope=bot&permissions=12659727>");
+            bot.sendMessage(msg.author, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + process.env.APP_ID + "&scope=bot&permissions=12659727>");
         } else if (msg.content[0] !== config.command_prefix && msg.content[0] !== config.mod_command_prefix && !msg.content.startsWith("(eval) ")) {
             if (pmCoolDown.hasOwnProperty(msg.author.id)) {
                 if (Date.now() - pmCoolDown[msg.author.id] > 3000) {
@@ -147,9 +155,9 @@ bot.on("message", (msg) => {
                         db.updateTimestamp(msg.channel.server);
                     }
                 } else {
-                    if (msg.content.indexOf("<@" + config.admin_id + ">") > -1) {
+                    if (msg.content.indexOf("<@" + process.env.ADMIN_ID + ">") > -1) {
                         if (config.send_mentions) {
-                            var owner = bot.users.get("id", config.admin_id);
+                            var owner = bot.users.get("id", process.env.ADMIN_ID);
                             if (owner && owner.status != "online") {
                                 var toSend = "";
                                 if (msg.channel.messages.length >= 3) {
@@ -182,7 +190,7 @@ bot.on("message", (msg) => {
     }
 
     if (msg.content.startsWith("(eval) ")) {
-        if (msg.author.id == config.admin_id) {
+        if (msg.author.id == process.env.ADMIN_ID) {
             evaluateString(msg);
             return;
         } else {
@@ -219,7 +227,7 @@ bot.on("message", (msg) => {
             execCommand(msg, commands.aliases[cmd], suffix, "normal");
         }
     } else if (msg.content.startsWith(config.mod_command_prefix)) {
-        if (cmd == "reload" && msg.author.id == config.admin_id) {
+        if (cmd == "reload" && msg.author.id == process.env.ADMIN_ID) {
             reload();
             bot.deleteMessage(msg);
             return;
@@ -247,7 +255,7 @@ function execCommand(msg, cmd, suffix, type) {
                 console.log(cGreen(msg.author.username) + " > " + msg.cleanContent.replace(/\n/g, " "));
             }
 
-            if (msg.author.id != config.admin_id && commands.commands[cmd].hasOwnProperty("cooldown")) {
+            if (msg.author.id != process.env.ADMIN_ID && commands.commands[cmd].hasOwnProperty("cooldown")) {
                 if (!lastExecTime.hasOwnProperty(cmd)) {
                     lastExecTime[cmd] = {};
                 }
@@ -291,7 +299,7 @@ function execCommand(msg, cmd, suffix, type) {
                 console.log(cGreen(msg.author.username) + " > " + cBlue(msg.cleanContent.replace(/\n/g, " ").split(" ")[0]) + msg.cleanContent.replace(/\n/g, " ").substr(msg.cleanContent.replace(/\n/g, " ").split(" ")[0].length));
             }
 
-            if (msg.author.id != config.admin_id && mod.commands[cmd].hasOwnProperty("cooldown")) {
+            if (msg.author.id != process.env.ADMIN_ID && mod.commands[cmd].hasOwnProperty("cooldown")) {
                 if (!lastExecTime.hasOwnProperty(cmd)) {
                     lastExecTime[cmd] = {};
                 }
@@ -410,7 +418,7 @@ bot.on("serverCreated", (server) => {
 });
 
 console.log("Logging in...");
-bot.loginWithToken(config.token, (err, token) => {
+bot.loginWithToken(process.env.TOKEN, (err, token) => {
     if (err) {
         console.log(err);
         setTimeout(() => {
@@ -427,7 +435,7 @@ bot.loginWithToken(config.token, (err, token) => {
 });
 
 function evaluateString(msg) {
-    if (msg.author.id != config.admin_id) {
+    if (msg.author.id != process.env.ADMIN_ID) {
         console.log(cWarn(" WARN ") + " Somehow an unauthorized user got into eval!");
         return;
     }
@@ -490,10 +498,6 @@ function reload() {
 
 function checkConfig() {
 
-    if (!config.token) {
-        console.log(cWarn(" WARN ") + "Token not defined");
-    }
-
     if (!config.command_prefix || config.command_prefix.length !== 1) {
         console.log(cWarn(" WARN ") + "Prefix either not defined or more than one character");
     }
@@ -501,17 +505,9 @@ function checkConfig() {
     if (!config.mod_command_prefix || config.mod_command_prefix.length !== 1) {
         console.log(cWarn(" WARN ") + "Mod prefix either not defined or more than character");
     }
-
-    if (!config.twitter_api) {
-        console.log(cWarn(" WARN ") + "Twitter API key not defined");
-    }
-
-    if (!config.admin_id) {
-        console.log(cYellow("Admin user's id") + " not defined in config");
-    }
 }
 
-if (config.carbon_key) {
+if (process.env.CARBON_KEY) {
     setInterval(() => {
         request.post({
             "url": "https://www.carbonitex.net/discord/data/botdata.php",
@@ -520,7 +516,7 @@ if (config.carbon_key) {
             },
             "json": true,
             body: {
-                "key": config.carbon_key,
+                "key": process.env.CARBON_KEY,
                 "servercount": bot.servers.length
             }
         }, (err, res) => {
