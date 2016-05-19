@@ -32,7 +32,9 @@ Development
 Pull requests are very welcome! Please try to follow these simple rules if applicable:
 
 * Please create a topic branch for every separate change you make.
-* Please set your editor to use spaces with a tab-size of `4`
+* Please set your editor to use spaces with a tab-size of `2`.
+* Please ensure all tests pass when you do `npm test`.
+* All PRs **must** pass on [Travis CI](https://travis-ci.org/unlucky4ever/RuneCord).
 * Update the [README](https://github.com/unlucky4ever/RuneCord/blob/master/README.md) if you add any new commands.
 * Please **do not change** the version number or add to CHANGELOG.md.
 
