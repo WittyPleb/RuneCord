@@ -1,5 +1,5 @@
 const expect = require("chai").expect;
-const assert = require("chai");
+const assert = require("chai").assert;
 const request = require("request");
 const Discord = require("discord.js");
 const client = new Discord.Client();
