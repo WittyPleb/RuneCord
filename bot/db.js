@@ -4,7 +4,7 @@ ServerSettings = require("../db/servers.json");
 Times = require("../db/times.json");
 
 var inactive = [];
-var whitelist = require("./config.json").whitelist;
+//var whitelist = require("./config.json").whitelist;
 
 var updatedS = false;
 var updatedT = false;
