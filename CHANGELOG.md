@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added a new setting to allow you to remove the cooldowns on all commands.
   - Will eventually add a way to set custom cooldowns on all commands.
 
+### Fixed
+- Fixed `)settings` command from sending double messages on certain occasions.
+
 ## [2.1.1] - 2016-05-19
 ### Changed
 - Changed from a custom testing module, to using mocha.
