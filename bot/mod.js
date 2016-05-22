@@ -218,7 +218,7 @@ var commands = {
     }
   },
   "settings": {
-    desc: "Per-server settings. Docs: **https://unlucky4ever.github.io/RuneCord/**",
+    desc: "Per-server settings. Docs: https://unlucky4ever.github.io/RuneCord/",
     usage: "<enable/disable> <setting> | notify here | welcome <welcome message> | check",
     deleteCommand: false,
     cooldown: 3,
@@ -241,7 +241,7 @@ var commands = {
         return;
       }
 
-      if (!suffix || !/(.+ .+|check)/.test(suffix)) {
+      if (!suffix || !/(.+ .+|check|help)/.test(suffix)) {
         correctUsage("settings", this.usage, msg, bot);
         return;
       }
@@ -254,6 +254,7 @@ var commands = {
         if (!ServerSettings[msg.channel.server.id].banAlerts) {
           db.changeSetting("banAlerts", true, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Enabled ban alerts");
+          return;
         }
         bot.sendMessage(msg, "Ban alerts are already enabled!");
       }
@@ -261,6 +262,7 @@ var commands = {
         if (ServerSettings[msg.channel.server.id].banAlerts) {
           db.changeSetting("banAlerts", false, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Disabled ban alerts");
+          return;
         }
         bot.sendMessage(msg, "Ban alerts are already disabled!");
       }
@@ -268,6 +270,7 @@ var commands = {
         if (!ServerSettings[msg.channel.server.id].nameChanges) {
           db.changeSetting("nameChanges", true, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Enabled name change alerts");
+          return;
         }
         bot.sendMessage(msg, "Name change alerts are already enabled!");
       }
@@ -275,6 +278,7 @@ var commands = {
         if (ServerSettings[msg.channel.server.id].nameChanges) {
           db.changeSetting("nameChanges", false, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Disabled name change alerts");
+          return;
         }
         bot.sendMessage(msg, "Name change alerts are already disabled!");
       }
@@ -282,6 +286,7 @@ var commands = {
         if (!ServerSettings[msg.channel.server.id].deleteCommands) {
           db.changeSetting("deleteCommands", true, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Enabled command deletion");
+          return;
         }
         bot.sendMessage(msg, "Command deletion is already enabled!");
       }
@@ -289,6 +294,7 @@ var commands = {
         if (ServerSettings[msg.channel.server.id].deleteCommands) {
           db.changeSetting("deleteCommands", false, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Disabled command deletion");
+          return;
         }
         bot.sendMessage(msg, "Command deletion is already disabled!");
       }
@@ -296,6 +302,7 @@ var commands = {
         if (!ServerSettings[msg.channel.server.id].commandCooldowns) {
           db.changeSetting("commandCooldowns", true, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Enabled command cooldowns");
+          return;
         }
         bot.sendMessage(msg, "Command cooldowns are already enabled!");
       }
@@ -303,6 +310,7 @@ var commands = {
         if (ServerSettings[msg.channel.server.id].commandCooldowns) {
           db.changeSetting("commandCooldowns", false, msg.channel.server.id);
           bot.sendMessage(msg, ":gear: Disabled command cooldowns");
+          return;
         }
         bot.sendMessage(msg, "Command cooldowns are already disabled!");
       }
