@@ -290,15 +290,6 @@ function execCommand(msg, cmd, suffix, type) {
             lastExecTime[cmd][msg.author.id] = now;
           }
         }
-      } else {
-        if (!lastExecTime.hasOwnPropery(cmd)) {
-          lastExecTime[cmd] = {};
-        }
-        if (!lastExecTime[cmd].hasOwnProperty(msg.author.id)) {
-          lastExecTime[cmd][msg.author.id] = new Date().valueOf();
-        } else {
-          lastExecTime[cmd][msg.author.id] = Date.now();
-        }
       }
 
       commands.commands[cmd].process(bot, msg, suffix);
@@ -342,15 +333,6 @@ function execCommand(msg, cmd, suffix, type) {
 
             lastExecTime[cmd][msg.author.id] = now;
           }
-        }
-      } else {
-        if (!lastExecTime.hasOwnPropery(cmd)) {
-          lastExecTime[cmd] = {};
-        }
-        if (!lastExecTime[cmd].hasOwnProperty(msg.author.id)) {
-          lastExecTime[cmd][msg.author.id] = new Date().valueOf();
-        } else {
-          lastExecTime[cmd][msg.author.id] = Date.now();
         }
       }
 
