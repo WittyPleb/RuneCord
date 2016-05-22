@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Added
+- Added a new setting to allow you to remove the cooldowns on all commands.
+  - Will eventually add a way to set custom cooldowns on all commands.
+
 ## [2.1.1] - 2016-05-19
 ### Changed
 - Changed from a custom testing module, to using mocha.
