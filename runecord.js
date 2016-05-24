@@ -227,7 +227,7 @@ bot.on("message", (msg) => {
   } else if (msg.content.startsWith(config.mod_command_prefix)) {
     if (cmd == "reload" && msg.author.id == process.env.ADMIN_ID) {
       reload();
-      bot.deleteMessage(msg);
+      bot.sendMessage(":white_check_mark:\n```diff\n+ Bot successfully reloaded!```");
       return;
     }
     if (mod.commands.hasOwnProperty(cmd)) {
