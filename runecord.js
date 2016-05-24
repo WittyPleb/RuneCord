@@ -72,7 +72,7 @@ bot.on("ready", () => {
   setTimeout(() => {
     db.checkServers(bot);
   }, 10000);
-  if (config.carbon_key) {
+  if (process.env.CARBON_KEY) {
     request.post({
       "url": "https://www.carbonitex.net/discord/data/botdata.php",
       "headers": {
@@ -80,21 +80,17 @@ bot.on("ready", () => {
       },
       "json": true,
       body: {
-        "key": config.carbon_key,
+        "key": process.env.CARBON_KEY,
         "servercount": bot.servers.length
       }
     }, (err, res) => {
-      if (debug) {
-        console.log(cDebug(" DEBUG ") + " Updated Carbon server count");
-      }
-
       if (err) {
-        console.log("Error updating carbon stats: " + err);
+        console.log(cError(" ERROR ") + " Error updating carbon stats: " + err);
       }
-
       if (res.statusCode !== 200) {
-        console.log("Error updating carbon stats: Status Code " + res.statusCode);
+        console.log(cError(" ERROR ") + " Error updating carbon stats: Status Code " + res.statusCode);
       }
+      console.log(cBgGreen(" CARBON ") + " Updated Carbon server count to " + bot.servers.length);
     });
   }
 });
@@ -522,17 +518,13 @@ if (process.env.CARBON_KEY) {
         "servercount": bot.servers.length
       }
     }, (err, res) => {
-      if (debug) {
-        console.log(cDebug(" DEBUG ") + " Updated Carbon server count");
-      }
-
       if (err) {
-        console.log("Error updating carbon stats: " + err);
+        console.log(cError(" ERROR ") + " Error updating carbon stats: " + err);
       }
-
       if (res.statusCode !== 200) {
-        console.log("Error updating carbon stats: Status Code " + res.statusCode);
+        console.log(cError(" ERROR ") + " Error updating carbon stats: Status Code " + res.statusCode);
       }
+      console.log(cBgGreen(" CARBON ") + " Updated Carbon server count to " + bot.servers.length);
     });
   }, 3600000);
 }
