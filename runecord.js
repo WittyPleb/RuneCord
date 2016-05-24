@@ -1,7 +1,7 @@
 /**
  * Module Dependencies
  */
-const dotenv = require("dotenv");
+require("dotenv").config();
 const discord = require("discord.js");
 const request = require("request");
 const chalk = require("chalk");
@@ -17,13 +17,6 @@ var db = require("./bot/db.js");
 
 var clk = new chalk.constructor({
   enabled: true
-});
-
-/**
- * Load the environment variables in the .env file
- */
-dotenv.load({
-  path: ".env"
 });
 
 cWarn = clk.bgYellow.black;
