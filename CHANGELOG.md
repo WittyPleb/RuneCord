@@ -10,6 +10,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Fixed `)settings` command from sending double messages on certain occasions.
 
+## Changed
+- Made the testing file only test for environment variable declaration
+
 ## [2.1.1] - 2016-05-19
 ### Changed
 - Changed from a custom testing module, to using mocha.
