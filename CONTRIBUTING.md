@@ -1,29 +1,16 @@
-Contribute to RuneCord
-===================
+# Contribute to RuneCord
 
-File an issue
--------------
+**You do not have to follow the template below for suggestions.**
 
-Please check RuneCord's [GitHub issue tracker](https://github.com/unlucky4ever/RuneCord/issues) for known issues.
+## Reporting a bug or Suggesting a feature
+Please check RuneCord's [GitHub issue tracker](https://github.com/unlucky4ever/RuneCord/issues) for known issues/suggestions.
 
-You can report bugs and feature requests to [GitHub Issues](https://github.com/unlucky4ever/RuneCord/issues).
-
-**Please don't ask question in the issue tracker**, instead ask them at one of our other places:
+**Please don't ask questions in the issue tracker**, instead ask them at one of our other places:
 
 * Discord Server - [Join Here](https://discord.me/runecord)
 
-When you file a bug, please try to follow these simple rules if applicable:
-
-If the bug isn't something you did locally, and you notice it by doing a command, you may still post a bug report!
-
-* Make sure you've read the README carefully.
-* Make sure you install RuneCord's dependencies with `npm install` first.
-* Provide information about your environment:
-  * Your current versions of your OS, Node version, npm version, etc.
-  * Shared project folder with services like Dropbox, NFS, etc.
-* Make sure that the issue is reproducible with your description.
-
-**It's most likely that your bug gets resolved faster if you provide as much information as possible!**
+### Bug Report Template
+Please use the template below to file bugs that you find either on your local bot, or the official one.
 
 ```markdown
 [Short description of problem here]
@@ -55,11 +42,10 @@ If the bug isn't something you did locally, and you notice it by doing a command
 * Problem can be reliably reproduced, doesn't happen randomly: [Yes/No]
 ```
 
-Code Contributions
-------------------
+## Code Contributions
 * Source hosted at [GitHub](https://github.com/unlucky4ever/RuneCord).
 
-If you want to help out and make RuneCord better for everyone, you sohuld fork this repository, make your changes, and then send in a pull request.
+If you want to help out and make RuneCord better for everyone, you should fork this repository, make your changes, and then send in a pull request.
 
 Before you make your pull request, please ensure you follow these guidelines:
 * Use spaces instead of tabs.
