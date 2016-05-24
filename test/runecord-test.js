@@ -1,8 +1,4 @@
-const expect = require("chai").expect;
 const assert = require("chai").assert;
-const request = require("request");
-const Discord = require("discord.js");
-const client = new Discord.Client();
 const glob = require("glob-all");
 const CLIEngine = require("eslint").CLIEngine;
 const engine = new CLIEngine({
@@ -17,41 +13,23 @@ const paths = glob.sync([
 
 const results = engine.executeOnFiles(paths).results;
 
+require("dotenv").config();
 describe("ESLint", () => {
   results.forEach((result) => generateTest(result));
 });
 
-describe("Token", () => {
-  it("valid token", () => {
-    client.loginWithToken(process.env.TOKEN).then(() => {
-      done();
-    });
+describe("Environment Variables", () => {
+  it("token is defined", () => {
+    assert(process.env.TOKEN !== undefined, "environment variable 'TOKEN' is undefined");
   });
-});
-describe("Log In", () => {
-  it("returns ready", () => {
-    client.on("ready", () => {
-      done();
-    });
+  it("twitter api is defined", () => {
+    assert(process.env.TWITTER_API !== undefined, "environment variable 'TWITTER_API' is undefined");
   });
-});
-describe("Twitter API", () => {
-  var url = "https://cdn.syndication.twimg.com/widgets/timelines/" + process.env.TWITTER_API + "?&lang=en&supress_response_codes=true&rnd=" + Math.random();
-
-  it("returns status 200", () => {
-    /* eslint-disable no-unused-vars */
-    request(url, (error, response, body) => {
-      /* eslint-enable no-unused-vars */
-      expect(response.statusCode).to.equal(200);
-      done();
-    });
+  it("application id is defined", () => {
+    assert(process.env.APP_ID !== undefined, "environment variable 'APP_ID' is undefined");
   });
-});
-describe("Logout", () => {
-  it("logs out", () => {
-    client.logout().then(() => {
-      done();
-    });
+  it("admin id is defined", () => {
+    assert(process.env.ADMIN_ID !== undefined, "environment variable 'ADMIN_ID' is undefined");
   });
 });
 
