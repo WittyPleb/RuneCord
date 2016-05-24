@@ -2,8 +2,8 @@
     "command_prefix": "~",
     "mod_command_prefix": ")",
     "non_essential_event_listeners": true,
-    "debug": true,
-    "show_warn": true,
+    "debug": false,
+    "show_warn": false,
     "carbon_key": "",
     "whitelist": ["168550901836021761", "110373943822540800"],
     "banned_server_ids": []
