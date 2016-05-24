@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.1.2] - 2016-05-24
 ### Added
 - Added a new setting to allow you to remove the cooldowns on all commands.
   - Will eventually add a way to set custom cooldowns on all commands.
