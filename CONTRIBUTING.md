@@ -53,7 +53,7 @@ Before you make your pull request, please ensure you follow these guidelines:
 * Please ensure all tests pass when you do `npm test`.
 * All PRs **must** pass on [Travis CI](https://travis-ci.org/unlucky4ever/RuneCord).
 * Update the [README](https://github.com/unlucky4ever/RuneCord/blob/master/README.md) if you add any new commands.
-* Please **do not change** the version number or add to CHANGELOG.md.
+* Please **do not change** the version number or add to [CHANGELOG](https://github.com/unlucky4ever/RuneCord/blob/master/CHANGELOG.md).
 
 I recommend using Atom as your text editor, and installing the package [editorconfig](https://atom.io/packages/editorconfig) so you don't have to change your global settings for indentation.
 
