@@ -5,6 +5,11 @@ require("dotenv").config();
 const discord = require("discord.js");
 const request = require("request");
 const chalk = require("chalk");
+const dateFormat = require("dateformat");
+
+require("log-timestamp")(() => {
+  return "[" + dateFormat(new Date(), "mmm dd hh:MM:ss TT") + "]";
+});
 
 /**
  * Required Files
