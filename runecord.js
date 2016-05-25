@@ -6,19 +6,11 @@ const discord = require("discord.js");
 const request = require("request");
 const chalk = require("chalk");
 const dateFormat = require("dateformat");
+const fs = require("fs");
 
 require("log-timestamp")(() => {
   return "[" + dateFormat(new Date(), "mmm dd hh:MM:ss TT") + "]";
 });
-
-/**
- * Required Files
- */
-var commands = require("./bot/commands.js");
-var mod = require("./bot/mod.js");
-var config = require("./bot/config.json");
-var versionCheck = require("./bot/versioncheck.js");
-var db = require("./bot/db.js");
 
 var clk = new chalk.constructor({
   enabled: true
@@ -35,6 +27,17 @@ cRed = clk.bold.red;
 cServer = clk.bold.magenta;
 cUYellow = clk.bold.underline.yellow;
 cBgGreen = clk.bgGreen.black;
+
+checkDb();
+
+/**
+ * Required Files
+ */
+var commands = require("./bot/commands.js");
+var mod = require("./bot/mod.js");
+var config = require("./bot/config.json");
+var versionCheck = require("./bot/versioncheck.js");
+var db = require("./bot/db.js");
 
 checkConfig();
 
@@ -507,6 +510,27 @@ function checkConfig() {
 
   if (!config.mod_command_prefix || config.mod_command_prefix.length !== 1) {
     console.log(cWarn(" WARN ") + "Mod prefix either not defined or more than character");
+  }
+}
+
+function checkDb() {
+  try {
+    fs.statSync("./db/");
+  } catch (e) {
+    console.log(cBgGreen(" SETUP ") + " 'db' folder doesn't exist, creating it...");
+    fs.mkdirSync("./db/");
+  }
+  try {
+    fs.statSync("./db/servers.json");
+  } catch (e) {
+    console.log(cBgGreen(" SETUP ") + " 'db/servers.json' doesn't exist, creating it...");
+    fs.writeFileSync("./db/servers.json", "{}");
+  }
+  try {
+    fs.statSync("./db/times.json");
+  } catch(e) {
+    console.log(cBgGreen(" SETUP ") + " 'db/times.json' doesn't exist, creating it...");
+    fs.writeFileSync("./db/times.json", "{}");
   }
 }
 
