@@ -1,3 +1,5 @@
 node_modules
 .directory
 .env
+db/servers.json
+db/times.json
