@@ -103,9 +103,9 @@ var commands = {
     shouldDisplay: false, // does it display in the `)help` command?
     deleteCommand: true, // delete the command afterwards (eg ")remove-inactive" will be deleted)
     process: (bot, msg, suffix) => {
-      if (suffix && /^\d+$/.test(suffix) && msg.author.id == config.admin_id) {
+      if (suffix && /^\d+$/.test(suffix) && msg.author.id == process.env.ADMIN_ID) {
         db.remInactive(bot, msg, parseInt(suffix));
-      } else if (msg.author.id == config.admin_id) {
+      } else if (msg.author.id == process.env.ADMIN_ID) {
         db.remInactive(bot, msg);
       }
     }
@@ -124,7 +124,7 @@ var commands = {
         });
         return;
       }
-      if (msg.channel.isPrivate && msg.author.id != config.admin_id) {
+      if (msg.channel.isPrivate && msg.author.id != process.env.ADMIN_ID) {
         bot.sendMessage(msg, "You can't do this outside of a server", (erro, wMessage) => {
           bot.deleteMessage(wMessage, {
             "wait": 10000
@@ -133,7 +133,7 @@ var commands = {
         });
       }
       if (!msg.channel.isPrivate) {
-        if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
+        if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != process.env.ADMIN_ID) {
           bot.sendMessage(msg, "Server admins only", (erro, wMessage) => {
             bot.deleteMessage(wMessage, {
               "wait": 8000
@@ -232,7 +232,7 @@ var commands = {
         return;
       }
 
-      if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
+      if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != process.env.ADMIN_ID) {
         bot.sendMessage(msg, "You must have permission to manage the server!", (erro, wMessage) => {
           bot.deleteMessage(wMessage, {
             "wait": 10000
@@ -437,7 +437,7 @@ var commands = {
         });
         return;
       }
-      if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
+      if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != process.env.ADMIN_ID) {
         bot.sendMessage(msg, "You must have permission to manage the server!", (err, wMessage) => {
           bot.deleteMessage(wMessage, {
             "wait": 10000
@@ -474,7 +474,7 @@ var commands = {
         });
         return;
       }
-      if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != config.admin_id) {
+      if (!msg.channel.permissionsOf(msg.author).hasPermission("manageServer") && msg.author.id != process.env.ADMIN_ID) {
         bot.sendMessage(msg, "You must have permission to manage the server!", (err, wMessage) => {
           bot.deleteMessage(wMessage, {
             "wait": 10000
