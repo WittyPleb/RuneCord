@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
 ### Added
-- Added the ability for the bot to create `db/servers.json' and `db/times.json` automatically if they don't exist.
+- Added the ability for the bot to create `db/servers.json` and `db/times.json` automatically if they don't exist.
 - Added timestamps to everything that logs to the console.
 
 ### Changed
