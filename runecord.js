@@ -534,6 +534,7 @@ function checkDb() {
   }
 }
 
+// Run this every hour
 if (process.env.CARBON_KEY) {
   setInterval(() => {
     request.post({
