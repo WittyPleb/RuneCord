@@ -533,7 +533,6 @@ function checkDb() {
     fs.writeFileSync("./db/times.json", "{}");
   }
 }
-
 // Run this every hour
 if (process.env.CARBON_KEY) {
   setInterval(() => {
