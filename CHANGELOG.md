@@ -2,35 +2,28 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.1.2] - 2016-05-24
 ### Added
+- Added a new setting to allow you to remove the cooldowns on all commands.
+  - Will eventually add a way to set custom cooldowns on all commands.
 - Added the ability for the bot to create `db/servers.json` and `db/times.json` automatically if they don't exist.
 - Added timestamps to everything that logs to the console.
 
-### Changed
+### Fixed
+- Fixed a bug that would wipe server database every time the official bot got deployed.
+- Fixed Carbon stats posting when bot is ready (hourly stat posting unchanged).
+- Fixed `)settings` command from sending double messages on certain occasions.
+
+## Changed
+- Made the testing file only test for environment variable declaration
 - Updated `)reload` command (Only the bot owner can use this command).
 - Updated how Carbon stats get logged in console.
   - Errors now have the `ERROR` tag
   - Instead of successful posts being in debug, they now use a green BG, and are no longer a debug message.
   - Shows the amount of servers that was posted.
 
-### Fixed
-- Fixed a bug that would wipe server database every time the official bot got deployed.
-- Fixed Carbon stats posting when bot is ready (hourly stat posting unchanged).
-
 ### Removed
 - Removed db files from repo, caused too many issues. (See first bug in fixed above)
-
-## [2.1.2] - 2016-05-24
-### Added
-- Added a new setting to allow you to remove the cooldowns on all commands.
-  - Will eventually add a way to set custom cooldowns on all commands.
-
-### Fixed
-- Fixed `)settings` command from sending double messages on certain occasions.
-
-## Changed
-- Made the testing file only test for environment variable declaration
 
 ## [2.1.1] - 2016-05-19
 ### Changed
