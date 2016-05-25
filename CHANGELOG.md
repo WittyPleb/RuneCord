@@ -2,6 +2,24 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Added
+- Added timestamps to everything that logs to the console.
+
+### Changed
+- Updated `)reload` command (Only the bot owner can use this command).
+- Updated how Carbon stats get logged in console.
+  - Errors now have the `ERROR` tag
+  - Instead of successful posts being in debug, they now use a green BG, and are no longer a debug message.
+  - Shows the amount of servers that was posted.
+
+### Fixed
+- Fixed a bug that would wipe server database every time the official bot got deployed.
+- Fixed Carbon stats posting when bot is ready (hourly stat posting unchanged).
+
+### Removed
+- Removed db files from repo, caused too many issues. (See first bug in fixed above)
+
 ## [2.1.2] - 2016-05-24
 ### Added
 - Added a new setting to allow you to remove the cooldowns on all commands.
