@@ -35,7 +35,9 @@ var aliases = {
     "advlog": "alog",
     "wbs": "warbands",
     "trollinvasion": "invasion",
-    "xplamp": "lamp"
+    "xplamp": "lamp",
+    "vorago": "rago",
+    "araxxi": "rax"
 };
 
 var commands = {
@@ -644,6 +646,37 @@ var commands = {
                 });
             }
         }
+    },
+    "vorago": {
+      desc: "Displays what the current rotation for Vorago is.",
+      usage: "",
+      process: (bot, msg) => {
+        let voragoRotations = [
+          "Ceiling Collapse",
+          "Scopulus",
+          "Vitalis",
+          "Green Bomb",
+          "Team Split",
+          "The End"
+        ];
+
+        let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
+        bot.sendMessage(msg, "The current rotation for Vorago is **" + voragoRotations[currentRotation] + "**.");
+      }
+    },
+    "araxxi": {
+      desc: "Display what the current rotation for Araxxi is.",
+      usage: "",
+      process: (bot, msg) => {
+        let araxxiRotations = [
+          "Path 1 - Minions",
+          "Path 2 - Acid",
+          "Path 3 - Darkness"
+        ];
+
+        let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length)) / 4);
+        bot.sendMessage(msg, "The current path that is closed for Araxxi is **" + araxxiRotations[currentRotation] + "**.");
+      }
     },
     "roll": {
         desc: "Roll a random number between 1 and <number>.",
