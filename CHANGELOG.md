@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Added
+- Boss Rotations
+  - Vorago
+  - Araxxi (Displays what path is closed)
+
 ## [2.1.2] - 2016-05-24
 ### Added
 - Added a new setting to allow you to remove the cooldowns on all commands.
