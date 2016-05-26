@@ -35,7 +35,8 @@ var aliases = {
     "advlog": "alog",
     "wbs": "warbands",
     "trollinvasion": "invasion",
-    "xplamp": "lamp"
+    "xplamp": "lamp",
+    "vorago": "rago"
 };
 
 var commands = {
@@ -644,6 +645,23 @@ var commands = {
                 });
             }
         }
+    },
+    "vorago": {
+      desc: "Displays what the current rotation for Vorago is.",
+      usage: "",
+      process: (bot, msg) => {
+        let voragoRotations = [
+          "Ceiling Collapse",
+          "Scopulus",
+          "Vitalis",
+          "Green Bomb",
+          "Team Split",
+          "The End"
+        ];
+
+        let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
+        bot.sendMessage(msg, "The current rotation for Vorago is **" + voragoRotations[currentRotation] + "**.");
+      }
     },
     "roll": {
         desc: "Roll a random number between 1 and <number>.",
