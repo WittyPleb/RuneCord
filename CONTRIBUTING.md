@@ -33,7 +33,7 @@ Please use the template below to file bugs that you find either on your local bo
 
 ![Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
 
-**Bot version:** [Enter Atom version here]
+**Bot version:** [Enter Bot version here]
 **Local or Official:** [Enter local for your own bot, Official for the official bot]
 
 **Additional information:**
