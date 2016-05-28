@@ -28,6 +28,7 @@ Features
 * `~araxxi` -- Displays what path is closed for Araxxi.
 * `~rots` -- Displays what the current rotation for Rise of the Six is.
 * `~spotlight` -- Display what minigame is currently spotlighted.
+* `~circus` -- Displays the current location for the Circus.
 * `~invasion <skill level>` -- Displays how much XP you'd gain in troll invasion if your level was `<skill level>` and you finished the entire thing.
 * `~lamp` `small|med|large|huge` `<skill level>` -- Displays how much XP you'd gain from a lamp based on skill level and size.
 
