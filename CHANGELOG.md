@@ -10,6 +10,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added `~spotlight` command - Displays what minigame is on spotlight.
 - Added `~circus` command - Displays current location of circus.
 
+### Changed
+- Changed `)reload` command to have a message sent in the server instead of just console.
+
 ## [2.1.2] - 2016-05-24
 ### Added
 - Added a new setting to allow you to remove the cooldowns on all commands.
