@@ -651,7 +651,7 @@ var commands = {
       desc: "Displays what the current rotation for Vorago is.",
       usage: "",
       process: (bot, msg) => {
-        let voragoRotations = [
+        var voragoRotations = [
           "Ceiling Collapse",
           "Scopulus",
           "Vitalis",
@@ -660,15 +660,15 @@ var commands = {
           "The End"
         ];
 
-        let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
-        let daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length) % 7;
-        let nextRotation = currentRotation + 1;
+        var currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
+        var daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length) % 7;
+        var nextRotation = currentRotation + 1;
 
         if (nextRotation === voragoRotations.length) {
           nextRotation = 0;
         }
 
-        let toSend = [];
+        var toSend = [];
 
         toSend.push("The current rotation for Vorago is **" + voragoRotations[currentRotation] + "**.");
         toSend.push("The next rotation for Vorago will be **" + voragoRotations[nextRotation] + "** in **" + daysUntilNext + "** days.");
@@ -680,21 +680,21 @@ var commands = {
       desc: "Display what the current rotation for Araxxi is.",
       usage: "",
       process: (bot, msg) => {
-        let araxxiRotations = [
+        var araxxiRotations = [
           "Path 1 - Minions",
           "Path 2 - Acid",
           "Path 3 - Darkness"
         ];
 
-        let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length)) / 4);
-        let daysUntilNext = 4 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length) % 4;
-        let nextRotation = currentRotation + 1;
+        var currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length)) / 4);
+        var daysUntilNext = 4 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length) % 4;
+        var nextRotation = currentRotation + 1;
 
         if (nextRotation === araxxiRotations.length) {
           nextRotation = 0;
         }
 
-        let toSend = [];
+        var toSend = [];
 
         toSend.push("The current path that is closed for Araxxi is **" + araxxiRotations[currentRotation] + "**.");
         toSend.push("The next path to be closed will be **" + araxxiRotations[nextRotation] + "** in **" + daysUntilNext + "** days.");
@@ -706,7 +706,7 @@ var commands = {
       desc: "Displays what the current rotation for Rise of the Six is.",
       usage: "",
       process: (bot, msg) => {
-        let names = {
+        var names = {
           A: "Ahrim",
           D: "Dharok",
           G: "Guthan",
@@ -714,7 +714,7 @@ var commands = {
           T: "Torag",
           V: "Verac"
         }
-        let rotsRotations = [
+        var rotsRotations = [
           [[names.D, names.T, names.V], [names.K, names.A, names.G]],
           [[names.K, names.T, names.G], [names.A, names.D, names.V]],
           [[names.K, names.G, names.V], [names.A, names.T, names.D]],
@@ -737,12 +737,12 @@ var commands = {
           [[names.K, names.D, names.V], [names.A, names.T, names.G]]
         ];
 
-        let currentRotation = (Math.floor((Date.now() / 1000) / (24 * 60 * 60)) % 20) - 1;
+        var currentRotation = (Math.floor((Date.now() / 1000) / (24 * 60 * 60)) % 20) - 1;
         if (currentRotation === -1) {
           currentRotation = 0;
         }
-        let westSide = rotsRotations[currentRotation][0].join(" - ");
-        let eastSide = rotsRotations[currentRotation][1].join(" - ");
+        var westSide = rotsRotations[currentRotation][0].join(" - ");
+        var eastSide = rotsRotations[currentRotation][1].join(" - ");
 
         westSide = westSide.replace(/Ahrim|Dharok|Guthan|Karil|Torag|Verac/gi, function(x) {
           return "**" + x + "**";
@@ -751,7 +751,7 @@ var commands = {
           return "**" + x + "**";
         });
 
-        let toSend = [];
+        var toSend = [];
 
         toSend.push("**Current rotation for Rise of the Six**");
         toSend.push("----------------------------------------");
@@ -765,7 +765,7 @@ var commands = {
       desc: "Displays what minigame is currently on spotlight.",
       usage: "",
       process: (bot, msg) => {
-        let minigames = [
+        var minigames = [
           "Pest Control",
           "Soul Wars",
           "Fist of Guthix",
@@ -795,15 +795,15 @@ var commands = {
           "Castle Wars"
         ];
 
-        let currentSpotlight = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length)) / 3);
-        let daysUntilNext = 3 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length) % 3;
-        let nextSpotlight = currentSpotlight + 1;
+        var currentSpotlight = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length)) / 3);
+        var daysUntilNext = 3 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length) % 3;
+        var nextSpotlight = currentSpotlight + 1;
 
         if (nextSpotlight === minigames.length) {
           nextSpotlight = 0;
         }
 
-        let toSend = [];
+        var toSend = [];
 
         toSend.push("The current minigame that is on spotlight is **" + minigames[currentSpotlight] + "**.");
         toSend.push("The next minigame to be on spotlight will be **" + minigames[nextSpotlight] + "** in **" + daysUntilNext + "** days.");
@@ -815,7 +815,7 @@ var commands = {
       desc: "Displays the current location for the Circus.",
       usage: "",
       process: (bot, msg) => {
-        let locations = [
+        var locations = [
           "Tree Gnome Stronghold",
           "Seers' Village",
           "Catherby",
@@ -830,15 +830,15 @@ var commands = {
           "Gertrude's House"
         ];
 
-        let currentLocation = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length)) / 7);
-        let daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length) % 7;
-        let nextLocation = currentLocation + 1;
+        var currentLocation = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length)) / 7);
+        var daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length) % 7;
+        var nextLocation = currentLocation + 1;
 
         if (nextLocation === locations.length) {
           nextLocation = 0;
         }
 
-        let toSend = [];
+        var toSend = [];
 
         toSend.push("The circus is current located in **" + locations[currentLocation] + "**.");
         toSend.push("The next location for the circus is **" + locations[nextLocation] + "** in **" + daysUntilNext + "** days.");
