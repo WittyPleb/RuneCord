@@ -721,7 +721,12 @@ var commands = {
           nextSpotlight = 0;
         }
 
-        bot.sendMessage(msg, "The current minigame that is on spotlight is **" + minigames[currentSpotlight] + "**. The next spotlight will be **" + minigames[nextSpotlight] + "** in " + daysUntilNext + " days.");
+        let toSend = [];
+
+        toSend.push("The current minigame that is on spotlight is **" + minigames[currentSpotlight] + "**.");
+        toSend.push("The next minigame to be on spotlight will be **" + minigames[nextSpotlight] + "** in **" + daysUntilNext + "** days.");
+
+        bot.sendMessage(msg, toSend);
       }
     },
     "roll": {
