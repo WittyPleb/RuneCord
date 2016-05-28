@@ -675,7 +675,19 @@ var commands = {
         ];
 
         let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length)) / 4);
-        bot.sendMessage(msg, "The current path that is closed for Araxxi is **" + araxxiRotations[currentRotation] + "**.");
+        let daysUntilNext = 4 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length) % 4;
+        let nextRotation = currentRotation + 1;
+
+        if (nextRotation === araxxiRotations.length) {
+          nextRotation = 0;
+        }
+
+        let toSend = [];
+
+        toSend.push("The current path that is closed for Araxxi is **" + araxxiRotations[currentRotation] + "**.");
+        toSend.push("The next path to be closed will be **" + araxxiRotations[nextRotation] + "** in **" + daysUntilNext + "** days.");
+
+        bot.sendMessage(msg, toSend);
       }
     },
     "spotlight": {
