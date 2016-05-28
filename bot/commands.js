@@ -661,7 +661,19 @@ var commands = {
         ];
 
         let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
-        bot.sendMessage(msg, "The current rotation for Vorago is **" + voragoRotations[currentRotation] + "**.");
+        let daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length) % 7;
+        let nextRotation = currentRotation + 1;
+
+        if (nextRotation === voragoRotations.length) {
+          nextRotation = 0;
+        }
+
+        let toSend = [];
+
+        toSend.push("The current rotation for Vorago is **" + voragoRotations[currentRotation] + "**.");
+        toSend.push("The next rotation for Vorago will be **" + voragoRotations[nextRotation] + "** in **" + daysUntilNext + "** days.");
+
+        bot.sendMessage(msg, toSend);
       }
     },
     "araxxi": {
