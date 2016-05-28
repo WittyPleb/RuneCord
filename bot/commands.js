@@ -671,7 +671,7 @@ var commands = {
         var toSend = [];
 
         toSend.push("The current rotation for Vorago is **" + voragoRotations[currentRotation] + "**.");
-        toSend.push("The next rotation for Vorago will be **" + voragoRotations[nextRotation] + "** in **" + daysUntilNext + "** days.");
+        toSend.push("The next rotation for Vorago will be **" + voragoRotations[nextRotation] + "** in **" + daysUntilNext + "** day" + (daysUntilNext > 1) ? "s." : ".");
 
         bot.sendMessage(msg, toSend);
       }
@@ -697,7 +697,7 @@ var commands = {
         var toSend = [];
 
         toSend.push("The current path that is closed for Araxxi is **" + araxxiRotations[currentRotation] + "**.");
-        toSend.push("The next path to be closed will be **" + araxxiRotations[nextRotation] + "** in **" + daysUntilNext + "** days.");
+        toSend.push("The next path to be closed will be **" + araxxiRotations[nextRotation] + "** in **" + daysUntilNext + "** day" + (daysUntilNext > 1) ? "s." : ".");
 
         bot.sendMessage(msg, toSend);
       }
@@ -806,7 +806,7 @@ var commands = {
         var toSend = [];
 
         toSend.push("The current minigame that is on spotlight is **" + minigames[currentSpotlight] + "**.");
-        toSend.push("The next minigame to be on spotlight will be **" + minigames[nextSpotlight] + "** in **" + daysUntilNext + "** days.");
+        toSend.push("The next minigame to be on spotlight will be **" + minigames[nextSpotlight] + "** in **" + daysUntilNext + "** day" + (daysUntilNext > 1) ? "s." : ".");
 
         bot.sendMessage(msg, toSend);
       }
@@ -841,7 +841,7 @@ var commands = {
         var toSend = [];
 
         toSend.push("The circus is current located in **" + locations[currentLocation] + "**.");
-        toSend.push("The next location for the circus is **" + locations[nextLocation] + "** in **" + daysUntilNext + "** days.");
+        toSend.push("The next location for the circus is **" + locations[nextLocation] + "** in **" + daysUntilNext + "** day" + (daysUntilNext > 1) ? "s." : ".");
 
         bot.sendMessage(msg, toSend);
       }
