@@ -36,8 +36,8 @@ var aliases = {
     "wbs": "warbands",
     "trollinvasion": "invasion",
     "xplamp": "lamp",
-    "vorago": "rago",
-    "araxxi": "rax"
+    "rago": "vorago",
+    "rax": "araxxi"
 };
 
 var commands = {
