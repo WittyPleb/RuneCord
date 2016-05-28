@@ -811,6 +811,41 @@ var commands = {
         bot.sendMessage(msg, toSend);
       }
     },
+    "circus": {
+      desc: "Displays the current location for the Circus.",
+      usage: "",
+      process: (bot, msg) => {
+        let locations = [
+          "Tree Gnome Stronghold",
+          "Seers' Village",
+          "Catherby",
+          "Taverley",
+          "Edgeville",
+          "Falador",
+          "Rimmington",
+          "Draynor Village",
+          "Al Kharid",
+          "Lumbridge",
+          "Lumber Yard",
+          "Gertrude's House"
+        ];
+
+        let currentLocation = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length)) / 7);
+        let daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length) % 7;
+        let nextLocation = currentLocation + 1;
+
+        if (nextLocation === locations.length) {
+          nextLocation = 0;
+        }
+
+        let toSend = [];
+
+        toSend.push("The circus is current located in **" + locations[currentLocation] + "**.");
+        toSend.push("The next location for the circus is **" + locations[nextLocation] + "** in **" + daysUntilNext + "** days.");
+
+        bot.sendMessage(msg, toSend);
+      }
+    },
     "roll": {
         desc: "Roll a random number between 1 and <number>.",
         usage: "<number>",
