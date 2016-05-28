@@ -5,8 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Added
 - Boss Rotations
-  - Vorago
-  - Araxxi (Displays what path is closed)
+  - `~vorago`
+  - `~araxxi` (Displays what path is closed)
+- Current Spotlight for minigames (`~spotlight`);
 
 ## [2.1.2] - 2016-05-24
 ### Added
