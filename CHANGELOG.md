@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   - `~araxxi` (Displays what path is closed)
   - `~rots` (Rise of the Six)
 - Current Spotlight for minigames (`~spotlight`)
+- Current location of the Circus (`~circus`)
 
 ## [2.1.2] - 2016-05-24
 ### Added
