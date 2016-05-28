@@ -678,6 +678,57 @@ var commands = {
         bot.sendMessage(msg, "The current path that is closed for Araxxi is **" + araxxiRotations[currentRotation] + "**.");
       }
     },
+    "spotlight": {
+      desc: "Displays what minigame is currently on spotlight.",
+      usage: "",
+      process: (bot, msg) => {
+
+        let minigames = [
+          "Pest Control",
+          "Soul Wars",
+          "Fist of Guthix",
+          "Barbarian Assault",
+          "Conquest",
+          "Fishing Trawler",
+          "The Great Orb Project",
+          "Flash Powder Factory",
+          "Castle Wars",
+          "Stealing Creation",
+          "Cabbage Facepunch Bonanza",
+          "Heist",
+          "Mobilising Armies",
+          "Barbarian Assault",
+          "Conquest",
+          "Fist of Guthix",
+          "Castle Wars",
+          "Pest Control",
+          "Soul Wars",
+          "Fishing Trawler",
+          "The Great Orb Project",
+          "Flash Powder Factory",
+          "Stealing Creation",
+          "Cabbage Facepunch Bonanza",
+          "Heist",
+          "Trouble Brewing",
+          "Castle Wars"
+        ];
+
+        let currentSpotlight = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length)) / 3);
+        let daysUntilNext = 3 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length) % 3;
+        let nextSpotlight = currentSpotlight + 1;
+
+        if (nextSpotlight > minigames.length) {
+          nextSpotlight = 0;
+        }
+
+        let toSend = [];
+
+        toSend.push("The current minigame that is on spotlight is **" + minigames[currentSpotlight] + "**.");
+        toSend.push("The next minigame to be on spotlight will be **" + minigames[nextSpotlight] + "** in **" + daysUntilNext + "** days.");
+
+        bot.sendMessage(msg, toSend);
+      }
+    },
     "roll": {
         desc: "Roll a random number between 1 and <number>.",
         usage: "<number>",

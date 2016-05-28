@@ -26,6 +26,7 @@ Features
 * `~bigchin` -- Displays when the next Big Chinchompa will be.
 * `~vorago` -- Displays what the Vorago rotation is.
 * `~araxxi` -- Displays what path is closed for Araxxi.
+* `~spotlight` -- Display what minigame is currently spotlighted.
 * `~invasion <skill level>` -- Displays how much XP you'd gain in troll invasion if your level was `<skill level>` and you finished the entire thing.
 * `~lamp` `small|med|large|huge` `<skill level>` -- Displays how much XP you'd gain from a lamp based on skill level and size.
 
