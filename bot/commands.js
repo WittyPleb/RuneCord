@@ -741,7 +741,7 @@ var commands = {
         let daysUntilNext = 3 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length) % 3;
         let nextSpotlight = currentSpotlight + 1;
 
-        if (nextSpotlight > minigames.length) {
+        if (nextSpotlight === minigames.length) {
           nextSpotlight = 0;
         }
 
