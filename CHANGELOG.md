@@ -4,12 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
 ### Added
-- Boss Rotations
-  - `~vorago`
-  - `~araxxi` (Displays what path is closed)
-  - `~rots` (Rise of the Six)
-- Current Spotlight for minigames (`~spotlight`)
-- Current location of the Circus (`~circus`)
+- Added `~vorago` command - Displays current Vorago rotation.
+- Added `~araxxi` command - Displays current closed path for Araxxi.
+- Added `~rots` command - Displays current rotation for Rise of the Six.
+- Added `~spotlight` command - Displays what minigame is on spotlight.
+- Added `~circus` command - Displays current location of circus.
 
 ## [2.1.2] - 2016-05-24
 ### Added
