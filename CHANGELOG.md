@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.2.0] - 2016-05-28
 ### Added
 - Added `~vorago` command - Displays current Vorago rotation.
 - Added `~araxxi` command - Displays current closed path for Araxxi.
@@ -72,6 +72,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[2.2.0]: https://github.com/unlucky4ever/RuneCord/compare/2.1.2...2.2.0
 [2.1.2]: https://github.com/unlucky4ever/RuneCord/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/unlucky4ever/RuneCord/compare/2.1.0...2.1.1
 [2.1.0]: https://github.com/unlucky4ever/RuneCord/compare/2.0.2...2.1.0
