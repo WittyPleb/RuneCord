@@ -702,11 +702,69 @@ var commands = {
         bot.sendMessage(msg, toSend);
       }
     },
+    "rots": {
+      desc: "Displays what the current rotation for Rise of the Six is.",
+      usage: "",
+      process: (bot, msg) => {
+        let names = {
+          A: "Ahrim",
+          D: "Dharok",
+          G: "Guthan",
+          K: "Karil",
+          T: "Torag",
+          V: "Verac"
+        }
+        let rotsRotations = [
+          [[names.D, names.T, names.V], [names.K, names.A, names.G]],
+          [[names.K, names.T, names.G], [names.A, names.D, names.V]],
+          [[names.K, names.G, names.V], [names.A, names.T, names.D]],
+          [[names.G, names.T, names.V], [names.K, names.A, names.D]],
+          [[names.K, names.T, names.V], [names.A, names.G, names.D]],
+          [[names.A, names.G, names.D], [names.K, names.T, names.V]],
+          [[names.K, names.A, names.D], [names.G, names.T, names.V]],
+          [[names.A, names.T, names.D], [names.K, names.G, names.V]],
+          [[names.A, names.D, names.V], [names.K, names.T, names.G]],
+          [[names.K, names.A, names.G], [names.T, names.D, names.V]],
+          [[names.A, names.T, names.G], [names.K, names.D, names.V]],
+          [[names.A, names.G, names.V], [names.K, names.T, names.D]],
+          [[names.K, names.A, names.T], [names.G, names.D, names.V]],
+          [[names.K, names.A, names.V], [names.D, names.T, names.G]],
+          [[names.A, names.T, names.V], [names.K, names.D, names.G]],
+          [[names.K, names.D, names.G], [names.A, names.T, names.V]],
+          [[names.D, names.T, names.G], [names.K, names.A, names.V]],
+          [[names.G, names.D, names.V], [names.K, names.A, names.T]],
+          [[names.K, names.T, names.D], [names.A, names.G, names.V]],
+          [[names.K, names.D, names.V], [names.A, names.T, names.G]]
+        ];
+
+        let currentRotation = (Math.floor((Date.now() / 1000) / (24 * 60 * 60)) % 20) - 1;
+        if (currentRotation === -1) {
+          currentRotation = 0;
+        }
+        let westSide = rotsRotations[currentRotation][0].join(" - ");
+        let eastSide = rotsRotations[currentRotation][1].join(" - ");
+
+        westSide = westSide.replace(/Ahrim|Dharok|Guthan|Karil|Torag|Verac/gi, function(x) {
+          return "**" + x + "**";
+        });
+        eastSide = eastSide.replace(/Ahrim|Dharok|Guthan|Karil|Torag|Verac/gi, function(x) {
+          return "**" + x + "**";
+        });
+
+        let toSend = [];
+
+        toSend.push("**Current rotation for Rise of the Six**");
+        toSend.push("----------------------------------------");
+        toSend.push("West Side: " + westSide + ".");
+        toSend.push("East Side: " + eastSide + ".");
+
+        bot.sendMessage(msg, toSend);
+      }
+    },
     "spotlight": {
       desc: "Displays what minigame is currently on spotlight.",
       usage: "",
       process: (bot, msg) => {
-
         let minigames = [
           "Pest Control",
           "Soul Wars",
