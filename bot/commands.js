@@ -1,10 +1,12 @@
+"use strict"
+
 /**
  * Required Dependencies
  */
-var AsciiTable = require("ascii-table");
-var numeral = require("numeral");
-var request = require("request");
-var version = require("../package.json").version;
+const AsciiTable = require("ascii-table");
+const numeral = require("numeral");
+const request = require("request");
+const version = require("../package.json").version;
 
 /**
  * Required Files
