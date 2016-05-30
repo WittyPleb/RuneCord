@@ -5,19 +5,12 @@ var engine = new CLIEngine({
   envs: ["node", "mocha"],
   useEslintrc: true
 });
-
-var paths = glob.sync([
-  "./+(bot|test)/**/*.js",
-  "./*.js"
-]);
-
+var paths = glob.sync(["./+(bot|test)/**/*.js", "./*.js"]);
 var results = engine.executeOnFiles(paths).results;
-
 require("dotenv").config();
 describe("ESLint", () => {
   results.forEach((result) => generateTest(result));
 });
-
 describe("Environment Variables", () => {
   it("token is defined", () => {
     assert(process.env.TOKEN !== undefined, "environment variable 'TOKEN' is undefined");
@@ -38,9 +31,8 @@ function generateTest(result) {
     filePath,
     messages
   } = result;
-
   it("validates " + filePath, () => {
-    if (messages.length > 0) {
+    if(messages.length > 0) {
       assert.fail(false, true, formatMessages(messages));
     }
   });
@@ -50,6 +42,5 @@ function formatMessages(messages) {
   var errors = messages.map((message) => {
     return message.line + ":" + message.column + " " + message.message.slice(0, -1) + " - " + message.ruleId + "\n";
   });
-
   return "\n" + errors.join("");
 }
