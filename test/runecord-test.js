@@ -1,19 +1,17 @@
-"use strict"
-
-const assert = require("chai").assert;
-const glob = require("glob-all");
-const CLIEngine = require("eslint").CLIEngine;
-const engine = new CLIEngine({
+var assert = require("chai").assert;
+var glob = require("glob-all");
+var CLIEngine = require("eslint").CLIEngine;
+var engine = new CLIEngine({
   envs: ["node", "mocha"],
   useEslintrc: true
 });
 
-const paths = glob.sync([
+var paths = glob.sync([
   "./+(bot|test)/**/*.js",
   "./*.js"
 ]);
 
-const results = engine.executeOnFiles(paths).results;
+var results = engine.executeOnFiles(paths).results;
 
 require("dotenv").config();
 describe("ESLint", () => {
@@ -36,7 +34,7 @@ describe("Environment Variables", () => {
 });
 
 function generateTest(result) {
-  const {
+  var {
     filePath,
     messages
   } = result;
@@ -49,7 +47,7 @@ function generateTest(result) {
 }
 
 function formatMessages(messages) {
-  const errors = messages.map((message) => {
+  var errors = messages.map((message) => {
     return message.line + ":" + message.column + " " + message.message.slice(0, -1) + " - " + message.ruleId + "\n";
   });
 

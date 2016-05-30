@@ -1,10 +1,8 @@
-"use strict"
-
 /**
  * Required Dependencies
  */
-const request = require("request");
-const version = require("../package.json").version;
+var request = require("request");
+var version = require("../package.json").version;
 
 exports.checkForUpdate = function() {
     request("https://raw.githubusercontent.com/unlucky4ever/RuneCord/master/package.json", (err, response, body) => {

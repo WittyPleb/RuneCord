@@ -1,10 +1,8 @@
-"use strict"
-
 /**
  * Required Dependencies
  */
-const os = require("os");
-const version = require("../package.json").version;
+var os = require("os");
+var version = require("../package.json").version;
 
 /**
  * Required Files
@@ -13,10 +11,10 @@ var config = require("./config.json");
 var db = require("./db.js");
 
 // Create confirmCodes array, this is used for creating confirmation codes for the announce command
-const confirmCodes = [];
+var confirmCodes = [];
 
 // Create the announceMessages array, this is used in the announce command
-const announceMessages = [];
+var announceMessages = [];
 
 function correctUsage(cmd, usage, msg, bot) {
   bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", the correct usage is *`" + config.mod_command_prefix + cmd + " " + usage + "`*", function(erro, wMessage) {
@@ -397,7 +395,7 @@ var commands = {
     usage: "",
     cooldown: 30, // 30 second cooldown
     process: (bot, msg) => {
-      const changelogChannel = bot.channels.get("id", "176439631108243457");
+      var changelogChannel = bot.channels.get("id", "176439631108243457");
 
       if (!changelogChannel) {
         bot.sendMessage(msg, "The bot is not in the RuneCord Official Server", (err, wMessage) => {

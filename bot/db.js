@@ -1,9 +1,7 @@
-"use strict"
-
 /**
  * Module Dependencies
  */
-const fs = require("fs");
+var fs = require("fs");
 
 /**
  * Required Files

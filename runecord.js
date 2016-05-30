@@ -1,14 +1,12 @@
-"use strict"
-
 /**
  * Module Dependencies
  */
 require("dotenv").config();
-const discord = require("discord.js");
-const request = require("request");
-const chalk = require("chalk");
-const dateFormat = require("dateformat");
-const fs = require("fs");
+var discord = require("discord.js");
+var request = require("request");
+var chalk = require("chalk");
+var dateFormat = require("dateformat");
+var fs = require("fs");
 
 require("log-timestamp")(() => {
   return "[" + dateFormat(new Date(), "mmm dd hh:MM:ss TT") + "]";
@@ -55,7 +53,7 @@ commandsProcessed = 0;
 show_warn = config.show_warn;
 debug = config.debug;
 
-const bot = new discord.Client({
+var bot = new discord.Client({
   maxCachedMessages: 10,
   forceFetchUsers: true
 });
