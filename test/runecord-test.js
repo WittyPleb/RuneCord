@@ -1,3 +1,5 @@
+"use strict"
+
 const assert = require("chai").assert;
 const glob = require("glob-all");
 const CLIEngine = require("eslint").CLIEngine;
