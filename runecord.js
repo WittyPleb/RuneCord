@@ -51,12 +51,12 @@ bot.on("error", (m) => {
   console.log(cError(" WARN ") + " " + m);
 });
 bot.on("warn", (m) => {
-  if(show_warn) {
+  if (show_warn) {
     console.log(cWarn(" WARN ") + " " + m);
   }
 });
 bot.on("debug", (m) => {
-  if(debug) {
+  if (debug) {
     console.log(cDebug(" DEBUG ") + " " + m);
   }
 });
@@ -66,7 +66,7 @@ bot.on("ready", () => {
   setTimeout(() => {
     db.checkServers(bot);
   }, 10000);
-  if(process.env.CARBON_KEY) {
+  if (process.env.CARBON_KEY) {
     request.post({
       "url": "https://www.carbonitex.net/discord/data/botdata.php",
       "headers": {
@@ -78,10 +78,10 @@ bot.on("ready", () => {
         "servercount": bot.servers.length
       }
     }, (err, res) => {
-      if(err) {
+      if (err) {
         console.log(cError(" ERROR ") + " Error updating carbon stats: " + err);
       }
-      if(res.statusCode !== 200) {
+      if (res.statusCode !== 200) {
         console.log(cError(" ERROR ") + " Error updating carbon stats: Status Code " + res.statusCode);
       }
       console.log(cBgGreen(" CARBON ") + " Updated Carbon server count to " + bot.servers.length);
@@ -95,13 +95,13 @@ bot.on("disconnected", () => {
   setTimeout(() => {
     console.log("Attempting to log in...");
     bot.loginWithToken(process.env.TOKEN, (err, token) => {
-      if(err) {
+      if (err) {
         console.log(err);
         setTimeout(() => {
           process.exit(1);
         }, 2000);
       }
-      if(!token) {
+      if (!token) {
         console.log(cWarn(" WARN ") + " failed to connect");
         setTimeout(() => {
           process.exit(0);
@@ -111,16 +111,16 @@ bot.on("disconnected", () => {
   });
 });
 bot.on("message", (msg) => {
-  if(msg.author.id == bot.user.id) {
+  if (msg.author.id == bot.user.id) {
     return;
   }
-  if(msg.channel.isPrivate) {
-    if(/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)) {
+  if (msg.channel.isPrivate) {
+    if (/(^https?:\/\/discord\.gg\/[A-Za-z0-9]+$|^https?:\/\/discordapp\.com\/invite\/[A-Za-z0-9]+$)/.test(msg.content)) {
       bot.sendMessage(msg.author, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + process.env.APP_ID + "&scope=bot&permissions=12659727>");
-    } else if(msg.content[0] !== config.command_prefix && msg.content[0] !== config.mod_command_prefix && !msg.content.startsWith("(eval) ")) {
-      if(pmCoolDown.hasOwnProperty(msg.author.id)) {
-        if(Date.now() - pmCoolDown[msg.author.id] > 3000) {
-          if(/^(help|how do I use this\??)$/i.test(msg.content)) {
+    } else if (msg.content[0] !== config.command_prefix && msg.content[0] !== config.mod_command_prefix && !msg.content.startsWith("(eval) ")) {
+      if (pmCoolDown.hasOwnProperty(msg.author.id)) {
+        if (Date.now() - pmCoolDown[msg.author.id] > 3000) {
+          if (/^(help|how do I use this\??)$/i.test(msg.content)) {
             commands.commands.help.process(bot, msg);
             return;
           }
@@ -129,7 +129,7 @@ bot.on("message", (msg) => {
         }
       } else {
         pmCoolDown[msg.author.id] = Date.now();
-        if(/^(help|how do I use this\??)$/i.test(msg.content)) {
+        if (/^(help|how do I use this\??)$/i.test(msg.content)) {
           commands.commands.help.process(bot, msg);
           return;
         }
@@ -137,27 +137,27 @@ bot.on("message", (msg) => {
       }
     }
   } else {
-    if(msg.mentions.length !== 0) {
-      if(msg.isMentioned(bot.user) && msg.content.startsWith("<@" + bot.user.id + ">")) {
-        if(ServerSettings.hasOwnProperty(msg.channel.server.id)) {
-          if(ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) === -1) {
+    if (msg.mentions.length !== 0) {
+      if (msg.isMentioned(bot.user) && msg.content.startsWith("<@" + bot.user.id + ">")) {
+        if (ServerSettings.hasOwnProperty(msg.channel.server.id)) {
+          if (ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) === -1) {
             db.updateTimestamp(msg.channel.server);
           }
         } else {
-          if(msg.content.indexOf("<@" + process.env.ADMIN_ID + ">") > -1) {
-            if(config.send_mentions) {
+          if (msg.content.indexOf("<@" + process.env.ADMIN_ID + ">") > -1) {
+            if (config.send_mentions) {
               var owner = bot.users.get("id", process.env.ADMIN_ID);
-              if(owner && owner.status != "online") {
+              if (owner && owner.status != "online") {
                 var toSend = "";
-                if(msg.channel.messages.length >= 3) {
+                if (msg.channel.messages.length >= 3) {
                   var mIndex = msg.channel.messages.indexOf(msg);
-                  if(Date.now() - msg.channel.messages[mIndex - 2].timestamp <= 120000) {
+                  if (Date.now() - msg.channel.messages[mIndex - 2].timestamp <= 120000) {
                     toSend += msg.channel.messages[mIndex - 2].cleanContent + "\n\n";
                   }
-                  if(Date.now() - msg.channel.messages[mIndex - 1].timestamp <= 120000) {
+                  if (Date.now() - msg.channel.messages[mIndex - 1].timestamp <= 120000) {
                     toSend += msg.channel.messages[mIndex - 1].cleanContent + "\n\n";
                   }
-                  if(toSend.length + msg.cleanContent.length >= 1930) {
+                  if (toSend.length + msg.cleanContent.length >= 1930) {
                     toSend = msg.cleanContent.substr(0, 1930);
                   } else {
                     toSend += msg.cleanContent.substr(0, 1930);
@@ -173,8 +173,8 @@ bot.on("message", (msg) => {
       }
     }
   }
-  if(msg.content.startsWith("(eval) ")) {
-    if(msg.author.id == process.env.ADMIN_ID) {
+  if (msg.content.startsWith("(eval) ")) {
+    if (msg.author.id == process.env.ADMIN_ID) {
       evaluateString(msg);
       return;
     } else {
@@ -182,39 +182,39 @@ bot.on("message", (msg) => {
       return;
     }
   }
-  if(!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix)) {
+  if (!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix)) {
     return;
   }
-  if(msg.content.indexOf(" ") == 1 && msg.content.length > 2) {
+  if (msg.content.indexOf(" ") == 1 && msg.content.length > 2) {
     msg.content = msg.content.replace(" ", "");
   }
-  if(!msg.channel.isPrivate && !msg.content.startsWith(config.mod_command_prefix) && ServerSettings.hasOwnProperty(msg.channel.server.id)) {
-    if(ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) > -1) {
+  if (!msg.channel.isPrivate && !msg.content.startsWith(config.mod_command_prefix) && ServerSettings.hasOwnProperty(msg.channel.server.id)) {
+    if (ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) > -1) {
       return;
     }
   }
   var cmd = msg.content.split(" ")[0].replace(/\n/g, " ").substring(1).toLowerCase();
   var suffix = msg.content.replace(/\n/g, " ").substring(cmd.length + 2).trim();
-  if(msg.content.startsWith(config.command_prefix)) {
-    if(commands.commands.hasOwnProperty(cmd)) {
+  if (msg.content.startsWith(config.command_prefix)) {
+    if (commands.commands.hasOwnProperty(cmd)) {
       execCommand(msg, cmd, suffix, "normal");
-    } else if(commands.aliases.hasOwnProperty(cmd)) {
-      if(!msg.channel.isPrivate) {
+    } else if (commands.aliases.hasOwnProperty(cmd)) {
+      if (!msg.channel.isPrivate) {
         db.updateTimestamp(msg.channel.server);
       }
       msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + commands.aliases[cmd] + " ");
       execCommand(msg, commands.aliases[cmd], suffix, "normal");
     }
-  } else if(msg.content.startsWith(config.mod_command_prefix)) {
-    if(cmd == "reload" && msg.author.id == process.env.ADMIN_ID) {
+  } else if (msg.content.startsWith(config.mod_command_prefix)) {
+    if (cmd == "reload" && msg.author.id == process.env.ADMIN_ID) {
       reload();
       bot.sendMessage(msg, "```diff\n+ Bot successfully reloaded!```");
       return;
     }
-    if(mod.commands.hasOwnProperty(cmd)) {
+    if (mod.commands.hasOwnProperty(cmd)) {
       execCommand(msg, cmd, suffix, "mod");
-    } else if(mod.aliases.hasOwnProperty(cmd)) {
-      if(!msg.channel.isPrivate) {
+    } else if (mod.aliases.hasOwnProperty(cmd)) {
+      if (!msg.channel.isPrivate) {
         db.updateTimestamp(msg.channel.server);
         msg.content = msg.content.replace(/[^ ]+ /, config.mod_command_prefix + mod.aliases[cmd] + " ");
         execCommand(msg, mod.aliases[cmd], suffix, "mod");
@@ -226,27 +226,27 @@ bot.on("message", (msg) => {
 function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1;
-    if(type == "normal") {
-      if(!msg.channel.isPrivate) {
+    if (type == "normal") {
+      if (!msg.channel.isPrivate) {
         console.log(cServer(msg.channel.server.name) + " > " + cGreen(msg.author.username) + " > " + msg.cleanContent.replace(/\n/g, " "));
       } else {
         console.log(cGreen(msg.author.username) + " > " + msg.cleanContent.replace(/\n/g, " "));
       }
-      if(msg.author.id != process.env.ADMIN_ID && commands.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
-        if(!lastExecTime.hasOwnProperty(cmd)) {
+      if (msg.author.id != process.env.ADMIN_ID && commands.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
+        if (!lastExecTime.hasOwnProperty(cmd)) {
           lastExecTime[cmd] = {};
         }
-        if(!lastExecTime[cmd].hasOwnProperty(msg.author.id)) {
+        if (!lastExecTime[cmd].hasOwnProperty(msg.author.id)) {
           lastExecTime[cmd][msg.author.id] = new Date().valueOf();
         } else {
           var now = Date.now();
-          if(now < lastExecTime[cmd][msg.author.id] + (commands.commands[cmd].cooldown * 1000)) {
+          if (now < lastExecTime[cmd][msg.author.id] + (commands.commands[cmd].cooldown * 1000)) {
             bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", you need to *cooldown* (" + Math.round(((lastExecTime[cmd][msg.author.id] + commands.commands[cmd].cooldown * 1000) - now) / 1000) + " seconds)", (e, m) => {
               bot.deleteMessage(m, {
                 "wait": 6000
               });
             });
-            if(!msg.channel.isPrivate) {
+            if (!msg.channel.isPrivate) {
               bot.deleteMessage(msg, {
                 "wait": 10000
               });
@@ -257,34 +257,34 @@ function execCommand(msg, cmd, suffix, type) {
         }
       }
       commands.commands[cmd].process(bot, msg, suffix);
-      if(!msg.channel.isPrivate && commands.commands[cmd].hasOwnProperty("deleteCommand")) {
-        if(commands.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].deleteCommands === true) {
+      if (!msg.channel.isPrivate && commands.commands[cmd].hasOwnProperty("deleteCommand")) {
+        if (commands.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].deleteCommands === true) {
           bot.deleteMessage(msg, {
             "wait": 10000
           });
         }
       }
-    } else if(type == "mod") {
-      if(!msg.channel.isPrivate) {
+    } else if (type == "mod") {
+      if (!msg.channel.isPrivate) {
         console.log(cServer(msg.channel.server.name) + " > " + cGreen(msg.author.username) + " > " + cBlue(msg.cleanContent.replace(/\n/g, " ").split(" ")[0]) + msg.cleanContent.replace(/\n/g, " ").substr(msg.cleanContent.replace(/\n/g, " ").split(" ")[0].length));
       } else {
         console.log(cGreen(msg.author.username) + " > " + cBlue(msg.cleanContent.replace(/\n/g, " ").split(" ")[0]) + msg.cleanContent.replace(/\n/g, " ").substr(msg.cleanContent.replace(/\n/g, " ").split(" ")[0].length));
       }
-      if(msg.author.id != process.env.ADMIN_ID && mod.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
-        if(!lastExecTime.hasOwnProperty(cmd)) {
+      if (msg.author.id != process.env.ADMIN_ID && mod.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
+        if (!lastExecTime.hasOwnProperty(cmd)) {
           lastExecTime[cmd] = {};
         }
-        if(!lastExecTime[cmd].hasOwnProperty(msg.author.id)) {
+        if (!lastExecTime[cmd].hasOwnProperty(msg.author.id)) {
           lastExecTime[cmd][msg.author.id] = new Date().valueOf();
         } else {
           var now = Date.now();
-          if(now < lastExecTime[cmd][msg.author.id] + (mod.commands[cmd].cooldown * 1000)) {
+          if (now < lastExecTime[cmd][msg.author.id] + (mod.commands[cmd].cooldown * 1000)) {
             bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", you need to *cooldown* (" + Math.round(((lastExecTime[cmd][msg.author.id] + mod.commands[cmd].cooldown * 1000) - now) / 1000) + " seconds)", (e, m) => {
               bot.deleteMessage(m, {
                 "wait": 6000
               });
             });
-            if(!msg.channel.isPrivate) {
+            if (!msg.channel.isPrivate) {
               bot.deleteMessage(msg, {
                 "wait": 10000
               });
@@ -295,8 +295,8 @@ function execCommand(msg, cmd, suffix, type) {
         }
       }
       mod.commands[cmd].process(bot, msg, suffix);
-      if(!msg.channel.isPrivate && mod.commands[cmd].hasOwnProperty("deleteCommand")) {
-        if(mod.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].deleteCommands === true) {
+      if (!msg.channel.isPrivate && mod.commands[cmd].hasOwnProperty("deleteCommand")) {
+        if (mod.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].deleteCommands === true) {
           bot.deleteMessage(msg, {
             "wait": 10000
           });
@@ -305,38 +305,38 @@ function execCommand(msg, cmd, suffix, type) {
     } else {
       return;
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err.stack);
   }
 }
 bot.on("serverNewMember", (objServer, objUser) => {
-  if(config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].welcome != "none") {
-    if(!objUser.username || !ServerSettings[objServer.id].welcome || !objServer.name) {
+  if (config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].welcome != "none") {
+    if (!objUser.username || !ServerSettings[objServer.id].welcome || !objServer.name) {
       return;
     }
-    if(debug) {
+    if (debug) {
       console.log("New member on " + objServer.name + ": " + objUser.username);
     }
     bot.sendMessage(objServer.defaultChannel, ServerSettings[objServer.id].welcome.replace(/\$USER\$/gi, objUser.username.replace(/@/g, "@\u200b")).replace(/\$SERVER\$/gi, objServer.name.replace(/@/g, "@\u200b")));
   }
 });
 bot.on("channelDeleted", (channel) => {
-  if(channel.isPrivate) {
+  if (channel.isPrivate) {
     return;
   }
-  if(ServerSettings.hasOwnProperty(channel.server.id)) {
-    if(ServerSettings[channel.server.id].ignore.indexOf(channel.id) > -1) {
+  if (ServerSettings.hasOwnProperty(channel.server.id)) {
+    if (ServerSettings[channel.server.id].ignore.indexOf(channel.id) > -1) {
       db.unignoreChannel(channel.id, channel.server.id);
-      if(debug) {
+      if (debug) {
         console.log(cDebug(" DEBUG ") + " Ignored channel was deleted and removed from the DB");
       }
     }
   }
 });
 bot.on("userBanned", (objUser, objServer) => {
-  if(config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].banAlerts === true) {
+  if (config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].banAlerts === true) {
     console.log(objUser.username + cRed(" banned on ") + objServer.name);
-    if(ServerSettings[objServer.id].notifyChannel != "general") {
+    if (ServerSettings[objServer.id].notifyChannel != "general") {
       bot.sendMessage(ServerSettings[objServer.id].notifyChannel, ":warning: " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
     } else {
       bot.sendMessage(objServer.defaultChannel, ":banana::hammer: " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
@@ -345,7 +345,7 @@ bot.on("userBanned", (objUser, objServer) => {
   }
 });
 bot.on("userUnbanned", (objUser, objServer) => {
-  if(objServer.members.length <= 500 && config.non_essential_event_listeners) {
+  if (objServer.members.length <= 500 && config.non_essential_event_listeners) {
     console.log(objUser.username + " unbanned on " + objServer.name);
   }
 });
@@ -354,9 +354,9 @@ bot.on("serverDeleted", (objServer) => {
   db.handleLeave(objServer);
 });
 bot.on("serverCreated", (server) => {
-  if(db.serverIsNew(server)) {
+  if (db.serverIsNew(server)) {
     console.log(cGreen("Joined server: ") + server.name);
-    if(config.banned_server_ids && config.banned_server_ids.indexOf(server.id) > -1) {
+    if (config.banned_server_ids && config.banned_server_ids.indexOf(server.id) > -1) {
       console.log(cRed("Joined server but it was on the ban list") + ": " + server.name);
       bot.sendMessage(server.defaultChannel, "This server is on the ban list");
       setTimeout(() => {
@@ -376,13 +376,13 @@ bot.on("serverCreated", (server) => {
 });
 console.log("Logging in...");
 bot.loginWithToken(process.env.TOKEN, (err, token) => {
-  if(err) {
+  if (err) {
     console.log(err);
     setTimeout(() => {
       process.exit(1);
     }, 2000);
   }
-  if(!token) {
+  if (!token) {
     console.log(cWarn(" WARN ") + " failed to connect");
     setTimeout(() => {
       process.exit(0);
@@ -391,7 +391,7 @@ bot.loginWithToken(process.env.TOKEN, (err, token) => {
 });
 
 function evaluateString(msg) {
-  if(msg.author.id != process.env.ADMIN_ID) {
+  if (msg.author.id != process.env.ADMIN_ID) {
     console.log(cWarn(" WARN ") + " Somehow an unauthorized user got into eval!");
     return;
   }
@@ -400,7 +400,7 @@ function evaluateString(msg) {
   console.log("Running eval");
   try {
     result = eval(msg.content.substring(7).replace(/\n/g, ""));
-  } catch(e) {
+  } catch (e) {
     console.log(cError(" ERROR ") + " " + e);
     var toSend = [];
     toSend.push(":x: Error evaluating");
@@ -409,7 +409,7 @@ function evaluateString(msg) {
     toSend.push("```");
     bot.sendMessage(msg, toSend);
   }
-  if(result) {
+  if (result) {
     var toSend = [];
     toSend.push(":white_check_mark: Evaluated successfully:");
     toSend.push("```");
@@ -432,22 +432,22 @@ function reload() {
   db = require(__dirname + "/bot/db.js");
   try {
     commands = require(__dirname + "/bot/commands.js");
-  } catch(err) {
+  } catch (err) {
     console.log(cError(" ERROR ") + " Problem loading commands.js: " + err);
   }
   try {
     mod = require(__dirname + "/bot/mod.js");
-  } catch(err) {
+  } catch (err) {
     console.log(cError(" ERROR ") + " Problem loading mod.js: " + err);
   }
   console.log(cBgGreen(" Module Reload ") + " Success");
 }
 
 function checkConfig() {
-  if(!config.command_prefix || config.command_prefix.length !== 1) {
+  if (!config.command_prefix || config.command_prefix.length !== 1) {
     console.log(cWarn(" WARN ") + "Prefix either not defined or more than one character");
   }
-  if(!config.mod_command_prefix || config.mod_command_prefix.length !== 1) {
+  if (!config.mod_command_prefix || config.mod_command_prefix.length !== 1) {
     console.log(cWarn(" WARN ") + "Mod prefix either not defined or more than character");
   }
 }
@@ -455,25 +455,25 @@ function checkConfig() {
 function checkDb() {
   try {
     fs.statSync("./db/");
-  } catch(e) {
+  } catch (e) {
     console.log(cBgGreen(" SETUP ") + " 'db' folder doesn't exist, creating it...");
     fs.mkdirSync("./db/");
   }
   try {
     fs.statSync("./db/servers.json");
-  } catch(e) {
+  } catch (e) {
     console.log(cBgGreen(" SETUP ") + " 'db/servers.json' doesn't exist, creating it...");
     fs.writeFileSync("./db/servers.json", "{}");
   }
   try {
     fs.statSync("./db/times.json");
-  } catch(e) {
+  } catch (e) {
     console.log(cBgGreen(" SETUP ") + " 'db/times.json' doesn't exist, creating it...");
     fs.writeFileSync("./db/times.json", "{}");
   }
 }
 // Run this every hour
-if(process.env.CARBON_KEY) {
+if (process.env.CARBON_KEY) {
   setInterval(() => {
     request.post({
       "url": "https://www.carbonitex.net/discord/data/botdata.php",
@@ -486,10 +486,10 @@ if(process.env.CARBON_KEY) {
         "servercount": bot.servers.length
       }
     }, (err, res) => {
-      if(err) {
+      if (err) {
         console.log(cError(" ERROR ") + " Error updating carbon stats: " + err);
       }
-      if(res.statusCode !== 200) {
+      if (res.statusCode !== 200) {
         console.log(cError(" ERROR ") + " Error updating carbon stats: Status Code " + res.statusCode);
       }
       console.log(cBgGreen(" CARBON ") + " Updated Carbon server count to " + bot.servers.length);

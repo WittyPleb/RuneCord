@@ -1,3 +1,4 @@
+require("dotenv").config();
 var assert = require("chai").assert;
 var glob = require("glob-all");
 var CLIEngine = require("eslint").CLIEngine;
@@ -7,7 +8,6 @@ var engine = new CLIEngine({
 });
 var paths = glob.sync(["./+(bot|test)/**/*.js", "./*.js"]);
 var results = engine.executeOnFiles(paths).results;
-require("dotenv").config();
 describe("ESLint", () => {
   results.forEach((result) => generateTest(result));
 });
@@ -32,7 +32,7 @@ function generateTest(result) {
     messages
   } = result;
   it("validates " + filePath, () => {
-    if(messages.length > 0) {
+    if (messages.length > 0) {
       assert.fail(false, true, formatMessages(messages));
     }
   });
