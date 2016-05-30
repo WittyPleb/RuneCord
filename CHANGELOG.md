@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Made days until next for `~vorago`, `~araxxi`, `~rots`, `~spotlight`, and `~circus` command have proper grammar.
 
+### Removed
+- Removed all uses of 'strict mode' code.
+
 ## [2.2.0] - 2016-05-28
 ### Added
 - Added `~vorago` command - Displays current Vorago rotation.
