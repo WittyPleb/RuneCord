@@ -567,7 +567,14 @@ var commands = {
     desc: "Displays what the current rotation for Vorago is.",
     usage: "",
     process: (bot, msg) => {
-      var voragoRotations = ["Ceiling Collapse", "Scopulus", "Vitalis", "Green Bomb", "Team Split", "The End"];
+      var voragoRotations = [
+        "Ceiling Collapse",
+        "Scopulus",
+        "Vitalis",
+        "Green Bomb",
+        "Team Split",
+        "The End"
+    ];
       var currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
       var daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length) % 7;
       var nextRotation = currentRotation + 1;
@@ -584,7 +591,11 @@ var commands = {
     desc: "Display what the current rotation for Araxxi is.",
     usage: "",
     process: (bot, msg) => {
-      var araxxiRotations = ["Path 1 - Minions", "Path 2 - Acid", "Path 3 - Darkness"];
+      var araxxiRotations = [
+        "Path 1 - Minions",
+        "Path 2 - Acid",
+        "Path 3 - Darkness"
+      ];
       var currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length)) / 4);
       var daysUntilNext = 4 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * araxxiRotations.length) % 4;
       var nextRotation = currentRotation + 1;
@@ -655,7 +666,34 @@ var commands = {
     desc: "Displays what minigame is currently on spotlight.",
     usage: "",
     process: (bot, msg) => {
-      var minigames = ["Pest Control", "Soul Wars", "Fist of Guthix", "Barbarian Assault", "Conquest", "Fishing Trawler", "The Great Orb Project", "Flash Powder Factory", "Castle Wars", "Stealing Creation", "Cabbage Facepunch Bonanza", "Heist", "Mobilising Armies", "Barbarian Assault", "Conquest", "Fist of Guthix", "Castle Wars", "Pest Control", "Soul Wars", "Fishing Trawler", "The Great Orb Project", "Flash Powder Factory", "Stealing Creation", "Cabbage Facepunch Bonanza", "Heist", "Trouble Brewing", "Castle Wars"];
+      var minigames = [
+        "Pest Control",
+        "Soul Wars",
+        "Fist of Guthix",
+        "Barbarian Assault",
+        "Conquest",
+        "Fishing Trawler",
+        "The Great Orb Project",
+        "Flash Powder Factory",
+        "Castle Wars",
+        "Stealing Creation",
+        "Cabbage Facepunch Bonanza",
+        "Heist", "Mobilising Armies",
+        "Barbarian Assault",
+        "Conquest",
+        "Fist of Guthix",
+        "Castle Wars",
+        "Pest Control",
+        "Soul Wars",
+        "Fishing Trawler",
+        "The Great Orb Project",
+        "Flash Powder Factory",
+        "Stealing Creation",
+        "Cabbage Facepunch Bonanza",
+        "Heist",
+        "Trouble Brewing",
+        "Castle Wars"
+      ];
       var currentSpotlight = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length)) / 3);
       var daysUntilNext = 3 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * minigames.length) % 3;
       var nextSpotlight = currentSpotlight + 1;
@@ -672,7 +710,20 @@ var commands = {
     desc: "Displays the current location for the Circus.",
     usage: "",
     process: (bot, msg) => {
-      var locations = ["Tree Gnome Stronghold", "Seers' Village", "Catherby", "Taverley", "Edgeville", "Falador", "Rimmington", "Draynor Village", "Al Kharid", "Lumbridge", "Lumber Yard", "Gertrude's House"];
+      var locations = [
+        "Tree Gnome Stronghold",
+        "Seers' Village",
+        "Catherby",
+        "Taverley",
+        "Edgeville",
+        "Falador",
+        "Rimmington",
+        "Draynor Village",
+        "Al Kharid",
+        "Lumbridge",
+        "Lumber Yard",
+        "Gertrude's House"
+      ];
       var currentLocation = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length)) / 7);
       var daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length) % 7;
       var nextLocation = currentLocation + 1;
