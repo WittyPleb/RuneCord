@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Fixed
+- Fixed price from showing up arrow when there was no change.
+
 ## [2.2.1] - 2016-06-01
 ### Added
 - Added the ability to mention the bot for all commands (includes mod commands).

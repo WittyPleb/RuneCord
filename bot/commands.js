@@ -390,7 +390,7 @@ var commands = {
               // result[2] = ITEM PRICE
               // result[3] = CHANGE IN 24 HOURS
               toSend.push("**" + result[1].replace(/_/g, " ") + "** -- `" + result[2] + " GP`");
-              toSend.push("**Change in last 24 hours** -- `" + result[3].slice(0, -5) + " GP`" + (result[3].substring(0, 1) === 0 ? ":arrow_right:" : result[3].substring(0, 1) === "-" ? ":arrow_down:" : ":arrow_up:"));
+              toSend.push("**Change in last 24 hours** -- `" + result[3].slice(0, -5) + " GP`" + (result[3].substring(0, 1) === "0" ? ":arrow_right:" : result[3].substring(0, 1) === "-" ? ":arrow_down:" : ":arrow_up:"));
               bot.sendMessage(msg, toSend);
             } else if (results[1].substring(0, 1) > 1) {
               if (debug) {
