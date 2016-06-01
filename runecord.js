@@ -136,42 +136,6 @@ bot.on("message", (msg) => {
         return;
       }
     }
-  } else {
-    if (msg.mentions.length !== 0) {
-      if (msg.isMentioned(bot.user) && msg.content.startsWith("<@" + bot.user.id + ">")) {
-        if (ServerSettings.hasOwnProperty(msg.channel.server.id)) {
-          if (ServerSettings[msg.channel.server.id].ignore.indexOf(msg.channel.id) === -1) {
-            db.updateTimestamp(msg.channel.server);
-          }
-        } else {
-          if (msg.content.indexOf("<@" + process.env.ADMIN_ID + ">") > -1) {
-            if (config.send_mentions) {
-              var owner = bot.users.get("id", process.env.ADMIN_ID);
-              if (owner && owner.status != "online") {
-                var toSend = "";
-                if (msg.channel.messages.length >= 3) {
-                  var mIndex = msg.channel.messages.indexOf(msg);
-                  if (Date.now() - msg.channel.messages[mIndex - 2].timestamp <= 120000) {
-                    toSend += msg.channel.messages[mIndex - 2].cleanContent + "\n\n";
-                  }
-                  if (Date.now() - msg.channel.messages[mIndex - 1].timestamp <= 120000) {
-                    toSend += msg.channel.messages[mIndex - 1].cleanContent + "\n\n";
-                  }
-                  if (toSend.length + msg.cleanContent.length >= 1930) {
-                    toSend = msg.cleanContent.substr(0, 1930);
-                  } else {
-                    toSend += msg.cleanContent.substr(0, 1930);
-                  }
-                  bot.sendMessage(owner, msg.channel.server.name + " > " + msg.author.username + ":\n" + toSend);
-                } else {
-                  bot.sendMessage(owner, msg.channel.server.name + " > " + msg.author.username + ":\n" + msg.cleanContent.substr(0, 1930));
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
   if (msg.content.startsWith("(eval) ")) {
     if (msg.author.id == process.env.ADMIN_ID) {

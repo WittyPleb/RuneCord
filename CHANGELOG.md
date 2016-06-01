@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 - Removed all uses of 'strict mode' code.
+- Removed some unused code about sending mentions in PM.
 
 ## [2.2.0] - 2016-05-28
 ### Added
