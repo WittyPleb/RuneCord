@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.2.1] - 2016-06-01
 ### Added
 - Added the ability to mention the bot for all commands (includes mod commands).
 
@@ -83,6 +83,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[2.2.1]: https://github.com/unlucky4ever/RuneCord/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/unlucky4ever/RuneCord/compare/2.1.2...2.2.0
 [2.1.2]: https://github.com/unlucky4ever/RuneCord/compare/2.1.1...2.1.2
 [2.1.1]: https://github.com/unlucky4ever/RuneCord/compare/2.1.0...2.1.1
