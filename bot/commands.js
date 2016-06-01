@@ -275,8 +275,8 @@ var commands = {
         correctUsage("lamp", this.usage, msg, bot);
         return;
       } else {
-        var size = msg.content.split(" ")[1];
-        var level = msg.content.split(" ")[2];
+        var size = suffix.split(" ")[0];
+        var level = suffix.split(" ")[1];
         var xp = 0;
         if (size && level) {
           if (size && !isInteger(size)) {
