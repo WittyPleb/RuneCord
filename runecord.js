@@ -182,7 +182,7 @@ bot.on("message", (msg) => {
       return;
     }
   }
-  if (!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix)) {
+  if (!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix) && !msg.content.startsWith(bot.user.mention())) {
     return;
   }
   if (msg.content.indexOf(" ") == 1 && msg.content.length > 2) {
@@ -204,6 +204,32 @@ bot.on("message", (msg) => {
       }
       msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + commands.aliases[cmd] + " ");
       execCommand(msg, commands.aliases[cmd], suffix, "normal");
+    }
+  } else if (msg.content.startsWith(bot.user.mention())) {
+    var cmdMention = msg.content.split(" ")[1].replace(/\n/g, " ").substring(0).toLowerCase();
+    var mentionSuffix = msg.content.replace(/\n/g, " ").substring(cmdMention.length + 23).trim();
+    if (commands.commands.hasOwnProperty(cmdMention)) {
+      execCommand(msg, cmdMention, mentionSuffix, "normal");
+    } else if (commands.aliases.hasOwnProperty(cmdMention)) {
+      if (!msg.channel.isPrivate) {
+        db.updateTimestamp(msg.channel.server);
+      }
+      msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + commands.aliases[cmdMention] + " ");
+      execCommand(msg, commands.aliases[cmdMention], mentionSuffix, "normal");
+    }
+    if (mod.commands.hasOwnProperty(cmdMention)) {
+      execCommand(msg, cmdMention, mentionSuffix, "mod");
+    } else if (mod.aliases.hasOwnProperty(cmdMention)) {
+      if (!msg.channel.isPrivate) {
+        db.updateTimestamp(msg.channel.server);
+        msg.content = msg.content.replace(/[^ ]+ /, config.mod_command_prefix + mod.aliases[cmdMention] + " ");
+        execCommand(msg, mod.aliases[cmdMention], mentionSuffix, "mod");
+      }
+    }
+    if (cmdMention == "reload" && msg.author.id == process.env.ADMIN_ID) {
+      reload();
+      bot.sendMessage(msg, "```diff\n+ Bot successfully reloaded!```");
+      return;
     }
   } else if (msg.content.startsWith(config.mod_command_prefix)) {
     if (cmd == "reload" && msg.author.id == process.env.ADMIN_ID) {
