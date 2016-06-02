@@ -380,6 +380,44 @@ var commands = {
       }
     }
   },
+  "statues": {
+    desc: "Displays how much XP you'd gain in various skills from monthly god statues.",
+    usage: "<username>",
+    process: (bot, msg, suffix) => {
+      if (!suffix) {
+        correctUsage("statues", this.usage, msg, bot);
+        return;
+      } else {
+        if (debug) {
+          console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
+        }
+        request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, (err, res, body) => {
+          if (res.statusCode == 404 || err) {
+            if (debug) {
+              console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
+            }
+            bot.sendMessage(msg, "Unable to get your stats.");
+            return;
+          }
+          if (!err && res.statusCode == 200) {
+            var stat_data = body.split("\n");
+            var result = [];
+            for (var i = 0; i < 28; i++) {
+              result[i] = stat_data[i].split(",");
+            }
+            var conXp = getLampXp(result[23][1], "large");
+            var prayerXp = getLampXp(result[6][1], "medium");
+            var slayerXp = getLampXp(result[19][1], "medium");
+            var toSend = [];
+            toSend.push("God statues would give **" + suffix + "** **" + numeral(conXp).format() + "** Construction XP at level **" + result[23][1] + "**.");
+            toSend.push("God statues would give **" + suffix + "** **" + numeral(prayerXp).format() + "** Prayer XP at level **" + result[6][1] + "**.");
+            toSend.push("God statues would give **" + suffix + "** **" + numeral(slayerXp).format() + "** Slayer XP at level **" + result[19][1] + "**.");
+            bot.sendMessage(msg, toSend);
+          }
+        });
+      }
+    }
+  },
   "stats": {
     usage: "<username>",
     desc: "Display stats of the username given.",
