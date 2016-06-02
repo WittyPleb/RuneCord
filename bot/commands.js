@@ -33,7 +33,9 @@ var aliases = {
   "advlog": "alog",
   "wbs": "warbands",
   "trollinvasion": "invasion",
+  "troll": "invasion",
   "xplamp": "lamp",
+  "jackoftrades": "jot",
   "rago": "vorago",
   "rax": "araxxi"
 };
@@ -191,6 +193,23 @@ var commands = {
       bot.sendMessage(msg, "Next Big Chinchompa will be in " + timestr + ".");
     }
   },
+  "sinkhole": {
+    desc: "Displays when the next Sinkhole will be.",
+    usage: "",
+    process: (bot, msg) => {
+      var d = new Date();
+      var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
+      var minutesUntil = Math.floor(secondsUntil / 60);
+      var timestr = "";
+      if (minutesUntil === 0) {
+        timestr += "1 hour";
+      }
+      if (minutesUntil > 0) {
+        timestr += minutesUntil + " minute" + (minutesUntil > 0 && minutesUntil < 1 ? "" : "s");
+      }
+      bot.sendMessage(msg, "Next Sinkhole will be in " + timestr + ".");
+    }
+  },
   "cache": {
     desc: "Displays when the next Guthixian Cache is.",
     usage: "",
@@ -320,6 +339,100 @@ var commands = {
           correctUsage("lamp", this.usage, msg, bot);
           return;
         }
+      }
+    }
+  },
+  "jot": {
+    desc: "Displays how much XP you'd gain from Jack of Trades based on type and skill level.",
+    usage: "normal|master|supreme|legendary",
+    process: (bot, msg, suffix) => {
+      if (!suffix) {
+        correctUsage("jot", this.usage, msg, bot);
+        return;
+      } else {
+        var type = suffix.split(" ")[0];
+        var level = suffix.split(" ")[1];
+        var xp = 0;
+        if (type && level) {
+          if (type && !isInteger(type)) {
+            if (type === "normal") {
+              type = "Normal";
+              xp = 1.5 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === "master") {
+              type = "Master";
+              xp = 2 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === "supreme") {
+              type = "Supreme";
+              xp = 2.5 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === "legendary") {
+              type = "Legendary";
+              xp = 3 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else {
+              correctUsage("jot", this.usage, msg, bot);
+            }
+          } else {
+            correctUsage("jot", this.usage, msg, bot);
+            return;
+          }
+          if (level) {
+            if (isNaN(level)) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else if (!isInteger(level)) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else if (level < 1) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else if (level > 120) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else {
+              bot.sendMessage(msg, "From a **" + type + "** Jack of Trades aura, you'd gain **" + numeral(xp).format() + "** XP if you were level **" + level + "**.");
+            }
+          }
+        } else {
+          correctUsage("jot", this.usage, msg, bot);
+          return;
+        }
+      }
+    }
+  },
+  "statues": {
+    desc: "Displays how much XP you'd gain in various skills from monthly god statues.",
+    usage: "<username>",
+    process: (bot, msg, suffix) => {
+      if (!suffix) {
+        correctUsage("statues", this.usage, msg, bot);
+        return;
+      } else {
+        if (debug) {
+          console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
+        }
+        request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, (err, res, body) => {
+          if (res.statusCode == 404 || err) {
+            if (debug) {
+              console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
+            }
+            bot.sendMessage(msg, "Unable to get your stats.");
+            return;
+          }
+          if (!err && res.statusCode == 200) {
+            var stat_data = body.split("\n");
+            var result = [];
+            for (var i = 0; i < 28; i++) {
+              result[i] = stat_data[i].split(",");
+            }
+            var conXp = getLampXp(result[23][1], "large");
+            var prayerXp = getLampXp(result[6][1], "medium");
+            var slayerXp = getLampXp(result[19][1], "medium");
+            var toSend = [];
+            toSend.push("God statues would give **" + suffix + "** **" + numeral(conXp).format() + "** Construction XP at level **" + result[23][1] + "**.");
+            toSend.push("God statues would give **" + suffix + "** **" + numeral(prayerXp).format() + "** Prayer XP at level **" + result[6][1] + "**.");
+            toSend.push("God statues would give **" + suffix + "** **" + numeral(slayerXp).format() + "** Slayer XP at level **" + result[19][1] + "**.");
+            bot.sendMessage(msg, toSend);
+          }
+        });
       }
     }
   },
@@ -734,6 +847,27 @@ var commands = {
       toSend.push("The circus is current located in **" + locations[currentLocation] + "**.");
       toSend.push("The next location for the circus is **" + locations[nextLocation] + "** in **" + daysUntilNext + "** day" + (daysUntilNext > 1 ? "s." : "."));
       bot.sendMessage(msg, toSend);
+    }
+  },
+  "raven": {
+    desc: "Displays when the next Raven will spawn in Prifddinas.",
+    usage: "",
+    process: (bot, msg) => {
+      var spawned = false;
+      var daysUntilNext = 0;
+      var formula = (((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 7) % 13);
+      if (formula < 1) {
+        daysUntilNext = 1 - formula;
+        spawned = true;
+      } else {
+        daysUntilNext = 13 - formula;
+        spawned = false;
+      }
+      if (spawned) {
+        bot.sendMessage(msg, "A raven is currently spawned in Prifddinas. The next one will be in **" + daysUntilNext + "** days.");
+      } else {
+        bot.sendMessage(msg, "There is currently no raven spawned in Prifddina. The next one will be in **" + daysUntilNext + "** days");
+      }
     }
   },
   "roll": {

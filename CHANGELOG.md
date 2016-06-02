@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
+### Added
+- Added `~jot` command - Displays how much XP you'd gain from Jack of Trades based on type and skill level.
+- Added `~statues` command - Displays how much XP a specific user would gain in Construction, Prayer, and Slayer, from God statues.
+- Added `~raven` command - Displays when the next Raven will spawn in Prifddinas.
+- Added `~sinkhole` command - Displays when the next sinkhole will be.
+- Added a new alias for `~invasion` command, it's `~troll`.
+
 ### Fixed
 - Fixed price from showing up arrow when there was no change.
 
