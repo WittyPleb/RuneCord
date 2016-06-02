@@ -192,6 +192,23 @@ var commands = {
       bot.sendMessage(msg, "Next Big Chinchompa will be in " + timestr + ".");
     }
   },
+  "sinkhole": {
+    desc: "Displays when the next Sinkhole will be.",
+    usage: "",
+    process: (bot, msg) => {
+      var d = new Date();
+      var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
+      var minutesUntil = Math.floor(secondsUntil / 60);
+      var timestr = "";
+      if (minutesUntil === 0) {
+        timestr += "1 hour";
+      }
+      if (minutesUntil > 0) {
+        timestr += minutesUntil + " minute" + (minutesUntil > 0 && minutesUntil < 1 ? "" : "s");
+      }
+      bot.sendMessage(msg, "Next Sinkhole will be in " + timestr + ".");
+    }
+  },
   "cache": {
     desc: "Displays when the next Guthixian Cache is.",
     usage: "",
