@@ -844,7 +844,7 @@ var commands = {
         nextLocation = 0;
       }
       var toSend = [];
-      toSend.push("The circus is current located in **" + locations[currentLocation] + "**.");
+      toSend.push("The circus is currently located in **" + locations[currentLocation] + "**.");
       toSend.push("The next location for the circus is **" + locations[nextLocation] + "** in **" + daysUntilNext + "** day" + (daysUntilNext > 1 ? "s." : "."));
       bot.sendMessage(msg, toSend);
     }
