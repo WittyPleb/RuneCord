@@ -33,6 +33,7 @@ var aliases = {
   "advlog": "alog",
   "wbs": "warbands",
   "trollinvasion": "invasion",
+  "troll": "invasion",
   "xplamp": "lamp",
   "jackoftrades": "jot",
   "rago": "vorago",
