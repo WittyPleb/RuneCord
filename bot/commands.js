@@ -34,6 +34,7 @@ var aliases = {
   "wbs": "warbands",
   "trollinvasion": "invasion",
   "xplamp": "lamp",
+  "jackoftrades": "jot",
   "rago": "vorago",
   "rax": "araxxi"
 };
@@ -318,6 +319,62 @@ var commands = {
           }
         } else {
           correctUsage("lamp", this.usage, msg, bot);
+          return;
+        }
+      }
+    }
+  },
+  "jot": {
+    desc: "Displays how much XP you'd gain from Jack of Trades based on type and skill level.",
+    usage: "normal|master|supreme|legendary",
+    process: (bot, msg, suffix) => {
+      if (!suffix) {
+        correctUsage("jot", this.usage, msg, bot);
+        return;
+      } else {
+        var type = suffix.split(" ")[0];
+        var level = suffix.split(" ")[1];
+        var xp = 0;
+        if (type && level) {
+          if (type && !isInteger(type)) {
+            if (type === "normal") {
+              type = "Normal";
+              xp = 1.5 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === "master") {
+              type = "Master";
+              xp = 2 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === "supreme") {
+              type = "Supreme";
+              xp = 2.5 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === "legendary") {
+              type = "Legendary";
+              xp = 3 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else {
+              correctUsage("jot", this.usage, msg, bot);
+            }
+          } else {
+            correctUsage("jot", this.usage, msg, bot);
+            return;
+          }
+          if (level) {
+            if (isNaN(level)) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else if (!isInteger(level)) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else if (level < 1) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else if (level > 120) {
+              correctUsage("jot", this.usage, msg, bot);
+              return;
+            } else {
+              bot.sendMessage(msg, "From a **" + type + "** Jack of Trades aura, you'd gain **" + numeral(xp).format() + "** XP if you were level **" + level + "**.");
+            }
+          }
+        } else {
+          correctUsage("jot", this.usage, msg, bot);
           return;
         }
       }

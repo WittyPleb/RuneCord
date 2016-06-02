@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
+### Added
+- Added `~jot` command - Displays how much XP you'd gain from Jack of Trades based on type and skill level.
+
 ### Fixed
 - Fixed price from showing up arrow when there was no change.
 
