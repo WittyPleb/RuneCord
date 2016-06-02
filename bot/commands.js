@@ -831,6 +831,27 @@ var commands = {
       bot.sendMessage(msg, toSend);
     }
   },
+  "raven": {
+    desc: "Displays when the next Raven will spawn in Prifddinas.",
+    usage: "",
+    process: (bot, msg) => {
+      var spawned = false;
+      var daysUntilNext = 0;
+      var formula = (((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 7) % 13);
+      if (formula < 1) {
+        daysUntilNext = 1 - formula;
+        spawned = true;
+      } else {
+        daysUntilNext = 13 - formula;
+        spawned = false;
+      }
+      if (spawned) {
+        bot.sendMessage(msg, "A raven is currently spawned in Prifddinas. The next one will be in **" + daysUntilNext + "** days.");
+      } else {
+        bot.sendMessage(msg, "There is currently no raven spawned in Prifddina. The next one will be in **" + daysUntilNext + "** days");
+      }
+    }
+  },
   "roll": {
     desc: "Roll a random number between 1 and <number>.",
     usage: "<number>",
