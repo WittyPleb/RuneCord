@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Fixed price from showing up arrow when there was no change.
+- Fixed correct usage from showing 'undefined'.
 
 ## [2.2.1] - 2016-06-01
 ### Added

@@ -291,7 +291,7 @@ var commands = {
     desc: "Displays how much XP you'd get from a lamp based on <skill level>.",
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("lamp", this.usage, msg, bot);
+        correctUsage("lamp", commands.lamp.usage, msg, bot);
         return;
       } else {
         var size = suffix.split(" ")[0];
@@ -312,31 +312,31 @@ var commands = {
               size = "Huge";
               xp = getLampXp(level, "huge");
             } else {
-              correctUsage("lamp", this.usage, msg, bot);
+              correctUsage("lamp", commands.lamp.usage, msg, bot);
             }
           } else {
-            correctUsage("lamp", this.usage, msg, bot);
+            correctUsage("lamp", commands.lamp.usage, msg, bot);
             return;
           }
           if (level) {
             if (isNaN(level)) {
-              correctUsage("lamp", this.usage, msg, bot);
+              correctUsage("lamp", commands.lamp.usage, msg, bot);
               return;
             } else if (!isInteger(level)) {
-              correctUsage("lamp", this.usage, msg, bot);
+              correctUsage("lamp", commands.lamp.usage, msg, bot);
               return;
             } else if (level < 1) {
-              correctUsage("lamp", this.usage, msg, bot);
+              correctUsage("lamp", commands.lamp.usage, msg, bot);
               return;
             } else if (level > 120) {
-              correctUsage("lamp", this.usage, msg, bot);
+              correctUsage("lamp", commands.lamp.usage, msg, bot);
               return;
             } else {
               bot.sendMessage(msg, "If you were level **" + level + "**, you'd gain **" + numeral(xp).format() + "** XP from a **" + size + "** lamp.");
             }
           }
         } else {
-          correctUsage("lamp", this.usage, msg, bot);
+          correctUsage("lamp", commands.lamp.usage, msg, bot);
           return;
         }
       }
@@ -347,7 +347,7 @@ var commands = {
     usage: "normal|master|supreme|legendary",
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("jot", this.usage, msg, bot);
+        correctUsage("jot", commands.jot.usage, msg, bot);
         return;
       } else {
         var type = suffix.split(" ")[0];
@@ -368,31 +368,31 @@ var commands = {
               type = "Legendary";
               xp = 3 * (Math.pow(level, 2) - (2 * level) + 100);
             } else {
-              correctUsage("jot", this.usage, msg, bot);
+              correctUsage("jot", commands.jot.usage, msg, bot);
             }
           } else {
-            correctUsage("jot", this.usage, msg, bot);
+            correctUsage("jot", commands.jot.usage, msg, bot);
             return;
           }
           if (level) {
             if (isNaN(level)) {
-              correctUsage("jot", this.usage, msg, bot);
+              correctUsage("jot", commands.jot.usage, msg, bot);
               return;
             } else if (!isInteger(level)) {
-              correctUsage("jot", this.usage, msg, bot);
+              correctUsage("jot", commands.jot.usage, msg, bot);
               return;
             } else if (level < 1) {
-              correctUsage("jot", this.usage, msg, bot);
+              correctUsage("jot", commands.jot.usage, msg, bot);
               return;
             } else if (level > 120) {
-              correctUsage("jot", this.usage, msg, bot);
+              correctUsage("jot", commands.jot.usage, msg, bot);
               return;
             } else {
               bot.sendMessage(msg, "From a **" + type + "** Jack of Trades aura, you'd gain **" + numeral(xp).format() + "** XP if you were level **" + level + "**.");
             }
           }
         } else {
-          correctUsage("jot", this.usage, msg, bot);
+          correctUsage("jot", commands.jot.usage, msg, bot);
           return;
         }
       }
@@ -403,7 +403,7 @@ var commands = {
     usage: "<username>",
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("statues", this.usage, msg, bot);
+        correctUsage("statues", commands.statues.usage, msg, bot);
         return;
       } else {
         if (debug) {
@@ -442,7 +442,7 @@ var commands = {
     cooldown: 30,
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("stats", this.usage, msg, bot);
+        correctUsage("stats", commands.stats.usage, msg, bot);
         return;
       } else {
         if (debug) {
@@ -483,7 +483,7 @@ var commands = {
     cooldown: 30,
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("price", this.usage, msg, bot);
+        correctUsage("price", commands.price.usage, msg, bot);
         return;
       } else {
         if (debug) {
@@ -577,20 +577,20 @@ var commands = {
     desc: "Determine how much XP you get for completing troll invasion based on <skill level>.",
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("invasion", this.usage, msg, bot);
+        correctUsage("invasion", commands.invasion.usage, msg, bot);
         return;
       } else {
         if (isNaN(suffix)) {
-          correctUsage("invasion", this.usage, msg, bot);
+          correctUsage("invasion", commands.invasion.usage, msg, bot);
           return;
         } else if (!isInteger(suffix)) {
-          correctUsage("invasion", this.usage, msg, bot);
+          correctUsage("invasion", commands.invasion.usage, msg, bot);
           return;
         } else if (suffix < 1) {
-          correctUsage("invasion", this.usage, msg, bot);
+          correctUsage("invasion", commands.invasion.usage, msg, bot);
           return;
         } else if (suffix > 120) {
-          correctUsage("invasion", this.usage, msg, bot);
+          correctUsage("invasion", commands.invasion.usage, msg, bot);
           return;
         } else {
           var formula = 8 * (20 / 20) * (Math.pow(suffix, 2) - 2 * suffix + 100);
@@ -604,7 +604,7 @@ var commands = {
     desc: "Display the adventure log of <username>.",
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("alog", this.usage, msg, bot);
+        correctUsage("alog", commands.alog.usage, msg, bot);
         return;
       } else {
         if (debug) {
@@ -641,7 +641,7 @@ var commands = {
     cooldown: 30,
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("osstats", this.usage, msg, bot);
+        correctUsage("osstats", commands.osstats.usage, msg, bot);
         return;
       } else {
         if (debug) {
@@ -876,17 +876,17 @@ var commands = {
     cooldown: 5,
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("roll", this.usage, msg, bot);
+        correctUsage("roll", commands.roll.usage, msg, bot);
         return;
       } else {
         if (isNaN(suffix)) {
-          correctUsage("roll", this.usage, msg, bot);
+          correctUsage("roll", commands.roll.usage, msg, bot);
           return;
         } else if (!isInteger(suffix)) {
-          correctUsage("roll", this.usage, msg, bot);
+          correctUsage("roll", commands.roll.usage, msg, bot);
           return;
         } else if (suffix <= 1) {
-          correctUsage("roll", this.usage, msg, bot);
+          correctUsage("roll", commands.roll.usage, msg, bot);
           return;
         } else if (suffix > Number.MAX_SAFE_INTEGER) {
           bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", That number is too high for me to process, please use a smaller number", (err, wMessage) => {
@@ -911,7 +911,7 @@ var commands = {
     cooldown: 30,
     process: (bot, msg, suffix) => {
       if (!suffix) {
-        correctUsage("twitch", this.usage, msg, bot);
+        correctUsage("twitch", commands.twitch.usage, msg, bot);
         return;
       } else {
         if (debug) {
