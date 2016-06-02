@@ -866,7 +866,7 @@ var commands = {
       if (spawned) {
         bot.sendMessage(msg, "A raven is currently spawned in Prifddinas. The next one will be in **" + daysUntilNext + "** days.");
       } else {
-        bot.sendMessage(msg, "There is currently no raven spawned in Prifddina. The next one will be in **" + daysUntilNext + "** days");
+        bot.sendMessage(msg, "There is currently no raven spawned in Prifddinas. The next one will be in **" + daysUntilNext + "** days");
       }
     }
   },
