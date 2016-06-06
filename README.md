@@ -35,6 +35,7 @@ Features
 * `~statues` `<username>` -- Displays how much XP you'd gain in various skills from monthly god statues.
 * `~raven` -- Displays if there is a raven currently in Prifddinas.
 * `~sinkhole` -- Displays when the next sinkhole is.
+* `~pengs points level` -- Displays how many coins or how much XP you'd gain if you used x points.
 
 ##### General Commands
 * `~invite` -- Generates an invite link for you to invite the bot to your server (same link as below).
