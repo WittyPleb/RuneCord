@@ -31,6 +31,10 @@ Features
 * `~circus` -- Displays the current location for the Circus.
 * `~invasion <skill level>` -- Displays how much XP you'd gain in troll invasion if your level was `<skill level>` and you finished the entire thing.
 * `~lamp` `small|med|large|huge` `<skill level>` -- Displays how much XP you'd gain from a lamp based on skill level and size.
+* `~jot` `<type>` `<skill level>` -- Display how much XP you'd gain from `type` Jack of Trades.
+* `~statues` `<username>` -- Displays how much XP you'd gain in various skills from monthly god statues.
+* `~raven` -- Displays if there is a raven currently in Prifddinas.
+* `~sinkhole` -- Displays when the next sinkhole is.
 
 ##### General Commands
 * `~invite` -- Generates an invite link for you to invite the bot to your server (same link as below).
