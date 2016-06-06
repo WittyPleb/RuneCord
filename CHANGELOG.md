@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.3.0] - 2016-06-06
 ### Added
 - Added `~jot` command - Displays how much XP you'd gain from Jack of Trades based on type and skill level.
 - Added `~statues` command - Displays how much XP a specific user would gain in Construction, Prayer, and Slayer, from God statues.
@@ -97,6 +97,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[2.3.0]: https://github.com/unlucky4ever/RuneCord/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/unlucky4ever/RuneCord/compare/2.2.0...2.2.1
 [2.2.0]: https://github.com/unlucky4ever/RuneCord/compare/2.1.2...2.2.0
 [2.1.2]: https://github.com/unlucky4ever/RuneCord/compare/2.1.1...2.1.2
