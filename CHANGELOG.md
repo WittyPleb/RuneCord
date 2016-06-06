@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Added `~statues` command - Displays how much XP a specific user would gain in Construction, Prayer, and Slayer, from God statues.
 - Added `~raven` command - Displays when the next Raven will spawn in Prifddinas.
 - Added `~sinkhole` command - Displays when the next sinkhole will be.
+- Added `~pengs` command - Displays how much xp and how many coins you'd gain from penguins.
 - Added a new alias for `~invasion` command, it's `~troll`.
 
 ### Fixed
