@@ -342,6 +342,53 @@ var commands = {
       }
     }
   },
+  "pengs": {
+    desc: "Displays how much XP or Coins you'd gain from penguins.",
+    usage: "points level",
+    process: (bot, msg, suffix) => {
+      if (!suffix) {
+        correctUsage("pengs", commands.pengs.usage, msg, bot);
+        return;
+      } else {
+        var points = suffix.split(" ")[0];
+        var level = suffix.split(" ")[1];
+        if (points && level) {
+          if (points) {
+            if (isNaN(level)) {
+              correctUsage("pengs", commands.pengs.usage, msg, bot);
+              return;
+            } else if (!isInteger(points)) {
+              correctUsage("pengs", commands.pengs.usage, msg, bot);
+              return;
+            } else {
+              if (level) {
+                if (isNaN(level)) {
+                  correctUsage("pengs", commands.jot.usage, msg, bot);
+                  return;
+                } else if (!isInteger(level)) {
+                  correctUsage("pengs", commands.pengs.usage, msg, bot);
+                  return;
+                } else if (level < 1) {
+                  correctUsage("pengs", commands.pengs.usage, msg, bot);
+                  return;
+                } else if (level > 120) {
+                  correctUsage("pengs", commands.pengs.usage, msg, bot);
+                  return;
+                } else {
+                  var pengXp = 25 * level * points;
+                  var pengGp = 6500 * points;
+                  bot.sendMessage(msg, "You'd gain **" + numeral(pengXp).format() + "** XP at level **" + level + "** or **" + numeral(pengGp).format() + "** coins, if you use **" + points + "** points.");
+                }
+              }
+            }
+          }
+        } else {
+          correctUsage("pengs", commands.pengs.usage, msg, bot);
+          return;
+        }
+      }
+    }
+  },
   "jot": {
     desc: "Displays how much XP you'd gain from Jack of Trades based on type and skill level.",
     usage: "normal|master|supreme|legendary",
