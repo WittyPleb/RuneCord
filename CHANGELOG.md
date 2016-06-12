@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Fixed
+- Fixed the response message when you mess up the `~jot` command.
+
 ## [2.3.0] - 2016-06-06
 ### Added
 - Added `~jot` command - Displays how much XP you'd gain from Jack of Trades based on type and skill level.
