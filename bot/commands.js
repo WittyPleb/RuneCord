@@ -363,7 +363,7 @@ var commands = {
             } else {
               if (level) {
                 if (isNaN(level)) {
-                  correctUsage("pengs", commands.jot.usage, msg, bot);
+                  correctUsage("pengs", commands.pengs.usage, msg, bot);
                   return;
                 } else if (!isInteger(level)) {
                   correctUsage("pengs", commands.pengs.usage, msg, bot);

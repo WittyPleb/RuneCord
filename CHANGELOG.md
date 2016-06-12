@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Fixed
 - Fixed the response message when you mess up the `~jot` command.
+- Fixed `~pengs` response message if you didn't put in a valid number for level.
 
 ## [2.3.0] - 2016-06-06
 ### Added
