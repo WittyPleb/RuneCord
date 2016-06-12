@@ -391,7 +391,7 @@ var commands = {
   },
   "jot": {
     desc: "Displays how much XP you'd gain from Jack of Trades based on type and skill level.",
-    usage: "normal|master|supreme|legendary",
+    usage: "normal|master|supreme|legendary level",
     process: (bot, msg, suffix) => {
       if (!suffix) {
         correctUsage("jot", commands.jot.usage, msg, bot);
