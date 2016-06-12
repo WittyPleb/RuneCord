@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.3.1] - 2016-06-12
 ### Changed
 - Updated discord.js library to version 8.0.0.
+- Updated devDependencies to latest versions.
 
 ### Fixed
 - Fixed the response message when you mess up the `~jot` command.
