@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
+### Changed
+- Updated discord.js library to version 8.0.0.
+
 ### Fixed
 - Fixed the response message when you mess up the `~jot` command.
 - Fixed `~pengs` response message if you didn't put in a valid number for level.
