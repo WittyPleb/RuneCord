@@ -802,8 +802,8 @@ var commands = {
         [[names.K, names.T, names.D], [names.A, names.G, names.V]],
         [[names.K, names.D, names.V], [names.A, names.T, names.G]]
       ];
-      var currentRotation = (Math.floor((Date.now() / 1000) / (24 * 60 * 60)) % 20) - 1;
-      if (currentRotation === -1) {
+      var currentRotation = (Math.floor((Date.now() / 1000) / (24 * 60 * 60)) % 20);
+      if (currentRotation === -1 || currentRotation >= rotsRotations.length) {
         currentRotation = 0;
       }
       var westSide = rotsRotations[currentRotation][0].join(" - ");
