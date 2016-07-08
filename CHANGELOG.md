@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.2] - 2016-07-08
+### Fixed
+- Fixed `~alog` command from showing '&amp;apos&semi;' for K'ril and Kree kills.
+- Fixed `~rots` command having wrong rotations.
+
 ## [2.3.1] - 2016-06-12
 ### Changed
 - Updated discord.js library to version 8.0.0.
@@ -106,6 +111,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[2.3.2]: https://github.com/unlucky4ever/RuneCord/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/unlucky4ever/RuneCord/compare/2.3.0...2.3.1
 [2.3.0]: https://github.com/unlucky4ever/RuneCord/compare/2.2.1...2.3.0
 [2.2.1]: https://github.com/unlucky4ever/RuneCord/compare/2.2.0...2.2.1
