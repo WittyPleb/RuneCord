@@ -4,11 +4,14 @@
 var AsciiTable = require("ascii-table");
 var numeral = require("numeral");
 var request = require("request");
+var Entities = require("html-entities").AllHtmlEntities;
 var version = require("../package.json").version;
 /**
  * Required Files
  */
 var config = require("./config.json");
+
+var entities = new Entities();
 
 function correctUsage(cmd, usage, msg, bot, delay) {
   bot.sendMessage(msg, msg.author.username.replace(/@/g, "@\u200b") + ", the correct usage is *`" + config.command_prefix + cmd + " " + usage + "`*", (erro, wMessage) => {
@@ -674,7 +677,7 @@ var commands = {
             var table = new AsciiTable();
             table.setTitle("VIEWING ADVENTURE LOG FOR " + suffix.toUpperCase()).setHeading("Achievement", "Date");
             for (var i = 0; i < 10; i++) {
-              table.addRow(alog_data[i].slice(alog_data[i].indexOf("<title>") + 7, alog_data[i].indexOf("</title>")), alog_data[i].slice(alog_data[i].indexOf("<pubDate>") + 9, alog_data[i].indexOf("00:00:00") - 1));
+              table.addRow(entities.decode(alog_data[i].slice(alog_data[i].indexOf("<title>") + 7, alog_data[i].indexOf("</title>"))), alog_data[i].slice(alog_data[i].indexOf("<pubDate>") + 9, alog_data[i].indexOf("00:00:00") - 1));
             }
             bot.sendMessage(msg, "```" + table + "```");
           }

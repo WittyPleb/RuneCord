@@ -24,6 +24,7 @@
     "discord.js": "8.0.0",
     "dotenv": "2.0.0",
     "entities": "1.1.1",
+    "html-entities": "1.2.0",
     "log-timestamp": "0.1.2",
     "numeral": "1.5.3",
     "request": "2.72.0"
