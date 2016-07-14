@@ -26,6 +26,7 @@
     "entities": "1.1.1",
     "html-entities": "1.2.0",
     "log-timestamp": "0.1.2",
+    "moment": "2.14.1",
     "numeral": "1.5.3",
     "request": "2.72.0"
   },

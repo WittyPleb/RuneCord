@@ -2,6 +2,7 @@
  * Required Dependencies
  */
 var os = require("os");
+var moment = require("moment");
 var version = require("../package.json").version;
 /**
  * Required Files
@@ -484,16 +485,38 @@ var commands = {
     cooldown: 30, // 30 second cooldown
     deleteCommand: true, // delete the command afterwards (eg ")serverinfo" will be deleted)
     process: (bot, msg) => {
+      var voiceCount = 0;
+      var textCount = 0;
       var toSend = [];
+      var roleNames = [];
+      var roles = msg.channel.server.roles;
+      var channels = msg.channel.server.channels;
+
+      for (var x = 0; x < channels.length; x++) {
+        if (channels[x].type === 'voice') {
+          voiceCount++;
+        }
+        if (channels[x].type === 'text') {
+          textCount++;
+        }
+      }
+
+      roles.remove('@everyone');
+
+      for (var y = 0; y < roles.length; y++) {
+        roleNames.push(roles[y].name);
+      }
+
       toSend.push("```xl");
-      toSend.push("Server Name: " + msg.channel.server.name);
-      toSend.push("Server Owner: " + msg.channel.server.owner.username);
-      toSend.push("Server ID: " + msg.channel.server.id);
-      toSend.push("User Count: " + msg.channel.server.members.length);
-      toSend.push("Channel Count: " + msg.channel.server.channels.length);
-      toSend.push("Default Channel: #" + msg.channel.server.defaultChannel.name);
+      toSend.push("Server: " + msg.channel.server.name);
+      toSend.push("ID: " + msg.channel.server.id);
       toSend.push("Region: " + msg.channel.server.region);
-      toSend.push("Server Icon: " + msg.channel.server.iconURL);
+      toSend.push("Members: " + msg.channel.server.members.length);
+      toSend.push("Chats: " + textCount + " Text / " + voiceCount + " Voice");
+      toSend.push("Owner: " + msg.channel.server.owner.username + "#" + msg.channel.server.owner.discriminator);
+      toSend.push("Created: " + moment(msg.channel.server.createdAt).fromNow());
+      toSend.push("Icon: " + msg.channel.server.iconURL);
+      toSend.push("Roles: " + roleNames.join(", "));
       toSend.push("```");
       bot.sendMessage(msg, toSend);
     }
