@@ -2,17 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Changed
+- Made `)userinfo` able to use mentions to lookup information on other users.
+
 ## [2.3.3] - 2016-07-14
 ### Added
-- Added `)userinfo` command
-- Added more information to `)serverinfo` command
-- Added moment.js support
+- Added `)userinfo` command.
+- Added more information to `)serverinfo` command.
+- Added moment.js support.
 
 ### Changed
-- Converted `)stats` command to use moment.js
+- Converted `)stats` command to use moment.js.
 
 ### Removed
-- Removed `~id` command
+- Removed `~id` command.
 
 ## [2.3.2] - 2016-07-08
 ### Fixed

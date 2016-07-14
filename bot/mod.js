@@ -508,22 +508,52 @@ var commands = {
   },
   "userinfo": {
     desc: "Get all information about your account",
-    usage: "",
+    usage: "@mention",
     cooldown: 30, // 30 second cooldown
     deleteCommand: true, // delete the command afterwards (eg ")userinfo" will be deleted)
-    process: (bot, msg) => {
-      var toSend = [];
-      toSend.push("```xl");
-      toSend.push("Username: " + msg.author.username);
-      toSend.push("User ID: " + msg.author.id);
-      toSend.push("Status: " + msg.author.status);
-      if (msg.author.game) {
-        toSend.push("Game: " + msg.author.game.name);
+    process: (bot, msg, suffix) => {
+      if (!suffix) {
+        var toSend = [];
+        toSend.push("```xl");
+        toSend.push("Username: " + msg.author.username + "#" + msg.author.discriminator);
+        toSend.push("User ID: " + msg.author.id);
+        toSend.push("Status: " + msg.author.status);
+        if (msg.author.game) {
+          toSend.push("Game: " + msg.author.game.name);
+        }
+        toSend.push("Created: " + moment(msg.author.createdAt).fromNow() + " (" + msg.author.createdAt + ")");
+        toSend.push("Avatar ID: " + msg.author.avatar);
+        toSend.push("```");
+        bot.sendMessage(msg, toSend);
       }
-      toSend.push("Created On: " + msg.author.createdAt);
-      toSend.push("Avatar ID: " + msg.author.avatar);
-      toSend.push("```");
-      bot.sendMessage(msg, toSend);
+      if (suffix) {
+        if (msg.mentions.length === 1) {
+          toSend = [];
+          toSend.push("```xl");
+          toSend.push("Username: " + msg.mentions[0].username + "#" + msg.mentions[0].discriminator);
+          toSend.push("ID: " + msg.mentions[0].id);
+          toSend.push("Status: " + msg.mentions[0].status);
+          if (msg.mentions[0].game) {
+            toSend.push("Game: " + msg.mentions[0].game.name);
+          }
+          toSend.push("Created: " + moment(msg.mentions[0].createdAt).fromNow() + " (" + msg.mentions[0].createdAt + ")");
+          toSend.push("Avatar: " + msg.mentions[0].avatarURL);
+          toSend.push("```");
+          bot.sendMessage(msg, toSend);
+        } else if (msg.mentions.length === 0) {
+          bot.sendMessage(msg, "You must mention a user if you're going to use a suffix!", (erro, wMessage) => {
+            bot.deleteMessage(wMessage, {
+              "wait": 5000
+            });
+          });
+        } else {
+          bot.sendMessage(msg, "Only one mention at a time please!", (erro, wMessage) => {
+            bot.deleteMessage(wMessage, {
+              "wait": 5000
+            });
+          });
+        }
+      }
     }
   }
 };
