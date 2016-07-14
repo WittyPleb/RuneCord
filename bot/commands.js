@@ -26,7 +26,6 @@ function correctUsage(cmd, usage, msg, bot, delay) {
 var aliases = {
   "h": "help",
   "commands": "help",
-  "myid": "id",
   "join": "invite",
   "gametime": "time",
   "hs": "stats",
@@ -106,20 +105,6 @@ var commands = {
     deleteCommand: true,
     process: (bot, msg) => {
       bot.sendMessage(msg, "Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=" + process.env.APP_ID + "&scope=bot&permissions=12659727>");
-    }
-  },
-  "id": {
-    desc: "Returns your ID (or the channel's)",
-    usage: "[\"channel\"]",
-    deleteCommand: true,
-    cooldown: 2,
-    shouldDisplay: false,
-    process: (bot, msg, suffix) => {
-      if (suffix && suffix.trim().replace("\"", "") === "channel") {
-        bot.sendMessage(msg, "This channel's ID is: " + msg.channel.id);
-      } else {
-        bot.sendMessage(msg, "Your ID is: " + msg.author.id);
-      }
     }
   },
   "about": {

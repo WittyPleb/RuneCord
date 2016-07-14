@@ -42,12 +42,12 @@ Features
 * `~roll <number>` -- Rolls a number between 1 and `<number>`.
 * `~twitch <username>` -- Displays twitch information based on `<username>`.
 * `~about` -- Displays some useful information about the bot.
-* `~id [channel]` -- If you supply `channel` as the suffix, it returns the channel id, if no suffix is provided, it returns your user id.
 
 ##### Moderator Commands
 * `)stats` -- Displays some cool statistics about the bot.
 * `)changelog` -- View the latest changes to the bot.
 * `)serverinfo` -- Get some useful information about the server the bot is in.
+* `)userinfo` -- Get some useful information about your account.
 * `)announce <message>` -- Sends a PM to all users in your server.*
 * `)ignore` -- Makes the bot ignore **ALL** commands in the channel this message is said in.*
 * `)unignore` -- Makes the bot start listening to **ALL** commands in the channel this message is said in.*

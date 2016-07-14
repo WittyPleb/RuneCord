@@ -497,6 +497,26 @@ var commands = {
       toSend.push("```");
       bot.sendMessage(msg, toSend);
     }
+  },
+  "userinfo": {
+    desc: "Get all information about your account",
+    usage: "",
+    cooldown: 30, // 30 second cooldown
+    deleteCommand: true, // delete the command afterwards (eg ")userinfo" will be deleted)
+    process: (bot, msg) => {
+      var toSend = [];
+      toSend.push("```xl");
+      toSend.push("Username: " + msg.author.username);
+      toSend.push("User ID: " + msg.author.id);
+      toSend.push("Status: " + msg.author.status);
+      if (msg.author.game) {
+        toSend.push("Game: " + msg.author.game.name);
+      }
+      toSend.push("Created On: " + msg.author.createdAt);
+      toSend.push("Avatar ID: " + msg.author.avatar);
+      toSend.push("```");
+      bot.sendMessage(msg, toSend);
+    }
   }
 };
 exports.commands = commands;
