@@ -514,7 +514,7 @@ var commands = {
       toSend.push("Members: " + msg.channel.server.members.length);
       toSend.push("Chats: " + textCount + " Text / " + voiceCount + " Voice");
       toSend.push("Owner: " + msg.channel.server.owner.username + "#" + msg.channel.server.owner.discriminator);
-      toSend.push("Created: " + moment(msg.channel.server.createdAt).fromNow());
+      toSend.push("Created: " + moment(msg.channel.server.createdAt).fromNow() + " (" + moment(msg.channel.server.createdAt).format("ddd, MMM Do YYYY, h:mm:ss A") + ")");
       toSend.push("Icon: " + msg.channel.server.iconURL);
       toSend.push("Roles: " + roleNames.join(", "));
       toSend.push("```");
