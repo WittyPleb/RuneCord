@@ -5,6 +5,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Added
 - Added `)userinfo` command
+- Added more information to `)serverinfo` command
+- Added moment.js support
+
+### Changed
+- Converted `)stats` command to use moment.js
 
 ### Removed
 - Removed `~id` command
