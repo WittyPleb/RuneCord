@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Made `)userinfo` able to use mentions to lookup information on other users.
 
+### Fixed
+- Fixed bot uptime to show correct values
+
 ## [2.3.3] - 2016-07-14
 ### Added
 - Added `)userinfo` command.

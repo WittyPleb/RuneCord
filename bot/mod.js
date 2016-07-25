@@ -346,12 +346,31 @@ var commands = {
     cooldown: 30, // 30 second cooldown
     deleteCommand: true, // delete the command afterwards (eg ")stats" will be deleted)
     process: (bot, msg) => {
+      var days = Math.round(bot.uptime / (1000 * 60 * 60 * 24));
+      var hours = Math.round(bot.uptime / (1000 * 60 * 60)) % 24;
+      var minutes = Math.round(bot.uptime / (1000 * 60) % 60);
+      var timestr = "";
+
+      if (days > 0) {
+        timestr += days + " day" + (days > 1 ? "s " : " ");
+      }
+
+      if (hours > 0) {
+        timestr += hours + " hour" + (hours > 1? "s " : " ");
+      }
+
+      if (hours >= 1) {
+        timestr += "and " + minutes + " minute" + (minutes > 0 && minutes < 2 ? "" : "s");
+      } else {
+        timestr += minutes + " minute" + (minutes > 0 && minutes < 2 ? "" : "s");
+      }
+
       var memUsed = Math.round(process.memoryUsage().rss / 1024 / 1024);
       var totalMem = Math.round(os.totalmem() / 1024 / 1024);
       var percentUsed = Math.round((memUsed / totalMem) * 100);
       var toSend = [];
       toSend.push("```xl");
-      toSend.push("Uptime: " + moment().fromNow(Math.round(bot.uptime / 1000)) + ".");
+      toSend.push("Uptime: " + timestr + ".");
       toSend.push("Connected to " + bot.servers.length + " servers with " + bot.channels.length + " channels and " + bot.users.length + " users.");
       toSend.push("Memory Usage: " + memUsed + " MB (" + percentUsed + "%)");
       toSend.push("Running RuneCord v" + version);
