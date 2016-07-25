@@ -462,9 +462,10 @@ var commands = {
             var prayerXp = getLampXp(result[6][1], "medium");
             var slayerXp = getLampXp(result[19][1], "medium");
             var toSend = [];
-            toSend.push("God statues would give **" + suffix + "** **" + numeral(conXp).format() + "** Construction XP at level **" + result[23][1] + "**.");
-            toSend.push("God statues would give **" + suffix + "** **" + numeral(prayerXp).format() + "** Prayer XP at level **" + result[6][1] + "**.");
-            toSend.push("God statues would give **" + suffix + "** **" + numeral(slayerXp).format() + "** Slayer XP at level **" + result[19][1] + "**.");
+            toSend.push("Each God Statue would give **" + suffix + "** **" + numeral(conXp).format() + "** Construction XP at level **" + result[23][1] + "**.");
+            toSend.push("Each God Statue would give **" + suffix + "** **" + numeral(prayerXp).format() + "** Prayer XP at level **" + result[6][1] + "**.");
+            toSend.push("Each God Statue would give **" + suffix + "** **" + numeral(slayerXp).format() + "** Slayer XP at level **" + result[19][1] + "**.");
+            toSend.push("Giving a total of **" + numeral(prayerXp * 6).format() + "** Prayer XP, and either **" + numeral(conXp * 6).format() + "** Construction XP, or **" + numeral(slayerXp * 6).format() + "** Slayer XP. If **" + suffix + "** completed all 6 statues.");
             bot.sendMessage(msg, toSend);
           }
         });

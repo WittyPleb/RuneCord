@@ -5,9 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Changed
 - Made `)userinfo` able to use mentions to lookup information on other users.
+- Clarified `~statues` command.
 
 ### Fixed
-- Fixed bot uptime to show correct values
+- Fixed bot uptime to show correct values.
 
 ## [2.3.3] - 2016-07-14
 ### Added
