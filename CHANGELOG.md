@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Made `)userinfo` able to use mentions to lookup information on other users.
 - Clarified `~statues` command.
+- Made `~pengs` command work if level suffix is voided.
 
 ### Fixed
 - Fixed bot uptime to show correct values.

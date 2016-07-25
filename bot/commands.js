@@ -340,11 +340,14 @@ var commands = {
       } else {
         var points = suffix.split(" ")[0];
         var level = suffix.split(" ")[1];
-        if (points && level) {
+        if (points && !level) {
+          var pengGp = 6500 * points;
+          bot.sendMessage(msg, "You'd gain **" + numeral(pengGp).format() + "** coins, if you use **" + points + "** points.");
+        } else if (points * level) {
           if (points) {
-            if (isNaN(level)) {
+            if (isNaN(points)) {
               correctUsage("pengs", commands.pengs.usage, msg, bot);
-              return;
+              return
             } else if (!isInteger(points)) {
               correctUsage("pengs", commands.pengs.usage, msg, bot);
               return;
@@ -364,8 +367,7 @@ var commands = {
                   return;
                 } else {
                   var pengXp = 25 * level * points;
-                  var pengGp = 6500 * points;
-                  bot.sendMessage(msg, "You'd gain **" + numeral(pengXp).format() + "** XP at level **" + level + "** or **" + numeral(pengGp).format() + "** coins, if you use **" + points + "** points.");
+                  bot.sendMessage(msg, "You'd gain **" + numeral(pengXp).format() + "** XP at level **" + level + "**, if you use **" + points + "** points.");
                 }
               }
             }
