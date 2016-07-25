@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.3.4] - 2016-07-25
 ### Changed
 - Made `)userinfo` able to use mentions to lookup information on other users.
 - Clarified `~statues` command.
@@ -132,6 +132,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[2.3.4]: https://github.com/unlucky4ever/RuneCord/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/unlucky4ever/RuneCord/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/unlucky4ever/RuneCord/compare/2.3.1...2.3.2
 [2.3.1]: https://github.com/unlucky4ever/RuneCord/compare/2.3.0...2.3.1
