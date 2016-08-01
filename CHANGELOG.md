@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unpublished]
+### Fixed
+- Fixed `~statues` command calculating for 5 statues instead of 6.
+
 ## [2.3.4] - 2016-07-25
 ### Changed
 - Made `)userinfo` able to use mentions to lookup information on other users.
