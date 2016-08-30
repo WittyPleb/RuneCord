@@ -37,7 +37,7 @@ var bot = new discord.Client({
 
 function connect() {
   if (!process.env.TOKEN || !process.env.APP_ID) {
-    console.log(cRed('Please setup TOKEN and APP_ID in .env to use RuneCord!'));
+    logger.error('Please setup TOKEN and APP_ID in .env to use RuneCord!');
     process.exit(1);
   }
 
@@ -93,7 +93,7 @@ bot.on("ready", () => {
 });
 
 bot.on("disconnected", () => {
-  console.log(cRed("Disconnected") + " from Discord");
+  logger.info(chalk.bold.red('Disconnected from Discord!'));
   commandsProcessed = 0;
   lastExecTime = {};
   setTimeout(connect, 2000);
