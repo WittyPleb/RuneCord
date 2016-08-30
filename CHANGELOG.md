@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [2.3.5] - 2016-08-20
 ### Changed
 - Changed how stats are posted to Carbon.
 - Changed how the bot starts up.
@@ -146,6 +146,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[2.3.5]: https://github.com/unlucky4ever/RuneCord/compare/2.3.4...2.3.5
 [2.3.4]: https://github.com/unlucky4ever/RuneCord/compare/2.3.3...2.3.4
 [2.3.3]: https://github.com/unlucky4ever/RuneCord/compare/2.3.2...2.3.3
 [2.3.2]: https://github.com/unlucky4ever/RuneCord/compare/2.3.1...2.3.2

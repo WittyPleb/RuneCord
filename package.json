@@ -1,6 +1,6 @@
 {
   "name": "runecord",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "description": "RuneCord",
   "main": "runecord.js",
   "scripts": {
