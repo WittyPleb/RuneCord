@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
+### Changed
+- Changed how stats are posted to Carbon.
+
 ### Fixed
 - Fixed `~statues` command calculating for 5 statues instead of 6.
 - Fixed mod commands being used while mentioning bot.

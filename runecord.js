@@ -34,19 +34,39 @@ var config = require("./bot/config.json");
 var versionCheck = require("./bot/versioncheck.js");
 var db = require("./bot/db.js");
 checkConfig();
+
 var lastExecTime = {};
 var pmCoolDown = {};
+
 setInterval(() => {
   lastExecTime = {};
   pmCoolDown = {};
 }, 3600000);
+
 commandsProcessed = 0;
 show_warn = config.show_warn;
 debug = config.debug;
+
 var bot = new discord.Client({
   maxCachedMessages: 10,
   forceFetchUsers: true
 });
+
+function carbon() {
+  if (process.env.CARBON_KEY) {
+    request({
+      url: 'https://www.carbonitex.net/discord/data/botdata.php',
+      headers: {'content-type': 'application/json'},
+      json: {
+        key: process.env.CARBON_KEY,
+        servercount: bot.servers.length
+      }
+    }).catch(console.log);
+  }
+}
+
+setInterval(carbon, 360000);
+
 bot.on("error", (m) => {
   console.log(cError(" WARN ") + " " + m);
 });
@@ -66,27 +86,6 @@ bot.on("ready", () => {
   setTimeout(() => {
     db.checkServers(bot);
   }, 10000);
-  if (process.env.CARBON_KEY) {
-    request.post({
-      "url": "https://www.carbonitex.net/discord/data/botdata.php",
-      "headers": {
-        "content-type": "application/json"
-      },
-      "json": true,
-      body: {
-        "key": process.env.CARBON_KEY,
-        "servercount": bot.servers.length
-      }
-    }, (err, res) => {
-      if (err) {
-        console.log(cError(" ERROR ") + " Error updating carbon stats: " + err);
-      }
-      if (res.statusCode !== 200) {
-        console.log(cError(" ERROR ") + " Error updating carbon stats: Status Code " + res.statusCode);
-      }
-      console.log(cBgGreen(" CARBON ") + " Updated Carbon server count to " + bot.servers.length);
-    });
-  }
 });
 bot.on("disconnected", () => {
   console.log(cRed("Disconnected") + " from Discord");
@@ -452,28 +451,4 @@ function checkDb() {
     console.log(cBgGreen(" SETUP ") + " 'db/times.json' doesn't exist, creating it...");
     fs.writeFileSync("./db/times.json", "{}");
   }
-}
-// Run this every hour
-if (process.env.CARBON_KEY) {
-  setInterval(() => {
-    request.post({
-      "url": "https://www.carbonitex.net/discord/data/botdata.php",
-      "headers": {
-        "content-type": "application/json"
-      },
-      "json": true,
-      body: {
-        "key": process.env.CARBON_KEY,
-        "servercount": bot.servers.length
-      }
-    }, (err, res) => {
-      if (err) {
-        console.log(cError(" ERROR ") + " Error updating carbon stats: " + err);
-      }
-      if (res.statusCode !== 200) {
-        console.log(cError(" ERROR ") + " Error updating carbon stats: Status Code " + res.statusCode);
-      }
-      console.log(cBgGreen(" CARBON ") + " Updated Carbon server count to " + bot.servers.length);
-    });
-  }, 3600000);
 }
