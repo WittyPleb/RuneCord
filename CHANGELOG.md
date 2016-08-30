@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Fixed `~statues` command calculating for 5 statues instead of 6.
 - Fixed mod commands being used while mentioning bot.
 
+### Removed
+- Disabled `~warbands` commands temporarily.
+
 ## [2.3.4] - 2016-07-25
 ### Changed
 - Made `)userinfo` able to use mentions to lookup information on other users.

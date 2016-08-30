@@ -245,7 +245,8 @@ var commands = {
       if (minutesUntil > 1 && hoursUntil < 1) {
         timestr += minutesUntil + " minute" + (minutesUntil > 0 && minutesUntil < 2 ? "" : "s");
       }
-      bot.sendMessage(msg, "Next Warbands will be in " + timestr + ".");
+      //bot.sendMessage(msg, "Next Warbands will be in " + timestr + ".");
+      bot.sendMessage(msg, "Warbands command is disabled at this time.");
     }
   },
   "vos": {
