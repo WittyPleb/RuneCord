@@ -46,14 +46,23 @@ function connect() {
 
 function carbon() {
   if (process.env.CARBON_KEY) {
-    request({
-      url: 'https://www.carbonitex.net/discord/data/botdata.php',
-      headers: {'content-type': 'application/json'},
-      json: {
-        key: process.env.CARBON_KEY,
-        servercount: bot.servers.length
+    request.post({
+      'url': 'https://www.carbonitex.net/discord/botdata.php',
+      'headers': {'content-type': 'application/json'},
+      'json': true,
+      body: {
+        'key': process.env.CARBON_KEY,
+        'servercount': bot.servers.length
       }
-    }).catch(console.log);
+    }, (err, res) => {
+      if (err) {
+        logger.error('Error updating carbon stats: ' + err);
+      }
+      if (res.statusCode != 200) {
+        logger.error('Error updating carbon stats: Status Code ' + res.statusCode + ' Error: ' + err);
+      }
+      logger.info('Updated Carbon server count to ' + bot.servers.length);
+    });
   }
 }
 
