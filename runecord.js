@@ -51,7 +51,7 @@ function connect() {
 function carbon() {
   if (process.env.CARBON_KEY) {
     request.post({
-      'url': 'https://www.carbonitex.net/discord/botdata.php',
+      'url': 'https://www.carbonitex.net/discord/data/botdata.php',
       'headers': {'content-type': 'application/json'},
       'json': true,
       body: {
