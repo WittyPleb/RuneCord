@@ -52,6 +52,15 @@ var bot = new discord.Client({
   forceFetchUsers: true
 });
 
+function connect() {
+  if (!process.env.TOKEN || !process.env.APP_ID) {
+    console.log(cRed('Please setup TOKEN and APP_ID in .env to use RuneCord!'));
+    process.exit(1);
+  }
+
+  bot.loginWithToken(process.env.TOKEN);
+}
+
 function carbon() {
   if (process.env.CARBON_KEY) {
     request({
@@ -70,16 +79,19 @@ setInterval(carbon, 360000);
 bot.on("error", (m) => {
   console.log(cError(" WARN ") + " " + m);
 });
+
 bot.on("warn", (m) => {
   if (show_warn) {
     console.log(cWarn(" WARN ") + " " + m);
   }
 });
+
 bot.on("debug", (m) => {
   if (debug) {
     console.log(cDebug(" DEBUG ") + " " + m);
   }
 });
+
 bot.on("ready", () => {
   console.log(cGreen("RuneCord is ready!") + " Listening to " + bot.channels.length + " channels on " + bot.servers.length + " servers");
   versionCheck.checkForUpdate();
@@ -87,6 +99,7 @@ bot.on("ready", () => {
     db.checkServers(bot);
   }, 10000);
 });
+
 bot.on("disconnected", () => {
   console.log(cRed("Disconnected") + " from Discord");
   commandsProcessed = 0;
@@ -354,21 +367,6 @@ bot.on("serverCreated", (server) => {
     }
   }
 });
-console.log("Logging in...");
-bot.loginWithToken(process.env.TOKEN, (err, token) => {
-  if (err) {
-    console.log(err);
-    setTimeout(() => {
-      process.exit(1);
-    }, 2000);
-  }
-  if (!token) {
-    console.log(cWarn(" WARN ") + " failed to connect");
-    setTimeout(() => {
-      process.exit(0);
-    }, 2000);
-  }
-});
 
 function evaluateString(msg) {
   if (msg.author.id != process.env.ADMIN_ID) {
@@ -452,3 +450,5 @@ function checkDb() {
     fs.writeFileSync("./db/times.json", "{}");
   }
 }
+
+connect();

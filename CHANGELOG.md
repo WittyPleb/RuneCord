@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Changed
 - Changed how stats are posted to Carbon.
+- Changed how the bot starts up.
 
 ### Fixed
 - Fixed `~statues` command calculating for 5 statues instead of 6.
