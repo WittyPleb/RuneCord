@@ -3,6 +3,10 @@
  */
 var fs = require("fs");
 var chalk = require('chalk');
+
+chalk = new chalk.constructor({
+  enabled: true
+});
 /**
  * Required Files
  */

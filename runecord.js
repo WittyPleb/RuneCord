@@ -18,6 +18,10 @@ var logger = require('./bot/logger.js');
 var db = require("./bot/db.js");
 checkConfig();
 
+chalk = new chalk.constructor({
+  enabled: true
+});
+
 var lastExecTime = {};
 var pmCoolDown = {};
 
