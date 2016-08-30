@@ -7,6 +7,10 @@ var production = (process.env.NODE_ENV === 'production');
 var cfg = {name: 'runecord'};
 var logger = bunyan.createLogger(cfg);
 
+chalk = new chalk.constructor({
+  enabled: true
+});
+
 function _submitToLogger(type, msg) {
   if (R.is(Object, msg)) return logger[type](msg, msg.message || '');
   return logger[type](msg);
