@@ -16,19 +16,19 @@ function _submitToLogger(type, msg) {
   return logger[type](msg);
 }
 
-function cmd(cmd, suffix) {
+function cmd(cmd, suffix, server, user) {
   if (production) return logger.info({cmd, suffix}, 'cmd');
-  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bold.green('[COMMAND]'), chalk.bold.green(cmd), suffix);
+  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bold.green('[COMMAND]'), chalk.bold.green(server) + ' > ' + chalk.bold.green(user) + ' > ' + chalk.bold.green(cmd), suffix);
 }
 
-function modCmd(cmd, suffix) {
+function modCmd(cmd, suffix, server, user) {
   if (production) return logger.info({cmd, suffix}, 'modCmd');
-  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bold.magenta('[MOD COMMAND]'), chalk.bold.green(cmd), suffix);
+  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bold.magenta('[MOD COMMAND]'), chalk.bold.magenta(server) + ' > ' + chalk.bold.magenta(user) + ' > ' + chalk.bold.magenta(cmd), suffix);
 }
 
 function debug(msg) {
   if (production) return;
-  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bgWhite.black('DEBUG'), msg);
+  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bgWhite.black('[DEBUG]'), msg);
 }
 
 function info(msg) {

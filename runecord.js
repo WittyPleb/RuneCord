@@ -201,7 +201,11 @@ function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1;
     if (type == "normal") {
-      logger.cmd(cmd, suffix);
+      if (!msg.channel.isPrivate) {
+        logger.cmd(cmd, suffix, msg.channel.server.name + '(' + msg.channel.server.id + ')', msg.author.username);
+      } else {
+        logger.cmd(cmd, suffix, 'PM', msg.author.username);
+      }
       if (msg.author.id != process.env.ADMIN_ID && commands.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
         if (!lastExecTime.hasOwnProperty(cmd)) {
           lastExecTime[cmd] = {};
@@ -235,7 +239,11 @@ function execCommand(msg, cmd, suffix, type) {
         }
       }
     } else if (type == "mod") {
-      logger.modCmd(cmd, suffix);
+      if (!msg.channel.isPrivate) {
+        logger.modCmd(cmd, suffix, msg.channel.server.name + '(' + msg.channel.server.id + ')', msg.author.username);
+      } else {
+        logger.modCmd(cmd, suffix, 'PM', msg.author.username);
+      }
       if (msg.author.id != process.env.ADMIN_ID && mod.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
         if (!lastExecTime.hasOwnProperty(cmd)) {
           lastExecTime[cmd] = {};
