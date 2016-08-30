@@ -181,15 +181,6 @@ bot.on("message", (msg) => {
       msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + commands.aliases[cmdMention] + " ");
       execCommand(msg, commands.aliases[cmdMention], mentionSuffix, "normal");
     }
-    if (mod.commands.hasOwnProperty(cmdMention)) {
-      execCommand(msg, cmdMention, mentionSuffix, "mod");
-    } else if (mod.aliases.hasOwnProperty(cmdMention)) {
-      if (!msg.channel.isPrivate) {
-        db.updateTimestamp(msg.channel.server);
-        msg.content = msg.content.replace(/[^ ]+ /, config.mod_command_prefix + mod.aliases[cmdMention] + " ");
-        execCommand(msg, mod.aliases[cmdMention], mentionSuffix, "mod");
-      }
-    }
     if (cmdMention == "reload" && msg.author.id == process.env.ADMIN_ID) {
       reload();
       bot.sendMessage(msg, "```diff\n+ Bot successfully reloaded!```");
