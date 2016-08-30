@@ -104,24 +104,9 @@ bot.on("disconnected", () => {
   console.log(cRed("Disconnected") + " from Discord");
   commandsProcessed = 0;
   lastExecTime = {};
-  setTimeout(() => {
-    console.log("Attempting to log in...");
-    bot.loginWithToken(process.env.TOKEN, (err, token) => {
-      if (err) {
-        console.log(err);
-        setTimeout(() => {
-          process.exit(1);
-        }, 2000);
-      }
-      if (!token) {
-        console.log(cWarn(" WARN ") + " failed to connect");
-        setTimeout(() => {
-          process.exit(0);
-        }, 2000);
-      }
-    });
-  });
+  setTimeout(connect, 2000);
 });
+
 bot.on("message", (msg) => {
   if (msg.author.id == bot.user.id) {
     return;
