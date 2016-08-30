@@ -10,6 +10,7 @@ var version = require("../package.json").version;
  * Required Files
  */
 var config = require("./config.json");
+var logger = require('./logger.js');
 
 var entities = new Entities();
 
@@ -258,7 +259,7 @@ var commands = {
         if (res.statusCode == 404 || err) {
           bot.sendMessage(msg, "Unable to grab the VoS, please try again.");
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Unable to grab the VoS: " + err);
+            logger.debug('Unable to grab the VoS: ' + err);
           }
           return;
         }
@@ -445,12 +446,12 @@ var commands = {
         return;
       } else {
         if (debug) {
-          console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
+          logger.debug('Grabbing stats for ' + suffix);
         }
         request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, (err, res, body) => {
           if (res.statusCode == 404 || err) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
+              logger.debug('Unable to retrieve stats for ' + suffix);
             }
             bot.sendMessage(msg, "Unable to get your stats.");
             return;
@@ -485,12 +486,12 @@ var commands = {
         return;
       } else {
         if (debug) {
-          console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
+          logger.debug('Grabbing stats for ' + suffix);
         }
         request("http://services.runescape.com/m=hiscore/index_lite.ws?player=" + suffix, (err, res, body) => {
           if (res.statusCode == 404 || err) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
+              logger.debug('Unable to retrieve stats for ' + suffix);
             }
             bot.sendMessage(msg, "Unable to retrieve stats for '" + suffix + "'.");
             return;
@@ -508,7 +509,7 @@ var commands = {
               table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
             }
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Stats successfully grabbed for " + suffix);
+              logger.debug('Stats successfully grabbed for ' + suffix);
             }
             bot.sendMessage(msg, "```" + table + "```");
           }
@@ -526,14 +527,14 @@ var commands = {
         return;
       } else {
         if (debug) {
-          console.log(cDebug(" DEBUG ") + " Attempting to retrieve grand exchange data for '" + suffix + "'...");
+          logger.debug('Attempting to retrieve grand exchange data for "' + suffix + '"...');
         }
         request("http://rscript.org/lookup.php?type=ge&search=" + suffix + "&exact=1", (err, res, body) => {
           if (!err && res.statusCode == 200) {
             var results = body.split("RESULTS: ");
             if (results[1].substring(0, 1) == 1 && suffix !== null) {
               if (debug) {
-                console.log(cDebug(" DEBUG ") + " Successfully got data for '" + suffix + "'");
+                logger.debug('Successfully got data for "' + suffix + '"');
               }
               var test = results[1].split("ITEM: ");
               var result = test[2].split(" ");
@@ -546,12 +547,12 @@ var commands = {
               bot.sendMessage(msg, toSend);
             } else if (results[1].substring(0, 1) > 1) {
               if (debug) {
-                console.log(cDebug(" DEBUG ") + " Too many results returned for " + suffix);
+                logger.debug('Too many results returned for "' + suffix + '"');
               }
               bot.sendMessage(msg, "Too many results, please refine your search term better.");
             } else {
               if (debug) {
-                console.log(cDebug(" DEBUG ") + " Error finding item '" + suffix);
+                logger.debug('Error finding item "' + suffix + '"');
               }
               bot.sendMessage(msg, "Error finding item '" + suffix + "', please try typing the exact item name.");
             }
@@ -566,19 +567,19 @@ var commands = {
     cooldown: 15,
     process: (bot, msg) => {
       if (debug) {
-        console.log(cDebug(" DEBUG ") + " Attempting to grab viswax combination...");
+        logger.debug('Attempting to grab viswax combination...');
       }
       request("http://warbandtracker.com/goldberg/index.php", (err, res, body) => {
         if (res.statusCode == 404 || err) {
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Unable to grab viswax combination: " + err);
+            logger.debug('Unable to grab viswax combination: ' + err);
           }
           bot.sendMessage(msg, "Unable to grab viswax combination, please try again.");
           return;
         }
         if (!err && res.statusCode == 200) {
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Successfully grabbed viswax combination");
+            logger.debug('Successfully grabbed viswax combination');
           }
           var visBody = body;
           var firstRuneStart = visBody.indexOf("First Rune");
@@ -647,19 +648,19 @@ var commands = {
         return;
       } else {
         if (debug) {
-          console.log(cDebug(" DEBUG ") + " Attempting to grab adventure log for '" + suffix + "'...");
+          logger.debug('Attempting to grab adventure log for "' + suffix + '"');
         }
         request("http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=" + suffix, (err, res, body) => {
           if (res.statusCode == 404 || err) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Unable to retrieve adventure log for '" + suffix + "': " + err);
+              logger.debug('Unable to retrieve adventure log for "' + suffix + '": ' + err);
             }
             bot.sendMessage(msg, "Unable to retrieve adventure log for '" + suffix + "'.");
             return;
           }
           if (!err && res.statusCode == 200) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Adventure log successfully grabbed for " + suffix);
+              logger.debug('Adventure log successfully grabbed for "' + suffix + '"');
             }
             var AlogText = body.slice(body.indexOf("<item>"), body.indexOf("</channel>"));
             var alog_data = AlogText.split("</item>");
@@ -684,19 +685,19 @@ var commands = {
         return;
       } else {
         if (debug) {
-          console.log(cDebug(" DEBUG ") + " Grabbing stats for " + suffix);
+          logger.debug('Grabbing oldschool stats for "' + suffix + '"');
         }
         request("http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=" + suffix, (err, res, body) => {
           if (res.statusCode == 404 || err) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Unable to retrieve stats for " + suffix);
+              logger.debug('Unable to retrieve oldschool stats for "' + suffix + '": ' + err);
             }
             bot.sendMessage(msg, " Unable to retrieve stats for '" + suffix + "'.");
             return;
           }
           if (!err && res.statusCode == 200) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + " Stats successfully grabbed for " + suffix);
+              logger.debug('Oldschool stats successfully grabbed for "' + suffix + '"');
             }
             var stat_data = body.split("\n");
             var result = [];
@@ -954,19 +955,19 @@ var commands = {
         return;
       } else {
         if (debug) {
-          console.log(cDebug(" DEBUG ") + "Attempting to retrieve twitch status for '" + suffix + "'...");
+          logger.debug('Attempting to retrieve twitch status for "' + suffix + '"');
         }
         request("https://api.twitch.tv/kraken/streams/" + suffix, (err, res, body) => {
           if (res.statusCode == 404 || err) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + "Unable to retrieve twitch status for '" + suffix + "'");
+              logger.debug('Unable to retrieve twitch status for "' + suffix + '": ' + err);
             }
             bot.sendMessage(msg, "Unable to find information on '" + suffix + "'.");
             return;
           }
           if (!err && res.statusCode == 200) {
             if (debug) {
-              console.log(cDebug(" DEBUG ") + "Successfully grabbed twitch status for '" + suffix + "'");
+              logger.debug('Successfully grabbed twitch status for "' + suffix + '"');
             }
             var stream = JSON.parse(body);
             if (stream.stream) {

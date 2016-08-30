@@ -9,6 +9,8 @@ var version = require("../package.json").version;
  */
 var config = require("./config.json");
 var db = require("./db.js");
+var logger = require('./logger.js');
+
 // Create confirmCodes array, this is used for creating confirmation codes for the announce command
 var confirmCodes = [];
 // Create the announceMessages array, this is used in the announce command
@@ -165,7 +167,7 @@ var commands = {
           }, 1100);
           delete confirmCodes[index];
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Announced \"" + announceMessages[index] + "\" to members of " + msg.channel.server.name);
+            logger.debug('Announced "' + announceMessages[index] + '" to members of ' + msg.channel.server.name);
           }
         } else {
           announceMessages.push(suffix);
@@ -202,7 +204,7 @@ var commands = {
           }, 1100);
           delete confirmCodes[index];
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Announced \"" + announceMessages[index] + "\" to all servers");
+            logger.debug('Announced "' + announceMessages[index] + '" to all servers.');
           }
         } else {
           announceMessages.push(suffix);

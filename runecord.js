@@ -5,25 +5,7 @@ require("dotenv").config();
 var discord = require("discord.js");
 var request = require("request");
 var chalk = require("chalk");
-var dateFormat = require("dateformat");
 var fs = require("fs");
-require("log-timestamp")(() => {
-  return "[" + dateFormat(new Date(), "mmm dd hh:MM:ss TT") + "]";
-});
-var clk = new chalk.constructor({
-  enabled: true
-});
-cWarn = clk.bgYellow.black;
-cError = clk.bgRed.black;
-cDebug = clk.bgWhite.black;
-cGreen = clk.bold.green;
-cGrey = clk.bold.grey;
-cYellow = clk.bold.yellow;
-cBlue = clk.bold.blue;
-cRed = clk.bold.red;
-cServer = clk.bold.magenta;
-cUYellow = clk.bold.underline.yellow;
-cBgGreen = clk.bgGreen.black;
 checkDb();
 /**
  * Required Files
@@ -32,6 +14,7 @@ var commands = require("./bot/commands.js");
 var mod = require("./bot/mod.js");
 var config = require("./bot/config.json");
 var versionCheck = require("./bot/versioncheck.js");
+var logger = require('./bot/logger.js');
 var db = require("./bot/db.js");
 checkConfig();
 
@@ -77,23 +60,23 @@ function carbon() {
 setInterval(carbon, 360000);
 
 bot.on("error", (m) => {
-  console.log(cError(" WARN ") + " " + m);
+  logger.error(m);
 });
 
 bot.on("warn", (m) => {
   if (show_warn) {
-    console.log(cWarn(" WARN ") + " " + m);
+    logger.warn(m);
   }
 });
 
 bot.on("debug", (m) => {
   if (debug) {
-    console.log(cDebug(" DEBUG ") + " " + m);
+    logger.debug(m);
   }
 });
 
 bot.on("ready", () => {
-  console.log(cGreen("RuneCord is ready!") + " Listening to " + bot.channels.length + " channels on " + bot.servers.length + " servers");
+  logger.info('RuneCord is ready! Listening to ' + bot.channels.length + ' channels on ' + bot.servers.length + ' servers.');
   versionCheck.checkForUpdate();
   setTimeout(() => {
     db.checkServers(bot);
@@ -205,11 +188,7 @@ function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1;
     if (type == "normal") {
-      if (!msg.channel.isPrivate) {
-        console.log(cServer(msg.channel.server.name) + " > " + cGreen(msg.author.username) + " > " + msg.cleanContent.replace(/\n/g, " "));
-      } else {
-        console.log(cGreen(msg.author.username) + " > " + msg.cleanContent.replace(/\n/g, " "));
-      }
+      logger.cmd(cmd, suffix);
       if (msg.author.id != process.env.ADMIN_ID && commands.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
         if (!lastExecTime.hasOwnProperty(cmd)) {
           lastExecTime[cmd] = {};
@@ -243,11 +222,7 @@ function execCommand(msg, cmd, suffix, type) {
         }
       }
     } else if (type == "mod") {
-      if (!msg.channel.isPrivate) {
-        console.log(cServer(msg.channel.server.name) + " > " + cGreen(msg.author.username) + " > " + cBlue(msg.cleanContent.replace(/\n/g, " ").split(" ")[0]) + msg.cleanContent.replace(/\n/g, " ").substr(msg.cleanContent.replace(/\n/g, " ").split(" ")[0].length));
-      } else {
-        console.log(cGreen(msg.author.username) + " > " + cBlue(msg.cleanContent.replace(/\n/g, " ").split(" ")[0]) + msg.cleanContent.replace(/\n/g, " ").substr(msg.cleanContent.replace(/\n/g, " ").split(" ")[0].length));
-      }
+      logger.modCmd(cmd, suffix);
       if (msg.author.id != process.env.ADMIN_ID && mod.commands[cmd].hasOwnProperty("cooldown") && ServerSettings.hasOwnProperty(msg.channel.server.id) && ServerSettings[msg.channel.server.id].commandCooldowns === false) {
         if (!lastExecTime.hasOwnProperty(cmd)) {
           lastExecTime[cmd] = {};
@@ -284,7 +259,7 @@ function execCommand(msg, cmd, suffix, type) {
       return;
     }
   } catch (err) {
-    console.log(err.stack);
+    logger.error(err.stack);
   }
 }
 bot.on("serverNewMember", (objServer, objUser) => {
@@ -293,7 +268,7 @@ bot.on("serverNewMember", (objServer, objUser) => {
       return;
     }
     if (debug) {
-      console.log("New member on " + objServer.name + ": " + objUser.username);
+      logger.debug('New member on ' + objServer.name + ': ' + objUser.username);
     }
     bot.sendMessage(objServer.defaultChannel, ServerSettings[objServer.id].welcome.replace(/\$USER\$/gi, objUser.username.replace(/@/g, "@\u200b")).replace(/\$SERVER\$/gi, objServer.name.replace(/@/g, "@\u200b")));
   }
@@ -306,14 +281,14 @@ bot.on("channelDeleted", (channel) => {
     if (ServerSettings[channel.server.id].ignore.indexOf(channel.id) > -1) {
       db.unignoreChannel(channel.id, channel.server.id);
       if (debug) {
-        console.log(cDebug(" DEBUG ") + " Ignored channel was deleted and removed from the DB");
+        logger.debug('Ignored channel was deleted and removed from the DB');
       }
     }
   }
 });
 bot.on("userBanned", (objUser, objServer) => {
   if (config.non_essential_event_listeners && ServerSettings.hasOwnProperty(objServer.id) && ServerSettings[objServer.id].banAlerts === true) {
-    console.log(objUser.username + cRed(" banned on ") + objServer.name);
+    logger.info(objUser.username + chalk.red(' banned on ') + objServer.name);
     if (ServerSettings[objServer.id].notifyChannel != "general") {
       bot.sendMessage(ServerSettings[objServer.id].notifyChannel, ":warning: " + objUser.username.replace(/@/g, "@\u200b") + " was banned");
     } else {
@@ -324,18 +299,18 @@ bot.on("userBanned", (objUser, objServer) => {
 });
 bot.on("userUnbanned", (objUser, objServer) => {
   if (objServer.members.length <= 500 && config.non_essential_event_listeners) {
-    console.log(objUser.username + " unbanned on " + objServer.name);
+    logger.info(objUser.username + ' unbanned on ' + objServer.name);
   }
 });
 bot.on("serverDeleted", (objServer) => {
-  console.log(cUYellow("Left server") + " " + objServer.name);
+  logger.info(chalk.bold.yellow('Left server: ') + objServer.name);
   db.handleLeave(objServer);
 });
 bot.on("serverCreated", (server) => {
   if (db.serverIsNew(server)) {
-    console.log(cGreen("Joined server: ") + server.name);
+    logger.info(chalk.bold.green('Joined server: ') + server.name);
     if (config.banned_server_ids && config.banned_server_ids.indexOf(server.id) > -1) {
-      console.log(cRed("Joined server but it was on the ban list") + ": " + server.name);
+      logger.error('Joined server but it was on the ban list: ' + server.name);
       bot.sendMessage(server.defaultChannel, "This server is on the ban list");
       setTimeout(() => {
         bot.leaveServer(server);
@@ -355,16 +330,16 @@ bot.on("serverCreated", (server) => {
 
 function evaluateString(msg) {
   if (msg.author.id != process.env.ADMIN_ID) {
-    console.log(cWarn(" WARN ") + " Somehow an unauthorized user got into eval!");
+    logger.warn('Somehow an unauthorized user got into eval!');
     return;
   }
   var timeTaken = new Date();
   var result;
-  console.log("Running eval");
+  logger.info('Running eval...');
   try {
     result = eval(msg.content.substring(7).replace(/\n/g, ""));
   } catch (e) {
-    console.log(cError(" ERROR ") + " " + e);
+    logger.error(e);
     var toSend = [];
     toSend.push(":x: Error evaluating");
     toSend.push("```diff");
@@ -380,7 +355,7 @@ function evaluateString(msg) {
     toSend.push("```");
     toSend.push("Time taken: " + (timeTaken - msg.timestamp) + " ms");
     bot.sendMessage(msg, toSend);
-    console.log("Result: " + result);
+    logger.info('Result: ' + result);
   }
 }
 
@@ -396,22 +371,22 @@ function reload() {
   try {
     commands = require(__dirname + "/bot/commands.js");
   } catch (err) {
-    console.log(cError(" ERROR ") + " Problem loading commands.js: " + err);
+    logger.error('Problem loading commands.js: ' + err);
   }
   try {
     mod = require(__dirname + "/bot/mod.js");
   } catch (err) {
-    console.log(cError(" ERROR ") + " Problem loading mod.js: " + err);
+    logger.error('Problem loading mod.js: ' + err);
   }
-  console.log(cBgGreen(" Module Reload ") + " Success");
+  logger.info(chalk.bgGreen.black('Modules Successfully Reloaded!'));
 }
 
 function checkConfig() {
   if (!config.command_prefix || config.command_prefix.length !== 1) {
-    console.log(cWarn(" WARN ") + "Prefix either not defined or more than one character");
+    logger.warn('Prefix either not defined or more than one character.');
   }
   if (!config.mod_command_prefix || config.mod_command_prefix.length !== 1) {
-    console.log(cWarn(" WARN ") + "Mod prefix either not defined or more than character");
+    logger.warn('Mod prefix either not defined or more than one character.');
   }
 }
 
@@ -419,19 +394,19 @@ function checkDb() {
   try {
     fs.statSync("./db/");
   } catch (e) {
-    console.log(cBgGreen(" SETUP ") + " 'db' folder doesn't exist, creating it...");
+    logger.warn('\'db\' folder doesn\'t exist... Creating!');
     fs.mkdirSync("./db/");
   }
   try {
     fs.statSync("./db/servers.json");
   } catch (e) {
-    console.log(cBgGreen(" SETUP ") + " 'db/servers.json' doesn't exist, creating it...");
+    logger.warn('\'db/servers.json\' doesn\'t exist... Creating!');
     fs.writeFileSync("./db/servers.json", "{}");
   }
   try {
     fs.statSync("./db/times.json");
   } catch (e) {
-    console.log(cBgGreen(" SETUP ") + " 'db/times.json' doesn't exist, creating it...");
+    logger.warn('\'db/times.json\' doesn\'t exist... Creating!');
     fs.writeFileSync("./db/times.json", "{}");
   }
 }

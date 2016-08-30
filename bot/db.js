@@ -2,10 +2,12 @@
  * Module Dependencies
  */
 var fs = require("fs");
+var chalk = require('chalk');
 /**
  * Required Files
  */
 var config = require("../bot/config.json");
+var logger = require('../bot/logger.js');
 /**
  * Global variables
  */
@@ -28,21 +30,21 @@ setInterval(() => {
 function updateServers() {
   fs.writeFile(__dirname + "/../db/servers-temp.json", JSON.stringify(ServerSettings), (error) => {
     if (error) {
-      console.log(error);
+      logger.error(error);
     } else {
       fs.stat(__dirname + "/../db/servers-temp.json", (err, stats) => {
         if (err) {
-          console.log(err);
+          logger.error(err);
         } else if (stats["size"] < 5) {
-          console.log("Prevented server settings database from being overwritten");
+          logger.info('Prevented server settings database from being overwritten');
         } else {
           fs.rename(__dirname + "/../db/servers-temp.json", __dirname + "/../db/servers.json", (e) => {
             if (e) {
-              console.log(e);
+              logger.error(e);
             }
           });
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Updated servers.json");
+            logger.debug('Updated servers.json');
           }
         }
       });
@@ -53,21 +55,21 @@ function updateServers() {
 function updateTimes() {
   fs.writeFile(__dirname + "/../db/times-temp.json", JSON.stringify(Times), (error) => {
     if (error) {
-      console.log(error);
+      logger.error(error);
     } else {
       fs.stat(__dirname + "/../db/times-temp.json", (err, stats) => {
         if (err) {
-          console.log(err);
+          logger.error(err);
         } else if (stats["size"] < 5) {
-          console.log("Prevented times database from being overwritten");
+          logger.info('Prevented times database from being overwritten');
         } else {
           fs.rename(__dirname + "/../db/times-temp.json", __dirname + "/../db/times.json", (e) => {
             if (e) {
-              console.log(e);
+              logger.error(e);
             }
           });
           if (debug) {
-            console.log(cDebug(" DEBUG ") + " Updated times.json");
+            logger.debug('Updated times.json');
           }
         }
       });
@@ -154,9 +156,9 @@ exports.checkServers = (bot) => {
       return;
     }
     if (!Times.hasOwnProperty(server.id)) {
-      console.log(cGreen("Joined server: ") + server.name);
+      logger.info(chalk.bold.green('Joined server: ') + server.name);
       if (config.banned_server_ids && config.banned_server_ids.indexOf(server.id) > -1) {
-        console.log(cRed("Joined server but it was on the ban list") + ": " + server.name);
+        logger.error('Joined server but it was on the ban list: ' + server.name);
         bot.sendMessage(server.defaultChannel, "This server is on the ban list");
         setTimeout(() => {
           bot.leaveServer(server);
@@ -177,16 +179,16 @@ exports.checkServers = (bot) => {
       inactive.push(server.id);
       if (debug) {
         var days = ((now - Times[server.id]) / 1000 / 60 / 60 / 24).toFixed(1);
-        console.log(cDebug(" DEBUG ") + " " + server.name + "(" + server.id + ")" + " hasn\"t used the bot for " + days + " days.");
+        logger.debug(server.name + '(' + server.id + ') hasn\'t used the bot for ' + days + ' days.');
       }
     }
   });
   updatedT = true;
   if (inactive.length > 0) {
-    console.log("Can leave " + inactive.length + " servers that don't use the bot");
+    logger.info('Can leave ' + inactive.length + ' servers that don\'t use the bot');
   }
   if (debug) {
-    console.log(cDebug(" DEBUG ") + " Checked for inactive servers");
+    logger.debug('Checked for inactive servers');
   }
 };
 exports.remInactive = (bot, msg, delay) => {
@@ -207,12 +209,12 @@ exports.remInactive = (bot, msg, delay) => {
       var days = ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1);
       toSend += "\n**" + (cnt + 1) + ":** " + server.name.replace(/@/g, "@\u200b") + " (" + days + " days)";
       server.leave();
-      console.log(cUYellow("Left server") + " " + server.name);
+      logger.info(chalk.bold.yellow('Left server: ') + server.name);
       if (Times.hasOwnProperty(server.id)) {
         delete Times[server.id];
         updatedT = true;
         if (debug) {
-          console.log(cDebug(" DEBUG ") + " Removed server from times.json");
+          logger.debug('Removed server from times.json');
         }
       }
       cnt++;
@@ -242,7 +244,7 @@ exports.handleLeave = (server) => {
     delete Times[server.id];
     updatedT = true;
     if (debug) {
-      console.log(cDebug(" DEBUG ") + " Removed server from times.json");
+      logger.debug('Removed server from times.json');
     }
   }
 };
