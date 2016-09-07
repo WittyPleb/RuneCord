@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.6] - 2016-09-07
+### Added
+- Added server count posting to [Discord bots](https://bots.discord.pw).
+
+### Fixed
+- Fixed Carbon stats posting correctly.
+
+### Removed
+- Removed unused global variables from `.eslintrc`.
+
 ## [2.3.5] - 2016-08-20
 ### Changed
 - Changed how stats are posted to Carbon.

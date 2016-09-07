@@ -21,17 +21,6 @@
     "commandsProcessed",
     "talkedToTimes",
     "Times",
-    "cWarn",
-    "cError",
-    "cDebug",
-    "cGreen",
-    "cGrey",
-    "cYellow",
-    "cBlue",
-    "cRed",
-    "cServer",
-    "cUYellow",
-    "cBgGreen",
     "done"
   },
   "extends": "eslint:recommended"

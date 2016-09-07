@@ -48,7 +48,25 @@ function connect() {
   bot.loginWithToken(process.env.TOKEN);
 }
 
-function carbon() {
+function bot_stats() {
+  if (process.env.STATS_KEY) {
+    request.post({
+      'url': 'https://bots.discord.pw/api/bots/' + bot.user.id + '/stats',
+      'headers': {'content-type': 'application/json', 'Authorization': process.env.STATS_KEY},
+      'json': true,
+      body: {
+        'server_count': bot.servers.length
+      }
+    }, (err, res) => {
+      if (err) {
+        logger.error('Error updating bot stats to discord bots: ' + err);
+      }
+      if (res.statusCode != 200) {
+        logger.error('Error updating bot stats to discord bots: Status Code ' + res.statusCode + ' Error: ' + err);
+      }
+      logger.info('Updated Discord Bots server count to ' + bot.servers.length);
+    });
+  }
   if (process.env.CARBON_KEY) {
     request.post({
       'url': 'https://www.carbonitex.net/discord/data/botdata.php',
@@ -70,7 +88,7 @@ function carbon() {
   }
 }
 
-setInterval(carbon, 360000);
+setInterval(bot_stats, 10000);
 
 bot.on("error", (m) => {
   logger.error(m);
