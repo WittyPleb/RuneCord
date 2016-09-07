@@ -51,7 +51,7 @@ function connect() {
 function bot_stats() {
   if (process.env.STATS_KEY) {
     request.post({
-      'url': 'https://bots.discord.pw/api/bots/168231080439185417/stats',
+      'url': 'https://bots.discord.pw/api/bots/' + bot.user.id + '/stats',
       'headers': {'content-type': 'application/json', 'Authorization': process.env.STATS_KEY},
       'json': true,
       body: {
