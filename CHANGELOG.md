@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Removed unused global variables from `.eslintrc`.
 
-## [2.3.5] - 2016-08-20
+## [2.3.5] - 2016-08-30
 ### Changed
 - Changed how stats are posted to Carbon.
 - Changed how the bot starts up.
