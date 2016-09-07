@@ -51,7 +51,7 @@ function connect() {
 function bot_stats() {
   if (process.env.STATS_KEY) {
     request.post({
-      'url': 'https://bots.discord.pw/api/bots/' + bot.user.id + '/stats',
+      'url': 'https://bots.discord.pw/api/bots/168231080439185417/stats',
       'headers': {'content-type': 'application/json', 'Authorization': process.env.STATS_KEY},
       'json': true,
       body: {
@@ -88,7 +88,7 @@ function bot_stats() {
   }
 }
 
-setInterval(bot_stats, 10000);
+setInterval(bot_stats, 360000);
 
 bot.on("error", (m) => {
   logger.error(m);
