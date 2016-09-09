@@ -33,7 +33,7 @@ function checkDb() {
 
 /* WHEN BOT SENDS READY EVENT */
 client.on('ready', () => {
-  logger.info('RuneCord is ready!');
+  logger.info('RuneCord is ready! Listening to ' + client.channels.array().length + ' channels on ' + client.guilds.array().length + ' guilds.');
   versionCheck.checkForUpdate();
   setTimeout(() => {
     database.checkGuilds(client)
