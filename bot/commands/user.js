@@ -2,10 +2,14 @@
 const request    = require('request');
 const numeral    = require('numeral');
 const asciiTable = require('ascii-table');
+const Entities = require('html-entities').AllHtmlEntities;
 
 /* REQUIRED FILES */
 const config  = require('../config.json');
 const version = require('../../package.json').version;
+
+/* LOCAL VARIABLES */
+const entities = new Entities();
 
 /* GET THE SKILL NAMES BASED ON THE HISCORE SKILL ID */
 function getSkillName(id, type) {
@@ -592,6 +596,26 @@ var commands = {
       if (!suffix) {
         correctUsage('alog', commands.alog.usage, msg, bot);
         return;
+      } else {
+        request(`http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=${suffix}`, (err, res, body) => {
+          if (res.statusCode == 404 || err) {
+            msg.channel.sendMessage(`Unable to retrieve adventure log for '${suffix}'.`);
+            return;
+          }
+          if (!err && res.statusCode == 200) {
+            var alogText = body.slice(body.indexOf('<item>'), body.indexOf('</channel>'));
+            var alogData = alogText.split('</item>');
+            var table = new asciiTable();
+
+            table.setTitle(`VIEWING ADVENTURE LOG FOR ${suffix.toUpperCase()}`).setHeading('Achievement', 'Date');
+
+            for (var i = 0; i < 10; i++) {
+              table.addRow(entities.decode(alogData[i].slice(alogData[i].indexOf('<title>') + 7, alogData[i].indexOf('</title>'))), alogData[i].slice(alogData[i].indexOf('<pubDate>') + 9, alogData[i].indexOf('00:00:00') - 1));
+            }
+
+            msg.channel.sendMessage(`\`\`\`${table.toString()}\`\`\``);
+          }
+        });
       }
     }
   }
