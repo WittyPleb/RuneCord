@@ -22,6 +22,7 @@ function connect() {
   client.login(process.env.TOKEN).then(checkDb());
 }
 
+/* CHECK TO SEE IF THE DATABASE FILES ARE THERE, IF NOT, MAKE THEM */
 function checkDb() {
   try {
     fs.statSync('./bot/data/guilds.json');
@@ -30,6 +31,48 @@ function checkDb() {
     fs.writeFileSync('./bot/data/guilds.json', '{}');
   }
 }
+
+/* POST STATS TO VARIOUS WEBSITES */
+function stats() {
+
+  /* BOTS.DISCORD.PW STATS */
+  if (process.env.DISCORD_BOTS_KEY) {
+    request.post({
+      'url': 'https://bots.discord.pw/api/bots/' + client.user.id + '/stats',
+      'headers': {'content-type': 'application/json', 'Authorization': process.env.DISCORD_BOTS_KEY},
+      'json': true,
+      body: {
+        'server_count': client.guilds.array().length
+      }
+    }, (err, res, body) => {
+      if (err || res.statusCode != 200) {
+        logger.error('Error updating stats at bots.discord.pw: Status code: ' + res.statusCode + ' Error: ' + err);
+      }
+      logger.info('Updated stats at bots.discord.pw to ' + client.guilds.array().length);
+    });
+  }
+
+  /* CARBONITEX.NET STATS */
+  if (process.env.CARBON_KEY) {
+    request.post({
+      'url': 'https://www.carbonitex.net/discord/data/botdata.php',
+      'headers': {'content-type': 'application/json'},
+      'json': true,
+      body: {
+        'key': process.env.CARBON_KEY,
+        'servercount': client.guilds.array().length;
+      }
+    }, (err, res, body) => {
+      if (err || res.statusCode != 200) {
+        logger.error('Error updating stats at carbonitex.net: Status code: ' + res.statusCode + ' Error: ' + err);
+      }
+      logger.info('Updated stats at carbonitex.net to ' + client.guilds.array().length);
+    });
+  }
+}
+
+/* UPDATE STATS EVERY HOUR */
+setInterval(stats, 3600000);
 
 /* WHEN BOT SENDS READY EVENT */
 client.on('ready', () => {
