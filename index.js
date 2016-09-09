@@ -32,6 +32,35 @@ function checkDb() {
   }
 }
 
+/* USED FOR '(eval)' COMMAND, RUNS THE MESSAGE AS A REAL FUNCTION */
+function evaluateString(msg) {
+  if (msg.author.id != process.env.ADMIN_ID) return; // Make sure only the admin can use this
+
+  var timeTaken = new Date();
+  var result;
+  logger.info('Running eval...');
+  try {
+    result = eval(msg.content.substring(7).replace(/\n/g, ''));
+  } catch (e) {
+    logger.error(e);
+    var toSend = [];
+    toSend.push(':x: Error evaluating');
+    toSend.push('```diff');
+    toSend.push('- ' + e);
+    toSend.push('```');
+    msg.channel.sendMessage(toSend.join(''));
+  }
+  if (result) {
+    var toSend = [];
+    toSend.push(':white_check_mark: Evaluated successfully:');
+    toSend.push('```');
+    toSend.push(result);
+    toSend.push('```');
+    toSend.push('Time taken: ' + (timeTaken - msg.timestamp) + ' ms');
+    msg.channel.sendMessage(toSend.join('')).then(logger.info('Result: ' + result));
+  }
+}
+
 /* POST STATS TO VARIOUS WEBSITES */
 function stats() {
 
@@ -60,7 +89,7 @@ function stats() {
       'json': true,
       body: {
         'key': process.env.CARBON_KEY,
-        'servercount': client.guilds.array().length;
+        'servercount': client.guilds.array().length
       }
     }, (err, res, body) => {
       if (err || res.statusCode != 200) {
@@ -103,9 +132,23 @@ client.on('guildCreate', (guild) => {
       toSend.push('You can use `' + config.command_prefix + 'help` to see what I can do. Moderators can use `' + config.mod_command_prefix + 'help` for moderator commands.');
       toSend.push("Moderator/Administrator commands *including bot settings* can be viewed with `" + config.mod_command_prefix + "help`");
       toSend.push("For help, feedback, bugs, info, changelogs, etc. go to **<https://discord.me/runecord>**");
-      guild.defaultChannel.sendMessage(toSend);
+      guild.defaultChannel.sendMessage(toSend.join(''));
     }
   }
-})
+});
+
+/* WHEN THE BOT RECEIVES A MESSAGE */
+client.on('message', (msg) => {
+  if (msg.author.id == client.user.id) return; // Do nothing if the message comes from the bot
+  if (msg.content.startsWith('(eval) ')) {
+    if (msg.author.id == process.env.ADMIN_ID) {
+      evaluateString(msg);
+      return;
+    } else {
+      msg.channel.sendMessage('```diff\n- You do not have permission to use that command!```');
+      return;
+    }
+  }
+});
 
 connect();
