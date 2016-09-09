@@ -5,12 +5,23 @@ const fs      = require('fs');
 
 /* REQUIRED FILES */
 const logger       = require('./bot/logger.js');
+const config       = require('./bot/config.json');
 const versionCheck = require('./bot/versionCheck.js');
 const database     = require('./bot/data/database.js');
+const userCommands = require('./bot/commands/user.js');
 
 /* SET OPTIONS AND INIT BOT */
 const discordOptions = {'fetch_all_members': true};
 const client         = new Discord.Client(discordOptions);
+
+/* LOCAL VARIALBES */
+var pmCooldown = {};
+
+/* RUN ALL THIS EVERY HOUR */
+setInterval(() => {
+  pmCooldown = {};
+  stats();
+}, 3600000);
 
 /* MAKE THE BOT CONNECT TO DISCORD, IF NO TOKEN IS SET, DO NOT ATTEMPT TO CONNECT */
 function connect() {
@@ -100,9 +111,6 @@ function stats() {
   }
 }
 
-/* UPDATE STATS EVERY HOUR */
-setInterval(stats, 3600000);
-
 /* WHEN BOT SENDS READY EVENT */
 client.on('ready', () => {
   logger.info('RuneCord is ready! Listening to ' + client.channels.array().length + ' channels on ' + client.guilds.array().length + ' guilds.');
@@ -140,6 +148,8 @@ client.on('guildCreate', (guild) => {
 /* WHEN THE BOT RECEIVES A MESSAGE */
 client.on('message', (msg) => {
   if (msg.author.id == client.user.id) return; // Do nothing if the message comes from the bot
+
+  /* (eval) COMMAND FOR DOING FUNCTIONS INSIDE DISCORD */
   if (msg.content.startsWith('(eval) ')) {
     if (msg.author.id == process.env.ADMIN_ID) {
       evaluateString(msg);
@@ -149,6 +159,30 @@ client.on('message', (msg) => {
       return;
     }
   }
+
+  /* IF THE MESSAGE TYPE COMES FROM A DIRECT MESSAGE (1-ON-1) */
+  if (msg.channel.type == 'dm') {
+    if (msg.content[0] !== config.command_prefix && msg.content[0] !== config.mod_command_prefix && !msg.content.startsWith('(eval) ')) {
+      if (pmCooldown.hasOwnProperty(msg.author.id)) {
+        if (Date.now() - pmCooldown[msg.author.id] > 3000) {
+          if (/&(help how do I use this\??)$/i.test(msg.content)) {
+            userCommands.commands.help.process(client, msg);
+            return;
+          }
+          pmCooldown[msg.author.id] = Date.now();
+          return;
+        }
+      } else {
+        pmCooldown[msg.author.id] = Date.now();
+        if (/^(help|how do I use this\??)$/i.test(msg.content)) {
+          userCommands.commands.help.process(client, msg);
+          return;
+        }
+        return;
+      }
+    }
+  }
+
 });
 
 connect();
