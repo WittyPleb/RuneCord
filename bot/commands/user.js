@@ -1,5 +1,8 @@
+/* REQUIRED DEPENDENCIES */
+const request = require('request');
+
 /* REQUIRED FILES */
-const config = require('../config.json');
+const config  = require('../config.json');
 const version = require('../../package.json').version;
 
 var aliases = {
@@ -198,12 +201,31 @@ var commands = {
         timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 2 ? '' : 's');
       }
 
-      console.log('hoursUntil: ' + hoursUntil);
-      console.log('minutesUntil: ' + minutesUntil);
-
       msg.channel.sendMessage('The next Guthixian cache begins in ' + timestr + '.');
     }
-  }
+  },
+  'vos': {
+    desc: 'Display the current Voice of Seren districts.',
+    usage: '',
+    process: (bot, msg) => {
+      request('https://cdn.syndication.twimg.com/widgets/timelines/' + process.env.TWITTER_API + '?&lang=en&supress_response_codes=true&rnd=' + Math.random(), (err, res, body) => {
+        if (res.statusCode == 404 || err) {
+          msg.channel.sendMessage('Unable to grab the VoS, please try again.');
+          return;
+        }
+        if (!err && res.statusCode == 200) {
+          var vosBody = body;
+          var vosStart = vosBody.indexOf('The Voice of Seren is now active in the ');
+          var vosText = vosBody.slice(vosStart, vosBody.length);
+          vosText = vosText.replace(/Amlodd|Cadarn|Crwys|Hefin|Iorwerth|Ithell|Meilyr|Trahaearn/gi, function(x) {
+            return '**' + x + '**';
+          });
+          vosText = vosText.slice(0, vosText.indexOf('districts') + 10);
+          msg.channel.sendMessage(vosText + '.');
+        }
+      });
+    }
+  },
 };
 
 exports.commands = commands;
