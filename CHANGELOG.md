@@ -3,8 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
-### Changed
+## Changed
+- Updated `discord.js` lib from v`8.0.0` to v`9.0.2`.
+- Updated `request` lib from v`2.72.0` to v`2.74.0`.
+- Reorganized files.
 
+## Removed
+- Removed times database, no longer needed.
+- Removed ability to track inactive servers, no longer needed.
 
 ## [2.3.6] - 2016-09-07
 ### Added
