@@ -1,9 +1,70 @@
 /* REQUIRED DEPENDENCIES */
-const request = require('request');
+const request    = require('request');
+const numeral    = require('numeral');
+const asciiTable = require('ascii-table');
 
 /* REQUIRED FILES */
 const config  = require('../config.json');
 const version = require('../../package.json').version;
+
+/* GET THE SKILL NAMES BASED ON THE HISCORE SKILL ID */
+function getSkillName(id, type) {
+  var rs3SkillNames = ["Overall", "Attack", "Defence", "Strength", "Constitution", "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction", "Summoning", "Dungeoneering", "Divination", "Invention"];
+  var osSkillNames = ["Overall", "Attack", "Defence", "Strength", "Hitpoints", "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction"];
+  if (type === "oldschool") {
+    return osSkillNames[id];
+  } else {
+    return rs3SkillNames[id];
+  }
+}
+
+/* GET XP GAINED FROM CERTAIN SIZED LAMPS */
+function getLampXp(level, type) {
+  var xp = 0;
+  // Why did Jagex have to make it fixed numbers...
+  var smallLamp = [62, 69, 77, 85, 93, 104, 123, 127, 194, 153, 170, 188, 205, 229, 252, 261, 274, 285, 298, 310, 324, 337, 352, 367, 384, 399, 405, 414, 453, 473, 493, 514, 536, 559, 583, 608, 635, 662, 691, 720, 752, 784, 818, 853, 889, 929, 970, 1012, 1055, 1101, 1148, 1200, 1249, 1304, 1362, 1422, 1485, 1546, 1616, 1684, 1757, 1835, 1911, 2004, 2108, 2171, 2269, 2379, 2470, 2592, 2693, 2809, 2946, 3082, 3213, 3339, 3495, 3646, 3792, 3980, 4166, 4347, 4521, 4762, 4918, 5033, 5375, 5592, 5922, 6121, 6451, 6614, 6928, 7236, 7532, 8064, 8347, 8602];
+  var medLamp = [125, 138, 154, 170, 186, 208, 246, 254, 388, 307, 340, 376, 411, 458, 504, 523, 548, 570, 596, 620, 649, 674, 704, 735, 768, 798, 810, 828, 906, 946, 986, 1028, 1072, 1118, 1166, 1217, 1270, 1324, 1383, 1441, 1504, 1569, 1636, 1707, 1779, 1858, 1941, 2025, 2110, 2202, 2296, 2400, 2499, 2609, 2724, 2844, 2970, 3092, 3233, 3368, 3515, 3671, 3822, 4009, 4216, 4343, 4538, 4758, 4940, 5185, 5386, 5618, 5893, 6164, 6427, 6679, 6990, 7293, 7584, 7960, 8332, 8695, 9043, 9524, 9837, 10066, 10751, 11185, 11845, 12243, 12903, 13229, 13857, 14472, 15065, 16129, 16695, 17204];
+  var lgLamp = [250, 276, 308, 340, 373, 416, 492, 508, 777, 614, 680, 752, 822, 916, 1008, 1046, 1096, 1140, 1192, 1240, 1298, 1348, 1408, 1470, 1536, 1596, 1621, 1656, 1812, 1892, 1973, 2056, 2144, 2237, 2332, 2434, 2540, 2648, 2766, 2882, 3008, 3138, 3272, 3414, 3558, 3716, 3882, 4050, 4220, 4404, 4593, 4800, 4998, 5218, 5448, 5688, 5940, 6184, 6466, 6737, 7030, 7342, 7645, 8018, 8432, 8686, 9076, 9516, 9880, 10371, 10772, 11237, 11786, 12328, 12855, 13358, 13980, 14587, 15169, 15920, 16664, 17390, 18087, 19048, 19674, 20132, 21502, 22370, 23690, 24486, 25806, 26458, 27714, 28944, 30130, 32258, 33390, 34408];
+  var hugeLamp = [499, 612, 616, 680, 746, 832, 984, 1016, 1142, 1228, 1360, 1504, 1645, 1832, 2016, 2093, 2192, 2280, 2384, 2480, 2596, 2696, 2816, 2940, 3071, 3192, 3331, 3312, 3624, 3784, 3946, 4112, 4288, 4129, 4664, 4872, 5080, 5296, 5532, 5764, 6016, 6276, 6544, 6828, 7116, 7432, 7764, 8100, 8440, 8808, 9185, 9600, 9996, 10436, 10896, 11376, 11880, 12368, 12932, 13474, 14060, 14684, 15290, 16036, 16864, 17371, 18152, 19032, 19760, 20741, 21543, 22474, 23572, 24657, 25709, 26716, 27960, 29173, 30338, 31840, 33328, 34780, 36174, 38097, 39347, 41196, 43003, 44739, 47380, 48972, 51612, 52916, 55428, 57887, 60260, 64516, 66780, 68815];
+  if (type === "small") {
+    if (level >= 1 && level < 98) {
+      xp = smallLamp[level - 1];
+    }
+    if (level >= 98) {
+      xp = smallLamp[97];
+    }
+  }
+  if (type === "medium") {
+    if (level >= 1 && level < 98) {
+      xp = medLamp[level - 1];
+    }
+    if (level >= 98) {
+      xp = medLamp[97];
+    }
+  }
+  if (type === "large") {
+    if (level >= 1 && level < 98) {
+      xp = lgLamp[level - 1];
+    }
+    if (level >= 98) {
+      xp = lgLamp[97];
+    }
+  }
+  if (type === "huge") {
+    if (level >= 1 && level < 98) {
+      xp = hugeLamp[level - 1];
+    }
+    if (level >= 98) {
+      xp = hugeLamp[97];
+    }
+  }
+  return xp;
+}
+
+/* CHECK TO SEE IF A NUMBER REALLY IS AN INTEGER, FAIL-SAFE FOR ISNAN() */
+function isInteger(x) {
+  return x % 1 === 0;
+}
 
 var aliases = {
   'h': 'help',
@@ -73,7 +134,7 @@ var commands = {
     desc: 'Get an invite link for the bot, to invite to your own server.',
     deleteCommand: true,
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       msg.channel.sendMessage('Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=' + process.env.APP_ID + '&scope=bot&permissions=12659727>');
     }
   },
@@ -81,7 +142,7 @@ var commands = {
     desc: 'Get information about RuneCord.',
     deleteCommand: true,
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       var toSend = [];
       toSend.push('__Author:__ Witty <witty.twitch@gmail.com>');
       toSend.push('__Library:__ Discord.js');
@@ -97,7 +158,7 @@ var commands = {
   'time': {
     desc: 'Tells you the time in-game.',
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       function addZero(i) {
         if (i < 10) i = '0' + i;
         return i;
@@ -111,7 +172,7 @@ var commands = {
   'reset': {
     desc: 'Displays how long until the game resets.',
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       var now = Date.now();
       var then = new Date();
       then.setUTCHours(24, 0, 0, 0);
@@ -139,7 +200,7 @@ var commands = {
   'bigchin': {
     desc: 'Lets you know when the next Big chinchompa D&D starts.',
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       var d = new Date();
       var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
       var minutesUntil = Math.floor(secondsUntil / 60);
@@ -159,7 +220,7 @@ var commands = {
   'sinkhole': {
     desc: 'Displays when the next Sinkhole D&D will start.',
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       var d = new Date();
       var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
       var minutesUntil = Math.floor(secondsUntil / 60);
@@ -179,7 +240,7 @@ var commands = {
   'cache': {
     desc: 'Lets you know when the next Guthixian cache D&D will begin.',
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       var d = new Date();
       var hoursUntil = 2 - d.getUTCHours() % 3;
       var minutesUntil = 60 - d.getUTCMinutes();
@@ -207,7 +268,7 @@ var commands = {
   'vos': {
     desc: 'Display the current Voice of Seren districts.',
     usage: '',
-    process: (bot, msg) => {
+    process: (client, msg) => {
       request('https://cdn.syndication.twimg.com/widgets/timelines/' + process.env.TWITTER_API + '?&lang=en&supress_response_codes=true&rnd=' + Math.random(), (err, res, body) => {
         if (res.statusCode == 404 || err) {
           msg.channel.sendMessage('Unable to grab the VoS, please try again.');
@@ -226,6 +287,98 @@ var commands = {
       });
     }
   },
+  'lamp': {
+    desc: 'Tells you how much XP you\'d gain from a specific sized lamp.',
+    usage: '<small|med|large|huge> <skill level>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('lamp', commands.lamp.usage, msg, client);
+        return;
+      } else {
+        var size = suffix.split(' ')[0];
+        var level = suffix.split(' ')[1];
+        var xp = 0;
+
+        if (size && level) {
+          if (size && !isInteger(size)) {
+            if (size === 'small') {
+              size = 'Small';
+              xp = getLampXp(level, 'small');
+            } else if (size === 'med' || size === 'medium') {
+              size = 'Medium';
+              xp = getLampXp(level, 'medium');
+            } else if (size === 'large') {
+              size = 'Large';
+              xp = getLampXp(level, 'large');
+            } else if (size === 'huge') {
+              size = 'Huge';
+              xp = getLampXp(level, 'huge');
+            } else {
+              correctUsage('lamp', commands.lamp.usage, msg, client);
+            }
+          } else {
+            correctUsage('lamp', commands.lamp.usage, msg, client);
+            return;
+          }
+
+          if (level) {
+            if (isNaN(level)) {
+              correctUsage('lamp', commands.lamp.usage, msg, client);
+              return;
+            } else if (!isInteger(level)) {
+              correctUsage('lamp', commands.lamp.usage, msg, client);
+              return;
+            } else if (level < 1) {
+              correctUsage('lamp', commands.lamp.usage, msg, client);
+              return;
+            } else if (level > 120) {
+              correctUsage('lamp', commands.lamp.usage, msg, client);
+              return;
+            } else {
+              msg.channel.sendMessage('If you were level **' + level + '**, you\d gain **' + numeral(xp).format() + '** XP from a ** ' + size + '** lamp.');
+            }
+          }
+        } else {
+          correctUsage('lamp', commands.lamp.usage, msg, client);
+          return;
+        }
+      }
+    }
+  },
+  'stats': {
+    desc: 'Grabs the stats of a player and displays them in a table.',
+    usage: '<username>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('stats', commands.stats.usage, msg, client);
+        return;
+      } else {
+        request('http://services.runescape.com/m=hiscore/index_lite.ws?player=' + suffix, (err, res, body) => {
+          if (res.statusCode == 404 || err) {
+            msg.channel.sendMessage('Unable to retrieve stats for "' + suffix + '".');
+            return;
+          }
+          if (!err && res.statusCode == 200) {
+            var stat_data = body.split('\n');
+            var result = [];
+            for (var i = 0; i < 28; i++) {
+              result[i] = stat_data[i].split(',');
+            }
+            var table = new asciiTable();
+
+            table.setTitle('VIEWING RS3 STATS FOR ' + suffix.toUpperCase());
+            table.setHeading('Skill', 'Level', 'Experience', 'Rank');
+
+            for (var i = 0; i < 28; i++) {
+              table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
+            }
+
+            msg.channel.sendMessage('```' + table.toString() + '```');
+          }
+        });
+      }
+    }
+  }
 };
 
 exports.commands = commands;
