@@ -12,6 +12,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Removed times database, no longer needed.
 - Removed ability to track inactive servers, no longer needed.
+- Removed ability to mention bot for commands. Too buggy, will come back to it another time.
+- Removed all command cooldowns.
+- Removed ability to turn off command cooldowns, since they are now removed.
 
 ## [2.3.6] - 2016-09-07
 ### Added

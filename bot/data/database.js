@@ -48,7 +48,6 @@ function addGuild(guild) {
       'ignore': [],
       'welcome': 'none',
       'deleteCommands': false,
-      'commandCooldowns': true,
       'notifyChannel': 'general'
     };
     updateGuilds();
@@ -69,7 +68,6 @@ exports.addGuild = (guild) => {
       'ignore': [],
       'welcome': 'none',
       'deleteCommands': false,
-      'commandCooldowns': true,
       'notifyChannel': 'general'
     };
     updateGuilds();
@@ -84,9 +82,6 @@ exports.changeSetting = (key, value, guildId) => {
     break;
     case 'deleteCommands':
     ServerSettings[guildId].deleteCommands = value;
-    break;
-    case 'commandCooldowns':
-    ServerSettings[guildId].commandCooldowns = value;
     break;
     case 'notifyChannel':
     ServerSettings[guildId].notifyChannel = value;
