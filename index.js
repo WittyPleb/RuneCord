@@ -9,10 +9,14 @@ const config       = require('./bot/config.json');
 const versionCheck = require('./bot/versionCheck.js');
 const database     = require('./bot/data/database.js');
 const userCommands = require('./bot/commands/user.js');
+const modCommands  = require('./bot/commands/mod.js');
 
 /* SET OPTIONS AND INIT BOT */
 const discordOptions = {'fetch_all_members': true};
 const client         = new Discord.Client(discordOptions);
+
+/* GLOBAL VARIABLES */
+commandsProcessed = 0;
 
 /* LOCAL VARIALBES */
 var pmCooldown = {};
@@ -69,6 +73,38 @@ function evaluateString(msg) {
     toSend.push('```');
     toSend.push('Time taken: ' + (timeTaken - msg.timestamp) + ' ms');
     msg.channel.sendMessage(toSend.join('')).then(logger.info('Result: ' + result));
+  }
+}
+
+/* COMMAND EXECUTION */
+function execCommand(msg, cmd, suffix, type) {
+  try {
+    commandsProcessed += 1; // Increase amount of commands done since bot was started
+    if (type == 'user') {
+
+      /* TEXT CHANNEL */
+      if (msg.channel.type == 'text') {
+        logger.cmd(cmd, suffix, msg.channel.guild.name + ' (' + msg.channel.guild.id + ')', msg.author.username);
+      }
+
+      /* 1-ON-1 DIRECT MESSAGE */
+      if (msg.channel.type == 'dm') {
+        logger.cmd(cmd, suffix, 'PM', msg.author.username);
+      }
+
+      /* PROCESS THE COMMAND */
+      userCommands.commands[cmd].process(client, msg, suffix);
+
+      /* IF DELETE COMMANDS IS ENABLED, DELETE THE COMMAND AFTER PROCESSING */
+      if (msg.channel.type != 'dm' && userCommands.commands[cmd].hasOwnProperty('deleteCommand')) {
+        if (userCommands.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.guild.id) && ServerSettings[msg.channel.guild.id].deleteCommands === true) {
+          msg.delete(10000);
+        }
+      }
+
+    }
+  } catch (err) {
+    logger.error(err.stack);
   }
 }
 
@@ -148,6 +184,17 @@ client.on('guildCreate', (guild) => {
 /* WHEN THE BOT RECEIVES A MESSAGE */
 client.on('message', (msg) => {
   if (msg.author.id == client.user.id) return; // Do nothing if the message comes from the bot
+  if (!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix) && !msg.content.startsWith('(eval) ')) return; // Make sure the bot only responds to messages with command prefixes
+
+  /* REMOVE THE SPACE AFTER THE COMMAND PREFIX FOR MOBILE USERS */
+  if (msg.content.indexOf(' ') == 1 && msg.content.length > 2) {
+    msg.content = msg.content.replace(' ', '');
+  }
+
+  /* IF THE MESSAGE IS IN AN IGNORED CHANNEL, DO NOTHING */
+  if (msg.channel.type != 'dm' && !msg.content.startsWith(config.mod_command_prefix) && ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
+    if (ServerSettings[msg.channel.guild.id].ignore.indexOf(msg.channel.id) > -1) return;
+  }
 
   /* (eval) COMMAND FOR DOING FUNCTIONS INSIDE DISCORD */
   if (msg.content.startsWith('(eval) ')) {
@@ -180,6 +227,30 @@ client.on('message', (msg) => {
         }
         return;
       }
+    }
+  }
+
+  /* LET US BEING THE CONFUSING COMMAND CRAP */
+  var cmd = msg.content.split(' ')[0].replace(/\n/g, ' ').substring(1).toLowerCase(); // What command are we doing?
+  var suffix = msg.content.replace(/\n/g, ' ').substring(cmd.length + 2).trim(); // Get everything after the command for suffixes, each suffix is separated with a space
+
+  /* NORMAL USER COMMANDS */
+  if (msg.content.startsWith(config.command_prefix)) {
+    if (userCommands.commands.hasOwnProperty(cmd)) {
+      execCommand(msg, cmd, suffix, 'user');
+    } else if (userCommands.aliases.hasOwnProperty(cmd)) {
+      msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + userCommands.aliases[cmd] + ' ');
+      execCommand(msg, userCommands.aliases[cmd], suffix, 'user');
+    }
+  }
+
+  /* MODERATOR COMMANDS */
+  if (msg.content.startsWith(config.mod_command_prefix)) {
+    if (modCommands.commands.hasOwnProperty(cmd)) {
+      execCommand(msg, cmd, suffix, 'mod');
+    } else if (modCommands.aliases.hasOwnProperty(cmd)) {
+      msg.content = msg.content.replace(/[^ ]+ /, config.mod_command_prefix + modCommands.aliases[cmd] + ' ');
+      execCommand(msg, modCommands.aliases[cmd], suffix, 'mod');
     }
   }
 
