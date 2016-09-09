@@ -1,0 +1,29 @@
+{
+  "name": "runecord",
+  "version": "3.0.0",
+  "description": "Official RuneCord bot, a Discord bot with special RuneScape capabilities.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unlucky4ever/RuneCord.git"
+  },
+  "author": "WittyRS <witty.twitch@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unlucky4ever/RuneCord/issues"
+  },
+  "homepage": "https://unlucky4ever.github.io/RuneCord",
+  "dependencies": {
+    "bunyan": "1.8.1",
+    "chalk": "1.1.3",
+    "discord.js": "9.0.2",
+    "dotenv": "2.0.0",
+    "moment": "2.14.1",
+    "ramda": "0.22.1"
+  }
+}
