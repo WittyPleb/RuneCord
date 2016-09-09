@@ -4,7 +4,6 @@ var commands = {
     usage: '[command]',
     deleteCommand: true,
     shouldDisplay: false,
-    cooldown: 1,
     process: (client, msg, suffix) => {
       msg.author.sendMessage('You asked for help?');
     }

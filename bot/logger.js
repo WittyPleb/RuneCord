@@ -12,9 +12,14 @@ function _submitToLogger(type, msg) {
   return logger[type](msg);
 }
 
-function cmd(cmd, suffix) {
+function cmd(cmd, suffix, guild, user) {
   if (production) return logger.info({cmd, suffix}, 'cmd');
-  console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalk.bold.green('[COMMAND]'), chalk.bold.green(cmd), suffix);
+  console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalk.bold.green('[COMMAND]'), chalk.bold.green(guild) + ' > ' + chalk.bold.green(user) + ' > ' + chalk.bold.green(cmd), suffix);
+}
+
+function modCmd(cmd, suffix, server, user) {
+  if (production) return logger.info({cmd, suffix}, 'modCmd');
+  console.log(chalk.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalk.bold.magenta('[MOD COMMAND]'), chalk.bold.magenta(server) + ' > ' + chalk.bold.magenta(user) + ' > ' + chalk.bold.magenta(cmd), suffix);
 }
 
 function info(msg) {
@@ -32,4 +37,4 @@ function error(msg) {
   console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalk.red(`[ERROR] ${msg}`));
 }
 
-module.exports = { cmd, info, warn, error };
+module.exports = { cmd, modCmd, info, warn, error };
