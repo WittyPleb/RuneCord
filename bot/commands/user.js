@@ -618,6 +618,33 @@ var commands = {
         });
       }
     }
+  },
+  'vorago': {
+    desc: 'Displays what the current rotation is for Vorago.',
+    usage: '',
+    process: (client, msg) => {
+      var voragoRotations = [
+        'Ceiling Collapse',
+        'Scopulus',
+        'Vitalis',
+        'Green Bomb',
+        'Team Split',
+        'The End'
+      ];
+
+      var currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length)) / 7);
+      var daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 6) % (7 * voragoRotations.length) % 7;
+      var nextRotation = currentRotation + 1;
+
+      if (nextRotation === voragoRotations.length) nextRotation = 0; // Resets it back to the beginning
+
+      var toSend = [];
+      toSend.push(`The current rotation for Vorago is **${voragoRotations[currentRotation]}**.`);
+      toSend.push(`The next rotation for Vorago will be **${voragoRotations[nextRotation]}** in **${daysUntilNext}** days.`);
+      toSend = toSend.join('\n');
+
+      msg.channel.sendMessage(toSend);
+    }
   }
 };
 
