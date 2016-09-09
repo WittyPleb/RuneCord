@@ -160,7 +160,7 @@ var commands = {
       var d = new Date();
       var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
       var minutesUntil = Math.floor(secondsUntil / 60);
-      var timestr = ''
+      var timestr = '';
 
       if (minutesUntil == 0) {
         timestr += '1 hour';
@@ -171,6 +171,37 @@ var commands = {
       }
 
       msg.channel.sendMessage('The next Sinkhole will begin in ' + timestr + '.');
+    }
+  },
+  'cache': {
+    desc: 'Lets you know when the next Guthixian cache D&D will begin.',
+    usage: '',
+    process: (bot, msg) => {
+      var d = new Date();
+      var hoursUntil = 2 - d.getUTCHours() % 3;
+      var minutesUntil = 60 - d.getUTCMinutes();
+      var timestr = '';
+      if (minutesUntil == 60) {
+        hoursUntil++;
+        minutesUntil = 0;
+      }
+
+      if (hoursUntil > 0) {
+        timestr += hoursUntil + ' hour' + (hoursUntil > 1 ? 's' : '');
+      }
+
+      if (hoursUntil >= 1 && minutesUntil > 1) {
+        timestr += ' and ' + minutesUntil + ' minute' + (minutesUntil > 1 ? 's' : '');
+      }
+
+      if (minutesUntil > 1 && hoursUntil < 1) {
+        timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 2 ? '' : 's');
+      }
+
+      console.log('hoursUntil: ' + hoursUntil);
+      console.log('minutesUntil: ' + minutesUntil);
+
+      msg.channel.sendMessage('The next Guthixian cache begins in ' + timestr + '.');
     }
   }
 };
