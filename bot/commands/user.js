@@ -99,10 +99,38 @@ var commands = {
         if (i < 10) i = '0' + i;
         return i;
       }
-      
+
       var d = new Date();
 
       msg.channel.sendMessage('The current time in-game is **' + addZero(d.getUTCHours()) + ':' + d.getUTCMinutes() + '**.');
+    }
+  },
+  'reset': {
+    desc: 'Displays how long until the game resets.',
+    usage: '',
+    process: (bot, msg) => {
+      var now = Date.now();
+      var then = new Date();
+      then.setUTCHours(24, 0, 0, 0);
+
+      var resetTime = then - now;
+      var hours = Math.floor(resetTime / 1000 / 60 / 60);
+      resetTime -= hours * 1000 * 60 * 60;
+
+      var minutes = Math.floor(resetTime / 1000 / 60);
+      resetTime -= minutes * 1000 * 60;
+
+      var timestr = '';
+
+      if (hours > 0) {
+        timestr += hours + ' hour' + (hours > 1 ? 's ' : ' ');
+      }
+
+      if (minutes > 0) {
+        timestr += minutes + ' minute' + (minutes > 1 ? 's.' : '.');
+      }
+
+      msg.channel.sendMessage('The game will reset in ' + timestr);
     }
   }
 };
