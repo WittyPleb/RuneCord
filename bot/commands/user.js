@@ -132,6 +132,26 @@ var commands = {
 
       msg.channel.sendMessage('The game will reset in ' + timestr);
     }
+  },
+  'bigchin': {
+    desc: 'Lets you know when the next Big chinchompa D&D starts.',
+    usage: '',
+    process: (bot, msg) => {
+      var d = new Date();
+      var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
+      var minutesUntil = Math.floor(secondsUntil / 60);
+      timestr = '';
+
+      if (minutesUntil == 0) {
+        timestr += '1 hour';
+      }
+
+      if (minutesUntil > 0) {
+        timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
+      }
+
+      msg.channel.sendMessage('The next Big chinchompa will start in ' + timestr);
+    }
   }
 };
 
