@@ -14,7 +14,7 @@ function _submitToLogger(type, msg) {
 
 function cmd(cmd, suffix) {
   if (production) return logger.info({cmd, suffix}, 'cmd');
-  console.log(chalk.cyan(`[${moment.format('YYYY-MM-DD HH:mm:ss')}]`), chalk.bold.green('[COMMAND]'), chalk.bold.green(cmd), suffix);
+  console.log(chalk.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalk.bold.green('[COMMAND]'), chalk.bold.green(cmd), suffix);
 }
 
 function info(msg) {
