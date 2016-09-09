@@ -150,7 +150,27 @@ var commands = {
         timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
       }
 
-      msg.channel.sendMessage('The next Big chinchompa will start in ' + timestr);
+      msg.channel.sendMessage('The next Big chinchompa will start in ' + timestr + '.');
+    }
+  },
+  'sinkhole': {
+    desc: 'Displays when the next Sinkhole D&D will start.',
+    usage: '',
+    process: (bot, msg) => {
+      var d = new Date();
+      var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
+      var minutesUntil = Math.floor(secondsUntil / 60);
+      var timestr = ''
+
+      if (minutesUntil == 0) {
+        timestr += '1 hour';
+      }
+
+      if (minutesUntil > 0) {
+        timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
+      }
+
+      msg.channel.sendMessage('The next Sinkhole will begin in ' + timestr + '.');
     }
   }
 };
