@@ -90,6 +90,20 @@ var commands = {
 
       msg.channel.sendMessage(toSend);
     }
+  },
+  'time': {
+    desc: 'Tells you the time in-game.',
+    usage: '',
+    process: (bot, msg) => {
+      function addZero(i) {
+        if (i < 10) i = '0' + i;
+        return i;
+      }
+      
+      var d = new Date();
+
+      msg.channel.sendMessage('The current time in-game is **' + addZero(d.getUTCHours()) + ':' + d.getUTCMinutes() + '**.');
+    }
   }
 };
 
