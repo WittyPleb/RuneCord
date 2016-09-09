@@ -82,7 +82,7 @@ var commands = {
 
       /* WANTS THE ENTIRE HELP LIST */
       if (!suffix) {
-        toSend.push('Use `' + config.command_prefix + 'help <command name` to get more information on a command.\n');
+        toSend.push('Use `' + config.command_prefix + 'help <command name>` to get more information on a command.\n');
         toSend.push('Moderator commands can be found using `' + config.mod_command_prefix + 'help`.\n');
         toSend.push('You can find the list online at https://unlucky4ever.github.io/RuneCord/\n');
         toSend.push('**Commands:**```\n');
@@ -135,7 +135,7 @@ var commands = {
     deleteCommand: true,
     usage: '',
     process: (client, msg) => {
-      msg.channel.sendMessage('Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=' + process.env.APP_ID + '&scope=bot&permissions=12659727>');
+      msg.channel.sendMessage(`Use this to bring me to your server: <https://discordapp.com/oauth2/authorize?&client_id=${process.env.APP_ID}&scope=bot&permissions=12659727>`);
     }
   },
   'about': {
@@ -166,7 +166,7 @@ var commands = {
 
       var d = new Date();
 
-      msg.channel.sendMessage('The current time in-game is **' + addZero(d.getUTCHours()) + ':' + d.getUTCMinutes() + '**.');
+      msg.channel.sendMessage(`The current time in-game is **${addZero(d.getUTCHours())}:${d.getUTCMinutes()}**.`);
     }
   },
   'reset': {
@@ -194,7 +194,7 @@ var commands = {
         timestr += minutes + ' minute' + (minutes > 1 ? 's.' : '.');
       }
 
-      msg.channel.sendMessage('The game will reset in ' + timestr);
+      msg.channel.sendMessage(`The game will reset in ${timestr}`);
     }
   },
   'bigchin': {
@@ -214,7 +214,7 @@ var commands = {
         timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
       }
 
-      msg.channel.sendMessage('The next Big chinchompa will start in ' + timestr + '.');
+      msg.channel.sendMessage(`The next Big chinchompa will start in ${timestr}.`);
     }
   },
   'sinkhole': {
@@ -234,7 +234,7 @@ var commands = {
         timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
       }
 
-      msg.channel.sendMessage('The next Sinkhole will begin in ' + timestr + '.');
+      msg.channel.sendMessage(`The next Sinkhole will begin in ${timestr}.`);
     }
   },
   'cache': {
@@ -262,14 +262,14 @@ var commands = {
         timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 2 ? '' : 's');
       }
 
-      msg.channel.sendMessage('The next Guthixian cache begins in ' + timestr + '.');
+      msg.channel.sendMessage(`The next Guthixian cache begins in ${timestr}.`);
     }
   },
   'vos': {
     desc: 'Display the current Voice of Seren districts.',
     usage: '',
     process: (client, msg) => {
-      request('https://cdn.syndication.twimg.com/widgets/timelines/' + process.env.TWITTER_API + '?&lang=en&supress_response_codes=true&rnd=' + Math.random(), (err, res, body) => {
+      request(`https://cdn.syndication.twimg.com/widgets/timelines/${process.env.TWITTER_API}?&lang=en&supress_response_codes=true&rnd=${Math.random()}`, (err, res, body) => {
         if (res.statusCode == 404 || err) {
           msg.channel.sendMessage('Unable to grab the VoS, please try again.');
           return;
@@ -282,7 +282,7 @@ var commands = {
             return '**' + x + '**';
           });
           vosText = vosText.slice(0, vosText.indexOf('districts') + 10);
-          msg.channel.sendMessage(vosText + '.');
+          msg.channel.sendMessage(`${vosText}.`);
         }
       });
     }
@@ -335,13 +335,160 @@ var commands = {
               correctUsage('lamp', commands.lamp.usage, msg, client);
               return;
             } else {
-              msg.channel.sendMessage('If you were level **' + level + '**, you\d gain **' + numeral(xp).format() + '** XP from a ** ' + size + '** lamp.');
+              msg.channel.sendMessage(`If you were level **${level}**, you\'d gain **${numeral(xp).format()}** XP from a **${size}** lamp.`);
             }
           }
         } else {
           correctUsage('lamp', commands.lamp.usage, msg, client);
           return;
         }
+      }
+    }
+  },
+  'pengs': {
+    desc: 'Tells you how many coins you\'d gain or how much XP you\'d get with X points.',
+    usage: '<points> [level]',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('pengs', commands.pengs.usage, msg, client);
+        return;
+      } else {
+        var points = suffix.split(' ')[0];
+        var level = suffix.split(' ')[1];
+
+        if (points && !level) {
+          var pengGp = 6500 * points;
+          msg.channel.sendMessage(`You'd gain **${numeral(pengGp).format()}** coins, if you use **${points}** points.`);
+        } else if (points && level) {
+          if (points) {
+            if (isNaN(points)) {
+              correctUsage('pengs', commands.pengs.usage, msg, client);
+              return;
+            } else if (!isInteger(points)) {
+              correctUsage('pengs', commands.pengs.usage, msg, client);
+              return;
+            } else {
+              if (level) {
+                if (isNaN(level)) {
+                  correctUsage('pengs', commands.pengs.usage, msg, client);
+                  return;
+                } else if (!isInteger(level)) {
+                  correctUsage('pengs', commands.pengs.usage, msg, client);
+                  return;
+                } else if (level < 1) {
+                  correctUsage('pengs', commands.pengs.usage, msg, client);
+                  return;
+                } else if (level > 120) {
+                  correctUsage('pengs', commands.pengs.usage, msg, client);
+                  return;
+                } else {
+                  var pengXp = 25 * level * points;
+                  msg.channel.sendMessage(`You'd gain **${numeral(pengXp).format()}** XP at level **${level}**, if you used **${points}** points.`);
+                }
+              }
+            }
+          }
+        } else {
+          correctUsage('pengs', commands.pengs.usage, msg, client);
+          return;
+        }
+      }
+    }
+  },
+  'jot': {
+    desc: 'Displays how much XP you\'d gain from Jack of Trades based on type and skill level.',
+    usage: '<normal|master|supreme|legendary> <level>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('jot', commands.jot.usage, msg, client);
+        return;
+      } else {
+        var type = suffix.split(' ')[0];
+        var level = suffix.split(' ')[1];
+        var xp = 0;
+
+        if (type && level) {
+          if (type && !isInteger(type)) {
+            if (type === 'normal') {
+              type = 'Normal';
+              xp = 1.5 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === 'master') {
+              type = 'Master';
+              xp = 2 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === 'supreme') {
+              type = 'Supreme';
+              xp = 2.5 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else if (type === 'legendary') {
+              type = 'Legendary';
+              xp = 3 * (Math.pow(level, 2) - (2 * level) + 100);
+            } else {
+              correctUsage('jot', commands.jot.usage, msg, client);
+              return;
+            }
+          } else {
+            correctUsage('jot', commands.jot.usage, msg, client);
+            return;
+          }
+
+          if (level) {
+            if (isNaN(level)) {
+              correctUsage('jot', commands.jot.usage, msg, client);
+              return;
+            } else if (!isInteger(level)) {
+              correctUsage('jot', commands.jot.usage, msg, client);
+              return;
+            } else if (level < 1) {
+              correctUsage('jot', commands.jot.usage, msg, client);
+              return;
+            } else if (level > 120) {
+              correctUsage('jot', commands.jot.usage, msg, client);
+              return;
+            } else {
+              msg.channel.sendMessage(`From a **${type}** Jack of Trades aura, you'd gain **${numeral(xp).format()}** XP if you were level **${level}**.`);
+            }
+          }
+        } else {
+          correctUsage('jot', commands.jot.usage, msg, client);
+          return;
+        }
+      }
+    }
+  },
+  'statues': {
+    desc: 'Tells you how much XP you\'d gain in various skills from god statues.',
+    usage: '<username>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('statues', commands.statues.usage, msg, client);
+        return;
+      } else {
+        request(`http://services.runescape.com/m=hiscore/index_lite.ws?player=${suffix}`, (err, res, body) => {
+          if (res.statusCode == 404 || err) {
+            msg.channel.sendMessage(`Unable to retrieve stats for '${suffix}'.`);
+            return;
+          }
+          if (!err && res.statusCode == 200) {
+            var stat_data = body.split('\n');
+            var result = [];
+
+            for (var i = 0; i < 28; i++) {
+              result[i] = stat_data[i].split(',');
+            }
+
+            var conXp = getLampXp(result[23][1], 'large');
+            var prayerXp = getLampXp(result[6][1], 'medium');
+            var slayerXp = getLampXp(result[19][1], 'medium');
+
+            var toSend = [];
+            toSend.push(`Each God Statue would give **${suffix} ${numeral(conXp).format()}** Construction XP at level **${result[23][1]}**.`);
+            toSend.push(`Each God Statue would give **${suffix} ${numeral(prayerXp).format()}** Prayer XP at level **${result[6][1]}**.`);
+            toSend.push(`Each God Statue would give **${suffix} ${numeral(slayerXp).format()}** Slayer XP at level **${result[19][1]}**.`);
+            toSend.push(`Giving a total of **${numeral(conXp * 5).format()}** Construction XP, and either **${numeral(prayerXp * 5).format()}** Prayer XP, or **${numeral(slayerXp * 5).format()}** Slayer XP if **${suffix}** completed all 5 statues.`);
+            toSend = toSend.join('\n');
+
+            msg.channel.sendMessage(toSend);
+          }
+        });
       }
     }
   },
@@ -353,7 +500,7 @@ var commands = {
         correctUsage('stats', commands.stats.usage, msg, client);
         return;
       } else {
-        request('http://services.runescape.com/m=hiscore/index_lite.ws?player=' + suffix, (err, res, body) => {
+        request(`http://services.runescape.com/m=hiscore/index_lite.ws?player=${suffix}`, (err, res, body) => {
           if (res.statusCode == 404 || err) {
             msg.channel.sendMessage('Unable to retrieve stats for "' + suffix + '".');
             return;
@@ -366,16 +513,85 @@ var commands = {
             }
             var table = new asciiTable();
 
-            table.setTitle('VIEWING RS3 STATS FOR ' + suffix.toUpperCase());
+            table.setTitle(`VIEWING RS3 STATS FOR ${suffix.toUpperCase()}`);
             table.setHeading('Skill', 'Level', 'Experience', 'Rank');
 
             for (var i = 0; i < 28; i++) {
               table.addRow(getSkillName(i), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
             }
 
-            msg.channel.sendMessage('```' + table.toString() + '```');
+            msg.channel.sendMessage(`\`\`\`${table.toString()}\`\`\``);
           }
         });
+      }
+    }
+  },
+  'price': {
+    desc: 'Grab information on a specific item from the Grand Exchange.',
+    usage: '<item name>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('price', commands.price.usage, msg, client);
+        return;
+      } else {
+        request(`http://rscript.org/lookup.php?type=ge&search=${suffix}&exact=1`, (err, res, body) => {
+          if (!err && res.statusCode == 200) {
+            var results = body.split('RESULTS: ');
+            if (results[1].substring(0, 1) == 1 && suffix !== null) {
+              var test = results[1].split('ITEM: ');
+              var result = test[2].split(' ');
+              var toSend = [];
+
+              toSend.push(`**${result[1].replace(/_/g, ' ')}** -- \`${result[2]}\` GP`);
+              toSend.push(`**Change in last 24 hours** -- \`${result[3].slice(0, -5)} GP\` ${(result[3].substring(0, 1) === '0' ? ':arrow_right:' : result[3].substring(0, 1) === '-' ? ':arrow_down:' : ':arrow_up:')}`);
+
+              toSend = toSend.join('\n');
+
+              msg.channel.sendMessage(toSend);
+            } else if (results[1].substring(0, 1) > 1) {
+              msg.channel.sendMessage('Too many results, please refine your search term better.');
+            } else {
+              msg.channel.sendMessage(`Error finding item '${suffix}', please try typing the exact name.`);
+            }
+          }
+        });
+      }
+    }
+  },
+  'invasion': {
+    desc: 'Lets you know how much XP you\'d gain from a fully completed Troll Invasion D&D.',
+    usage: '<skill level>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('invasion', commands.invasion.usage, msg, client);
+        return;
+      } else {
+        if (isNaN(suffix)) {
+          correctUsage('invasion', commands.invasion.usage, msg, client);
+          return;
+        } else if (!isInteger(suffix)) {
+          correctUsage('invasion', commands.invasion.usage, msg, client);
+          return;
+        } else if (suffix < 1) {
+          correctUsage('invasion', commands.invasion.usage, msg, client);
+          return;
+        } else if (suffix > 120) {
+          correctUsage('invasion', commands.invasion.usage, msg, client);
+          return;
+        } else new Promise(function(resolve, reject) {
+          var formula = 8 * (20 / 20) * (Math.pow(suffix, 2) - 2 * suffix + 100);
+          msg.channel.sendMessage(`If you were to **fully** complete Troll Invasion, you'd gain **${numeral(formula).format()}** XP if you were level **${suffix}**.`);
+        });
+      }
+    }
+  },
+  'alog': {
+    desc: 'Get the Adventure log of a player.',
+    usage: '<username>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('alog', commands.alog.usage, msg, bot);
+        return;
       }
     }
   }
