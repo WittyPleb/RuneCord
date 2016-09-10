@@ -83,7 +83,7 @@ var aliases = {
   'hs': 'stats',
   'rs3stats': 'stats',
   'osrsstats': 'osstats',
-  'adventurelog', 'alog',
+  'adventurelog': 'alog',
   'advlog': 'alog',
   'trollinvasion': 'invasion',
   'troll': 'invasion',
