@@ -77,7 +77,20 @@ function isInteger(x) {
 
 var aliases = {
   'h': 'help',
-  'commands': 'help'
+  'commands': 'help',
+  'join': 'invite',
+  'gametime': 'time',
+  'hs': 'stats',
+  'rs3stats': 'stats',
+  'osrsstats': 'osstats',
+  'adventurelog', 'alog',
+  'advlog': 'alog',
+  'trollinvasion': 'invasion',
+  'troll': 'invasion',
+  'xplamp': 'lamp',
+  'jackoftrades': 'jot',
+  'rago': 'vorago',
+  'rax': 'araxxi'
 };
 
 var commands = {
