@@ -11,6 +11,11 @@ const version = require('../../package.json').version;
 /* LOCAL VARIABLES */
 const entities = new Entities();
 
+/* SEND THE USER HOW TO CORRECTLY USE THE COMMAND */
+function correctUsage(cmd, usage, msg, client, delay) {
+  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`);
+}
+
 /* GET THE SKILL NAMES BASED ON THE HISCORE SKILL ID */
 function getSkillName(id, type) {
   var rs3SkillNames = ["Overall", "Attack", "Defence", "Strength", "Constitution", "Ranged", "Prayer", "Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining", "Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction", "Summoning", "Dungeoneering", "Divination", "Invention"];
@@ -646,7 +651,7 @@ var commands = {
     usage: '<username>',
     process: (client, msg, suffix) => {
       if (!suffix) {
-        correctUsage('alog', commands.alog.usage, msg, bot);
+        correctUsage('alog', commands.alog.usage, msg, client);
         return;
       } else {
         request(`http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=${suffix}`, (err, res, body) => {
