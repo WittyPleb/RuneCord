@@ -127,5 +127,6 @@ exports.checkGuilds = (client) => {
       } else {
         addGuild(guild);
       }
+    }
   });
 }
