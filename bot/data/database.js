@@ -75,7 +75,7 @@ exports.addGuild = (guild) => {
 };
 
 exports.changeSetting = (key, value, guildId) => {
-  if (!key || value == undefined || value == null || !guildid) return;
+  if (!key || value == undefined || value == null || !guildId) return;
   switch(key) {
     case 'welcome':
     ServerSettings[guildId].welcome = value;
