@@ -30,7 +30,35 @@ var commands = {
     deleteCommand: true,
     shouldDisplay: false,
     process: (client, msg, suffix) => {
-      // TODO: THIS INSANELY CONFUSING HELP COMMAND
+      var toSend = [];
+
+      if (!suffix) {
+        toSend.push(`Use \`${config.mod_command_prefix}help <command name>\` to get more information on a command.`);
+        toSend.push(`Normal commands can be found using \`${config.command_prefix}help\`.`);
+        toSend.push('You can find the list online at https://unlucky4ever.github.io/RuneCord/');
+        toSend.push('**Commands:**');
+        toSend.push('```');
+        Object.keys(commands).forEach((cmd) => {
+          if (commands[cmd].hasOwnProperty('shouldDisplay')) {
+            if (commands[cmd].shouldDisplay) {
+              toSend.push(`\n${config.mod_command_prefix + cmd} ${commands[cmd].usage} \n\t #${commands[cmd].desc}`);
+            }
+          } else {
+            toSend.push(`\n${config.mod_command_prefix + cmd} ${commands[cmd].usage} \n\t #${commands[cmd].desc}`);
+          }
+        });
+        toSend = toSend.join('\n');
+        if (toSend.length >= 1990) {
+          msg.author.sendMessage(toSend.substr(0, 1990).substr(0, toSend.substr(0, 1990).lastIndexOf('\n\t')) + '```');
+          setTimeout(() => {
+            msg.author.sendMessage(toSend.substr(toSend.substr(0, 1990).lastIndexOf('\n\t')) + '```');
+          }, 1000);
+        } else {
+          msg.author.sendMessage(toSend + '```');
+        }
+      } else {
+        // TODO: Specific command help
+      }
     }
   },
   'stats': {
