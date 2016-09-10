@@ -640,7 +640,7 @@ var commands = {
 
       var toSend = [];
       toSend.push(`The current rotation for Vorago is **${voragoRotations[currentRotation]}**.`);
-      toSend.push(`The next rotation for Vorago will be **${voragoRotations[nextRotation]}** in **${daysUntilNext}** days.`);
+      toSend.push(`The next rotation for Vorago will be **${voragoRotations[nextRotation]}** in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
       toSend = toSend.join('\n');
 
       msg.channel.sendMessage(toSend);
@@ -664,7 +664,7 @@ var commands = {
 
       var toSend = [];
       toSend.push(`The current path that is closed for Araxxi is **${araxxiRotations[currentRotation]}**.`);
-      toSend.push(`The next path to be closed will be **${araxxiRotations[nextRotation]}** in **${daysUntilNext}** days.`);
+      toSend.push(`The next path to be closed will be **${araxxiRotations[nextRotation]}** in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
       toSend = toSend.join('\n');
 
       msg.channel.sendMessage(toSend);
