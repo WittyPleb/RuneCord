@@ -779,6 +779,39 @@ var commands = {
 
       msg.channel.sendMessage(toSend);
     }
+  },
+  'circus': {
+    desc: 'Displays where the circus is currently located',
+    usage: '',
+    process: (client, msg) => {
+      var locations =[
+        'Tree Gnome Stronghold',
+        'Seers\' Village',
+        'Catherby',
+        'Taverley',
+        'Edgeville',
+        'Falador',
+        'Rimmington',
+        'Draynor Village',
+        'Al Kharid',
+        'Lumbridge',
+        'Lumber Yard',
+        'Gertrude\'s House'
+      ];
+
+      var currentLocation = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length)) / 7);
+      var daysUntilNext = 7 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * locations.length) % 7;
+      var nextLocation = currentLocation + 1;
+
+      if (nextLocation === locations.length) nextLocation = 0; // Resets to the beginning
+
+      var toSend = [];
+      toSend.push(`The circus is currently located at **${locations[currentLocation]}**.`);
+      toSend.push(`The next location will be **${locations[nextLocation]}** in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
+      toSend = toSend.join('\n');
+
+      msg.channel.sendMessage(toSend);
+    }
   }
 };
 
