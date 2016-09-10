@@ -169,6 +169,24 @@ var commands = {
         database.addServer(msg.channel.guild);
       }
 
+      if (/enable delete ?commands?/i.test(suffix.trim())) {
+        if (!ServerSettings[msg.channel.guild.id].deleteCommands) {
+          database.changeSetting('deleteCommands', true, msg.channel.guild.id);
+          msg.channel.sendMessage(':gear: Enabled command deletion!');
+          return;
+        }
+        msg.channel.sendMessage('Command deletion is already enabled!');
+      }
+
+      if (/disable delete ?commands?/i.test(suffix.trim())) {
+        if (ServerSettings[msg.channel.guild.id].deleteCommands) {
+          database.changeSetting('deleteCommands', false, msg.channel.guild.id);
+          msg.channel.sendMessage(':gear: Disabled command deletion!');
+          return;
+        }
+        msg.channel.sendMessage('Command deletion is already disabled!');
+      }
+
       if (suffix.trim().toLowerCase() == 'check') {
         var toSend = [];
         toSend.push(':gear: **Current Settings** :gear:');
