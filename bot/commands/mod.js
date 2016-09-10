@@ -119,7 +119,33 @@ var commands = {
         msg.channel.sendMessage(':loud_sound: Okay, I\'ll stop ignoring commands in this channel now.');
       }
     }
+  },
+  'changelog': {
+    desc: 'See the latest changes to RuneCord.',
+    usage: '',
+    deleteCommand: true,
+    process: (client, msg) => {
+      var changelogChannel = client.channels.find('id', '176439631108243457');
+
+      if (!changelogChannel) {
+        msg.channel.sendMessage('The bot is not in the Official RuneCord Server');
+        return;
+      }
+
+      changelogChannel.fetchMessages({limit: 2}).then(messages => {
+        var toSend = [];
+        var messages = messages.array();
+        toSend.push('*Changelogs:*');
+        toSend.push("━━━━━━━━━━━━━━━━━━━");
+        toSend.push(`${messages[0].content}`);
+        toSend.push("━━━━━━━━━━━━━━━━━━━");
+        toSend.push(`${messages[1].content}`);
+        toSend = toSend.join('\n');
+
+        msg.channel.sendMessage(toSend);
+      })
+    }
   }
-}
+};
 
 exports.commands = commands;
