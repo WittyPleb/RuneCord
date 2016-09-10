@@ -102,6 +102,27 @@ function execCommand(msg, cmd, suffix, type) {
         }
       }
 
+    } else if (type == 'mod') {
+
+      /* TEXT CHANNEL */
+      if (msg.channel.type == 'text') {
+        logger.modCmd(cmd, suffix, msg.channel.guild.name + ' (' + msg.channel.guild.id + ')', msg.author.username);
+      }
+
+      /* 1-ON-1 DIRECT MESSAGE */
+      if (msg.channel.type == 'dm') {
+        logger.modCmd(cmd, suffix, 'PM', msg.author.username);
+      }
+
+      /* PROCESS THE COMMAND */
+      modCommands.commands[cmd].process(client, msg, suffix);
+
+      /* IF DELETE COMMANDS IS ENABLED, DELETE THE COMMAND AFTER PROCESSING */
+      if (msg.channel.type != 'dm' && modCommands.commands[cmd].hasOwnProperty('deleteCommand')) {
+        if (modCommands.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.guild.id) && ServerSettings[msg.channel.guild.id].deleteCommands === true) {
+          msg.delete(10000);
+        }
+      }
     }
   } catch (err) {
     logger.error(err.stack);
