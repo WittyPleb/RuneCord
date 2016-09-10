@@ -1,5 +1,6 @@
 {
   "name": "runecord",
+<<<<<<< HEAD
   "version": "3.0.0",
   "description": "Official RuneCord bot, a Discord bot with special RuneScape capabilities.",
   "main": "index.js",
@@ -7,21 +8,39 @@
     "dev": "NODE_ENV=development node index.js",
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+  "version": "2.3.6",
+  "description": "RuneCord",
+  "main": "runecord.js",
+  "scripts": {
+    "start": "node runecord.js --harmony",
+    "test": "./node_modules/.bin/mocha --reporter spec"
+>>>>>>> master
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unlucky4ever/RuneCord.git"
   },
+<<<<<<< HEAD
   "author": "WittyRS <witty.twitch@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/unlucky4ever/RuneCord/issues"
   },
   "homepage": "https://unlucky4ever.github.io/RuneCord",
+=======
+  "author": "unlucky4ever <obruza@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/unlucky4ever/RuneCord/issues"
+  },
+  "homepage": "https://unlucky4ever.github.io/RuneCord/",
+>>>>>>> master
   "dependencies": {
     "ascii-table": "0.0.9",
     "bunyan": "1.8.1",
     "chalk": "1.1.3",
+<<<<<<< HEAD
     "discord.js": "9.0.2",
     "dotenv": "2.0.0",
     "html-entities": "^1.2.0",
@@ -29,5 +48,24 @@
     "numeral": "1.5.3",
     "ramda": "0.22.1",
     "request": "2.74.0"
+=======
+    "discord.js": "8.0.0",
+    "dotenv": "2.0.0",
+    "entities": "1.1.1",
+    "html-entities": "1.2.0",
+    "moment": "2.14.1",
+    "numeral": "1.5.3",
+    "ramda": "0.22.1",
+    "request": "2.72.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "eslint": "2.12.0",
+    "glob-all": "3.0.3",
+    "mocha": "2.5.3"
+>>>>>>> master
   }
 }

@@ -22,6 +22,10 @@ Features
 * `~cache` -- Displays when the next Guthixian Cache is.
 * `~viswax` -- Displays the current viswax combinations.
 * `~alog <username>` -- Displays the adventure log of `<username>`.
+<<<<<<< HEAD
+=======
+* `~warbands` -- Displays when the next Warbands will be.
+>>>>>>> master
 * `~bigchin` -- Displays when the next Big Chinchompa will be.
 * `~vorago` -- Displays what the Vorago rotation is.
 * `~araxxi` -- Displays what path is closed for Araxxi.
@@ -39,11 +43,21 @@ Features
 ##### General Commands
 * `~invite` -- Generates an invite link for you to invite the bot to your server (same link as below).
 * `~roll <number>` -- Rolls a number between 1 and `<number>`.
+<<<<<<< HEAD
+=======
+* `~twitch <username>` -- Displays twitch information based on `<username>`.
+>>>>>>> master
 * `~about` -- Displays some useful information about the bot.
 
 ##### Moderator Commands
 * `)stats` -- Displays some cool statistics about the bot.
 * `)changelog` -- View the latest changes to the bot.
+<<<<<<< HEAD
+=======
+* `)serverinfo` -- Get some useful information about the server the bot is in.
+* `)userinfo` -- Get some useful information about your account.
+* `)announce <message>` -- Sends a PM to all users in your server.*
+>>>>>>> master
 * `)ignore` -- Makes the bot ignore **ALL** commands in the channel this message is said in.*
 * `)unignore` -- Makes the bot start listening to **ALL** commands in the channel this message is said in.*
 * `)settings check` -- Check what settings the bot is using in the current server.*
@@ -52,7 +66,11 @@ Features
 * `)settings welcome WELCOME MESSAGE` -- Set a welcome message for new users to your server. Based on the example it would make it `WELCOME MESSAGE`.*
 * `)settings welcome none` -- Disables the welcome message.*
 
+<<<<<<< HEAD
 **\* Must have `MANAGE_GUILD` permissions to use this command.**
+=======
+**\* Must have `manageServer` permissions to use this command.**
+>>>>>>> master
 
 Add RuneCord to your Server
 ---------------------------
