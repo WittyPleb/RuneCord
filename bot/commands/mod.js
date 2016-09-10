@@ -145,6 +145,42 @@ var commands = {
         msg.channel.sendMessage(toSend);
       })
     }
+  },
+  'settings': {
+    desc: 'Customize the settings of RuneCord for your server. Docs: https://unlucky4ever.github.io/RuneCord/',
+    usage: '<enable/disable> <setting> | notify here | welcome <welcome message> | check',
+    process: (client, msg, suffix) => {
+      if (msg.channel.type == 'dm') {
+        msg.channel.sendMessage('Can\'t do this in a PM!');
+        return;
+      }
+
+      if (!msg.channel.permissionsFor(msg.member).hasPermission(0x00000020) && msg.author.id != process.env.ADMIN_ID) {
+        msg.channel.sendMessage('You must have permission to mange the guild!');
+        return;
+      }
+
+      if (!suffix || !/(.+ .+|check|help)/.test(suffix)) {
+        correctUsage('settings', commands.settings.usage, msg, client);
+        return;
+      }
+
+      if (!ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
+        database.addServer(msg.channel.guild);
+      }
+
+      if (suffix.trim().toLowerCase() == 'check') {
+        var toSend = [];
+        toSend.push(':gear: **Current Settings** :gear:');
+        toSend.push(`**Delete Commands:** ${ServerSettings[msg.channel.guild.id].deleteCommands}`);
+        toSend.push(`**Notification Channel:** #${ServerSettings[msg.channel.guild.id].notifyChannel}`);
+        toSend.push(`**Welcome Message:** ${(ServerSettings[msg.channel.guild.id].welcome.length < 1600 ? ServerSettings[msg.channel.guild.id].welcome : ServerSettings[msg.channel.guild.id].welcome.substr(0, 1600) + '...')}`);
+        toSend.push(`**Ignored Channels:** ${(ServerSettings[msg.channel.guild.id].ignore.length > 0 ? '#' + ServerSettings[msg.channel.guild.id].ignore.join(', #') : 'None')}`);
+        toSend = toSend.join('\n');
+
+        msg.channel.sendMessage(toSend);
+      }
+    }
   }
 };
 
