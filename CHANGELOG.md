@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [3.0.0] - 2016-09-09
 ### Changed
 - Updated `discord.js` lib from version `8.0.0` to version `9.0.2`.
 - Updated `request` lib from version `2.72.0` to version `2.74.0`.
@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Removed ability to mention bot for commands. Too buggy, will come back to it another time.
 - Removed all command cooldowns.
 - Removed ability to turn off command cooldowns, since they are now removed.
+- Removed `)serverinfo`, `)userinfo`, and `)announce` commands.
 
 ## [2.3.6] - 2016-09-07
 ### Added
@@ -171,6 +172,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[3.0.0]: https://github.com/unlucky4ever/RuneCord/compare/2.3.6...3.0.0
 [2.3.6]: https://github.com/unlucky4ever/RuneCord/compare/2.3.5...2.3.6
 [2.3.5]: https://github.com/unlucky4ever/RuneCord/compare/2.3.4...2.3.5
 [2.3.4]: https://github.com/unlucky4ever/RuneCord/compare/2.3.3...2.3.4
