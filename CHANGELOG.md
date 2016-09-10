@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Updated `request` lib from version `2.72.0` to version `2.74.0`.
 - Reorganized files.
 - Rewrote entire bot to work with version `9.0.2` `discord.js` library.
+- Rewrote all commands.
 
 ### Removed
 - Removed times database, no longer needed.
