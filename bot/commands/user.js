@@ -835,6 +835,33 @@ var commands = {
         msg.channel.sendMessage(`There isn\'t a raven in Prifddinas at this time, the next one spawns in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
       }
     }
+  },
+  'roll': {
+    desc: 'Roll a number between 1 and X.',
+    usage: '<number>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('roll', commands.roll.usage, msg, client);
+        return;
+      } else {
+        if (isNaN(suffix)) {
+          correctUsage('roll', commands.roll.usage, msg, client);
+          return;
+        } else if (!isInteger(suffix)) {
+          correctUsage('roll', commands.roll.usage, msg, client);
+          return;
+        } else if (suffix <= 1) {
+          correctUsage('roll', commands.roll.usage, msg, client);
+          return;
+        } else if (suffix > Number.MAX_SAFE_INTEGER) {
+          msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, That number is too high for me to process, please use a smaller number.`).then(msg.delete(1000));
+          return;
+        } else {
+          var roll = Math.floor(Math.random() * suffix) + 1;
+          msg.reply(`:game_die: Rolled a **${roll}** out of **${suffix}**.`);
+        }
+      }
+    }
   }
 };
 
