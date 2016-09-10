@@ -65,6 +65,33 @@ var commands = {
 
       msg.channel.sendMessage(toSend);
     }
+  },
+  'ignore': {
+    desc: 'Make the bot ignore the channel.',
+    usage: '',
+    deleteCommand: true,
+    process: (client, msg) => {
+      if (msg.channel.type == 'dm') {
+        msg.channel.sendMessage('Can\'t do this in a PM!');
+        return;
+      }
+
+      if (!msg.channel.permissionsFor(msg.member).hasPermission(0x00000020) && msg.author.id != process.env.ADMIN_ID) {
+        msg.channel.sendMessage('You must have permission to manage the guild!');
+        return
+      }
+
+      if (!ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
+        database.addGuild(msg.channel.guild);
+      }
+
+      if (ServerSettings[msg.channel.guild.id].ignore.indexOf(msg.channel.id) > -1) {
+        msg.channel.sendMessage('This channel is already ignored.');
+      } else {
+        database.ignoreChannel(msg.channel.id, msg.channel.guild.id);
+        msg.channel.sendMessage(':mute: Okay! I\'ll ignore all commands in this channel from now on.');
+      }
+    }
   }
 }
 
