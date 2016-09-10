@@ -57,7 +57,25 @@ var commands = {
           msg.author.sendMessage(toSend + '```');
         }
       } else {
-        // TODO: Specific command help
+        suffix = suffix.trim().toLowerCase();
+        if (commands.hasOwnProperty(suffix)) {
+          toSend.push(`\`${config.mod_command_prefix + suffix} ${commands[suffix].usage}\``);
+          if (commands[suffix].hasOwnProperty('info')) {
+            toSend.push(commands[suffix].info);
+          } else if (commands[suffix].hasOwnProperty('desc')) {
+            toSend.push(commands[suffix].desc);
+          }
+
+          if (commands[suffix].hasOwnProperty('deleteCommand')) {
+            toSend.push('*Can delete the activating message.*');
+          }
+
+          toSend = toSend.join('\n');
+
+          msg.author.sendMessage(toSend);
+        } else {
+          msg.channel.sendMessage(`Command \`${suffix}\` not found. Aliases aren't allowed.`);
+        }
       }
     }
   },
