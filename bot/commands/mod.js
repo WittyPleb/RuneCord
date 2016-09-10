@@ -78,7 +78,7 @@ var commands = {
 
       if (!msg.channel.permissionsFor(msg.member).hasPermission(0x00000020) && msg.author.id != process.env.ADMIN_ID) {
         msg.channel.sendMessage('You must have permission to manage the guild!');
-        return
+        return;
       }
 
       if (!ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
@@ -90,6 +90,33 @@ var commands = {
       } else {
         database.ignoreChannel(msg.channel.id, msg.channel.guild.id);
         msg.channel.sendMessage(':mute: Okay! I\'ll ignore all commands in this channel from now on.');
+      }
+    }
+  },
+  'unignore': {
+    desc: 'Make the bot stop ignoring the channel.',
+    usage: '',
+    deleteCommand: true,
+    process: (client, msg) => {
+      if (msg.channel.type == 'dm') {
+        msg.channel.sendMessage('Can\'t do this in a PM!');
+        return;
+      }
+
+      if (!msg.channel.permissionsFor(msg.member).hasPermission(0x00000020) && msg.author.id != process.env.ADMIN_ID) {
+        msg.channel.sendMessage('You must have permission to mange the guild!');
+        return;
+      }
+
+      if (!ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
+        database.addGuild(msg.channel.guild);
+      }
+
+      if (ServerSettings[msg.channel.guild.id].ignore.indexOf(msg.channel.id) == -1) {
+        msg.channel.sendMessage('This channel isn\'t ignored.');
+      } else {
+        database.unignoreChannel(msg.channel.id, msg.channel.guild.id);
+        msg.channel.sendMessage(':loud_sound: Okay, I\'ll stop ignoring commands in this channel now.');
       }
     }
   }
