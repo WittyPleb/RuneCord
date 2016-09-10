@@ -121,22 +121,11 @@ exports.checkGuilds = (client) => {
       logger.info(chalk.bold.green('[JOINED] ') + guild.name);
       if (config.banned_server_ids && config.banned_server_ids.indexOf(guild.id) > -1) {
         logger.error('Joined server but it was on the ban list: ' + guild.name);
-        client.guilds[guild.id].defaultChannel.sendMessage('This server is on the ban list, please contact the bot creator to find out why.');
         setTimeout(() => {
           client.guild.leave();
         }, 1000);
       } else {
         addGuild(guild);
       }
-    } else {
-      if (config.whitelist.indexOf(guild.id) == -1) {
-        var toSend = [];
-        toSend.push(':wave: Hi! I\'m **' + client.user.username + '**');
-        toSend.push('You can use `' + config.command_prefix + 'help` to see what I can do. Moderators can use `' + config.mod_command_prefix + 'help` for moderator commands.');
-        toSend.push("Moderator/Administrator commands *including bot settings* can be viewed with `" + config.mod_command_prefix + "help`");
-        toSend.push("For help, feedback, bugs, info, changelogs, etc. go to **<https://discord.me/runecord>**");
-        client.guilds[guild.id].defaultChannel.sendMessage(toSend);
-      }
-    }
   });
 }
