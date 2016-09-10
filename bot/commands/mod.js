@@ -13,6 +13,16 @@ function correctUsage(cmd, usage, msg, client, delay) {
   msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`);
 }
 
+var aliases = {
+  'h': 'help',
+  'commands': 'help',
+  's': 'stats',
+  'stat': 'stats',
+  'status': 'stats',
+  'config': 'settings',
+  'set': 'settings'
+};
+
 var commands = {
   'help': {
     desc: 'Sends a DM containing all moderator commands. If a command is specified, gives information on that command.',
