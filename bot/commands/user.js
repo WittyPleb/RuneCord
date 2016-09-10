@@ -496,6 +496,58 @@ var commands = {
       }
     }
   },
+  'viswax': {
+    desc: 'Display the current Viswax combinations.',
+    usage: '',
+    process: (client, msg) => {
+      request('http://warbandtracker.com/goldberg/index.php', (err, res, body) => {
+        if (res.statusCode == 404 || err) {
+          msg.channel.sendMessage(`Unable to grab viswax combination: ${err}`);
+          return;
+        }
+        if (!err && res.statusCode == 200) {
+          var firstRuneStart = body.indexOf('First Rune');
+          var firstRuneText = body.slice(firstRuneStart, body.length);
+          var firstRunePct = firstRuneText.slice(firstRuneText.indexOf('Reported by ') + 12, firstRuneText.indexOf('%.</td>'));
+          firstRuneText = firstRuneText.slice(firstRuneText.indexOf('<b>') + 3, firstRuneText.indexOf('</b>'));
+
+          var secondRuneStart = body.indexOf('Second Rune');
+          var secondRuneText = body.slice(secondRuneStart, body.length);
+
+          var secondRuneText1 = secondRuneText.slice(secondRuneText.indexOf('<b>') + 3, secondRuneText.indexOf('</b>'));
+          var secondRunePct1 = secondRuneText.slice(secondRuneText.indexOf('Reported by ') + 12, secondRuneText.indexOf('%.</td>'));
+          secondRuneText = secondRuneText.slice(secondRuneText.indexOf('%.</td>') + 7, secondRuneText.length);
+
+          var secondRuneText2 = secondRuneText.slice(secondRuneText.indexOf('<b>') + 3, secondRuneText.indexOf('</b>'));
+          var secondRunePct2 = secondRuneText.slice(secondRuneText.indexOf('Reported by ') + 12, secondRuneText.indexOf('%.</td>'));
+          secondRuneText = secondRuneText.slice(secondRuneText.indexOf('%.</td>') + 7, secondRuneText.length);
+
+          var secondRuneText3 = secondRuneText.slice(secondRuneText.indexOf('<b>') + 3, secondRuneText.indexOf('</b>'));
+          var secondRunePct3 = secondRuneText.slice(secondRuneText.indexOf('Reported by ') + 12, secondRuneText.indexOf('%.</td>'));
+          secondRuneText = secondRuneText.slice(secondRuneText.indexOf('%.</td>') + 7, secondRuneText.length);
+
+          var toSend = [];
+          toSend.push(`**First Rune**: *${firstRuneText}* \`${firstRunePct}%\``);
+          toSend.push(`**Second Rune**: *${secondRuneText1}* \`${secondRunePct1}%\`, *${secondRuneText2}* \`${secondRunePct2}%\`, *${secondRuneText3}* \`${secondRunePct3}%\``);
+
+          var now = Date.now();
+          var then = new Date();
+          then.setUTCHours(24, 0, 0, 0);
+
+          var resetTime = then - now;
+          var hours = Math.floor(resetTime / 1000 / 60 / 60);
+
+          if (hours >= 22) {
+            toSend.push('Please Note: Since reset was so recent, these runes may be inaccurate...');
+          }
+
+          toSend = toSend.join('\n');
+
+          msg.channel.sendMessage(toSend);
+        }
+      })
+    }
+  },
   'stats': {
     desc: 'Grabs the stats of a player and displays them in a table.',
     usage: '<username>',
