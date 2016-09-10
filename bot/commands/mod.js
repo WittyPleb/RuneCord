@@ -187,6 +187,26 @@ var commands = {
         msg.channel.sendMessage('Command deletion is already disabled!');
       }
 
+      if (/notify? ?here/i.test(suffix.trim())) {
+        if (msg.channel.id == msg.channel.guild.defaultChannel.id) {
+          database.changeSetting('notifyChannel', 'general', msg.channel.guild.id);
+          msg.channel.sendMessage(':gear: Okay, I\'ll send notifications to this channel now!');
+        } else {
+          database.changeSetting('notifyChannel', msg.channel.id, msg.channel.guild.id);
+          msg.channel.sendMessage(':gear: Okay, I\'ll send notifications to this channel now!');
+        }
+      }
+
+      if (/welcome( ?msg| ?message)? .+/i.test(suffix.trim())) {
+        database.changeSetting('welcome', suffix.replace(/^welcome( ?msg| ?message)? /i, ''), msg.channel.guild.id);
+        msg.channel.sendMessage(`:gear: Welcome message set to: ${suffix.replace(/^welcome( ?msg| ?message)? /i, '')}`);
+      }
+
+      if (/disable welcome( ?msg| ?message)?/i.test(suffix.trim())) {
+        database.changeSetting('welcome', 'none', msg.channel.guild.id);
+        msg.channel.sendMessage(':gear: Disabled welcome message!');
+      }
+
       if (suffix.trim().toLowerCase() == 'check') {
         var toSend = [];
         toSend.push(':gear: **Current Settings** :gear:');
