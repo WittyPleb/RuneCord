@@ -652,7 +652,7 @@ var commands = {
         } else if (suffix > 120) {
           correctUsage('invasion', commands.invasion.usage, msg, client);
           return;
-        } else new Promise(function(resolve, reject) {
+        } else {
           var formula = 8 * (20 / 20) * (Math.pow(suffix, 2) - 2 * suffix + 100);
           msg.channel.sendMessage(`If you were to **fully** complete Troll Invasion, you'd gain **${numeral(formula).format()}** XP if you were level **${suffix}**.`);
         });
