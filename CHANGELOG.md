@@ -185,6 +185,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[3.0.1]: https://github.com/unlucky4ever/RuneCord/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/unlucky4ever/RuneCord/compare/2.3.6...3.0.0
 [2.3.6]: https://github.com/unlucky4ever/RuneCord/compare/2.3.5...2.3.6
 [2.3.5]: https://github.com/unlucky4ever/RuneCord/compare/2.3.4...2.3.5
