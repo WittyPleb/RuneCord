@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Fixed minor bug with mod command aliases that caused a crash.
 - Fixed minor bug with logging that caused a crash.
+- Fixed minor bug with `~viswax` command that could sometimes cause a crash.
 
 ## [3.0.0] - 2016-09-09
 ### Changed

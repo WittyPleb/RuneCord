@@ -519,7 +519,7 @@ var commands = {
     usage: '',
     process: (client, msg) => {
       request('http://warbandtracker.com/goldberg/index.php', (err, res, body) => {
-        if (res.statusCode == 404 || err) {
+        if (res == null || res == undefined || res.statusCode == 404 || err) {
           msg.channel.sendMessage(`Unable to grab viswax combination: ${err}`);
           return;
         }
