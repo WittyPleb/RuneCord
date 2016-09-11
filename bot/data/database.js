@@ -9,7 +9,6 @@ const config = require('../config.json');
 /* GLOBAL VARIABLES */
 ServerSettings = require('./guilds.json');
 
-var inactive = [];
 var updatedG = false;
 
 setInterval(() => {

@@ -1,16 +1,14 @@
 /* REQUIRED DEPENDENCIES */
-const moment = require('moment');
 const os     = require('os');
 
 /* REQUIRED FILES */
 const version  = require('../../package.json').version;
 const config   = require('../config.json');
 const database = require('../data/database.js');
-const logger   = require('../logger.js');
 
 /* SEND THE USER HOW TO CORRECTLY USE THE COMMAND */
 function correctUsage(cmd, usage, msg, client, delay) {
-  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`);
+  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`).then(msg.delete(delay || 10000));
 }
 
 var aliases = {

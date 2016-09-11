@@ -1,0 +1,22 @@
+{
+  "ecmaVersion": 6,
+  "env": {
+    "es6": true,
+    "node": true,
+    "mocha": true,
+  },
+  "ecmaFeatures": {
+    "modules": true
+  },
+  "rules": {
+    "no-console": 0,
+    "no-control-regex": 0,
+    "no-redeclare": 0,
+    "no-inner-declarations": 0,
+  },
+  "globals": {
+    "ServerSettings",
+    "commandsProcessed"
+  },
+  "extends": "eslint:recommended"
+}

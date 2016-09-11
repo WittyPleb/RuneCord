@@ -13,7 +13,7 @@ const entities = new Entities();
 
 /* SEND THE USER HOW TO CORRECTLY USE THE COMMAND */
 function correctUsage(cmd, usage, msg, client, delay) {
-  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`);
+  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, '@\u200b')}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`).then(msg.delete(delay || 10000));
 }
 
 /* GET THE SKILL NAMES BASED ON THE HISCORE SKILL ID */
@@ -226,7 +226,7 @@ var commands = {
       var d = new Date();
       var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();
       var minutesUntil = Math.floor(secondsUntil / 60);
-      timestr = '';
+      var timestr = '';
 
       if (minutesUntil == 0) {
         timestr += '1 hour';
@@ -655,7 +655,7 @@ var commands = {
         } else {
           var formula = 8 * (20 / 20) * (Math.pow(suffix, 2) - 2 * suffix + 100);
           msg.channel.sendMessage(`If you were to **fully** complete Troll Invasion, you'd gain **${numeral(formula).format()}** XP if you were level **${suffix}**.`);
-        });
+        }
       }
     }
   },
