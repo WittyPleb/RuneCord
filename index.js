@@ -2,6 +2,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const fs      = require('fs');
+const chalk   = require('chalk');
 
 /* REQUIRED FILES */
 const logger       = require('./bot/logger.js');

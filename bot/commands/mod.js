@@ -279,3 +279,4 @@ var commands = {
 };
 
 exports.commands = commands;
+exports.aliases = aliases;

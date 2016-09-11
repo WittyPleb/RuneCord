@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.1] - 2016-09-11
+### Fixed
+- Fixed minor bug with mod command aliases that caused a crash.
+- Fixed minor bug with logging that caused a crash.
+
 ## [3.0.0] - 2016-09-09
 ### Changed
 - Updated `discord.js` lib from version `8.0.0` to version `9.0.2`.
