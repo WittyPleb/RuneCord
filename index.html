@@ -131,12 +131,6 @@
                 <td>join</td>
               </tr>
               <tr>
-                <td>~id <em>channel</em></td>
-                <td>Returns the user's ID if no suffix is supplied, if <code>channel</code> is supplied for the suffix, will return the channel's ID.</td>
-                <td>~id | ~id channel</td>
-                <td>myid</td>
-              </tr>
-              <tr>
                 <td>~about</td>
                 <td>Tells you various things about the bot.</td>
                 <td>~about</td>
@@ -146,12 +140,6 @@
                 <td>~roll [<em>number</em>]</td>
                 <td>Rolls a number between 1 and <em>number</em>.</td>
                 <td>~roll 100</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~twitch [<em>username</em>]</td>
-                <td>Displays information about the given streamer.</td>
-                <td>~twitch WittyRS</td>
                 <td>&nbsp;</td>
               </tr>
             </tbody>
@@ -220,12 +208,6 @@
                 <td>Returns the last 5 adventure log logs for the given <em>username</em>.</td>
                 <td>~alog Witty</td>
                 <td>advlog, adventurelog</td>
-              </tr>
-              <tr>
-                <td>~warbands</td>
-                <td>Tells you when the next Warbands will be.</td>
-                <td>~warbands</td>
-                <td>wbs</td>
               </tr>
               <tr>
                 <td>~bigchin</td>
@@ -313,12 +295,6 @@
             </thead>
             <tbody>
               <tr>
-                <td>)announce [<em>message</em>]</td>
-                <td>Send a PM to all users in your server.</td>
-                <td>)announce This PM will go to everyone</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
                 <td>
                   )settings <em>check</em><br>
                   )settings <em>enable/disable setting</em><br>
@@ -328,7 +304,7 @@
                 <td>Adjust various settings for your server.</td>
                 <td>
                   )settings check<br>
-                  )settings disable ban alerts<br>
+                  )settings disable delete commands<br>
                   )settings notify here<br>
                   )settings welcome Welcome $USER$ to the server!
                 </td>
@@ -355,12 +331,6 @@
                   <td>)unignore</td>
                   <td>Starts responding to commands again in the channel.</td>
                   <td>)unignore</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>)serverinfo</td>
-                  <td>Displays various information about the server the bot is currently in.</td>
-                  <td>)serverinfo</td>
                   <td>&nbsp;</td>
                 </tr>
             </tbody>
@@ -394,21 +364,6 @@
                 <td>Set your own command prefix for mod commands</td>
               </tr>
               <tr>
-                <td>non_essential_event_listeners</td>
-                <td>true</td>
-                <td>Turn this off if you don't want to track things like serverNewMember, channelUpdated, userBanned etc.</td>
-              </tr>
-              <tr>
-                <td>debug</td>
-                <td>true</td>
-                <td>Allows you to view all the debugging information, turn off for less spam in console</td>
-              </tr>
-              <tr>
-                <td>show_warn</td>
-                <td>true</td>
-                <td>Makes you see all the warning, nothing too severe that can break the bot</td>
-              </tr>
-              <tr>
                 <td>whitelist</td>
                 <td>["168550901836021761", "110373943822540800"]</td>
                 <td>An array of server id's that will not be removed from the inactive list, no matter what</td>
@@ -432,15 +387,7 @@
 
           <p>For use with the <code>)settings</code> command, for server mods. Do <code>)help settings</code> for more information about syntax.</p>
 
-          <h5 class="green-text text-accent-3">Ban Alerts</h5>
-          <p>A message will be sent to the notification channel and to the user when someone is banned.</p>
-          <code>enable/disable ban alerts</code>
-
-          <h5 class="green-text text-accent-3">Name Changes</h5>
-          <p>When a user changes their name a message will be sent to the notification channel.</p>
-          <code>enable/disable name changes</code>
-
-          <h5 class="green-text text-accent-3">Name Changes</h5>
+          <h5 class="green-text text-accent-3">Welcome Message</h5>
           <p>This message is sent to the default channel when a user joins.</p>
           <code>disable welcome</code>
           <br />
