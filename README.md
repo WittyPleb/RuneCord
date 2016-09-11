@@ -3,7 +3,7 @@ RuneCord
 [![Discord](https://discordapp.com/api/guilds/168550901836021761/widget.png?style=shield)](https://discord.me/runecord)
 [![Build Status](https://travis-ci.org/unlucky4ever/RuneCord.svg?branch=master)](https://travis-ci.org/unlucky4ever/RuneCord)
 [![Dependencies](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
-<span class="badge-paypal"><a href="https://paypal.me/unlucky4ever" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPal donate button" /></a></span>
+[![Donate](https://img.shields.io/badge/paypal-donate-green.svg)](https://paypal.me/unlucky4ever)
 
 <img src="http://i.imgur.com/TkiKjWM.png" alt="RuneCord Icon" align="right" />
 RuneCord is a bot for [Discord](https://discordapp.com) which allows you to use certain commands to get [RuneScape](http://www.runescape.com/) information easily.
