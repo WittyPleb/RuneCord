@@ -188,7 +188,7 @@ var commands = {
 
       var d = new Date();
 
-      msg.channel.sendMessage(`The current time in-game is **${addZero(d.getUTCHours())}:${d.getUTCMinutes()}**.`);
+      msg.channel.sendMessage(`The current time in-game is **${addZero(d.getUTCHours())}:${addZero(d.getUTCMinutes())}**.`);
     }
   },
   'reset': {
