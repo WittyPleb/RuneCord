@@ -5,10 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unpublished]
 ### Added
 - Added bot welcome messages again on first join.
+- Added more checks to `~vos` command.
+- Added more checks to `~stats` command.
+- Added more checks to `~alog` command.
+- Added more checks to `~osstats` command.
 
 ### Changed
 - Updated `discord.js` lib from version `9.1.1` to version `9.2.0`.
 - Updated `moment` lib from version `2.14.1` to version `2.15.0`.
+- Cleaned up response from `(eval)` command.
+- Made `~time` command minutes have a 0 in front of it if less than 10.
 
 ## [3.0.2] - 2016-09-14
 ### Fixed
