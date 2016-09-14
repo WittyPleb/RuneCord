@@ -37,7 +37,7 @@ function connect() {
     process.exit(1);
   }
 
-  client.login(process.env.TOKEN).then();
+  client.login(process.env.TOKEN);
 }
 
 /* CHECK TO SEE IF THE DATABASE FILES ARE THERE, IF NOT, MAKE THEM */
