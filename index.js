@@ -66,7 +66,7 @@ function evaluateString(msg) {
     toSend.push('```diff');
     toSend.push('- ' + e);
     toSend.push('```');
-    msg.channel.sendMessage(toSend.join(''));
+    msg.channel.sendMessage(toSend.join('\n'));
   }
   if (result) {
     var toSend = [];
@@ -75,7 +75,7 @@ function evaluateString(msg) {
     toSend.push(result);
     toSend.push('```');
     toSend.push('Time taken: ' + (timeTaken - msg.timestamp) + ' ms');
-    msg.channel.sendMessage(toSend.join('')).then(logger.info('Result: ' + result));
+    msg.channel.sendMessage(toSend.join('\n')).then(logger.info('Result: ' + result));
   }
 }
 
