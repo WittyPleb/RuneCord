@@ -670,7 +670,7 @@ var commands = {
         return;
       } else {
         request(`http://services.runescape.com/m=adventurers-log/a=13/rssfeed?searchName=${suffix}`, (err, res, body) => {
-          if (res.statusCode == 404 || err) {
+          if (res == null || res == undefined || res.statusCode == 404 || err) {
             msg.channel.sendMessage(`Unable to retrieve adventure log for '${suffix}'.`);
             return;
           }
