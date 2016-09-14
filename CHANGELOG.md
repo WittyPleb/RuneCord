@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.2] - 2016-09-14
+## Fixed
+- Fixed bot crashing if `guilds.json` wasn't created by forcing it to create itself if it doesn't exist.
+
+## Removed
+- Removed all traces of welcome messages on bot enter, will revisit another time.
+
 ## [3.0.1] - 2016-09-11
 ## Added
 - Added test file for RuneCord 3.0.1.
@@ -185,6 +192,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[3.0.2]: https://github.com/unlucky4ever/RuneCord/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/unlucky4ever/RuneCord/compare/3.0.0...3.0.1
 [3.0.0]: https://github.com/unlucky4ever/RuneCord/compare/2.3.6...3.0.0
 [2.3.6]: https://github.com/unlucky4ever/RuneCord/compare/2.3.5...2.3.6
