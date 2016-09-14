@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unpublished]
+## [3.0.2] - 2016-09-14
 ### Added
 - Added bot welcome messages again on first join.
 - Added more checks to `~vos` command.
@@ -17,7 +17,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Cleaned up response from `(eval)` command.
 - Made `~time` command minutes have a 0 in front of it if less than 10.
 
-## [3.0.2] - 2016-09-14
 ### Fixed
 - Fixed bot crashing if `guilds.json` wasn't created by forcing it to create itself if it doesn't exist.
 
