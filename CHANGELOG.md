@@ -3,17 +3,17 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.0.2] - 2016-09-14
-## Fixed
+### Fixed
 - Fixed bot crashing if `guilds.json` wasn't created by forcing it to create itself if it doesn't exist.
 
-## Removed
+### Removed
 - Removed all traces of welcome messages on bot enter, will revisit another time.
 
 ## [3.0.1] - 2016-09-11
-## Added
+### Added
 - Added test file for RuneCord 3.0.1.
 
-## Changed
+### Changed
 - Updated `discord.js` lib from version `9.0.2` to version `9.1.1`.
 
 ### Fixed
