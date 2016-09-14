@@ -627,6 +627,8 @@ var commands = {
             } else {
               msg.channel.sendMessage(`Error finding item '${suffix}', please try typing the exact name.`);
             }
+          } else {
+            msg.channel.sendMessage('Unable to grab prices at this time, please try again later.');
           }
         });
       }
