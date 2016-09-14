@@ -292,7 +292,7 @@ var commands = {
     usage: '',
     process: (client, msg) => {
       request(`https://cdn.syndication.twimg.com/widgets/timelines/${process.env.TWITTER_API}?&lang=en&supress_response_codes=true&rnd=${Math.random()}`, (err, res, body) => {
-        if (res.statusCode == 404 || err) {
+        if (res == null || res == undefined || res.statusCode == 404 || err) {
           msg.channel.sendMessage('Unable to grab the VoS, please try again.');
           return;
         }
