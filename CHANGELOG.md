@@ -20,9 +20,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Fixed bot crashing if `guilds.json` wasn't created by forcing it to create itself if it doesn't exist.
 
-### Removed
-- Removed all traces of welcome messages on bot enter, will revisit another time.
-
 ## [3.0.1] - 2016-09-11
 ### Added
 - Added test file for RuneCord 3.0.1.
