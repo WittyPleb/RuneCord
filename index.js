@@ -7,6 +7,7 @@ const request = require('request');
 
 /* REQUIRED FILES */
 const logger       = require('./bot/logger.js');
+checkDb(); // Run this before anything else
 const config       = require('./bot/config.json');
 const versionCheck = require('./bot/versionCheck.js');
 const database     = require('./bot/data/database.js');
@@ -36,7 +37,7 @@ function connect() {
     process.exit(1);
   }
 
-  client.login(process.env.TOKEN).then(checkDb());
+  client.login(process.env.TOKEN).then();
 }
 
 /* CHECK TO SEE IF THE DATABASE FILES ARE THERE, IF NOT, MAKE THEM */
