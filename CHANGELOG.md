@@ -4,18 +4,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unpublished]
 ### Added
-- Added bot welcome messages again on first join. `65738f70e2533ac8ee6a4e491436e7b77885c2a1` `e1bc726787ef158b9b92401848aa00d073753c9a`
-- Added more checks to `~vos` command. `f3b9320063fd4fc88ccfdcec61d286a65fe4b1d1`
-- Added more checks to `~stats` command. `7e30fe49a171a36d1977fea9813dbcbcf5c44caf`
-- Added more checks to `~alog` command. `c446dca4d065c5440d29aa38ac037d0d41b2e8e4`
-- Added more checks to `~osstats` command. `3e5a7ffd356a7ac51ee55e1e8dc1cd97427b9094`
-- Added an error message for `~price` command. `c4daba7156c375bbd5257f032187da14a600ef58`
+- Added bot welcome messages again on first join.
+- Added more checks to `~vos` command.
+- Added more checks to `~stats` command.
+- Added more checks to `~alog` command.
+- Added more checks to `~osstats` command.
+- Added an error message for `~price` command.
 
 ### Changed
-- Updated `discord.js` lib from version `9.1.1` to version `9.2.0`. `30f08ef577181298a5966cabe1a395e30e09bdea`
-- Updated `moment` lib from version `2.14.1` to version `2.15.0`. `30f08ef577181298a5966cabe1a395e30e09bdea`
-- Cleaned up response from `(eval)` command. `b30492def769b8a1bfdc442d57f8b44b2bca70c3`
-- Made `~time` command minutes have a 0 in front of it if less than 10. `f4bcb068abe1a9e5bb47af3e7f7d27a73e4f2a52`
+- Updated `discord.js` lib from version `9.1.1` to version `9.2.0`.
+- Updated `moment` lib from version `2.14.1` to version `2.15.0`.
+- Cleaned up response from `(eval)` command.
+- Made `~time` command minutes have a 0 in front of it if less than 10.
 
 ## [3.0.2] - 2016-09-14
 ### Fixed
