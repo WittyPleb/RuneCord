@@ -917,7 +917,7 @@ var commands = {
         return;
       } else {
         request(`http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=${suffix}`, (err, res, body) => {
-          if (res.statusCode == 404 || err) {
+          if (res == null || res == undefined || res.statusCode == 404 || err) {
             msg.channel.sendMessage(`Unable to retrieve stats for '${suffix}'.`);
             return;
           }
