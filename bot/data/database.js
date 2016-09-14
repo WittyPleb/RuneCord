@@ -127,16 +127,6 @@ exports.checkGuilds = (client) => {
       } else {
         addGuild(guild);
       }
-    } else {
-      if (config.whitelist.indexOf(guild.id) == -1) {
-        var toSend = [];
-        toSend.push(`:wave: Hi! I'm **${client.user.username}**!`);
-        toSend.push(`You can use \`${config.command_prefix}help\` to see what I can do.`);
-        toSend.push(`Moderator/Administrator commands *including bot settings* can be viewed with \`${config.mod_command_prefix}help\`.`);
-        toSend.push(`For help, feedback, bugs, info, changelogs, etc. Go to **<https://discord.me/runecord>**.`);
-        toSend = toSend.join('\n');
-        client.channels.get(guild.defaultChannel.id).sendMessage(toSend);
-      }
     }
   });
 }
