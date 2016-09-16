@@ -1,8 +1,5 @@
 /* REQUIRED DEPENDENCIES */
 const fs    = require('fs');
-const chalk = require('chalk');
-
-let chalkConstructor = new chalk.constructor({enabled: true});
 
 /* REQUIRED FILES */
 const logger = require('../logger.js');
@@ -119,7 +116,7 @@ exports.checkGuilds = (client) => {
   client.guilds.map((guild) => {
     if (guild == undefined) return;
     if (!ServerSettings.hasOwnProperty(guild.id)) {
-      logger.info(chalkConstructor.bold.green('[JOINED] ') + guild.name);
+      logger.join(guild);
       if (config.banned_server_ids && config.banned_server_ids.indexOf(guild.id) > -1) {
         logger.error('Joined server but it was on the ban list: ' + guild.name);
         client.channels.get(guild.defaultChannel.id).sendMessage('This server is on the ban list, please contact the bot creator to find out why.');
