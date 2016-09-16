@@ -86,12 +86,12 @@ function execCommand(msg, cmd, suffix, type) {
 
       /* TEXT CHANNEL */
       if (msg.channel.type == 'text') {
-        logger.cmd(cmd, suffix, msg.channel.guild.name + ' (' + msg.channel.guild.id + ')', msg.author.username);
+        logger.cmd(cmd, suffix, msg.author.username, msg.channel.guild);
       }
 
       /* 1-ON-1 DIRECT MESSAGE */
       if (msg.channel.type == 'dm') {
-        logger.cmd(cmd, suffix, 'PM', msg.author.username);
+        logger.cmd(cmd, suffix, msg.author.username);
       }
 
       /* PROCESS THE COMMAND */
@@ -108,12 +108,12 @@ function execCommand(msg, cmd, suffix, type) {
 
       /* TEXT CHANNEL */
       if (msg.channel.type == 'text') {
-        logger.modCmd(cmd, suffix, msg.channel.guild.name + ' (' + msg.channel.guild.id + ')', msg.author.username);
+        logger.cmd(cmd, suffix, msg.author.username, msg.channel.guild, 'mod');
       }
 
       /* 1-ON-1 DIRECT MESSAGE */
       if (msg.channel.type == 'dm') {
-        logger.modCmd(cmd, suffix, 'PM', msg.author.username);
+        logger.cmd(cmd, suffix, msg.author.username, null, 'mod');
       }
 
       /* PROCESS THE COMMAND */

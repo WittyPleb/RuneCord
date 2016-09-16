@@ -15,19 +15,28 @@ function _submitToLogger(type, msg) {
   return logger[type](msg);
 }
 
-function cmd(cmd, suffix, guild, user) {
+function cmd(cmd, suffix, user, guild = null, type = null) {
   if (production) return logger.info({cmd, suffix}, 'cmd');
-  console.log(logTime, chalkConstructor.bold.green('[COMMAND]'), chalkConstructor.bold.green(guild) + ' > ' + chalkConstructor.bold.green(user) + ' > ' + chalkConstructor.bold.green(cmd), suffix);
+
+  if (!guild) {
+    if (type === 'mod') {
+      console.log(logTime, chalkConstructor.bold.magenta('[MOD COMMAND]'), `${chalkConstructor.bold.magenta(user)} > ${chalkConstructor.bold.magenta(cmd)}`, suffix);
+    } else {
+      console.log(logTime, chalkConstructor.bold.green('[COMMAND]'), `${chalkConstructor.bold.green(user)} > ${chalkConstructor.bold.green(cmd)}`, suffix);
+    }
+  } else {
+    if (type === 'mod') {
+      console.log(logTime, chalkConstructor.bold.magenta('[MOD COMMAND]'), `${chalkConstructor.bold.magenta(guild.name)} > ${chalkConstructor.bold.magenta(user)} > ${chalkConstructor.bold.magenta(cmd)}`, suffix);
+    } else {
+      console.log(logTime, chalkConstructor.bold.green('[COMMAND]'), `${chalkConstructor.bold.green(guild.name)} > ${chalkConstructor.bold.green(user)} > ${chalkConstructor.bold.green(cmd)}`, suffix);
+    }
+  }
 }
 
-function modCmd(cmd, suffix, server, user) {
-  if (production) return logger.info({cmd, suffix}, 'modCmd');
-  console.log(chalkConstructor.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalkConstructor.bold.magenta('[MOD COMMAND]'), chalkConstructor.bold.magenta(server) + ' > ' + chalkConstructor.bold.magenta(user) + ' > ' + chalkConstructor.bold.magenta(cmd), suffix);
-}
-
-function join(guildName) {
-  if (production) return logger.info({guildName}, 'join');
-  console.log(logTime, chalkConstructor.bold.yellow('[JOINED]'), chalkConstructor.bold.yellow(guildName));
+function join(guild) {
+  let name = guild.name;
+  if (production) return logger.info({name}, 'join');
+  console.log(logTime, chalkConstructor.bold.yellow('[JOINED]'), `${chalkConstructor.bold.yellow(name)} (${chalkConstructor.bold.yellow(guild.id)})`);
 }
 
 function info(msg) {
@@ -45,4 +54,4 @@ function error(msg) {
   console.log(logTime, chalkConstructor.red(`[ERROR] ${msg}`));
 }
 
-module.exports = { cmd, modCmd, join, info, warn, error };
+module.exports = { cmd, join, info, warn, error };
