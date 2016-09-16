@@ -265,9 +265,9 @@ var commands = {
         var toSend = [];
         toSend.push(':gear: **Current Settings** :gear:');
         toSend.push(`**Delete Commands:** ${ServerSettings[msg.channel.guild.id].deleteCommands}`);
-        toSend.push(`**Notification Channel:** #${ServerSettings[msg.channel.guild.id].notifyChannel}`);
+        toSend.push(`**Notification Channel:** <#${ServerSettings[msg.channel.guild.id].notifyChannel}>`);
         toSend.push(`**Welcome Message:** ${(ServerSettings[msg.channel.guild.id].welcome.length < 1600 ? ServerSettings[msg.channel.guild.id].welcome : ServerSettings[msg.channel.guild.id].welcome.substr(0, 1600) + '...')}`);
-        toSend.push(`**Ignored Channels:** ${(ServerSettings[msg.channel.guild.id].ignore.length > 0 ? '#' + ServerSettings[msg.channel.guild.id].ignore.join(', #') : 'None')}`);
+        toSend.push(`**Ignored Channels:** ${(ServerSettings[msg.channel.guild.id].ignore.length > 0 ? '<#' + ServerSettings[msg.channel.guild.id].ignore.join(', #>') : 'None')}`);
         toSend = toSend.join('\n');
 
         msg.channel.sendMessage(toSend);
