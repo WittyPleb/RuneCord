@@ -8,6 +8,7 @@ const config     = {name: 'runecord'};
 const logger     = bunyan.createLogger(config);
 
 let chalkConstructor = new chalk.constructor({enabled: true});
+let logTime = chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`);
 
 function _submitToLogger(type, msg) {
   if (R.is(Object, msg)) return logger[type](msg, msg.message || '');
@@ -16,7 +17,7 @@ function _submitToLogger(type, msg) {
 
 function cmd(cmd, suffix, guild, user) {
   if (production) return logger.info({cmd, suffix}, 'cmd');
-  console.log(chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalkConstructor.bold.green('[COMMAND]'), chalkConstructor.bold.green(guild) + ' > ' + chalkConstructor.bold.green(user) + ' > ' + chalkConstructor.bold.green(cmd), suffix);
+  console.log(logTime, chalkConstructor.bold.green('[COMMAND]'), chalkConstructor.bold.green(guild) + ' > ' + chalkConstructor.bold.green(user) + ' > ' + chalkConstructor.bold.green(cmd), suffix);
 }
 
 function modCmd(cmd, suffix, server, user) {
@@ -26,22 +27,22 @@ function modCmd(cmd, suffix, server, user) {
 
 function join(guildName) {
   if (production) return logger.info({guildName}, 'join');
-  console.log(chalkConstructor.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalkConstructor.bold.yellow('[JOINED]'), chalkConstructor.bold.yellow(guildName));
+  console.log(logTime, chalkConstructor.bold.yellow('[JOINED]'), chalkConstructor.bold.yellow(guildName));
 }
 
 function info(msg) {
   if (production) return _submitToLogger('info', msg);
-  console.log(chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), msg);
+  console.log(logTime, msg);
 }
 
 function warn(msg) {
   if (production) return _submitToLogger('warn', msg);
-  console.log(chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalkConstructor.yellow(`[WARN] ${msg}`));
+  console.log(logTime, chalkConstructor.yellow(`[WARN] ${msg}`));
 }
 
 function error(msg) {
   if (production) return _submitToLogger('error', msg);
-  console.log(chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalkConstructor.red(`[ERROR] ${msg}`));
+  console.log(logTime, chalkConstructor.red(`[ERROR] ${msg}`));
 }
 
 module.exports = { cmd, modCmd, join, info, warn, error };
