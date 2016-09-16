@@ -181,6 +181,7 @@ client.on('ready', () => {
 
 /* WHEN BOT JOINS A NEW GUILD */
 client.on('guildCreate', (guild) => {
+  if (!guild.available) return; // If the guild is available, do nothing.
   if (database.guildIsNew(guild)) {
     logger.join(guild.name);
     if (config.banned_server_ids && config.banned_server_ids.indexOf(guild.id) > -1) {
