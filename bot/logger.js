@@ -24,6 +24,11 @@ function modCmd(cmd, suffix, server, user) {
   console.log(chalkConstructor.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalkConstructor.bold.magenta('[MOD COMMAND]'), chalkConstructor.bold.magenta(server) + ' > ' + chalkConstructor.bold.magenta(user) + ' > ' + chalkConstructor.bold.magenta(cmd), suffix);
 }
 
+function join(guildName) {
+  if (production) return logger.info({guildName}, 'join');
+  console.log(chalkConstructor.cyan('[' + moment().format('YYYY-MM-DD HH:mm:ss') + ']'), chalkConstructor.bold.yellow('[JOINED]'), chalkConstructor.bold.yellow(guildName));
+}
+
 function info(msg) {
   if (production) return _submitToLogger('info', msg);
   console.log(chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), msg);
@@ -39,4 +44,4 @@ function error(msg) {
   console.log(chalkConstructor.cyan(`[${moment().format('YYYY-MM-DD HH:mm:ss')}]`), chalkConstructor.red(`[ERROR] ${msg}`));
 }
 
-module.exports = { cmd, modCmd, info, warn, error };
+module.exports = { cmd, modCmd, join, info, warn, error };
