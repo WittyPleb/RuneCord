@@ -39,6 +39,11 @@ function join(guild) {
   console.log(logTime, chalkConstructor.bold.yellow('[JOINED]'), `${chalkConstructor.bold.yellow(name)} (${chalkConstructor.bold.yellow(guild.id)})`);
 }
 
+function stats(site, count) {
+  if (production) return logger.info({site, count}, 'stats');
+  console.log(logTime, chalkConstructor.bold.blue('[STATS]'), `Updated stats at ${chalkConstructor.bold.blue(site)} to ${chalkConstructor.bold.blue(count)} guilds.`);
+}
+
 function info(msg) {
   if (production) return _submitToLogger('info', msg);
   console.log(logTime, msg);
@@ -54,4 +59,4 @@ function error(msg) {
   console.log(logTime, chalkConstructor.red(`[ERROR] ${msg}`));
 }
 
-module.exports = { cmd, join, info, warn, error };
+module.exports = { cmd, join, stats, info, warn, error };

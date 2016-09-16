@@ -147,7 +147,7 @@ function stats() {
       if (err || res.statusCode != 200) {
         logger.error(`Error updating stats at bots.discord.pw:\nBody: ${body}\nStatus Code: ${res.statusCode}\nError: ${err}`);
       }
-      logger.info('Updated stats at bots.discord.pw to ' + client.guilds.array().length);
+      logger.stats('bots.discord.pw', client.guilds.array().length);
     });
   }
 
@@ -165,7 +165,7 @@ function stats() {
       if (err || res.statusCode != 200) {
         logger.error(`Error updating stats at carbonitex.net:\nBody: ${body}\nStatus Code: ${res.statusCode}\nError: ${err}`);
       }
-      logger.info('Updated stats at carbonitex.net to ' + client.guilds.array().length);
+      logger.stats('carbonitex.net', client.guilds.array().length);
     });
   }
 }
