@@ -654,6 +654,56 @@ var commands = {
       }
     }
   },
+  'memberinfo': {
+    desc: 'Gives some information about a player.',
+    usage: '<player name>',
+    process: (client, msg, suffix) => {
+      if (!suffix) {
+        correctUsage('memberinfo', commands.memberinfo.usage, msg, client);
+        return;
+      } else {
+        var getInfo = (url, callback) => {
+          request(`http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22${suffix}%22%5D&callback=jQuery000000000000000_0000000000&_=0`, (err, res, body) => {
+            if (!err && res.statusCode == 200) {
+              var jsonpData = body;
+              var json;
+
+              var startPos = jsonpData.indexOf('[{');
+              var endPos = jsonpData.indexOf('}]');
+              var jsonString = jsonpData.substring(startPos+1, endPos+1);
+              json = JSON.parse(jsonString);
+              callback(null, json);
+            } else {
+              callback(err);
+            }
+          });
+        }
+
+        try {
+          getInfo(`http://services.runescape.com/m=website-data/playerDetails.ws?names=%5B%22${suffix}%22%5D&callback=jQuery000000000000000_0000000000&_=0`, (err, data) => {
+            var toSend = [];
+
+            toSend.push('```xl');
+            toSend.push(`Username: ${data.name}`);
+
+            if (data.clan != null) {
+              toSend.push(`Clan: ${data.clan}`);
+            }
+
+            if (data.title !== '') {
+              toSend.push(`Title: ${data.title}`);
+            }
+            toSend.push('```');
+
+            msg.channel.sendMessage(toSend);
+          });
+        } catch (e) {
+          msg.channel.sendMessage(`Unable to get information on '${suffix}', did you type the name correctly?`);
+          return;
+        }
+      }
+    }
+  },
   'invasion': {
     desc: 'Lets you know how much XP you\'d gain from a fully completed Troll Invasion D&D.',
     usage: '<skill level>',
