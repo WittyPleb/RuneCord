@@ -675,7 +675,8 @@ var commands = {
               json = JSON.parse(jsonString);
               callback(null, json);
             } else {
-              callback(err);
+              msg.channel.sendMessage(`Unable to get information on '${suffix}', did you type the name correctly?`);
+              return;
             }
           });
         }
