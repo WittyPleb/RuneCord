@@ -263,28 +263,47 @@ var commands = {
     desc: 'Lets you know when the next Guthixian cache D&D will begin.',
     usage: '',
     process: (client, msg) => {
-      var d = new Date();
-      var hoursUntil = 2 - d.getUTCHours() % 3;
-      var minutesUntil = 60 - d.getUTCMinutes();
-      var timestr = '';
-      if (minutesUntil == 60) {
-        hoursUntil++;
-        minutesUntil = 0;
+      var d = new Date(); // Current time
+
+      /* CACHE BOOST TIME */
+      var hoursUntilBoost = 2 - d.getUTCHours() % 3; // Hours until cache boost
+      var minutesUntilBoost = 60 - d.getUTCMinutes(); // Minutes until cache boost
+
+      /* CACHE TIME */
+      var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds(); // Seconds until cache
+      var minutesUntil = Math.floor(secondsUntil / 60); // Minutes until cache
+
+      var cacheTimeStr = ''; // Build this later
+      var boostTimeStr = ''; // Build this later
+
+      /* CACHE TIME STR */
+      if (minutesUntil == 0) {
+        cacheTimeStr += '1 hour';
       }
 
-      if (hoursUntil > 0) {
-        timestr += hoursUntil + ' hour' + (hoursUntil > 1 ? 's' : '');
+      if (minutesUntil > 0) {
+        cacheTimeStr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
       }
 
-      if (hoursUntil >= 1 && minutesUntil > 1) {
-        timestr += ' and ' + minutesUntil + ' minute' + (minutesUntil > 1 ? 's' : '');
+      /* CACHE BOOST STR */
+      if (minutesUntilBoost == 60) {
+        hoursUntilBoost++;
+        minutesUntilBoost = 0;
       }
 
-      if (minutesUntil > 1 && hoursUntil < 1) {
-        timestr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 2 ? '' : 's');
+      if (hoursUntilBoost > 0) {
+        boostTimeStr += hoursUntilBoost + ' hour' + (hoursUntilBoost > 1 ? 's' : '');
       }
 
-      msg.channel.sendMessage(`The next Guthixian cache begins in ${timestr}.`);
+      if (hoursUntilBoost >= 1 && minutesUntilBoost > 1) {
+        boostTimeStr += ' and ' + minutesUntilBoost + ' minute' + (minutesUntilBoost > 1 ? 's' : '');
+      }
+
+      if (minutesUntil > 1 && hoursUntilBoost < 1) {
+        boostTimeStr += minutesUntilBoost + ' minute' + (minutesUntilBoost > 0 && minutesUntilBoost < 2 ? '' : 's');
+      }
+
+      msg.channel.sendMessage(`The next Guthixian cache begins in ${cacheTimeStr}. You will be able to get a boost in ${boostTimeStr}.`);
     }
   },
   'vos': {
