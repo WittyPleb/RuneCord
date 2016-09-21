@@ -18,6 +18,8 @@ Features
 * `~time` -- Displays the current in-game time.
 * `~reset` -- Displays how long till the game resets.
 * `~price <item name>` -- Displays grand exchange information based on `<item name>`.
+* `~memberinfo <player name>` -- Gives some information about a player.
+* `~warbands` -- Informs when the next Warbands will be.
 * `~cache` -- Displays when the next Guthixian Cache is.
 * `~viswax` -- Displays the current viswax combinations.
 * `~alog <username>` -- Displays the adventure log of `<username>`.
