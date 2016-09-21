@@ -2,6 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.0] - 2016-09-21
+### Added
+- Added a new `~memberinfo` command to find information on a user (title and clan).
+- Re-added a `~warbands` command.
+
+### Changed
+- Made `~cache` command show when you can get a boost, and updated to use the new hourly cache.
+
+### Fixed
+- Fixed logging for when the bot joins a server.
+- Fixed bot crashing if `~price` command breaks when the site is working, but the information isn't able to be pulled.
+- Fixed bot crashing if `~alog` command had less than 10 entries.
+
 ## [3.0.3] - 2016-09-16
 ### Changed
 - Cleaned up all logging features.
@@ -207,6 +220,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[3.0.3]: https://github.com/unlucky4ever/RuneCord/compare/3.0.3...3.1.0
 [3.0.3]: https://github.com/unlucky4ever/RuneCord/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/unlucky4ever/RuneCord/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/unlucky4ever/RuneCord/compare/3.0.0...3.0.1
