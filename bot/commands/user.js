@@ -683,6 +683,7 @@ var commands = {
             table.setTitle(`VIEWING ADVENTURE LOG FOR ${suffix.toUpperCase()}`).setHeading('Achievement', 'Date');
 
             for (var i = 0; i < 10; i++) {
+              if (alogData[i] == null) break; // If there is less than 10 entries, break out of the loop when it reaches its max.
               table.addRow(entities.decode(alogData[i].slice(alogData[i].indexOf('<title>') + 7, alogData[i].indexOf('</title>'))), alogData[i].slice(alogData[i].indexOf('<pubDate>') + 9, alogData[i].indexOf('00:00:00') - 1));
             }
 
