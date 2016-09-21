@@ -90,7 +90,8 @@ var aliases = {
   'xplamp': 'lamp',
   'jackoftrades': 'jot',
   'rago': 'vorago',
-  'rax': 'araxxi'
+  'rax': 'araxxi',
+  'wbs': 'warbands'
 };
 
 var commands = {
@@ -702,6 +703,55 @@ var commands = {
           return;
         }
       }
+    }
+  },
+  'warbands': {
+    desc: 'Informs when the next Warbands will be.',
+    usage: '',
+    process: (client, msg) => {
+      var d = new Date();
+      var day = d.getUTCDate() - d.getUTCDay();
+      var diff = new Date();
+      var seconds;
+
+      if (d.getUTCDay() === 0 && d.getUTCHours() < 12) {
+        day = day - 7;
+      }
+
+      diff.setUTCDate(day);
+      diff.setUTCHours(12, 0, 0, 0);
+      seconds = d.valueOf() - diff.valueOf();
+
+      if (seconds !== Math.abs(seconds)) {
+        return;
+      }
+
+      seconds = Math.floor(seconds / 1000);
+      seconds = 25200 - (seconds % 25200);
+
+      var hours = Math.floor(seconds / 3600);
+      var minutes = Math.floor((seconds % 3600) / 60);
+      var seconds = (seconds % 3600) % 60;
+
+      var timestr = '';
+
+      if (hours > 0) {
+        timestr += `${hours} hour${(hours > 1 ? 's' : '')}`;
+      }
+
+      if (hours >= 1 && minutes > 1) {
+        timestr += ` and ${minutes} minute${(minutes > 1 ? 's' : '')}`;
+      }
+
+      if (minutes > 1 && hours < 1) {
+        timestr += `${minutes} minute${(minutes > 0 && minutes < 2 ? '' : 's')}`;
+      }
+
+      if (minutes < 1 && hours < 1) {
+        timestr += 'less than a minute';
+      }
+
+      msg.channel.sendMessage(`Next Warbands will begin in ${timestr}.`);
     }
   },
   'invasion': {
