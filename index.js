@@ -183,7 +183,7 @@ client.on('ready', () => {
 client.on('guildCreate', (guild) => {
   if (!guild.available) return; // If the guild is available, do nothing.
   if (database.guildIsNew(guild)) {
-    logger.join(guild.name);
+    logger.join(guild);
     if (config.banned_server_ids && config.banned_server_ids.indexOf(guild.id) > -1) {
       logger.error('Joined guild but it was on the ban list: ' + guild.name);
       client.channels.get(guild.defaultChannel.id).sendMessage('This server is on the ban list, please contact the bot creator to find out why.');
