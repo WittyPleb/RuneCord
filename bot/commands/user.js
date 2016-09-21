@@ -611,6 +611,7 @@ var commands = {
         request(`http://rscript.org/lookup.php?type=ge&search=${suffix}&exact=1`, (err, res, body) => {
           if (!err && res.statusCode == 200) {
             var results = body.split('RESULTS: ');
+            if (results[1] == null) { msg.channel.sendMessage('Unable to grab prices for items at this time, please try again later.'); return; } // if successfully grabs website, but the website broke, stop the function
             if (results[1].substring(0, 1) == 1 && suffix !== null) {
               var test = results[1].split('ITEM: ');
               var result = test[2].split(' ');
