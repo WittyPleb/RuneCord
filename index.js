@@ -30,6 +30,11 @@ setInterval(() => {
   stats();
 }, 3600000);
 
+/* RUN THIS EVERY 15 SECONDS */
+setInterval(() => {
+  dataDog();
+}, 15000);
+
 /* MAKE THE BOT CONNECT TO DISCORD, IF NO TOKEN IS SET, DO NOT ATTEMPT TO CONNECT */
 function connect() {
   if (!process.env.TOKEN) {
@@ -170,7 +175,9 @@ function stats() {
       logger.stats('carbonitex.net', client.guilds.array().length);
     });
   }
+}
 
+function dataDog() {
   /* DATADOG STATS */
   if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) {
     dataDog.send('serverCount', client.guilds.array().length);
