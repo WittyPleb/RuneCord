@@ -168,7 +168,7 @@ var commands = {
     process: (client, msg) => {
       var toSend = [];
       toSend.push('__Author:__ Witty <witty.twitch@gmail.com>');
-      toSend.push('__Library:__ Discord.js');
+      toSend.push(`__Library:__ Discord.js (v${require('discord.js').version})`);
       toSend.push('__Version:__ ' + version);
       toSend.push('__GitHubPage:__ <https://github.com/unlucky4ever/RuneCord>');
       toSend.push('__Donate:__ <https://paypal.me/unluck4ever>');
