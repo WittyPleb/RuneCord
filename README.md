@@ -72,6 +72,10 @@ Before file an issue, please read how to [File an issue](https://github.com/unlu
 
 If you need support with anything that can't be handled in an issue, please join the [Official Discord Server](https://discord.me/runecord).
 
+Public Metrics
+--------------
+https://p.datadoghq.com/sb/bfc2f9c4f-0ce9ba9a5b
+
 Development / Contributing
 --------------------------
 See the [Contributing Guide](https://github.com/unlucky4ever/RuneCord/blob/master/CONTRIBUTING.md#development)
