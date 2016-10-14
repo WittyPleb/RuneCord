@@ -33,7 +33,7 @@ setInterval(() => {
 /* SUBMIT COMMANDS EVERY MINUTE & RESET */
 var dataDogCommands = 0;
 setInterval(() => {
-  dataDog('commandsProcessed', dataDogCommands);
+  dataDog.send('commandsProcessed', dataDogCommands);
   dataDogCommands = 0;
 }, 60000);
 
