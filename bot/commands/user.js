@@ -271,7 +271,7 @@ var commands = {
       var minutesUntilBoost = 60 - d.getUTCMinutes(); // Minutes until cache boost
 
       /* CACHE TIME */
-      var secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds(); // Seconds until cache
+      var secondsUntil = 3600 - (d.getUTCMinutes()) % 60 * 60 - d.getUTCSeconds(); // Seconds until cache
       var minutesUntil = Math.floor(secondsUntil / 60); // Minutes until cache
 
       var cacheTimeStr = ''; // Build this later
@@ -283,7 +283,7 @@ var commands = {
       }
 
       if (minutesUntil > 0) {
-        cacheTimeStr += minutesUntil + ' minute' + (minutesUntil > 0 && minutesUntil < 1 ? '' : 's');
+        cacheTimeStr += minutesUntil + ' minute' + (minutesUntil > 1 && minutesUntil < 1 ? '' : 's');
       }
 
       /* CACHE BOOST STR */
