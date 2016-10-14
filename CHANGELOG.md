@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.1] - 2016-10-14
+### Added
+- Added DataDog metrics.
+- Added `discord.js` lib version to `~about` command.
+
+### Changed
+- Updated `discord.js` lib from version `9.2.0` to version `9.3.0`.
+
+### Fixed
+- Fixed time til next cache.
+
 ## [3.1.0] - 2016-09-21
 ### Added
 - Added a new `~memberinfo` command to find information on a user (title and clan).
@@ -220,7 +231,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
-[3.0.3]: https://github.com/unlucky4ever/RuneCord/compare/3.0.3...3.1.0
+[3.1.1]: https://github.com/unlucky4ever/RuneCord/compare/3.1.0...3.1.1
+[3.1.0]: https://github.com/unlucky4ever/RuneCord/compare/3.0.3...3.1.0
 [3.0.3]: https://github.com/unlucky4ever/RuneCord/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/unlucky4ever/RuneCord/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/unlucky4ever/RuneCord/compare/3.0.0...3.0.1
