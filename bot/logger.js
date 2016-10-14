@@ -39,6 +39,12 @@ function join(guild) {
   console.log(logTime, chalkConstructor.bold.yellow('[JOINED]'), `${chalkConstructor.bold.yellow(name)} (${chalkConstructor.bold.yellow(guild.id)})`);
 }
 
+function leave(guild) {
+  let name = guild.name;
+  if (production) return logger.info({name}, 'leave');
+  console.log(logTime, chalkConstructor.bold.yellow('[LEAVE]'), `${chalkConstructor.bold.yellow(name)} (${chalkConstructor.bold.yellow(guild.id)})`);
+}
+
 function stats(site, count) {
   if (production) return logger.info({site, count}, 'stats');
   console.log(logTime, chalkConstructor.bold.blue('[STATS]'), `Updated stats at ${chalkConstructor.bold.blue(site)} to ${chalkConstructor.bold.blue(count)} guilds.`);
@@ -59,4 +65,4 @@ function error(msg) {
   console.log(logTime, chalkConstructor.red(`[ERROR] ${msg}`));
 }
 
-module.exports = { cmd, join, stats, info, warn, error };
+module.exports = { cmd, join, leave, stats, info, warn, error };

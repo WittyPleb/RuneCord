@@ -181,6 +181,14 @@ client.on('ready', () => {
   }, 10000);
 });
 
+/* WHEN BOT LEAVES A SERVER */
+client.on('guildDelete', (guild) => {
+  if (!guild.available) return; // If the guild isn't available, do nothing.
+  database.handleLeave(guild);
+  logger.leave(guild);
+  dataDog('serverCount', client.guilds.array().length);
+});
+
 /* WHEN BOT JOINS A NEW GUILD */
 client.on('guildCreate', (guild) => {
   if (!guild.available) return; // If the guild is available, do nothing.
