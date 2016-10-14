@@ -204,6 +204,7 @@ client.on('guildCreate', (guild) => {
       toSend.push(`For help, feedback, bugs, info, changelogs, etc. Go to **<https://discord.me/runecord>**.`);
       toSend = toSend.join('\n');
       client.channels.get(guild.defaultChannel.id).sendMessage(toSend);
+      dataDog('serverCount', client.guilds.array().length);
     }
   }
 });
