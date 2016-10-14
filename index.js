@@ -83,7 +83,7 @@ function evaluateString(msg) {
 function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1; // Increase amount of commands done since bot was started
-    dataDog.send('commandsProcessed', commandsProcessed);
+    if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('commandsProcessed', commandsProcessed);
     if (type == 'user') {
 
       /* TEXT CHANNEL */
@@ -170,6 +170,12 @@ function stats() {
       logger.stats('carbonitex.net', client.guilds.array().length);
     });
   }
+
+  /* DATADOG STATS */
+  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) {
+    dataDog.send('serverCount', client.guilds.array().length);
+    dataDog.send('userCount', client.users.array().length);
+  }
 }
 
 /* WHEN BOT SENDS READY EVENT */
@@ -186,7 +192,7 @@ client.on('guildDelete', (guild) => {
   if (!guild.available) return; // If the guild isn't available, do nothing.
   database.handleLeave(guild);
   logger.leave(guild);
-  dataDog('serverCount', client.guilds.array().length);
+  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('serverCount', client.guilds.array().length);
 });
 
 /* WHEN BOT JOINS A NEW GUILD */
@@ -212,7 +218,7 @@ client.on('guildCreate', (guild) => {
       toSend.push(`For help, feedback, bugs, info, changelogs, etc. Go to **<https://discord.me/runecord>**.`);
       toSend = toSend.join('\n');
       client.channels.get(guild.defaultChannel.id).sendMessage(toSend);
-      dataDog('serverCount', client.guilds.array().length);
+      if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('serverCount', client.guilds.array().length);
     }
   }
 });
