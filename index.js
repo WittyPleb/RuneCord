@@ -30,6 +30,13 @@ setInterval(() => {
   stats();
 }, 3600000);
 
+/* SUBMIT COMMANDS EVERY MINUTE & RESET */
+var dataDogCommands = 0;
+setInterval(() => {
+  dataDog('commandsProcessed', dataDogCommands);
+  dataDogCommands = 0;
+}, 60000);
+
 /* MAKE THE BOT CONNECT TO DISCORD, IF NO TOKEN IS SET, DO NOT ATTEMPT TO CONNECT */
 function connect() {
   if (!process.env.TOKEN) {
@@ -83,7 +90,7 @@ function evaluateString(msg) {
 function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1; // Increase amount of commands done since bot was started
-    dataDog.send('commandsProcessed', commandsProcessed);
+    dataDogCommands += 1; // Increase amount of commands done since data was sent to datadog
     if (type == 'user') {
 
       /* TEXT CHANNEL */
