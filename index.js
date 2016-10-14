@@ -182,6 +182,7 @@ function dataDogStats() {
   if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) {
     dataDog.send('serverCount', client.guilds.array().length);
     dataDog.send('userCount', client.users.array().length);
+    dataDog.send('botUptime', (client.uptime / 1000));
   }
 }
 
