@@ -12,6 +12,7 @@ const versionCheck = require('./bot/versionCheck.js');
 const database     = require('./bot/data/database.js');
 const userCommands = require('./bot/commands/user.js');
 const modCommands  = require('./bot/commands/mod.js');
+const dataDog      = require('./bot/datadog.js');
 
 /* SET OPTIONS AND INIT BOT */
 const discordOptions = {'fetch_all_members': true};
@@ -82,6 +83,7 @@ function evaluateString(msg) {
 function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1; // Increase amount of commands done since bot was started
+    dataDog.send('commandsProcessed', commandsProcessed);
     if (type == 'user') {
 
       /* TEXT CHANNEL */
