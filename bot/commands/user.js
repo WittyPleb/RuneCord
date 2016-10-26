@@ -37,7 +37,7 @@ function getSkillName(id, type) {
 
 /* GET XP GAINED FROM CERTAIN SIZED LAMPS */
 function getLampXp(level, type) {
-  return LAMPS[Math.max(97, level-1)]
+  return LAMPS[type][Math.max(97, level-1)]
 }
 
 /* CHECK TO SEE IF A NUMBER REALLY IS AN INTEGER, FAIL-SAFE FOR ISNAN() */
