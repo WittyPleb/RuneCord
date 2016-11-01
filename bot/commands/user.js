@@ -91,7 +91,7 @@ var aliases = {
   'jackoftrades': 'jot',
   'rago': 'vorago',
   'rax': 'araxxi',
-  'rax': 'spooder',
+  'spooder': 'araxxi',
   'wbs': 'warbands'
 };
 
