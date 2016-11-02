@@ -60,6 +60,7 @@ var aliases = {
   'jackoftrades': 'jot',
   'rago': 'vorago',
   'rax': 'araxxi',
+  'spooder': 'araxxi',
   'wbs': 'warbands'
 };
 
