@@ -8,6 +8,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+## [Unpublished] - 2016-11-01
+### Added
+- Added `~spooder` alias for `~araxxi` - Thank you [@mymemine](https://github.com/mymemine).
+### Changed
+- Made `~lamp` easier to understand. - Thank you [@duke605](https://github.com/duke605).
+### Fixed
+### Removed
+
 ## [3.1.1] - 2016-10-14
 ### Added
 - Added DataDog metrics.
