@@ -890,7 +890,7 @@ var commands = {
       toSend.push(`**Current rotation for Rise of the Six**`);
       toSend.push(`----------------------------------------`);
       toSend.push(`West Side: ${westSide}.`);
-      toSend.push(`Easy Side: ${eastSide}.`);
+      toSend.push(`East Side: ${eastSide}.`);
       toSend = toSend.join('\n');
 
       msg.channel.sendMessage(toSend);
