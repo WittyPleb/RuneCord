@@ -53,6 +53,12 @@ function checkDb() {
     logger.warn('\'bot/data/guilds.json\' doesn\'t exist... Creating!');
     fs.writeFileSync('./bot/data/guilds.json', '{}');
   }
+  try {
+    fs.statSync('./bot/data/times.json');
+  } catch (e) {
+    logger.warn('\'bot/data/times.json\' doesn\'t exist... Creating!');
+    fs.writeFileSync('./bot/data/times.json', '{}');
+  }
 }
 
 /* USED FOR '(eval)' COMMAND, RUNS THE MESSAGE AS A REAL FUNCTION */
@@ -94,6 +100,7 @@ function execCommand(msg, cmd, suffix, type) {
       /* TEXT CHANNEL */
       if (msg.channel.type == 'text') {
         logger.cmd(cmd, suffix, msg.author.username, msg.channel.guild);
+        database.updateTimestamp(msg.channel.guild);
       }
 
       /* 1-ON-1 DIRECT MESSAGE */

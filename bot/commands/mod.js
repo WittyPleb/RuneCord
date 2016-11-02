@@ -77,6 +77,17 @@ var commands = {
       }
     }
   },
+  'rem-inactive': {
+    desc: 'Bot-owner only.',
+    usage: '',
+    process: (client, msg, suffix) => {
+      if (suffix && /^\d+$/.test(suffix) && msg.author.id == process.env.ADMIN_ID) {
+        database.removeInactive(client, msg, parseInt(suffix));
+      } else if (msg.author.id == process.env.ADMIN_ID) {
+        database.removeInactive(client, msg);
+      }
+    }
+  },
   'stats': {
     desc: 'Display statistics about RuneCord.',
     usage: '',
