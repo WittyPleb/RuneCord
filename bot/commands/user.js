@@ -509,14 +509,14 @@ var commands = {
     usage: '',
     process: (client, msg) => {
       request('http://services.runescape.com/m=forum/forums.ws?75,76,387,65763383', (err, res, body) => {
-	  
+
 		// Failing fast so no spaghetti code
         if (res == null || res == undefined || res.statusCode != 200 || err) {
           msg.channel.sendMessage(`Unable to grab viswax combination: ${err}`);
           return;
         }
-		
-		let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(r)[1];
+
+		let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(body)[1];
 		let day = new Date().getUTCDate();
 
 		// Checking if the combos are updated yet
@@ -526,7 +526,7 @@ var commands = {
 			return
 		}
 
-		let match =  new RegExp(/slot 1:.+?- (.+?)slot 2:.+?- (.+?)slot/i).exec(r);
+		let match =  new RegExp(/slot 1:.+?- (.+?)slot 2:.+?- (.+?)slot/i).exec(body);
 		let slot1 = match[1].replace(/<.+?>/g, '').trim().split('-').map(r => r.trim()).join(', ');
 		let slot2 = match[2].replace(/<.+?>/g, '').trim().split('-').map(r => r.trim()).join(', ');
 
