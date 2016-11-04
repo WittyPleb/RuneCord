@@ -1,13 +1,13 @@
 /* REQUIRED DEPENDENCIES */
-const fs    = require('fs');
+const fs    = require(`fs`);
 
 /* REQUIRED FILES */
-const logger = require('../logger.js');
-const config = require('../config.json');
+const logger = require(`../logger.js`);
+const config = require(`../config.json`);
 
 /* GLOBAL VARIABLES */
-ServerSettings = require('./guilds.json');
-Times          = require('./times.json');
+ServerSettings = require(`./guilds.json`);
+Times          = require(`./times.json`);
 
 var updatedG = false;
 let updatedT = false;
@@ -25,17 +25,17 @@ setInterval(() => {
 }, 60000);
 
 function updateGuilds() {
-  fs.writeFile(__dirname + '/guilds-temp.json', JSON.stringify(ServerSettings), (error) => {
+  fs.writeFile(__dirname + `/guilds-temp.json`, JSON.stringify(ServerSettings), (error) => {
     if (error) {
       logger.error(error);
     } else {
-      fs.stat(__dirname + '/guilds-temp.json', (err, stats) => {
+      fs.stat(__dirname + `/guilds-temp.json`, (err, stats) => {
         if (err) {
           logger.error(err);
-        } else if (stats['size'] < 5) {
-          logger.warn('Prevented guild settings database from being overwritten.');
+        } else if (stats[`size`] < 5) {
+          logger.warn(`Prevented guild settings database from being overwritten.`);
         } else {
-          fs.rename(__dirname + '/guilds-temp.json', __dirname + '/guilds.json', (e) => {
+          fs.rename(__dirname + `/guilds-temp.json`, __dirname + `/guilds.json`, (e) => {
             if (e) {
               logger.error(e);
             }
@@ -47,17 +47,17 @@ function updateGuilds() {
 }
 
 function updateTimes() {
-  fs.writeFile(__dirname + '/times-temp.json', JSON.stringify(Times), (error) => {
+  fs.writeFile(__dirname + `/times-temp.json`, JSON.stringify(Times), (error) => {
     if (error) {
       logger.error(error);
     } else {
-      fs.stat(__dirname + '/times-temp.json', (err, stats) => {
+      fs.stat(__dirname + `/times-temp.json`, (err, stats) => {
         if (err) {
           logger.error(err);
-        } else if (stats['size'] < 5) {
-          logger.warn('Prevented times database from being overwritten.');
+        } else if (stats[`size`] < 5) {
+          logger.warn(`Prevented times database from being overwritten.`);
         } else {
-          fs.rename(__dirname + '/times-temp.json', __dirname + '/times.json', (e) => {
+          fs.rename(__dirname + `/times-temp.json`, __dirname + `/times.json`, (e) => {
             if (e) {
               logger.error(e);
             }
@@ -73,9 +73,9 @@ function addGuild(guild) {
   if (!ServerSettings.hasOwnProperty(guild.id)) {
     ServerSettings[guild.id] = {
       'ignore': [],
-      'welcome': 'none',
+      'welcome': `none`,
       'deleteCommands': false,
-      'notifyChannel': 'general'
+      'notifyChannel': `general`
     };
     updateGuilds();
   }
@@ -93,9 +93,9 @@ exports.addGuild = (guild) => {
   if (!ServerSettings.hasOwnProperty(guild.id)) {
     ServerSettings[guild.id] = {
       'ignore': [],
-      'welcome': 'none',
+      'welcome': `none`,
       'deleteCommands': false,
-      'notifyChannel': 'general'
+      'notifyChannel': `general`
     };
     updateGuilds();
   }
@@ -108,13 +108,13 @@ exports.addGuild = (guild) => {
 exports.changeSetting = (key, value, guildId) => {
   if (!key || value == undefined || value == null || !guildId) return;
   switch(key) {
-    case 'welcome':
+    case `welcome`:
     ServerSettings[guildId].welcome = value;
     break;
-    case 'deleteCommands':
+    case `deleteCommands`:
     ServerSettings[guildId].deleteCommands = value;
     break;
-    case 'notifyChannel':
+    case `notifyChannel`:
     ServerSettings[guildId].notifyChannel = value;
     break;
   }
@@ -163,8 +163,8 @@ exports.checkGuilds = (client) => {
     if (!Times.hasOwnProperty(guild.id)) {
       logger.join(guild);
       if (config.banned_server_ids && config.banned_server_ids.indexOf(guild.id) > -1) {
-        logger.error('Joined server but it was on the ban list: ' + guild.name);
-        client.channels.get(guild.defaultChannel.id).sendMessage('This server is on the ban list, please contact the bot creator to find out why.');
+        logger.error(`Joined server but it was on the ban list: ${guild.name} (${guild.id})`);
+        client.channels.get(guild.defaultChannel.id).sendMessage(`This server is on the ban list, please contact the bot creator to find out why.`);
         setTimeout(() => {
           client.guild.leave();
         }, 1000);
@@ -186,19 +186,19 @@ exports.checkGuilds = (client) => {
 exports.removeInactive = (client, msg, delay) => {
   if (!client || !msg) return;
   if (inactive.length == 0) {
-    msg.channel.sendMessage('No servers to leave :)');
+    msg.channel.sendMessage(`No servers to leave :)`);
     return;
   }
 
   let count = 0;
   let passedOver = 0;
-  let toSend = '__Left server for inactivity__';
+  let toSend = `__Left server for inactivity__`;
   let now1 = new Date();
   let removeInterval = setInterval(() => {
-    let guild = client.guilds.get('id', inactive[passedOver]);
+    let guild = client.guilds.get(`id`, inactive[passedOver]);
     if (guild) {
       let days = ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1);
-      toSend += `\n**${parseInt(count) + 1}:${guild.name.replace(/@/g, '@\u200b')}(${days} days)`;
+      toSend += `\n**${parseInt(count) + 1}:${guild.name.replace(/@/g, `@\u200b`)}(${days} days)`;
       guild.leave();
       if (Times.hasOwnProperty(guild.id)) {
         delete Times[guild.id];
@@ -213,7 +213,7 @@ exports.removeInactive = (client, msg, delay) => {
         inactive.shift();
       }
       if (count == 0) {
-        msg.channel.sendMessage('No servers to leave :)');
+        msg.channel.sendMessage(`No servers to leave :)`);
       } else {
         msg.channel.sendMessage(toSend);
       }
