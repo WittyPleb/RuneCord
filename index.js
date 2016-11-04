@@ -4,7 +4,7 @@ const Discord = require(`discord.js`);
 const fs      = require(`fs`);
 
 /* REQUIRED FILES */
-const logger       = require(`./bot/logger.js`);
+const logger       = require(`./bot/util/logger.js`);
 checkDb(); // Run this before anything else
 const config       = require(`./bot/config.json`);
 const versionCheck = require(`./bot/versionCheck.js`);
