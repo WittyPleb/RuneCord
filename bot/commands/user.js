@@ -98,7 +98,7 @@ var commands = {
       } else {
         suffix = suffix.trim().toLowerCase();
         if (commands.hasOwnProperty(suffix)) {
-          toSend.push(`${config.command_prefix + suffix} ${commands[suffix].usage}\n`);
+          toSend.push(`\`${config.command_prefix + suffix} ${commands[suffix].usage}\`\n`);
           if (commands[suffix].hasOwnProperty(`info`)) {
             toSend.push(commands[suffix].info);
           } else if (commands[suffix].hasOwnProperty(`desc`)) {
