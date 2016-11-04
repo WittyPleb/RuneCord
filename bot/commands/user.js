@@ -516,11 +516,23 @@ var commands = {
           return;
         }
 		
+		let dateMatch = new RegExp('combination\s+?for.+?(\d+)(?:..)?;').exec(r)[1];
+		let day = new Date().getUTCDate();
+
+		// Checking if the combos are updated yet
+		if (day != dateMatch) {
+			msg.channel.sendMessage('Viswax rune combinations have not been updated yet. Please try again later.');
+			return
+		}
+
 		let match =  new RegExp('slot 1:.+?- (.+?)slot 2:.+?- (.+?)slot', 'i').exec(r);
 		let slot1 = match[1].replace(/<.+?>/g, '').trim().split('-').map(r => r.trim()).join(', ');
 		let slot2 = match[2].replace(/<.+?>/g, '').trim().split('-').map(r => r.trim()).join(', ');
 
 		let toSend = [];
+		toSend.push('**First Slot**: ' + slot1);
+		toSend.push('**Second Slot**: ' + slot2);
+
 		toSend.push('**First Slot**: ' + slot1);
 		toSend.push('**Second Slot**: ' + slot2);
 
