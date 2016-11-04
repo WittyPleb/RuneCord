@@ -5,7 +5,8 @@ module.exports = count => {
   updateCarbon(count);
   updateDiscord(count);
 }
-/* eslint no-unused-vars: "off" */
+
+/* eslint-disable no-unused-vars */
 const updateCarbon = count => {
   if (process.env.CARON_KEY === ``) return; // No carbon key is set
 
@@ -38,3 +39,4 @@ const updateDiscord = count => {
     if (!err) console.log(`SUCCESSFULL DISCORD.PW UPDATE`, count);
   });
 }
+/* eslint-enable no-unused-vars */
