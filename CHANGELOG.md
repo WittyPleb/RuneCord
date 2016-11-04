@@ -8,6 +8,33 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+## [3.2.0] - 2016-11-04
+### Added
+- Added checks for server inactivity every hour.
+    - Made the checks log the amount to DataDog for my personal use.
+- Added disconnect check for bot.
+- Added a new value for the bot user ID to `config.json`. Required if you use `bots.discord.pw` for stats!
+
+### Changed
+- Made viswax pulling faster - Thank you [@duke605](https://github.com/duke605).
+- Changed `.eslintrc` rules.
+    - Added `camelcase` rule to enforce camelCasing in the code.
+    - Added `dot-notation` rule to enforce using dot notation.
+    - Added `comma-spacing` rule to enforce a space after commas.
+    - Added `key-spacing` rule to enforce a space after keys and values in objects.
+    - Added `quotes` rule to warn when you don't use backticks for strings (`` ` ``).
+    - Changed `no-unused-vars` rules to warn instead of error out.
+- Updated `bunyan` lib from `v1.8.1` to `v1.8.4`.
+- Updated `discord.js` lib from `v9.3.0` to `v10.0.1`.
+- Updated `moment` lib from `v2.15.0` to `v2.15.2`.
+- Updated `request` lib from `v2.74.0` to `v2.78.0`.
+
+### Fixed
+- Fixed all ESLint errors & warnings with the new rules.
+
+### Removed
+- Removed `~osstats` command. Bot will be exclusive to RS3 from now on.
+
 ## [3.1.2] - 2016-11-01
 ### Added
 - Added `~spooder` alias for `~araxxi` - Thank you [@mymemine](https://github.com/mymemine).
@@ -248,6 +275,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[3.2.0]: https://github.com/unlucky4ever/RuneCord/compare/3.1.2...3.2.0
+[3.1.2]: https://github.com/unlucky4ever/RuneCord/compare/3.1.1...3.1.2
 [3.1.1]: https://github.com/unlucky4ever/RuneCord/compare/3.1.0...3.1.1
 [3.1.0]: https://github.com/unlucky4ever/RuneCord/compare/3.0.3...3.1.0
 [3.0.3]: https://github.com/unlucky4ever/RuneCord/compare/3.0.2...3.0.3
