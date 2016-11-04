@@ -1,18 +1,18 @@
 /* REQUIRED DEPENDENCIES */
-require('dotenv').config();
-const Discord = require('discord.js');
-const fs      = require('fs');
+require(`dotenv`).config();
+const Discord = require(`discord.js`);
+const fs      = require(`fs`);
 
 /* REQUIRED FILES */
-const logger       = require('./bot/logger.js');
+const logger       = require(`./bot/logger.js`);
 checkDb(); // Run this before anything else
-const config       = require('./bot/config.json');
-const versionCheck = require('./bot/versionCheck.js');
-const database     = require('./bot/data/database.js');
-const userCommands = require('./bot/commands/user.js');
-const modCommands  = require('./bot/commands/mod.js');
-const dataDog      = require('./bot/datadog.js');
-const updateCount  = require('./bot/util/updateCount.js');
+const config       = require(`./bot/config.json`);
+const versionCheck = require(`./bot/versionCheck.js`);
+const database     = require(`./bot/data/database.js`);
+const userCommands = require(`./bot/commands/user.js`);
+const modCommands  = require(`./bot/commands/mod.js`);
+const dataDog      = require(`./bot/datadog.js`);
+const updateCount  = require(`./bot/util/updateCount.js`);
 
 /* SET OPTIONS AND INIT BOT */
 const discordOptions = {'fetch_all_members': true};
@@ -29,7 +29,7 @@ setInterval(() => {
   pmCooldown = {};
   updateCount(client.guilds.size);
   database.checkGuilds(client);
-  dataDog.send('inactiveCount', database.inactive.length);
+  dataDog.send(`inactiveCount`, database.inactive.length);
 }, 3600000);
 
 /* RUN THIS EVERY 15 SECONDS */
@@ -40,7 +40,7 @@ setInterval(() => {
 /* MAKE THE BOT CONNECT TO DISCORD, IF NO TOKEN IS SET, DO NOT ATTEMPT TO CONNECT */
 function connect() {
   if (!process.env.TOKEN) {
-    logger.error('Please setup TOKEN in .env to use RuneCord!');
+    logger.error(`Please setup TOKEN in .env to use RuneCord!`);
     process.exit(1);
   }
 
@@ -50,16 +50,16 @@ function connect() {
 /* CHECK TO SEE IF THE DATABASE FILES ARE THERE, IF NOT, MAKE THEM */
 function checkDb() {
   try {
-    fs.statSync('./bot/data/guilds.json');
+    fs.statSync(`./bot/data/guilds.json`);
   } catch (e) {
-    logger.warn('\'bot/data/guilds.json\' doesn\'t exist... Creating!');
-    fs.writeFileSync('./bot/data/guilds.json', '{}');
+    logger.warn(`'bot/data/guilds.json' doesn't exist... Creating!`);
+    fs.writeFileSync(`./bot/data/guilds.json`, `{}`);
   }
   try {
-    fs.statSync('./bot/data/times.json');
+    fs.statSync(`./bot/data/times.json`);
   } catch (e) {
-    logger.warn('\'bot/data/times.json\' doesn\'t exist... Creating!');
-    fs.writeFileSync('./bot/data/times.json', '{}');
+    logger.warn(`'bot/data/times.json' doesn't exist... Creating!`);
+    fs.writeFileSync(`./bot/data/times.json`, `{}`);
   }
 }
 
@@ -69,26 +69,26 @@ function evaluateString(msg) {
 
   var timeTaken = new Date();
   var result;
-  logger.info('Running eval...');
+  logger.info(`Running eval...`);
   try {
-    result = eval(msg.content.substring(7).replace(/\n/g, ''));
+    result = eval(msg.content.substring(7).replace(/\n/g, ``));
   } catch (e) {
     logger.error(e);
     var toSend = [];
-    toSend.push(':x: Error evaluating');
-    toSend.push('```diff');
-    toSend.push('- ' + e);
-    toSend.push('```');
-    msg.channel.sendMessage(toSend.join('\n'));
+    toSend.push(`:x: Error evaluating`);
+    toSend.push(`\`\`\`diff`);
+    toSend.push(`- ${e}`);
+    toSend.push(`\`\`\``);
+    msg.channel.sendMessage(toSend);
   }
   if (result) {
-    var toSend = [];
-    toSend.push(':white_check_mark: Evaluated successfully:');
-    toSend.push('```');
+    let toSend = [];
+    toSend.push(`:white_check_mark: Evaluated successfully:`);
+    toSend.push(`\`\`\``);
     toSend.push(result);
-    toSend.push('```');
-    toSend.push('Time taken: ' + (timeTaken - msg.timestamp) + ' ms');
-    msg.channel.sendMessage(toSend.join('\n')).then(logger.info('Result: ' + result));
+    toSend.push(`\`\`\``);
+    toSend.push(`Time taken: ${timeTaken - msg.timestamp} ms`);
+    msg.channel.sendMessage(toSend).then(logger.info(`Result: ${result}`));
   }
 }
 
@@ -96,17 +96,17 @@ function evaluateString(msg) {
 function execCommand(msg, cmd, suffix, type) {
   try {
     commandsProcessed += 1; // Increase amount of commands done since bot was started
-    if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('commandsProcessed', commandsProcessed);
-    if (type == 'user') {
+    if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send(`commandsProcessed`, commandsProcessed);
+    if (type == `user`) {
 
       /* TEXT CHANNEL */
-      if (msg.channel.type == 'text') {
+      if (msg.channel.type == `text`) {
         logger.cmd(cmd, suffix, msg.author.username, msg.channel.guild);
         database.updateTimestamp(msg.channel.guild);
       }
 
       /* 1-ON-1 DIRECT MESSAGE */
-      if (msg.channel.type == 'dm') {
+      if (msg.channel.type == `dm`) {
         logger.cmd(cmd, suffix, msg.author.username);
       }
 
@@ -114,29 +114,29 @@ function execCommand(msg, cmd, suffix, type) {
       userCommands.commands[cmd].process(client, msg, suffix);
 
       /* IF DELETE COMMANDS IS ENABLED, DELETE THE COMMAND AFTER PROCESSING */
-      if (msg.channel.type != 'dm' && userCommands.commands[cmd].hasOwnProperty('deleteCommand')) {
+      if (msg.channel.type != `dm` && userCommands.commands[cmd].hasOwnProperty(`deleteCommand`)) {
         if (userCommands.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.guild.id) && ServerSettings[msg.channel.guild.id].deleteCommands === true) {
           msg.delete(10000);
         }
       }
 
-    } else if (type == 'mod') {
+    } else if (type == `mod`) {
 
       /* TEXT CHANNEL */
-      if (msg.channel.type == 'text') {
-        logger.cmd(cmd, suffix, msg.author.username, msg.channel.guild, 'mod');
+      if (msg.channel.type == `text`) {
+        logger.cmd(cmd, suffix, msg.author.username, msg.channel.guild, `mod`);
       }
 
       /* 1-ON-1 DIRECT MESSAGE */
-      if (msg.channel.type == 'dm') {
-        logger.cmd(cmd, suffix, msg.author.username, null, 'mod');
+      if (msg.channel.type == `dm`) {
+        logger.cmd(cmd, suffix, msg.author.username, null, `mod`);
       }
 
       /* PROCESS THE COMMAND */
       modCommands.commands[cmd].process(client, msg, suffix);
 
       /* IF DELETE COMMANDS IS ENABLED, DELETE THE COMMAND AFTER PROCESSING */
-      if (msg.channel.type != 'dm' && modCommands.commands[cmd].hasOwnProperty('deleteCommand')) {
+      if (msg.channel.type != `dm` && modCommands.commands[cmd].hasOwnProperty(`deleteCommand`)) {
         if (modCommands.commands[cmd].deleteCommand === true && ServerSettings.hasOwnProperty(msg.channel.guild.id) && ServerSettings[msg.channel.guild.id].deleteCommands === true) {
           msg.delete(10000);
         }
@@ -150,15 +150,15 @@ function execCommand(msg, cmd, suffix, type) {
 function dataDogStats() {
   /* DATADOG STATS */
   if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) {
-    dataDog.send('serverCount', client.guilds.array().length);
-    dataDog.send('userCount', client.users.array().length);
-    dataDog.send('botUptime', (client.uptime / 1000));
+    dataDog.send(`serverCount`, client.guilds.array().length);
+    dataDog.send(`userCount`, client.users.array().length);
+    dataDog.send(`botUptime`, (client.uptime / 1000));
   }
 }
 
 /* WHEN BOT SENDS READY EVENT */
-client.on('ready', () => {
-  logger.info('RuneCord is ready! Listening to ' + client.channels.array().length + ' channels on ' + client.guilds.array().length + ' guilds.');
+client.on(`ready`, () => {
+  logger.info(`RuneCord is ready! Listening to ${client.channels.size} channels on ${client.guilds.size} guilds.`);
   versionCheck.checkForUpdate();
   setTimeout(() => {
     database.checkGuilds(client);
@@ -166,28 +166,28 @@ client.on('ready', () => {
 });
 
 /* WHEN BOT LEAVES A SERVER */
-client.on('guildDelete', (guild) => {
+client.on(`guildDelete`, (guild) => {
   if (!guild.available) return; // If the guild isn't available, do nothing.
   database.handleLeave(guild);
   logger.leave(guild);
-  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('serverCount', client.guilds.array().length);
+  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send(`serverCount`, client.guilds.array().length);
 });
 
 /* WHEN THE BOT DISCONNECTS FROM DISCORD */
-client.on('disconnect', () => {
+client.on(`disconnect`, () => {
   pmCooldown = {};
   commandsProcessed = 0;
   connect();
 });
 
 /* WHEN BOT JOINS A NEW GUILD */
-client.on('guildCreate', (guild) => {
+client.on(`guildCreate`, (guild) => {
   if (!guild.available) return; // If the guild is available, do nothing.
   if (database.guildIsNew(guild)) {
     logger.join(guild);
     if (config.banned_server_ids && config.banned_server_ids.indexOf(guild.id) > -1) {
-      logger.error('Joined guild but it was on the ban list: ' + guild.name);
-      client.channels.get(guild.defaultChannel.id).sendMessage('This server is on the ban list, please contact the bot creator to find out why.');
+      logger.error(`Joined guild but it was on the ban list: ${guild.name} (${guild.id})`);
+      client.channels.get(guild.defaultChannel.id).sendMessage(`This server is on the ban list, please contact the bot creator to find out why.`);
       setTimeout(() => {
         guild.leave();
       }, 1000);
@@ -201,42 +201,46 @@ client.on('guildCreate', (guild) => {
       toSend.push(`You can use \`${config.command_prefix}help\` to see what I can do.`);
       toSend.push(`Moderator/Administrator commands *including bot settings* can be viewed with \`${config.mod_command_prefix}help\`.`);
       toSend.push(`For help, feedback, bugs, info, changelogs, etc. Go to **<https://discord.me/runecord>**.`);
-      toSend = toSend.join('\n');
       client.channels.get(guild.defaultChannel.id).sendMessage(toSend);
-      if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('serverCount', client.guilds.array().length);
+      if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send(`serverCount`, client.guilds.array().length);
     }
   }
 });
 
 /* WHEN THE BOT RECEIVES A MESSAGE */
-client.on('message', (msg) => {
+client.on(`message`, (msg) => {
   if (msg.author.id == client.user.id) return; // Do nothing if the message comes from the bot
-  if (!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix) && !msg.content.startsWith('(eval) ')) return; // Make sure the bot only responds to messages with command prefixes
+  if (!msg.content.startsWith(config.command_prefix) && !msg.content.startsWith(config.mod_command_prefix) && !msg.content.startsWith(`(eval) `)) return; // Make sure the bot only responds to messages with command prefixes
 
   /* REMOVE THE SPACE AFTER THE COMMAND PREFIX FOR MOBILE USERS */
-  if (msg.content.indexOf(' ') == 1 && msg.content.length > 2) {
-    msg.content = msg.content.replace(' ', '');
+  if (msg.content.indexOf(` `) == 1 && msg.content.length > 2) {
+    msg.content = msg.content.replace(` `, ``);
   }
 
   /* IF THE MESSAGE IS IN AN IGNORED CHANNEL, DO NOTHING */
-  if (msg.channel.type != 'dm' && !msg.content.startsWith(config.mod_command_prefix) && ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
+  if (msg.channel.type != `dm` && !msg.content.startsWith(config.mod_command_prefix) && ServerSettings.hasOwnProperty(msg.channel.guild.id)) {
     if (ServerSettings[msg.channel.guild.id].ignore.indexOf(msg.channel.id) > -1) return;
   }
 
   /* (eval) COMMAND FOR DOING FUNCTIONS INSIDE DISCORD */
-  if (msg.content.startsWith('(eval) ')) {
+  if (msg.content.startsWith(`(eval) `)) {
     if (msg.author.id == process.env.ADMIN_ID) {
       evaluateString(msg);
       return;
     } else {
-      msg.channel.sendMessage('```diff\n- You do not have permission to use that command!```');
+      let toSend = [];
+      toSend.push(`\`\`\`diff`);
+      toSend.push(`- You do not have permission to use that command!`);
+      toSend.push(`\`\`\``);
+
+      msg.channel.sendMessage(toSend);
       return;
     }
   }
 
   /* IF THE MESSAGE TYPE COMES FROM A DIRECT MESSAGE (1-ON-1) */
-  if (msg.channel.type == 'dm') {
-    if (msg.content[0] !== config.command_prefix && msg.content[0] !== config.mod_command_prefix && !msg.content.startsWith('(eval) ')) {
+  if (msg.channel.type == `dm`) {
+    if (msg.content[0] !== config.command_prefix && msg.content[0] !== config.mod_command_prefix && !msg.content.startsWith(`(eval) `)) {
       if (pmCooldown.hasOwnProperty(msg.author.id)) {
         if (Date.now() - pmCooldown[msg.author.id] > 3000) {
           if (/&(help how do I use this\??)$/i.test(msg.content)) {
@@ -258,26 +262,26 @@ client.on('message', (msg) => {
   }
 
   /* LET US BEING THE CONFUSING COMMAND CRAP */
-  var cmd = msg.content.split(' ')[0].replace(/\n/g, ' ').substring(1).toLowerCase(); // What command are we doing?
-  var suffix = msg.content.replace(/\n/g, ' ').substring(cmd.length + 2).trim(); // Get everything after the command for suffixes, each suffix is separated with a space
+  var cmd = msg.content.split(` `)[0].replace(/\n/g, ` `).substring(1).toLowerCase(); // What command are we doing?
+  var suffix = msg.content.replace(/\n/g, ` `).substring(cmd.length + 2).trim(); // Get everything after the command for suffixes, each suffix is separated with a space
 
   /* NORMAL USER COMMANDS */
   if (msg.content.startsWith(config.command_prefix)) {
     if (userCommands.commands.hasOwnProperty(cmd)) {
-      execCommand(msg, cmd, suffix, 'user');
+      execCommand(msg, cmd, suffix, `user`);
     } else if (userCommands.aliases.hasOwnProperty(cmd)) {
-      msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + userCommands.aliases[cmd] + ' ');
-      execCommand(msg, userCommands.aliases[cmd], suffix, 'user');
+      msg.content = msg.content.replace(/[^ ]+ /, config.command_prefix + userCommands.aliases[cmd] + ` `);
+      execCommand(msg, userCommands.aliases[cmd], suffix, `user`);
     }
   }
 
   /* MODERATOR COMMANDS */
   if (msg.content.startsWith(config.mod_command_prefix)) {
     if (modCommands.commands.hasOwnProperty(cmd)) {
-      execCommand(msg, cmd, suffix, 'mod');
+      execCommand(msg, cmd, suffix, `mod`);
     } else if (modCommands.aliases.hasOwnProperty(cmd)) {
-      msg.content = msg.content.replace(/[^ ]+ /, config.mod_command_prefix + modCommands.aliases[cmd] + ' ');
-      execCommand(msg, modCommands.aliases[cmd], suffix, 'mod');
+      msg.content = msg.content.replace(/[^ ]+ /, config.mod_command_prefix + modCommands.aliases[cmd] + ` `);
+      execCommand(msg, modCommands.aliases[cmd], suffix, `mod`);
     }
   }
 
