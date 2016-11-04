@@ -16,7 +16,7 @@ const updateCarbon = count => {
     'headers': {'content-type': `application/json`},
     'json': true,
     body: {
-      'key': config.stats.carbon,
+      'key': process.env.CARBON_KEY,
       'servercount': count
     }
   }, (err, res, body) => {
