@@ -2,7 +2,6 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const fs      = require('fs');
-const request = require('request');
 
 /* REQUIRED FILES */
 const logger       = require('./bot/logger.js');
@@ -13,6 +12,7 @@ const database     = require('./bot/data/database.js');
 const userCommands = require('./bot/commands/user.js');
 const modCommands  = require('./bot/commands/mod.js');
 const dataDog      = require('./bot/datadog.js');
+const updateCount  = require('./bot/util/updateCount.js');
 
 /* SET OPTIONS AND INIT BOT */
 const discordOptions = {'fetch_all_members': true};
@@ -27,7 +27,7 @@ var pmCooldown = {};
 /* RUN ALL THIS EVERY HOUR */
 setInterval(() => {
   pmCooldown = {};
-  stats();
+  updateCount(client.guilds.size);
   database.checkGuilds(client);
   dataDog.send('inactiveCount', database.inactive.length);
 }, 3600000);
@@ -144,45 +144,6 @@ function execCommand(msg, cmd, suffix, type) {
     }
   } catch (err) {
     logger.error(err.stack);
-  }
-}
-
-/* POST STATS TO VARIOUS WEBSITES */
-function stats() {
-
-  /* BOTS.DISCORD.PW STATS */
-  if (process.env.DISCORD_BOTS_KEY) {
-    request.post({
-      'url': 'https://bots.discord.pw/api/bots/' + client.user.id + '/stats',
-      'headers': {'content-type': 'application/json', 'Authorization': process.env.DISCORD_BOTS_KEY},
-      'json': true,
-      body: {
-        'server_count': client.guilds.array().length
-      }
-    }, (err, res, body) => {
-      if (err || res.statusCode != 200) {
-        logger.error(`Error updating stats at bots.discord.pw:\nBody: ${body}\nStatus Code: ${res.statusCode}\nError: ${err}`);
-      }
-      logger.stats('bots.discord.pw', client.guilds.array().length);
-    });
-  }
-
-  /* CARBONITEX.NET STATS */
-  if (process.env.CARBON_KEY) {
-    request.post({
-      'url': 'https://www.carbonitex.net/discord/data/botdata.php',
-      'headers': {'content-type': 'application/json'},
-      'json': true,
-      body: {
-        'key': process.env.CARBON_KEY,
-        'servercount': client.guilds.array().length
-      }
-    }, (err, res, body) => {
-      if (err || res.statusCode != 200) {
-        logger.error(`Error updating stats at carbonitex.net:\nBody: ${body}\nStatus Code: ${res.statusCode}\nError: ${err}`);
-      }
-      logger.stats('carbonitex.net', client.guilds.array().length);
-    });
   }
 }
 
