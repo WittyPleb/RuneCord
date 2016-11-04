@@ -28,6 +28,7 @@ var pmCooldown = {};
 setInterval(() => {
   pmCooldown = {};
   stats();
+  database.checkGuilds(client);
 }, 3600000);
 
 /* RUN THIS EVERY 15 SECONDS */
@@ -198,7 +199,7 @@ client.on('ready', () => {
   logger.info('RuneCord is ready! Listening to ' + client.channels.array().length + ' channels on ' + client.guilds.array().length + ' guilds.');
   versionCheck.checkForUpdate();
   setTimeout(() => {
-    database.checkGuilds(client)
+    database.checkGuilds(client);
   }, 10000);
 });
 
