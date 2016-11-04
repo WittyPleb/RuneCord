@@ -1,6 +1,6 @@
 {
   "bot": {
-    "user_id": "",
+    "user_id": ""
   },
   "command_prefix": "~",
   "mod_command_prefix": ")",
