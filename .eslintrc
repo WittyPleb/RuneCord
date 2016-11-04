@@ -11,8 +11,12 @@
   "rules": {
     "no-console": 0,
     "no-control-regex": 0,
-    "no-redeclare": 0,
-    "no-inner-declarations": 0,
+    "no-unused-vars": 1,
+    "camcelcase": 2,
+    "dot-notation": 2,
+    "comma-spacing": 2,
+    "key-space": 2,
+    "quotes": [1, "backtick"]
   },
   "globals": {
     "ServerSettings",
