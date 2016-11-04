@@ -212,6 +212,13 @@ client.on('guildDelete', (guild) => {
   if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send('serverCount', client.guilds.array().length);
 });
 
+/* WHEN THE BOT DISCONNECTS FROM DISCORD */
+client.on('disconnect', () => {
+  pmCooldown = {};
+  commandsProcessed = 0;
+  connect();
+});
+
 /* WHEN BOT JOINS A NEW GUILD */
 client.on('guildCreate', (guild) => {
   if (!guild.available) return; // If the guild is available, do nothing.
