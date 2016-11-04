@@ -11,7 +11,7 @@ const versionCheck = require(`./bot/versionCheck.js`);
 const database     = require(`./bot/data/database.js`);
 const userCommands = require(`./bot/commands/user.js`);
 const modCommands  = require(`./bot/commands/mod.js`);
-const dataDog      = require(`./bot/datadog.js`);
+const dataDog      = require(`./bot/util/datadog.js`);
 const updateCount  = require(`./bot/util/updateCount.js`);
 
 /* SET OPTIONS AND INIT BOT */
