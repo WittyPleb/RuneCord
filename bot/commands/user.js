@@ -17,14 +17,10 @@ function correctUsage(cmd, usage, msg, client, delay) {
 }
 
 /* GET THE SKILL NAMES BASED ON THE HISCORE SKILL ID */
-function getSkillName(id, type) {
-  var rs3SkillNames = [`Overall`, `Attack`, `Defence`, `Strength`, `Constitution`, `Ranged`, `Prayer`, `Magic`, `Cooking`, `Woodcutting`, `Fletching`, `Fishing`, `Firemaking`, `Crafting`, `Smithing`, `Mining`, `Herblore`, `Agility`, `Thieving`, `Slayer`, `Farming`, `Runecrafting`, `Hunter`, `Construction`, `Summoning`, `Dungeoneering`, `Divination`, `Invention`];
-  var osSkillNames = [`Overall`, `Attack`, `Defence`, `Strength`, `Hitpoints`, `Ranged`, `Prayer`, `Magic`, `Cooking`, `Woodcutting`, `Fletching`, `Fishing`, `Firemaking`, `Crafting`, `Smithing`, `Mining`, `Herblore`, `Agility`, `Thieving`, `Slayer`, `Farming`, `Runecrafting`, `Hunter`, `Construction`];
-  if (type === `oldschool`) {
-    return osSkillNames[id];
-  } else {
-    return rs3SkillNames[id];
-  }
+function getSkillName(id) {
+  let skillNames = [`Overall`, `Attack`, `Defence`, `Strength`, `Constitution`, `Ranged`, `Prayer`, `Magic`, `Cooking`, `Woodcutting`, `Fletching`, `Fishing`, `Firemaking`, `Crafting`, `Smithing`, `Mining`, `Herblore`, `Agility`, `Thieving`, `Slayer`, `Farming`, `Runecrafting`, `Hunter`, `Construction`, `Summoning`, `Dungeoneering`, `Divination`, `Invention`];
+
+  return skillNames[id];
 }
 
 /* GET XP GAINED FROM CERTAIN SIZED LAMPS */
@@ -969,42 +965,6 @@ var commands = {
         msg.channel.sendMessage(`A raven is currently spawned in Prifddinas!`);
       } else {
         msg.channel.sendMessage(`There isn't a raven in Prifddinas at this time, the next one spawns in **${daysUntilNext}** day${(daysUntilNext > 1 ? `s` : ``)}.`);
-      }
-    }
-  },
-  'osstats': {
-    desc: `Grab the old school stats of a player.`,
-    usage: `<username>`,
-    process: (client, msg, suffix) => {
-      if (!suffix) {
-        correctUsage(`osstats`, commands.osstats.usage, msg, client);
-        return;
-      } else {
-        request(`http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=${suffix}`, (err, res, body) => {
-          if (res == null || res == undefined || res.statusCode == 404 || err) {
-            msg.channel.sendMessage(`Unable to retrieve stats for '${suffix}'.`);
-            return;
-          }
-          if (!err && res.statusCode == 200) {
-            var statData = body.split(`\n`);
-            var result = [];
-
-            for (var i = 0; i < 24; i++) {
-              result[i] = statData[i].split(`,`);
-            }
-
-            var table = new asciiTable();
-
-            table.setTitle(`VIEWING OLDSCHOOL STATS FOR ${suffix.toUpperCase()}`);
-            table.setHeading(`Skill`, `Level`, `Experience`, `Rank`);
-
-            for (let i = 0; i < 24; i++) {
-              table.addRow(getSkillName(i, `oldschool`), result[i][1], numeral(result[i][2]).format(), numeral(result[i][0]).format());
-            }
-
-            msg.channel.sendMessage(`\`\`\`${table.toString()}\`\`\``);
-          }
-        });
       }
     }
   },
