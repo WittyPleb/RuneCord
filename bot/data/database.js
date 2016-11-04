@@ -236,3 +236,5 @@ exports.updateTimestamp = (guild) => {
     inactive.splice(inactive.indexOf(guild.id), 1);
   }
 };
+
+exports.inactive = inactive;

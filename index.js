@@ -29,6 +29,7 @@ setInterval(() => {
   pmCooldown = {};
   stats();
   database.checkGuilds(client);
+  dataDog.send('serverCount', database.inactive.length);
 }, 3600000);
 
 /* RUN THIS EVERY 15 SECONDS */
