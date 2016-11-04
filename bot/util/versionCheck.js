@@ -3,7 +3,7 @@ const request = require(`request`);
 
 /* REQUIRED FILES */
 const logger  = require(`./logger.js`);
-const version = require(`../package.json`).version;
+const version = require(`../../package.json`).version;
 
 exports.checkForUpdate = () => {
   request(`https://raw.githubusercontent.com/unlucky4ever/RuneCord/master/package.json`, (err, res, body) => {
