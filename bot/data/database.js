@@ -2,7 +2,7 @@
 const fs    = require(`fs`);
 
 /* REQUIRED FILES */
-const logger = require(`../logger.js`);
+const logger = require(`../util/logger.js`);
 const config = require(`../config.json`);
 
 /* GLOBAL VARIABLES */
