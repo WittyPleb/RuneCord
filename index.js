@@ -7,7 +7,7 @@ const fs      = require(`fs`);
 const logger       = require(`./bot/util/logger.js`);
 checkDb(); // Run this before anything else
 const config       = require(`./bot/config.json`);
-const versionCheck = require(`./bot/versionCheck.js`);
+const versionCheck = require(`./bot/util/versionCheck.js`);
 const database     = require(`./bot/data/database.js`);
 const userCommands = require(`./bot/commands/user.js`);
 const modCommands  = require(`./bot/commands/mod.js`);
