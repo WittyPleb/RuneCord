@@ -508,52 +508,34 @@ var commands = {
     desc: 'Display the current Viswax combinations.',
     usage: '',
     process: (client, msg) => {
-      request('http://warbandtracker.com/goldberg/index.php', (err, res, body) => {
-        if (res == null || res == undefined || res.statusCode == 404 || err) {
+      request('http://services.runescape.com/m=forum/forums.ws?75,76,387,65763383', (err, res, body) => {
+
+		// Failing fast so no spaghetti code
+        if (res == null || res == undefined || res.statusCode != 200 || err) {
           msg.channel.sendMessage(`Unable to grab viswax combination: ${err}`);
           return;
         }
-        if (!err && res.statusCode == 200) {
-          var firstRuneStart = body.indexOf('First Rune');
-          var firstRuneText = body.slice(firstRuneStart, body.length);
-          var firstRunePct = firstRuneText.slice(firstRuneText.indexOf('Reported by ') + 12, firstRuneText.indexOf('%.</td>'));
-          firstRuneText = firstRuneText.slice(firstRuneText.indexOf('<b>') + 3, firstRuneText.indexOf('</b>'));
 
-          var secondRuneStart = body.indexOf('Second Rune');
-          var secondRuneText = body.slice(secondRuneStart, body.length);
+		let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(body)[1];
+		let day = new Date().getUTCDate();
 
-          var secondRuneText1 = secondRuneText.slice(secondRuneText.indexOf('<b>') + 3, secondRuneText.indexOf('</b>'));
-          var secondRunePct1 = secondRuneText.slice(secondRuneText.indexOf('Reported by ') + 12, secondRuneText.indexOf('%.</td>'));
-          secondRuneText = secondRuneText.slice(secondRuneText.indexOf('%.</td>') + 7, secondRuneText.length);
+		// Checking if the combos are updated yet
+		if (day != dateMatch) {
+			msg.channel.sendMessage('Viswax rune combinations have not been updated yet. Please try again ' +
+					'later.');
+			return
+		}
 
-          var secondRuneText2 = secondRuneText.slice(secondRuneText.indexOf('<b>') + 3, secondRuneText.indexOf('</b>'));
-          var secondRunePct2 = secondRuneText.slice(secondRuneText.indexOf('Reported by ') + 12, secondRuneText.indexOf('%.</td>'));
-          secondRuneText = secondRuneText.slice(secondRuneText.indexOf('%.</td>') + 7, secondRuneText.length);
+		let match =  new RegExp(/slot 1:.+?- (.+?)slot 2:.+?- (.+?)slot/i).exec(body);
+		let slot1 = match[1].replace(/<.+?>/g, '').trim().split('-').map(r => r.trim()).join(', ');
+		let slot2 = match[2].replace(/<.+?>/g, '').trim().split('-').map(r => r.trim()).join(', ');
 
-          var secondRuneText3 = secondRuneText.slice(secondRuneText.indexOf('<b>') + 3, secondRuneText.indexOf('</b>'));
-          var secondRunePct3 = secondRuneText.slice(secondRuneText.indexOf('Reported by ') + 12, secondRuneText.indexOf('%.</td>'));
-          secondRuneText = secondRuneText.slice(secondRuneText.indexOf('%.</td>') + 7, secondRuneText.length);
+		let toSend = [];
+		toSend.push('**First Slot**: ' + slot1);
+		toSend.push('**Second Slot**: ' + slot2);
 
-          var toSend = [];
-          toSend.push(`**First Rune**: *${firstRuneText}* \`${firstRunePct}%\``);
-          toSend.push(`**Second Rune**: *${secondRuneText1}* \`${secondRunePct1}%\`, *${secondRuneText2}* \`${secondRunePct2}%\`, *${secondRuneText3}* \`${secondRunePct3}%\``);
-
-          var now = Date.now();
-          var then = new Date();
-          then.setUTCHours(24, 0, 0, 0);
-
-          var resetTime = then - now;
-          var hours = Math.floor(resetTime / 1000 / 60 / 60);
-
-          if (hours >= 22) {
-            toSend.push('Please Note: Since reset was so recent, these runes may be inaccurate...');
-          }
-
-          toSend = toSend.join('\n');
-
-          msg.channel.sendMessage(toSend);
-        }
-      })
+		msg.channel.sendMessage(toSend.join('\n'));
+      });
     }
   },
   'stats': {
