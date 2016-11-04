@@ -505,7 +505,7 @@ var commands = {
     }
   },
   'viswax': {
-    desc: 'Display the current vvvvv combinations.',
+    desc: 'Display the current Viswax combinations.',
     usage: '',
     process: (client, msg) => {
       request('http://services.runescape.com/m=forum/forums.ws?75,76,387,65763383', (err, res, body) => {
