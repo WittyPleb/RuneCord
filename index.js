@@ -29,7 +29,7 @@ setInterval(() => {
   pmCooldown = {};
   updateCount(client.guilds.size);
   database.checkGuilds(client);
-  dataDog.send(`inactiveCount`, database.inactive.length);
+  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send(`inactiveCount`, database.inactive.length);
 }, 3600000);
 
 /* RUN THIS EVERY 15 SECONDS */
