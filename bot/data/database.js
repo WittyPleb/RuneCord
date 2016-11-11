@@ -200,8 +200,10 @@ exports.removeInactive = (client, msg, delay) => {
       let days = ((now1 - Times[inactive[passedOver]]) / 1000 / 60 / 60 / 24).toFixed(1);
       toSend += `\n**${parseInt(count) + 1}:${guild.name.replace(/@/g, `@\u200b`)}(${days} days)`;
       guild.leave();
-      if (Times.hasOwnProperty(guild.id)) {
+      if (Times.hasOwnProperty(guild.id) && ServerSettings.hasOwnProperty(guild.id)) {
+        delete ServerSettings[guild.id];
         delete Times[guild.id];
+        updatedG = true;
         updatedT = true;
       }
       count++;
