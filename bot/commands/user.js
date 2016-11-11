@@ -12,8 +12,8 @@ const version = require(`../../package.json`).version;
 const entities = new Entities();
 
 /* SEND THE USER HOW TO CORRECTLY USE THE COMMAND */
-function correctUsage(cmd, usage, msg, client, delay) {
-  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, `@\u200b`)}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`).then(msg.delete(delay || 10000));
+function correctUsage(cmd, usage, msg, client) { // eslint-disable-line no-unused-vars
+  msg.channel.sendMessage(`${msg.author.username.replace(/@/g, `@\u200b`)}, the correct usage is *\`${config.command_prefix + cmd} ${usage}\`*.`);
 }
 
 /* GET THE SKILL NAMES BASED ON THE HISCORE SKILL ID */
