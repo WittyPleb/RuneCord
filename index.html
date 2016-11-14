@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,9 +22,9 @@
     <link href="css/style.css" rel="stylesheet">
 
     <style type="text/css">
-      body {
-        padding-top: 70px;
-      }
+        body {
+            padding-top: 70px;
+        }
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -33,440 +33,453 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body id="top" data-spy="scroll" data-target="#main-navbar-collapse">
+<body id="top" data-spy="scroll" data-target="#main-navbar-collapse">
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top animated fadeInDown" role="navigation">
-      <div class="container" style="margin-top: 5px;">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
+        <div class="container" style="margin-top: 5px;">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a data-scroll class="navbar-brand" href="#top"><strong>RuneCord</strong></a>
-          <a href="https://goo.gl/d7pEcL" class="btn btn-default btn-invite" target="_blank" style="margin: 8px; float: right;">Add RuneCord</a>
+                <a data-scroll class="navbar-brand" href="#top"><strong>RuneCord</strong></a>
+                <a href="https://goo.gl/d7pEcL" class="btn btn-default btn-invite" target="_blank" style="margin: 8px; float: right;">Add RuneCord</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="main-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="https://discord.me/runecord/" target="_blank">Discord Server</a></li>
+                    <li><a data-scroll href="#commands">Commands</a></li>
+                    <li><a data-scroll href="#config">Configuration</a></li>
+                    <li><a data-scroll href="#settings">Settings</a></li>
+                    <li><a data-scroll href="#team">Team</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="main-navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://discord.me/runecord/" target="_blank">Discord Server</a></li>
-            <li><a data-scroll href="#commands">Commands</a></li>
-            <li><a data-scroll href="#config">Configuration</a></li>
-            <li><a data-scroll href="#settings">Settings</a></li>
-            <li><a data-scroll href="#team">Team</a></li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container -->
+        <!-- /.container -->
     </nav>
 
     <div class="container">
-      <div class="row animated fadeInDown" style="margin-top: 3%;">
-        <hr />
-      </div>
-      <!-- /.row -->
-      <div class="row">
-        <div class="col-md-7 col-sm-12 text-left animated fadeInLeft">
-          <h1>A general purose Discord bot for <span style="color:rgb(102, 187, 106);">RuneScape</span></h1>
-          <a href="https://goo.gl/d7pEcL" class="btn btn-default btn-invite" target="_blank">Invite me to your Discord</a>
+        <div class="row animated fadeInDown" style="margin-top: 3%;">
+            <hr />
         </div>
-        <div class="hidden-xs hidden-sm col-md-5 text-center animated fadeInRight">
-          <div class="circular"></div>
-        </div>
-      </div>
-      <!-- /.row -->
-      <div class="row animated fadeInUp" style="margin-bottom: 4%;">
-        <hr />
-      </div>
-      <!-- /.row -->
-      <div class="row row-centered animated fadeIn">
-        <div class="col-sm-11 col-centered">
-          <div class="row">
-            <div class="col-sm-4">
-              <h4><i class="fa fa-cloud"></i><strong> Hosted in the Cloud</strong></h4>
-              <p>The official bot is hosted <a href="http://www.digitalocean.com/" target="_blank">DigitalOcean</a>. The server uses high-speed internet, and an SSD, which allows for the bot to have speedy response times.</p>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-7 col-sm-12 text-left animated fadeInLeft">
+                <h1>A general purose Discord bot for RuneScape</h1>
+                <a href="https://goo.gl/d7pEcL" class="btn btn-default" target="_blank">Invite me to your Discord</a>
             </div>
-            <div class="col-sm-4">
-              <h4><i class="fa fa-github"></i><strong> Open-Source</strong></h4>
-              <p>By making the bot open-source, it allows you, the user, to create your own version of RuneCord just for your clan, tailor it to lookup clan stats, make your own custom commands for it, do whatever you wish!</p>
+            <div class="hidden-xs hidden-sm col-md-5 text-center animated fadeInRight">
+                <div class="circular"></div>
             </div>
-            <div class="col-sm-4">
-              <h4><i class="fa fa-check"></i><strong> Easy to work with</strong></h4>
-              <p>With very simple and reliable commands, the bot is very easy to work with. Just add the bot to your server, and away you go!</p>
+        </div>
+        <!-- /.row -->
+        <div class="row animated fadeInUp" style="margin-bottom: 4%;">
+            <hr />
+        </div>
+        <!-- /.row -->
+        <div class="row row-centered animated fadeIn">
+            <div class="col-sm-11 col-centered">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4><i class="fa fa-cloud"></i><strong> Hosted in the Cloud</strong></h4>
+                        <p>The official bot is hosted <a href="http://www.digitalocean.com/" target="_blank">DigitalOcean</a>. The server uses high-speed internet, and an SSD, which allows for the bot to have speedy response times.</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4><i class="fa fa-github"></i><strong> Open-Source</strong></h4>
+                        <p>By making the bot open-source, it allows you, the user, to create your own version of RuneCord just for your clan, tailor it to lookup clan stats, make your own custom commands for it, do whatever you wish!</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4><i class="fa fa-check"></i><strong> Easy to work with</strong></h4>
+                        <p>With very simple and reliable commands, the bot is very easy to work with. Just add the bot to your server, and away you go!</p>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <!-- /.row -->
-      <div class="row maincontenthr animated fadeIn">
-        <hr id="commands">
-      </div>
-      <!-- /.row -->
-      <div class="row animated fadeIn">
-        <div class="col-sm-12">
-          <h2><strong>Commands</strong></h2>
-          <hr class="content-titlehr">
-          <p>All normal commands start with <code>~</code> | All moderator commands start with <code>)</code> | Type <code>~help</code> in Discord to view commands from Discord.</p>
-          <br />
-          <h4><strong>General Commands</strong></h4>
-          <table class="table table-hover table-bordered table-commands">
-            <thead>
-              <tr>
-                <th>Command</th>
-                <th>Description</th>
-                <th>Example</th>
-                <th>Aliases</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>~invite</td>
-                <td>Gives you an invite link to invite RuneCord to your server.</td>
-                <td>~invite</td>
-                <td>join</td>
-              </tr>
-              <tr>
-                <td>~about</td>
-                <td>Tells you various things about the bot.</td>
-                <td>~about</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~roll [<em>number</em>]</td>
-                <td>Rolls a number between 1 and <em>number</em>.</td>
-                <td>~roll 100</td>
-                <td>&nbsp;</td>
-              </tr>
-            </tbody>
-          </table>
-          <h4><strong>RuneScape Commands</strong></h4>
-          <table class="table table-hover table-bordered table-commands">
-            <thead>
-              <tr>
-                <th>Command</th>
-                <th>Description</th>
-                <th>Example</th>
-                <th>Aliases</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>~vos</td>
-                <td>Tells you what districts the Voice of Seren is currently active in.</td>
-                <td>~vos</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~stats [<em>username</em>]</td>
-                <td>Returns a table of the stats for the given <em>username</em>.</td>
-                <td>~stats Witty</td>
-                <td>hs, rs3stats</td>
-              </tr>
-              <tr>
-                <td>~osstats [<em>username</em>]</td>
-                <td>Returns a table of the oldschool stats for the given <em>username</em>.</td>
-                <td>~osstats Witty</td>
-                <td>osrsstats</td>
-              </tr>
-              <tr>
-                <td>~time</td>
-                <td>Tells you what time it is ingame.</td>
-                <td>~time</td>
-                <td>gametime</td>
-              </tr>
-              <tr>
-                <td>~reset</td>
-                <td>Let's you know how long till the game resets.</td>
-                <td>~reset</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~price [<em>item name</em>]</td>
-                <td>Returns GE prices for the given <em>item name</em>.</td>
-                <td>~price coal</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~cache</td>
-                <td>Tells you when the next Guthixian cache will be.</td>
-                <td>~cache</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~warbands</td>
-                <td>Informs when the next Warbands will be.</td>
-                <td>~warbands</td>
-                <td>wbs</td>
-              </tr>
-              <tr>
-                <td>~memberinfo [<em>player name</em>]</td>
-                <td>Gives some information about a player.</td>
-                <td>~memberinfo Witty</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~viswax</td>
-                <td>Returns the current Viswax combination.</td>
-                <td>~viswax</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~alog [<em>username</em>]</td>
-                <td>Returns the last 5 adventure log logs for the given <em>username</em>.</td>
-                <td>~alog Witty</td>
-                <td>advlog, adventurelog</td>
-              </tr>
-              <tr>
-                <td>~bigchin</td>
-                <td>Tells you when the next Big Chinchompa will be.</td>
-                <td>~bigchin</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~invasion [<em>skill level</em>]</td>
-                <td>Returns how much XP you'd gain from a fully completed Troll Invasion.</td>
-                <td>~invasion 45</td>
-                <td>trollinvasion, troll</td>
-              </tr>
-              <tr>
-                <td>~vorago</td>
-                <td>Tells you what the current rotation for Vorago is.</td>
-                <td>~vorago</td>
-                <td>rago</td>
-              </tr>
-              <tr>
-                <td>~araxxi</td>
-                <td>Tells you what path is currently closed for Araxxi.</td>
-                <td>~araxxi</td>
-                <td>rax</td>
-              </tr>
-              <tr>
-                <td>~rots</td>
-                <td>Tells you what brothers are on which side for Rise of the Six.</td>
-                <td>~rots</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~spotlight</td>
-                <td>Let's you know what minigame is currently on spotlight.</td>
-                <td>~spotlight</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~circus</td>
-                <td>Let's you know where the circus is currently located.</td>
-                <td>~circus</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~lamp [<em>small|med|large|huge</em>] [<em>skill level</em>]</td>
-                <td>Returns how much XP you'd gain from a <em>small</em>, <em>med</em>, <em>large</em>, or <em>huge</em> lamp based on <em>skill level</em>.</td>
-                <td>~lamp med 45</td>
-                <td>xplamp</td>
-              </tr>
-              <tr>
-                <td>~jot [<em>normal|master|supreme|legendary</em>] [<em>skill level</em>]</td>
-                <td>Returns how much XP you'd gain from a <em>normal</em>, <em>master</em>, <em>supreme</em>, or <em>legendary</em> Jack of Trades aura based on <em>skill level</em>.</td>
-                <td>~jot supreme 45</td>
-                <td>jackoftrades</td>
-              </tr>
-              <tr>
-                <td>~statues [<em>username</em>]</td>
-                <td>Tell you how much XP <em>username</em> would gain in Construction, Prayer, and Slayer from God statues.</td>
-                <td>~statues Witty</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~raven</td>
-                <td>Let's you know when the next Raven will spawn in Prifddinas.</td>
-                <td>~raven</td>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>~sinkhole</td>
-                <td>Let's you know when the next Sinkhole will be.</td>
-                <td>~sinkhole</td>
-                <td>&nbsp;</td>
-              </tr>
-            </tbody>
-          </table>
-          <h4><strong>Moderator Commands</strong><small> - Must have <code>manageServer</code> permissions to use most of these commands.</small></h4>
-          <table class="table table-hover table-bordered table-commands">
-            <thead>
-              <tr>
-                <th>Command</th>
-                <th>Description</th>
-                <th>Example</th>
-                <th>Aliases</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  )settings <em>check</em><br>
-                  )settings <em>enable/disable setting</em><br>
-                  )settings <em>notify here</em><br>
-                  )settings <em>welcome Welcome message</em>
-                </td>
-                <td>Adjust various settings for your server.</td>
-                <td>
-                  )settings check<br>
-                  )settings disable delete commands<br>
-                  )settings notify here<br>
-                  )settings welcome Welcome $USER$ to the server!
-                </td>
-                <td>config</td>
-                <tr>
-                  <td>)stats</td>
-                  <td>Shows you some statistics about the bot.</td>
-                  <td>)stats</td>
-                  <td>s, stat, status</td>
-                </tr>
-                <tr>
-                  <td>)changelog</td>
-                  <td>View the recent changes to the bot.</td>
-                  <td>)changelog</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>)ignore</td>
-                  <td>Ignores all commands in the channel this command was used in.</td>
-                  <td>)ignore</td>
-                  <td>&nbsp;</td>
-                </tr>
-                <tr>
-                  <td>)unignore</td>
-                  <td>Starts responding to commands again in the channel.</td>
-                  <td>)unignore</td>
-                  <td>&nbsp;</td>
-                </tr>
-            </tbody>
-          </table>
+        <!-- /.row -->
+        <div class="row maincontenthr animated fadeIn">
+            <hr id="commands">
         </div>
-      </div>
-      <!-- /.row -->
-      <div class="row maincontenthr animated fadeIn">
-        <hr id="config">
-      </div>
-      <div class="row animated fadeIn">
-        <div class="col-sm-12">
-          <h2><strong>Configuration</strong></h2>
-          <table class="table table-hover table-bordered table-config">
-            <thead>
-              <tr>
-                <th>Key</th>
-                <th>Default Value</th>
-                <th>Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>command_prefix</td>
-                <td>~</td>
-                <td>Set your own command prefix</td>
-              </tr>
-              <tr>
-                <td>mod_command_prefix</td>
-                <td>)</td>
-                <td>Set your own command prefix for mod commands</td>
-              </tr>
-              <tr>
-                <td>whitelist</td>
-                <td>["168550901836021761", "110373943822540800"]</td>
-                <td>An array of server id's that will not be removed from the inactive list, no matter what</td>
-              </tr>
-              <tr>
-                <td>banned_server_ids</td>
-                <td>[]</td>
-                <td>An array of server id's that the bot is not allowed to join</td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- /.row -->
+        <div class="row animated fadeIn">
+            <div class="col-sm-12">
+                <h2><strong>Commands</strong></h2>
+                <hr class="content-titlehr">
+
+                <p>All normal commands start with <code>~</code> | All moderator commands start with <code>)</code> | Type <code>~help</code> in Discord to view commands from Discord.</p>
+                <p>Suffixes wrapped in <code>&lt;&gt;</code> are required, suffixes wrapped in <code>[]</code> are optional.</p>
+
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#general">General <span class="badge">3</span></a></li>
+                    <li><a data-toggle="tab" href="#runescape">RuneScape <span class="badge">23</span></a></li>
+                    <li><a data-toggle="tab" href="#mod">Moderator <span class="badge">6</span></a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active" id="general">
+                        <table class="table table-hover table-bordered table-commands">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                    <th>Aliases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>~invite</td>
+                                    <td>Gives you an invite link to invite RuneCord to your server.</td>
+                                    <td>~invite</td>
+                                    <td>join</td>
+                                </tr>
+                                <tr>
+                                    <td>~about</td>
+                                    <td>Tells you various things about the bot.</td>
+                                    <td>~about</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~roll &lt;<em>number</em>&gt;</td>
+                                    <td>Rolls a number between 1 and <em>number</em>.</td>
+                                    <td>~roll 100</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="runescape">
+                        <table class="table table-hover table-bordered table-commands">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                    <th>Aliases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>~time</td>
+                                    <td>Tells you what time it is ingame.</td>
+                                    <td>~time</td>
+                                    <td>gametime</td>
+                                </tr>
+                                <tr>
+                                    <td>~reset</td>
+                                    <td>Let's you know how long till the game resets.</td>
+                                    <td>~reset</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~bigchin</td>
+                                    <td>Tells you when the next Big Chinchompa will be.</td>
+                                    <td>~bigchin</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~sinkhole</td>
+                                    <td>Let's you know when the next Sinkhole will be.</td>
+                                    <td>~sinkhole</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~cache</td>
+                                    <td>Tells you when the next Guthixian cache will be.</td>
+                                    <td>~cache</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~vos</td>
+                                    <td>Tells you what districts the Voice of Seren is currently active in.</td>
+                                    <td>~vos</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~lamp &lt;<em>small|med|large|huge</em>&gt; &lt;<em>skill level</em>&gt;</td>
+                                    <td>Returns how much XP you'd gain from a <em>small</em>, <em>med</em>, <em>large</em>, or <em>huge</em> lamp based on <em>skill level</em>.</td>
+                                    <td>~lamp med 45</td>
+                                    <td>xplamp</td>
+                                </tr>
+                                <tr>
+                                    <td>~pengs &lt;<em>points</em>&gt; [<em>player name</em>]</td>
+                                    <td>Tells you how many coins you'd gain or how much XP you'd get with X points.</td>
+                                    <td>~pengs 22 | ~pengs 22 Witty</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~jot &lt;<em>normal|master|supreme|legendary</em>&gt; &lt;<em>skill level</em>&gt;</td>
+                                    <td>Returns how much XP you'd gain from a <em>normal</em>, <em>master</em>, <em>supreme</em>, or <em>legendary</em> Jack of Trades aura based on <em>skill level</em>.</td>
+                                    <td>~jot supreme 45</td>
+                                    <td>jackoftrades</td>
+                                </tr>
+                                <tr>
+                                    <td>~statues &lt;<em>username</em>&gt;</td>
+                                    <td>Tell you how much XP <em>username</em> would gain in Construction, Prayer, and Slayer from God statues.</td>
+                                    <td>~statues Witty</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~viswax</td>
+                                    <td>Returns the current Viswax combination.</td>
+                                    <td>~viswax</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~stats &lt;<em>username</em>&gt;</td>
+                                    <td>Returns a table of the stats for the given <em>username</em>.</td>
+                                    <td>~stats Witty</td>
+                                    <td>hs, rs3stats</td>
+                                </tr>
+                                <tr>
+                                    <td>~price &lt;<em>item name</em>&gt;</td>
+                                    <td>Returns GE prices for the given <em>item name</em>.</td>
+                                    <td>~price coal</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~memberinfo &lt;<em>player name</em>&gt;</td>
+                                    <td>Gives some information about a player.</td>
+                                    <td>~memberinfo Witty</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~warbands</td>
+                                    <td>Informs when the next Warbands will be.</td>
+                                    <td>~warbands</td>
+                                    <td>wbs</td>
+                                </tr>
+                                <tr>
+                                    <td>~invasion &lt;<em>skill level</em>&gt;</td>
+                                    <td>Returns how much XP you'd gain from a fully completed Troll Invasion.</td>
+                                    <td>~invasion 45</td>
+                                    <td>trollinvasion, troll</td>
+                                </tr>
+                                <tr>
+                                    <td>~alog &lt;<em>username</em>&gt;</td>
+                                    <td>Returns the last 5 adventure log logs for the given <em>username</em>.</td>
+                                    <td>~alog Witty</td>
+                                    <td>advlog, adventurelog</td>
+                                </tr>
+                                <tr>
+                                    <td>~vorago</td>
+                                    <td>Tells you what the current rotation for Vorago is.</td>
+                                    <td>~vorago</td>
+                                    <td>rago</td>
+                                </tr>
+                                <tr>
+                                    <td>~araxxi</td>
+                                    <td>Tells you what path is currently closed for Araxxi.</td>
+                                    <td>~araxxi</td>
+                                    <td>rax, spooder</td>
+                                </tr>
+                                <tr>
+                                    <td>~rots</td>
+                                    <td>Tells you what brothers are on which side for Rise of the Six.</td>
+                                    <td>~rots</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~spotlight</td>
+                                    <td>Let's you know what minigame is currently on spotlight.</td>
+                                    <td>~spotlight</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~circus</td>
+                                    <td>Let's you know where the circus is currently located.</td>
+                                    <td>~circus</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>~raven</td>
+                                    <td>Let's you know when the next Raven will spawn in Prifddinas.</td>
+                                    <td>~raven</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="mod">
+                        <table class="table table-hover table-bordered table-commands">
+                            <thead>
+                                <tr>
+                                    <th>Command</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                    <th>Aliases</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>)rem-inactive [<em>delay</em>]<br /><span class="label label-info">Bot owner</span></td>
+                                    <td>Removes inactive servers. <strong>Bot owner only</strong></td>
+                                    <td>)rem-inactive | )rem-inactive 5</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        )settings <em>check</em><br> )settings <em>enable/disable setting</em><br> )settings <em>notify here</em><br> )settings <em>welcome Welcome message</em><br /><span class="label label-info">Manage Server</span>
+                                    </td>
+                                    <td>Adjust various settings for your server.</td>
+                                    <td>
+                                        )settings check<br> )settings disable delete commands<br> )settings notify here<br> )settings welcome Welcome $USER$ to the server!
+                                    </td>
+                                    <td>config</td>
+                                    <tr>
+                                        <td>)stats</td>
+                                        <td>Shows you some statistics about the bot.</td>
+                                        <td>)stats</td>
+                                        <td>s, stat, status</td>
+                                    </tr>
+                                    <tr>
+                                        <td>)changelog</td>
+                                        <td>View the recent changes to the bot.</td>
+                                        <td>)changelog</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>)ignore<br /><span class="label label-info">Manage Server</span></td>
+                                        <td>Ignores all commands in the channel this command was used in.</td>
+                                        <td>)ignore</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>)unignore<br /><span class="label label-info">Manage Server</span></td>
+                                        <td>Starts responding to commands again in the channel.</td>
+                                        <td>)unignore</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <!-- ./row -->
-      <div class="row maincontenthr animated fadeIn">
-        <hr id="settings">
-      </div>
-      <div class="row animated fadeIn">
-        <div class="col-sm-12">
-          <h2><strong>Server Settings</strong></h2>
-
-          <p>For use with the <code>)settings</code> command, for server mods. Do <code>)help settings</code> for more information about syntax.</p>
-
-          <h5 class="green-text text-accent-3">Welcome Message</h5>
-          <p>This message is sent to the default channel when a user joins.</p>
-          <code>disable welcome</code>
-          <br />
-          <code>welcome Welcome $USER$!</code>
-          <br />
-          <code>$USER$</code> replaces with the user's name
-          <br />
-          <code>$SERVER$</code> replaces with the server's name
-
-          <h5 class="green-text text-accent-3">Delete Commands</h5>
-          <p>Certain commands can delete the activating message to help clean chat.</p>
-          <code>enable/disable delete commands</code>
-
-          <h5 class="green-text text-accent-3">Notification Channel</h5>
-          <p>Set where ban alerts and name changes are shown.</p>
-          <code>notify here</code>
-
-          <h5 class="green-text text-accent-3">Ignored Channels</h5>
-          <p>When a channel is ignored the bot will not respond to commands unless they are listed under "mod commands".</p>
-          <code>)ignore</code>
-          <br />
-          <code>)unignore</code>
+        <!-- /.row -->
+        <div class="row maincontenthr animated fadeIn">
+            <hr id="config">
         </div>
-      </div>
-      <!-- ./row -->
-      <div class="row maincontenthr animated fadeIn">
-        <hr id="team">
-      </div>
-      <div class="row animated fadeIn">
-        <div class="col-sm-12">
-          <h2><strong>Developers &amp; Contributors</strong></h2>
-          <table class="table dev">
-            <tbody>
-              <tr>
-                <td>
-                  <br>
-                  <div class="circulardev circularwitty"></div>
-                  <p style="text-align:center;">
-                    <strong><br>Witty (unlucky4ever)</strong>
-                    <br>Creator of RuneCord
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row animated fadeIn">
+            <div class="col-sm-12">
+                <h2><strong>Configuration</strong></h2>
+                <table class="table table-hover table-bordered table-config">
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Default Value</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>bot.user_id</td>
+                            <td>&nbsp;</td>
+                            <td>If you're using <a href="https://bots.discord.pw/">discord.pw</a> to list your bot, you <strong>MUST</strong> set this to your bot's user ID.</td>
+                        </tr>
+                        <tr>
+                            <td>command_prefix</td>
+                            <td>~</td>
+                            <td>Set your own command prefix</td>
+                        </tr>
+                        <tr>
+                            <td>mod_command_prefix</td>
+                            <td>)</td>
+                            <td>Set your own command prefix for mod commands</td>
+                        </tr>
+                        <tr>
+                            <td>whitelist</td>
+                            <td>["168550901836021761", "110373943822540800"]</td>
+                            <td>An array of server id's that will not be removed from the inactive list, no matter what</td>
+                        </tr>
+                        <tr>
+                            <td>banned_server_ids</td>
+                            <td>[]</td>
+                            <td>An array of server id's that the bot is not allowed to join</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
-      <!-- ./row -->
-      <div class="row maincontenthr animated fadeIn">
-        <hr id="github">
-      </div>
-      <div class="row animated fadeIn">
-        <div class="col-sm-12">
-          <h2><strong>GitHub</strong></h2>
-          <div class="github-widget" data-repo="unlucky4ever/RuneCord"></div>
+        <!-- ./row -->
+        <div class="row maincontenthr animated fadeIn">
+            <hr id="settings">
         </div>
-      </div>
-      <!-- ./row -->
-      <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" title="Click to return to the top" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+        <div class="row animated fadeIn">
+            <div class="col-sm-12">
+                <h2><strong>Server Settings</strong></h2>
 
-      <footer>
-        <hr>
-        <p style="padding-bottom: 20px">
-          <span class="pull-left">Proudly hosted at <a href="https://www.github.com/" target="_blank"><i class="fa fa-github"></i> Github</a></span>
-          <span class="pull-right"><a href="https://twitter.com/wittyrs/" target="_blank">Twitter</a> | <a href="https://www.carbonitex.net/discord/bots/" target="_blank">Carbon</a></span>
-        </p>
-      </footer>
+                <p>For use with the <code>)settings</code> command, for server mods. Do <code>)help settings</code> for more information about syntax.</p>
+
+                <h4>Welcome Message</h4>
+                <p>This message is sent to the default channel when a user joins.</p>
+                <code>disable welcome</code>
+                <br />
+                <code>welcome Welcome $USER$!</code>
+                <br />
+                <code>$USER$</code> replaces with the user's name
+                <br />
+                <code>$SERVER$</code> replaces with the server's name
+
+                <h4>Notification Channel</h4>
+                <p>Set where ban alerts and name changes are shown.</p>
+                <code>notify here</code>
+
+                <h4>Ignored Channels</h4>
+                <p>When a channel is ignored the bot will not respond to commands unless they are listed under "mod commands".</p>
+                <code>)ignore</code>
+                <br />
+                <code>)unignore</code>
+            </div>
+        </div>
+        <!-- ./row -->
+        <div class="row maincontenthr animated fadeIn">
+            <hr id="team">
+        </div>
+        <div class="row animated fadeIn">
+            <div class="col-sm-12">
+                <h2><strong>Developers &amp; Contributors</strong></h2>
+                <table class="table dev">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <br>
+                                <div class="circulardev circularwitty"></div>
+                                <p style="text-align:center;">
+                                    <strong><br>Witty (unlucky4ever)</strong>
+                                    <br>Creator of RuneCord
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- ./row -->
+        <div class="row maincontenthr animated fadeIn">
+            <hr id="github">
+        </div>
+        <div class="row animated fadeIn">
+            <div class="col-sm-12">
+                <h2><strong>GitHub</strong></h2>
+                <div class="github-widget" data-repo="unlucky4ever/RuneCord"></div>
+            </div>
+        </div>
+        <!-- ./row -->
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" title="Click to return to the top" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
+        <footer>
+            <hr>
+            <p style="padding-bottom: 20px">
+                <span class="pull-left">Proudly hosted at <a href="https://www.github.com/" target="_blank"><i class="fa fa-github"></i> Github</a></span>
+                <span class="pull-right"><a href="https://twitter.com/wittyrs/" target="_blank">Twitter</a> | <a href="https://www.carbonitex.net/discord/bots/" target="_blank">Carbon</a></span>
+            </p>
+        </footer>
     </div>
     <!-- ./container -->
 
@@ -482,82 +495,59 @@
     <script src="js/github-repo.min.js"></script>
 
     <script>
-      smoothScroll.init();
+        smoothScroll.init();
     </script>
 
     <!-- Initialize text-rotation -->
     <script>
-      $("#js-rotating").Morphext({
-        animation: "fadeInDown",
-        speed: 8000,
-        complete: function() {
-          console.log("This is called after a pgrase is animated in! Current phrase index: " + this.index);
-        }
-      });
-    </script>
-
-    <!-- Make navbar change colors when scrolled down -->
-    <script>
-      $(document).ready(function() {
-        var scroll_start = 0;
-        var startChange = $("#top");
-        var offset = startChange.offset();
-        if (startChange.length) {
-          $(document).scroll(function() {
-            scroll_start = $(this).scrollTop();
-            if (scroll_start > offset.top) {
-              $(".navbar-inverse").css("background-color", "rgba(189, 189, 189, 0.85)");
-              $(".navbar-inverse .navbar-brand").css("color", "rgb(76, 76, 76)");
-              $(".navbar-inverse .btn-invite").css("border-color", "rgb(76, 76, 76)");
-            } else {
-              $(".navbar-inverse").css("background-color", "transparent");
-              $(".navbar-inverse .navbar-brand").css("color", "rgb(102, 187, 106)");
-              $(".navbar-inverse .btn-invite").css("border-color", "rgb(108, 187, 106)");
+        $("#js-rotating").Morphext({
+            animation: "fadeInDown",
+            speed: 8000,
+            complete: function() {
+                console.log("This is called after a pgrase is animated in! Current phrase index: " + this.index);
             }
-          });
-        }
-      });
+        });
     </script>
 
     <!-- Back to top scrolling -->
     <script>
-      $(document).ready(function() {
-        $(window).scroll(function() {
-          if ($(this).scrollTop() > 50) {
-            $("#back-to-top").fadeIn();
-          } else {
-            $("#back-to-top").fadeOut();
-          }
+        $(document).ready(function() {
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $("#back-to-top").fadeIn();
+                } else {
+                    $("#back-to-top").fadeOut();
+                }
+            });
+            // Scroll body to 0px on-click
+            $("#back-to-top").click(function() {
+                $("back-to-top").tooltip("hide");
+                $("body,html").animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+            $("#back-to-top").tooltip("show");
         });
-        // Scroll body to 0px on-click
-        $("#back-to-top").click(function() {
-          $("back-to-top").tooltip("hide");
-          $("body,html").animate({
-            scrollTop: 0
-          }, 800);
-          return false;
-        });
-        $("#back-to-top").tooltip("show");
-      });
     </script>
 
     <!-- Google Analytics -->
     <script>
-      (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-          (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-          m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-75993904-2', 'auto');
-      ga('send', 'pageview');
+        ga('create', 'UA-75993904-2', 'auto');
+        ga('send', 'pageview');
     </script>
-  </body>
+</body>
 
 </html>
