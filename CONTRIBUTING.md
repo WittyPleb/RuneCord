@@ -51,7 +51,6 @@ Before you make your pull request, please ensure you follow these guidelines:
 * Use tabs instead of spaces.
 * Set your tab size to `4`.
 * All PRs **must** pass on [Travis CI](https://travis-ci.org/unlucky4ever/RuneCord).
-* Update the [README](https://github.com/unlucky4ever/RuneCord/blob/master/README.md) if you add any new commands.
 * Please **do not change** the version number or add to [CHANGELOG](https://github.com/unlucky4ever/RuneCord/blob/master/CHANGELOG.md).
 
 For questions please join us in our [Discord Server](https://discord.me/runecord).
