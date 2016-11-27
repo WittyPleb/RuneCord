@@ -9,7 +9,7 @@
     },
     "commandSets": {
         "~": {"dir": "commands/user/"},
-        ")": {"dir": "commands/mod", "color": "green"}
+        ")": {"dir": "commands/mod/", "color": "green"}
     },
     "reloadCommand": "~)reload",
     "evalCommand": "~)eval",
@@ -19,6 +19,7 @@
     "errorMessage": "Uh oh! There was an error processing your request, please report this to my owner!",
     "carbonKey": "",
     "abalBotsKey": "",
+    "cycleGames": true,
     "bannedGuildIds": [],
     "whitelistedGuildIds": []
 }
