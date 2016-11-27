@@ -1,5 +1,5 @@
 {
-    "token": "MTY5NDE5OTgxODc0NzkwNDAx.Cxvrjg.I7Df18Wk8cpwbY0wTDKb99NyVRk",
+    "token": "",
     "shardCount": 1,
     "disableEvents": {
         "VOICE_STATE_UPDATE": true,
