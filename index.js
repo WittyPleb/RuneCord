@@ -109,6 +109,49 @@ function initEvent(name) {
 	}
 }
 
+function miscEvents() {
+	return new Promise(resolve => {
+		if (bot.listeners('error').length === 0) {
+			bot.on('error', (e, id) => {
+				logger.error(`${e}\n${e.stack}`, `SHARD ${id} ERROR`);
+			});
+		}
+		if (bot.listeners('shardReady').length === 0) {
+			bot.on('shardReady', id => {
+				logger.logBold(` SHARD ${id} CONNECTED`, 'green');
+			});
+		}
+		if (bot.listeners('disconnected').length === 0) {
+			bot.on('disconnected', () => {
+				logger.logBold(' DISCONNECTED FROM DISCORD', 'red');
+			});
+		}
+		if (bot.listeners('shardDisconnect').length === 0) {
+			bot.on('shardDisconnect', (e, id) => {
+				logger.error(e, `SHARD ${id} DISCONNECT`);
+			});
+		}
+		if (bot.listeners('shardResume').length === 0) {
+			bot.on('shardResume', id => {
+				logger.logBold(` SHARD ${id} RESUMED`, 'green');
+			});
+		}
+		if (bot.listeners('guildCreate').length === 0) {
+			bot.on('guildCreate', guild => {
+				logger.debug(guild.name, 'GUILD CREATE');
+			});
+		}
+		if (bot.listeners('guildDelete').length === 0) {
+			bot.on('guildDelete', (guild, unavailable) => {
+				if (unavailable === false) {
+					logger.debug(guild.name, 'GUILD REMOVE');
+				}
+			});
+		}
+		return resolve();
+	});
+}
+
 function login() {
 	logger.logBold(`Logging in...`, 'green');
 	bot.connect().catch(error => {
@@ -120,6 +163,7 @@ function login() {
 loadCommandSets()
 	.then(initCommandManagers)
 	.then(loadEvents)
+	.then(miscEvents)
 	.then(login)
 	.catch(error => {
 		logger.error(error, 'ERROR IN INIT');
