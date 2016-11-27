@@ -8,6 +8,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+## [4.0.0 - Unpublished] - No set date yet
+### Added
+- Cooldowns are back, they are set very low, they are to ensure the bot doesn't get overloaded.
+- Sharding - the bot now has shards, which allows it to perform better.
+### Changed
+- Rewrote the bot in the Eris library.
+- Changed how logging works entirely.
+- Changed from using `request` library to using `superagent` library.
+- Made commands use a CommandHandler class.
+    - Commands are now separated in their own individual files.
+<!-- ### Fixed -->
+### Removed
+- Removed `.env` stuff, it's now handled in `config.json`.
+- Removed all DataDog stuff.
+
 ## [3.2.0] - 2016-11-04
 ### Added
 - Added checks for server inactivity every hour.
