@@ -96,7 +96,11 @@ function loadEvents() {
 function initEvent(name) {
 	if (name === 'messageCreate') {
 		bot.on('messageCreate', msg => {
-			events.messageCreate.handler(bot, msg, CommandManagers, config);
+			if (msg.content.startsWith(config.reloadCommand) && config.adminIds.includes(msg.author.id)) {
+				reloadModule(msg);
+			} else {
+				events.messageCreate.handler(bot, msg, CommandManagers, config);
+			}
 		});
 	} else if (name === 'ready') {
 		bot.on('ready', () => {
@@ -168,6 +172,104 @@ loadCommandSets()
 	.catch(error => {
 		logger.error(error, 'ERROR IN INIT');
 	});
+
+function reloadModule(msg) {
+	logger.debug(`${msg.author.username}: ${msg.content}`, 'RELOAD MODULE');
+	let arg = msg.content.substr(config.reloadCommand.length).trim();
+
+	for (let i = 0; i < CommandManagers.length; i++) { // If arg starts with a prefix for a CommandManager reload/load the file
+		if (arg.startsWith(CommandManagers[i].prefix)) {
+			return CommandManagers[i].reload(bot, msg.channel.id, arg.substr(CommandManagers[i].prefix.length), config);
+		}
+	}
+
+	if (arg === 'CommandManagers') {
+		loadCommandSets()
+			.then(initCommandManagers)
+			.then(() => {
+				msg.channel.createMessage(':white_check_mark: Reloaded all commands.').then(sentMsg => {
+					setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+				});
+			}).catch(error => {
+				msg.channel.createMessage(':x: Error, check console.').then(sentMsg => {
+					setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+				});
+				logger.error(error, 'ERROR IN INIT');
+			});
+	} else if (arg.startsWith('utils/')) {
+		fs.access(`${__dirname}/${arg}.js`, fs.R_OK | fs.F_OK, err => {
+			if (err) {
+				msg.channel.createMessage(':x: That file does not exist!').then(sentMsg => {
+					setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+				});
+			} else {
+				switch(arg.replace(/(utils\/|\.js)/g, '')) {
+				case 'CommandManager':
+					CommandManager = reload('./utils/CommandManager.js');
+					msg.channel.createMessage(':white_check_mark: Reloaded utils/CommandManager.js').then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
+					break;
+				case 'utils':
+					utils = reload('./utils/utils.js');
+					msg.channel.createMessage(':white_check_mark: Reloaded utils/utils.js').then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
+					break;
+				case 'validateConfig':
+					validateConfig = reload('./utils/validateConfig.js');
+					msg.channel.createMessage(':white_check_mark: Reloaded utils/validateConfig.js').then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
+					break;
+				case 'Logger':
+					logger = new (reload('./utils/Logger.js'))(config.logTimestamp);
+					msg.channel.createMessage(':white_check_mark: Reloaded utils/Logger.js').then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
+					break;
+				default:
+					msg.channel.createMessage(":x: Can't reload that because it isn't even loaded!").then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
+				}
+			}
+		});
+	} else if (arg.startsWith('events/')) {
+		arg = arg.substr(7);
+		if (events.hasOwnProperty(arg)) {
+			events[arg] = reload(`./events/${arg}.js`);
+			msg.channel.createMessage(`:white_check_mark: Reloaded events/${arg}.js`).then(sentMsg => {
+				setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+			});
+		} else {
+			msg.channel.createMessage(":x: That event isn't even loaded!").then(sentMsg => {
+				setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+			});
+		}
+	} else if (arg.startsWith('special/')) {
+		switch (arg.substr(8)) {
+		case 'games':
+			games = reload('./special/games.json');
+			msg.channel.createMessage(':white_check_mark: Reloaded special/games.json').then(sentMsg => {
+				setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+			});	
+			break;
+		default:
+			msg.channel.createMessage(":x: That file doesn't exist.").then(sentMsg => {
+				setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+			});
+			break;
+		}
+	} else if (arg === 'config') {
+		validateConfig = reload('./utils/validateConfig.js');
+		config = reload('./config.json');
+		validateConfig(config).catch(() => msg.channel.createMessage(':x: Error reloading config, check console... **SHUTTING DOWN**').then(process.exit(0)));
+		msg.channel.createMessage(':white_check_mark: Reloaded config.json').then(sentMsg => {
+			setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+		});
+	}
+}
 
 setInterval(() => { // Update the bot's status for each shard every 10 minutes
 	if (games.length !== 0 && bot.uptime !== 0 && config.cycleGames === true) {
