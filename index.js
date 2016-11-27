@@ -13,6 +13,7 @@ var config = require('./config.json');
 var validateConfig = require('./utils/validateConfig.js');
 var CommandManager = require('./utils/CommandManager.js');
 var utils = require('./utils/utils.js');
+var games = require('./special/games.json');
 
 /* LOCAL VARIABLES */
 var logger;
@@ -99,7 +100,7 @@ function initEvent(name) {
 		});
 	} else if (name === 'ready') {
 		bot.on('ready', () => {
-			events.ready(bot, config, utils);
+			events.ready(bot, config, games, utils);
 		});
 	} else {
 		bot.on(name, function() {
@@ -123,6 +124,15 @@ loadCommandSets()
 	.catch(error => {
 		logger.error(error, 'ERROR IN INIT');
 	});
+
+setInterval(() => { // Update the bot's status for each shard every 10 minutes
+	if (games.length !== 0 && bot.uptime !== 0 && config.cycleGames === true) {
+		bot.shards.forEach(shard => {
+			let name = games[~~(Math.random() * games.length)];
+			shard.editStatus(null, {name});
+		});
+	}
+}, 600000);
 
 /* IF THE PROCESS EXPERIENCES SIGINT, DISCONNECT EVERYTHING AND NEVER TRY TO RECONNECT */
 process.on('SIGINT', () => {
