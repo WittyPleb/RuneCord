@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/unlucky4ever/RuneCord#readme",
   "dependencies": {
+    "dotenv": "2.0.0",
     "eris": "0.5.0"
   }
 }
