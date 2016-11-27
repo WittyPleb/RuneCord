@@ -19,6 +19,7 @@ If you have any feedback or suggestions head over to my server
 For a list of commands do ~help or )help
 
 [ WEBSITE ](https://unlucky4ever.github.io/RuneCord/)
+[ GITHUB  ](https://github.com/unlucky4ever/RuneCord)
 [ SERVER  ](https://discord.me/runecord)
 [ PATREON ](https://www.patreon.com/witty)\`\`\``);
 	}
