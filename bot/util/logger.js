@@ -52,7 +52,7 @@ function stats(site, count) {
 
 function info(msg) {
   if (production) return _submitToLogger(`info`, msg);
-  console.log(logTime, msg);
+  console.log(logTime, chalkConstructor.bold.cyan(`[INFO]`), chalkConstructor.bold.cyan(msg));
 }
 
 function warn(msg) {
