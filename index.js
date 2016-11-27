@@ -34,7 +34,7 @@ setInterval(() => {
 
 /* RUN THIS EVERY 15 SECONDS */
 setInterval(() => {
-  dataDogStats();
+  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDogStats();
 }, 15000);
 
 /* MAKE THE BOT CONNECT TO DISCORD, IF NO TOKEN IS SET, DO NOT ATTEMPT TO CONNECT */
