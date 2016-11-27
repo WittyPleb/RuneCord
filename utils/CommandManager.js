@@ -121,7 +121,9 @@ class CommandManager {
 						clearInterval(sendInOrder);
 					}
 				}, 300);
-			});
+			}).then(bot.createMessage(msg.channel.id, ':thumbsup:').then(sentMsg => {
+				setTimeout(() => { sentMsg.delete(); }, 5000);
+			}));
 		} else {
 			let cmd = this.checkForMatch(command);
 			if (cmd === null) {
