@@ -4,6 +4,7 @@
   "description": "A Discord bot tailored for RuneScape.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "node test.js"
   },
   "repository": {
