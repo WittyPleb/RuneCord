@@ -4,6 +4,39 @@ var reload = require('require-reload');
 var logger = new (reload('./Logger.js'))((reload('../config.json')).logTimestamp);
 
 /**
+ * Update the server count on Carbon.
+ * @arg {String} key The bot's key.
+ * @arg {Number} servercount Server count.
+ */
+exports.updateCarbon = function(key, servercount) {
+	if (!key || !servercount) return;
+	superagent.post('https://www.carbonitex.com/discord/data/botdata.php')
+		.type('application/json')
+		.send({key, servercount})
+		.end(error => {
+			logger.debug('Updated Carbon server count to ' + servercount, 'CARBON UPDATE');
+			if (error) logger.error(error.status || error.response, 'CARBON UPDATE ERROR');
+		});
+}
+
+/**
+ * Update the server count on Abalabahaha's bot list.
+ * @arg {String} key The bot's key.
+ * @arg {Number} server_count Server count.
+ */
+exports.updateAbalBots = function(id, key, server_count) {
+	if (!key || !server_count) return;
+	superagent.post(`https://bots.discord.pw/api/bots/${id}/stats`)
+		.set('Authorization', key)
+		.type('application/json')
+		.send({server_count})
+		.end(error => {
+			logger.debug('Updated bot server count to ' + server_count, 'ABAL BOT LIST UPDATE');
+			if (error) logger.error(error.status || error.response, 'ABAL BOT LIST UPDATE ERROR');
+		});
+}
+
+/**
  * Set the bot's avatar from /avatars/
  * @arg {Eris.Client} bot The client.
  * @arg {String} url The direct url to the image.
