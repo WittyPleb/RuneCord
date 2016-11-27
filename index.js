@@ -32,10 +32,12 @@ setInterval(() => {
   if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send(`inactiveCount`, database.inactive.length);
 }, 3600000);
 
-/* RUN THIS EVERY 15 SECONDS */
-setInterval(() => {
-  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDogStats();
-}, 15000);
+if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) {
+  /* RUN THIS EVERY 15 SECONDS */
+  setInterval(() => {
+    if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDogStats();
+  }, 15000);
+}
 
 /* MAKE THE BOT CONNECT TO DISCORD, IF NO TOKEN IS SET, DO NOT ATTEMPT TO CONNECT */
 function connect() {
