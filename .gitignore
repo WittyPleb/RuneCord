@@ -1,5 +1,6 @@
+# Common Things
 *.log
 node_modules
 .directory
 .env
-bot/data/*.json
+.vscode
