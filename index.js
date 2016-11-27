@@ -5,7 +5,7 @@ if (parseFloat(process.versions.node) < 6) {
 
 /* REQUIRED DEPENDENCIES */
 var reload = require('require-reload')(require);
-//var fs = require('fs');
+var fs = require('fs');
 var Eris = require('eris');
 
 /* REQUIRED FILES */
@@ -14,6 +14,7 @@ var validateConfig = require('./utils/validateConfig.js');
 
 /* LOCAL VARIABLES */
 var logger;
+var events = {};
 
 commandsProcessed = 0;
 
@@ -33,6 +34,41 @@ var bot = new Eris(config.token, {
 	cleanContent: true
 });
 
+function loadEvents() {
+	return new Promise((resolve, reject) => {
+		fs.readdir(__dirname + '/events/', (err, files) => {
+			if (err) reject(`Error reading events directory: ${err}`);
+			else if (!files) reject('No files in directory events/');
+			else {
+				for (let name of files) {
+					if (name.endsWith('.js')) {
+						name = name.replace(/\.js$/, '');
+						try {
+							events[name] = reload(`./events/${name}.js`);
+							initEvent(name);
+						} catch (e) {
+							logger.error(`${e}\n${e.stack}`, 'Error loading ' + name.replace(/\.js$/, ''));
+						}
+					}
+				}
+				resolve();
+			}
+		});
+	});
+}
+
+function initEvent(name) {
+	if (name === 'ready') {
+		bot.on('ready', () => {
+			events.ready(bot, config);
+		});
+	} else {
+		bot.on(name, function() {
+			events[name](bot, config, ...arguments);
+		});
+	}
+}
+
 function login() {
 	logger.logBold(`Logging in...`, 'green');
 	bot.connect().catch(error => {
@@ -40,7 +76,11 @@ function login() {
 	});
 }
 
-login();
+loadEvents()
+	.then(login)
+	.catch(error => {
+		logger.error(error, 'ERROR IN INIT');
+	});
 
 process.on('SIGINT', () => {
 	bot.disconnect({reconnect: false});
