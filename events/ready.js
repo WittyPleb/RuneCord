@@ -7,9 +7,10 @@ var _Logger = require('../utils/Logger.js');
 /* LOCAL VARIALBES */
 var logger;
 
-module.exports = function(bot, config) {
+module.exports = function(bot, config, utils) {
 	if (logger === undefined) {
 		logger = new _Logger(config.logTimestamp);
-		logger.logWithHeader('READY', 'bgGreen', 'black', `Guilds: ${Nf.format(bot.guilds.size)} Users: ${Nf.format(bot.users.size)} AVG: ${Nf.format((bot.users.size / bot.guilds.size).toFixed(2))}`);
 	}
+	utils.checkForUpdates();
+	logger.logWithHeader('READY', 'bgGreen', 'black', `Guilds: ${Nf.format(bot.guilds.size)} Users: ${Nf.format(bot.users.size)} AVG: ${Nf.format((bot.users.size / bot.guilds.size).toFixed(2))}`);
 }
