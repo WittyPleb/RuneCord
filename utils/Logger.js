@@ -86,6 +86,55 @@ class Logger {
 	logWithHeader(headerText, headerBackground, headerColor, text, color) {
 		return console.log(this.timestamp + chalk[headerBackground][headerColor || 'black'](` ${headerText} `), (color ? chalk[color](text) : text));
 	}
+
+	/**
+	 * Command logging utility function.
+	 * @arg {String} [guildName]
+	 * @arg {String} userName
+	 * @arg {String} commandName
+	 * @arg {String} suffix
+	 */
+	logCommand(guildName, userName, commandName, suffix) {
+		if (guildName) {
+			return console.log(this.timestamp + `${chalk.bold.magenta(guildName)} >> ${chalk.bold.green(userName)} > ${this.commandColor === undefined ? commandName : chalk.bold[this.commandColor](commandName)} ${suffix}`);
+		}
+		return console.log(this.timestamp + `${chalk.bold.green(userName)} > ${this.commandColor === undefined ? commandName : chalk.bold[this.commandColor](commandName)} ${suffix}`);
+	}
+
+	/**
+	 * Logs a warning.
+	 * @arg {String} text
+	 * @arg {String} [wText="WARN"] The text to display in the warning header
+	 */
+	warn(text, wText = 'WARN') {
+		return console.log(this.timestamp + `${chalk.bgYellow.black(` ${wText} `)} ${text}`);
+	}
+
+	/**
+	 * Logs an error.
+	 * @arg {String} text
+	 * @arg {String} [eText = "ERROR"] The text to display in the error header.
+	 */
+	error(text, eText = 'ERROR') {
+		return console.log(this.timestamp + `${chalk.bgRed.black(` ${eText} `)} ${text}`);
+	}
+
+	/**
+	 * Logs debug information
+	 * @arg {String} text
+	 * @arg {String} [dText="DEBUG"] The text to display in the debug header.
+	 */
+	debug(text, dText = 'DEBUG') {
+		return console.log(this.timestamp + `${chalk.bgWhite.black(` ${dText} `)} ${text}`);
+	}
+
+	/**
+	 * Check if a color or background color is valid.
+	 * @arg {String} color
+	 */
+	isValidColor(color) {
+		return typeof chalk[color] === 'function';
+	}
 }
 
 module.exports = Logger;

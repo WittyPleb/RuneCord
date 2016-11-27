@@ -5,7 +5,7 @@ if (parseFloat(process.versions.node) < 6) {
 
 /* REQUIRED DEPENDENCIES */
 var reload = require('require-reload')(require);
-var fs = require('fs');
+//var fs = require('fs');
 var Eris = require('eris');
 
 /* REQUIRED FILES */
@@ -16,6 +16,9 @@ var validateConfig = require('./utils/validateConfig.js');
 var logger;
 
 commandsProcessed = 0;
+
+validateConfig(config).catch(() => process.exit(0));
+logger = new (reload('./utils/Logger.js'))(config.logTimestamp);
 
 var bot = new Eris(config.token, {
 	autoReconnect: true,
@@ -28,4 +31,20 @@ var bot = new Eris(config.token, {
 	maxShards: config.shardCount,
 	gatewayVersion: 6,
 	cleanContent: true
+});
+
+function login() {
+	logger.logBold(`Logging in...`, 'green');
+	bot.connect().catch(error => {
+		logger.error(error, 'LOGIN ERROR');
+	});
+}
+
+login();
+
+process.on('SIGINT', () => {
+	bot.disconnect({reconnect: false});
+	setTimeout(() => {
+		process.exit(0);
+	}, 5000);
 });
