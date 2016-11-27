@@ -3,7 +3,7 @@ RuneCord
 [![Discord](https://discordapp.com/api/guilds/168550901836021761/widget.png?style=shield)](https://discord.me/runecord)
 [![Build Status](https://travis-ci.org/unlucky4ever/RuneCord.svg?branch=master)](https://travis-ci.org/unlucky4ever/RuneCord)
 [![Dependencies](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
-[![Donate](https://img.shields.io/badge/paypal-donate-green.svg)](https://paypal.me/unlucky4ever)
+[![Patreaon](https://img.shields.io/badge/patreon-donate-green.svg)](https://patreon.com/witty)
 
 <img src="http://i.imgur.com/TkiKjWM.png" alt="RuneCord Icon" align="right" />
 RuneCord is a bot for [Discord](https://discordapp.com) which allows you to use certain commands to get [RuneScape](http://www.runescape.com/) information easily.
@@ -33,10 +33,6 @@ Before file an issue, please read how to [File an issue](https://github.com/unlu
 
 If you need support with anything that can't be handled in an issue, please join the [Official Discord Server](https://discord.me/runecord).
 
-Public Metrics
---------------
-https://p.datadoghq.com/sb/bfc2f9c4f-0ce9ba9a5b
-
 Development / Contributing
 --------------------------
 See the [Contributing Guide](https://github.com/unlucky4ever/RuneCord/blob/master/CONTRIBUTING.md#development)
@@ -46,3 +42,6 @@ See the [Contributing Guide](https://github.com/unlucky4ever/RuneCord/blob/maste
 
 #### Contributers
 https://github.com/unlucky4ever/RuneCord/graphs/contributors
+
+#### Credits
+* [brussell98](https://github.com/brussell98) - For creating the [Mirai](https://github.com/brussell98/Mirai) bot that RuneCord is based off of.
