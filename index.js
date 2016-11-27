@@ -29,7 +29,6 @@ setInterval(() => {
   pmCooldown = {};
   updateCount(client.guilds.size);
   database.checkGuilds(client);
-  if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) dataDog.send(`inactiveCount`, database.inactive.length);
 }, 3600000);
 
 if (process.env.DATADOG_APIKEY && process.env.DATADOG_APPKEY) {
@@ -155,6 +154,7 @@ function dataDogStats() {
     dataDog.send(`serverCount`, client.guilds.array().length);
     dataDog.send(`userCount`, client.users.array().length);
     dataDog.send(`botUptime`, (client.uptime / 1000));
+    dataDog.send(`inactiveCount`, database.inactive.length);
   }
 }
 
