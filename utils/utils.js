@@ -4,6 +4,28 @@ var reload = require('require-reload');
 var logger = new (reload('./Logger.js'))((reload('../config.json')).logTimestamp);
 
 /**
+ * Set the bot's avatar from /avatars/
+ * @arg {Eris.Client} bot The client.
+ * @arg {String} url The direct url to the image.
+ * @returns {Promise}
+ */
+exports.setAvatar = function(bot, url) {
+	return new Promise((resolve, reject) => {
+		if (bot !== undefined && typeof url === 'string') {
+			superagent.get(url).end((error, response) => {
+				if (!error && response.status === 200) {
+					bot.editSelf({avatar: `data:${response.header['content-type']};base64, ${response.body.toString('base64')}`}).then(resolve).catch(reject);
+				} else {
+					reject('Got status code ' + error.status || error.response);
+				}
+			});
+		} else {
+			reject('Invalid parameters');
+		}
+	});
+}
+
+/**
  * Converts to human readable form
  * @arg {Number} milliseconds Time to format in milliseconds.
  * @returns {String} The formatted time
