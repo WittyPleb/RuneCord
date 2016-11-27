@@ -15,8 +15,7 @@
     "camelcase": 2,
     "dot-notation": 2,
     "comma-spacing": 2,
-    "key-spacing": 2,
-    "quotes": [1, "backtick"]
+    "key-spacing": 2
   },
   "globals": {
     "ServerSettings",
