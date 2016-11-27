@@ -24,7 +24,7 @@
     "indent": ["error", "tab"]
   },
   "globals": {
-    "commandsProcessed"
+    "commandsProcessed": true
   },
   "extends": "eslint:recommended"
 }

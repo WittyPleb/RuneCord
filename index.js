@@ -1,18 +1,31 @@
-require('dotenv').config(); // Required for easy environment variables
-const Eris = require('eris');
+/* REQUIRE NODE 6+ TO EVEN START THE BOT */
+if (parseFloat(process.versions.node) < 6) {
+	throw new Error('Incompatible node version. Please use Node 6 or higher.');
+}
 
-var bot = new Eris(process.env.TOKEN);
+/* REQUIRED DEPENDENCIES */
+var reload = require('require-reload')(require);
+var fs = require('fs');
+var Eris = require('eris');
 
-bot.on('ready', () => {
-    console.log('Ready!'); // Logs when ready
+/* REQUIRED FILES */
+var config = require('./config.json');
+var validateConfig = require('./utils/validateConfig.js');
+
+/* LOCAL VARIABLES */
+var logger;
+
+commandsProcessed = 0;
+
+var bot = new Eris(config.token, {
+	autoReconnect: true,
+	disableEveryone: true,
+	getAllUsers: true,
+	messageLimit: 10,
+	sequencerWait: 100,
+	moreMentions: true,
+	disableEvents: config.disableEvents,
+	maxShards: config.shardCount,
+	gatewayVersion: 6,
+	cleanContent: true
 });
-
-bot.on('messageCreate', (msg) => {
-    if (msg.content === '!ping') {
-        bot.createMessage(msg.channel.id, 'Pong!');
-    } else if (msg.content === '!pong') {
-        bot.createMessage(msg.channel.id, 'Ping!');
-    }
-});
-
-bot.connect(); // Connect the bot

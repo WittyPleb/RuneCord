@@ -1,0 +1,24 @@
+{
+    "token": "MTY5NDE5OTgxODc0NzkwNDAx.Cxvrjg.I7Df18Wk8cpwbY0wTDKb99NyVRk",
+    "shardCount": 1,
+    "disableEvents": {
+        "VOICE_STATE_UPDATE": true,
+        "TYPING_START": true,
+        "MESSAGE_DELETE_BULK": true,
+        "MESSAGE_DELETE": true
+    },
+    "commandSets": {
+        "~": {"dir": "commands/user/"},
+        ")": {"dir": "commands/mod", "color": "green"}
+    },
+    "reloadCommand": "~)reload",
+    "evalCommand": "~)eval",
+    "adminIds": [""],
+    "logTimestamp": false,
+    "inviteLink": "",
+    "errorMessage": "Uh oh! There was an error processing your request, please report this to my owner!",
+    "carbonKey": "",
+    "abalBotsKey": "",
+    "bannedGuildIds": [],
+    "whitelistedGuildIds": []
+}
