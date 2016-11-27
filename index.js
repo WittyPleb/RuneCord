@@ -300,10 +300,8 @@ setInterval(() => { // Update the bot's status for each shard every 10 minutes
 	}
 }, 600000);
 
-/* IF THE PROCESS EXPERIENCES SIGINT, DISCONNECT EVERYTHING AND NEVER TRY TO RECONNECT */
+/* IF THE PROCESS EXPERIENCES SIGINT, DISCONNECT EVERYTHING */
 process.on('SIGINT', () => {
 	bot.disconnect({reconnect: false});
-	setTimeout(() => {
-		process.exit(0);
-	}, 5000);
+	setTimeout(() => { process.exit(0); }, 5000); // Exit procces after 5 seconds.
 });
