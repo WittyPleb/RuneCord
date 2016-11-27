@@ -98,12 +98,14 @@ class Command {
 	execute(bot, msg, suffix, config, logger) {
 		if (this.ownerOnly === true && !config.adminIds.includes(msg.author.id)) { // ownerOnly check
 			return msg.channel.createMessage('Only the owner of this bot can use that command.').then(sentMsg => {
-				setTimeout(() => { msg.delete(); sentMsg.delete() }, 6000); // Delete message 6 seconds later.
+				setTimeout(() => { msg.delete(); sentMsg.delete() }, 6000); // Delete messages 6 seconds later.
 			});
 		}
 
 		if (this.guildOnly === true && msg.channel.guild === undefined) { // guildOnly check
-			return msg.channel.createMessage('This command can only be used in a guild.');
+			return msg.channel.createMessage('This command can only be used in a guild.').then(sentMsg => {
+				setTimeout(() => { msg.delete(); sentMsg.delete() }, 6000); // Delete messages 6 seconds later.
+			});
 		}
 
 		if (this.requiredPermission !== null && !config.adminIds.includes(msg.author.id) && !msg.channel.permissionsOf(msg.author.id).has(this.requiredPermission)) { // requiredPermission check
