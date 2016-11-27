@@ -48,13 +48,10 @@ Please use the template below to file bugs that you find either on your local bo
 If you want to help out and make RuneCord better for everyone, you should fork this repository, make your changes, and then send in a pull request.
 
 Before you make your pull request, please ensure you follow these guidelines:
-* Use spaces instead of tabs.
-* Use only `2` spaces for indentation.
-* Please ensure all tests pass when you do `npm test`.
+* Use tabs instead of spaces.
+* Set your tab size to `4`.
 * All PRs **must** pass on [Travis CI](https://travis-ci.org/unlucky4ever/RuneCord).
 * Update the [README](https://github.com/unlucky4ever/RuneCord/blob/master/README.md) if you add any new commands.
 * Please **do not change** the version number or add to [CHANGELOG](https://github.com/unlucky4ever/RuneCord/blob/master/CHANGELOG.md).
-
-I recommend using Atom as your text editor, and installing the package [editorconfig](https://atom.io/packages/editorconfig) so you don't have to change your global settings for indentation.
 
 For questions please join us in our [Discord Server](https://discord.me/runecord).
