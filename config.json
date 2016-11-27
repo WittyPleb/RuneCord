@@ -19,6 +19,7 @@
     "errorMessage": "Uh oh! There was an error processing your request, please report this to my owner!",
     "carbonKey": "",
     "abalBotsKey": "",
+    "twitterId": "",
     "cycleGames": true,
     "bannedGuildIds": [],
     "whitelistedGuildIds": []
