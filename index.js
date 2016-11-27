@@ -98,6 +98,8 @@ function initEvent(name) {
 		bot.on('messageCreate', msg => {
 			if (msg.content.startsWith(config.reloadCommand) && config.adminIds.includes(msg.author.id)) {
 				reloadModule(msg);
+			} else if (msg.content.startsWith(config.evalCommand) && config.adminIds.includes(msg.author.id)) {
+				evaluate(msg);
 			} else {
 				events.messageCreate.handler(bot, msg, CommandManagers, config);
 			}
@@ -268,6 +270,24 @@ function reloadModule(msg) {
 		msg.channel.createMessage(':white_check_mark: Reloaded config.json').then(sentMsg => {
 			setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
 		});
+	}
+}
+
+function evaluate(msg) {
+	logger.debug(`${msg.author.username}: ${msg.content}`, 'EVAL');
+	let toEval = msg.content.substr(config.evalCommand.length).trim();
+	let result = ':x: Eval Failed :x:';
+
+	try {
+		result = eval(toEval);
+	} catch (error) {
+		logger.debug(error.message, 'EVAL FAILED');
+		msg.channel.createMessage(`\`\`\`diff\n- ${error}\`\`\``); // Send error in chat as well
+	}
+
+	if (result !== ':x: Eval Failed :x:') {
+		logger.debug(result, 'EVAL RESULT');
+		msg.channel.createMessage(`__**Result:**__\n${result}`);
 	}
 }
 
