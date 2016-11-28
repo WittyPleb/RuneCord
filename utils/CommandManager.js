@@ -1,6 +1,8 @@
 /* REQUIRED DEPENDENCIES */
 var reload = require('require-reload')(require);
-var fs = require('fs');
+var fs     = require('fs');
+
+/* REQUIRED FILES */
 var Command = reload('./Command.js');
 var _Logger = reload('./Logger.js');
 

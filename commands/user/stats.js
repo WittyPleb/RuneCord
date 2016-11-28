@@ -2,13 +2,13 @@
 var Nf = new Intl.NumberFormat('en-US');
 
 /* REQUIRED DEPENDENCIES */
-var reload = require('require-reload');
+var reload     = require('require-reload');
 var superagent = require('superagent');
 var asciiTable = require('ascii-table');
 
 /* REQUIRED FILES */
 var config = reload('../../config.json');
-var utils = reload('../../utils/utils.js');
+var utils  = reload('../../utils/utils.js');
 
 /* LOCAL VARIABLES */
 var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);

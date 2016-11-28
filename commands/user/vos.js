@@ -1,5 +1,5 @@
 /* REQUIRED DEPENDENCIES */
-var reload = require('require-reload');
+var reload     = require('require-reload');
 var superagent = require('superagent');
 
 /* REQUIRED FILES */

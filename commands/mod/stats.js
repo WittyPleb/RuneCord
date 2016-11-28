@@ -6,7 +6,7 @@ var reload = require('require-reload');
 
 /* REQUIRED FILES */
 var formatTime = reload('../../utils/utils.js').formatTime;
-var version = reload('../../package.json').version;
+var version    = reload('../../package.json').version;
 
 module.exports = {
 	desc: 'Displays statistics about the bot.',

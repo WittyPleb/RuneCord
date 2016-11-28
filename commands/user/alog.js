@@ -1,7 +1,7 @@
 /* REQUIRED DEPENDENCIES */
-var reload = require('require-reload');
-var entities = require('html-entities').AllHtmlEntities;
-var truncate = require('truncate');
+var reload     = require('require-reload');
+var entities   = require('html-entities').AllHtmlEntities;
+var truncate   = require('truncate');
 var superagent = require('superagent');
 var asciiTable = require('ascii-table');
 

@@ -2,7 +2,7 @@
 var reload = require('require-reload')(require);
 
 /* REQUIRED FILES */
-var utils = reload('./utils.js');
+var utils           = reload('./utils.js');
 var genericSettings = reload('../db/genericSettings.json');
 var commandSettings = reload('../db/commandSettings.json');
 

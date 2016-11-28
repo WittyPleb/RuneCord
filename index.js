@@ -5,16 +5,16 @@ if (parseFloat(process.versions.node) < 6) {
 
 /* REQUIRED DEPENDENCIES */
 var reload = require('require-reload')(require);
-var fs = require('fs');
-var Eris = require('eris');
+var fs     = require('fs');
+var Eris   = require('eris');
 
 /* REQUIRED FILES */
-var config = reload('./config.json');
-var validateConfig = reload('./utils/validateConfig.js');
-var CommandManager = reload('./utils/CommandManager.js');
+var config          = reload('./config.json');
+var validateConfig  = reload('./utils/validateConfig.js');
+var CommandManager  = reload('./utils/CommandManager.js');
 var settingsManager = reload('./utils/settingsManager.js');
-var utils = reload('./utils/utils.js');
-var games = reload('./special/games.json');
+var utils           = reload('./utils/utils.js');
+var games           = reload('./special/games.json');
 
 /* LOCAL VARIABLES */
 var logger;
