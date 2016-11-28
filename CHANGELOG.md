@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Cooldowns are back, they are set very low, they are to ensure the bot doesn't get overloaded.
 - Sharding - the bot now has shards, which allows it to perform better.
+
 ### Changed
 - Rewrote the bot in the Eris library.
 - Changed how logging works entirely.
@@ -21,6 +22,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `~alog` command now truncates text (cuts off) after 40 characters and adds an automatic ellipsis (...).
 - Made `~statues` command have prettier output.
 - Made `)stats` command have prettier output.
+
 <!-- ### Fixed -->
 ### Removed
 - Removed `.env` stuff, it's now handled in `config.json`.
