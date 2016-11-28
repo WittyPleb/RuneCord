@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Cooldowns are back, they are set very low, they are to ensure the bot doesn't get overloaded.
 - Sharding - the bot now has shards, which allows it to perform better.
+- Random games for the bot to play.
 
 ### Changed
 - Rewrote the bot in the Eris library.
