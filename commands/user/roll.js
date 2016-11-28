@@ -6,8 +6,10 @@ module.exports = {
 	cooldown: 2,
 	aliases: ['random'],
 	task(bot, msg, suffix) {
+		if (!suffix) return 'wrong usage';
 		let args = suffix.match(/(?:(\d+)-)?(\d+)/);
-		if (args[1] || args[2] >= Number.MAX_SAFE_INTEGER) {
+		if (!parseInt(args[1]) || !parseInt(args[2])) return 'wrong usage';
+		if (args[1] >= Number.MAX_SAFE_INTEGER || args[2] >= Number.MAX_SAFE_INTEGER) {
 			bot.createMessage(msg.channel.id, 'That number is too big for me to process, please use a smaller number.');
 			return;
 		}
