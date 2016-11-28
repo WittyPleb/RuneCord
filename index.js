@@ -12,6 +12,7 @@ var Eris = require('eris');
 var config = require('./config.json');
 var validateConfig = require('./utils/validateConfig.js');
 var CommandManager = require('./utils/CommandManager.js');
+var settingsManager = reload('./utils/settingsManager.js');
 var utils = require('./utils/utils.js');
 var games = require('./special/games.json');
 
@@ -55,7 +56,7 @@ function loadCommandSets() {
 
 function initCommandManagers(index = 0) {
 	return new Promise((resolve, reject) => {
-		CommandManagers[index].initialize(bot, config)
+		CommandManagers[index].initialize(bot, config, settingsManager)
 			.then(() => {
 				logger.debug(`Loaded CommandManager ${index}`, 'INIT');
 				index++;
@@ -101,7 +102,7 @@ function initEvent(name) {
 			} else if (msg.content.startsWith(config.evalCommand) && config.adminIds.includes(msg.author.id)) {
 				evaluate(msg);
 			} else {
-				events.messageCreate.handler(bot, msg, CommandManagers, config);
+				events.messageCreate.handler(bot, msg, CommandManagers, config, settingsManager);
 			}
 		});
 	} else if (name === 'ready') {
@@ -110,7 +111,7 @@ function initEvent(name) {
 		});
 	} else {
 		bot.on(name, function() {
-			events[name](bot, config, ...arguments);
+			events[name](bot, settingsManager, config, ...arguments);
 		});
 	}
 }
@@ -181,7 +182,7 @@ function reloadModule(msg) {
 
 	for (let i = 0; i < CommandManagers.length; i++) { // If arg starts with a prefix for a CommandManager reload/load the file
 		if (arg.startsWith(CommandManagers[i].prefix)) {
-			return CommandManagers[i].reload(bot, msg.channel.id, arg.substr(CommandManagers[i].prefix.length), config);
+			return CommandManagers[i].reload(bot, msg.channel.id, arg.substr(CommandManagers[i].prefix.length), settingsManager, config);
 		}
 	}
 
@@ -212,6 +213,14 @@ function reloadModule(msg) {
 						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
 					});
 					break;
+				case 'settingsManager':
+					let tempCommandList = settingsManager.commandList;
+					settingsManager.destroy();
+					settingsManager = reload('./utils/settingsManager.js');
+					settingsManager.commandList = tempCommandList;
+					msg.channel.createMessage(':white_check_mark: Reloaded utils/settingsManager.js').then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
 				case 'utils':
 					utils = reload('./utils/utils.js');
 					msg.channel.createMessage(':white_check_mark: Reloaded utils/utils.js').then(sentMsg => {
@@ -319,5 +328,6 @@ setInterval(() => { // Update the bot's status for each shard every 10 minutes
 /* IF THE PROCESS EXPERIENCES SIGINT, DISCONNECT EVERYTHING */
 process.on('SIGINT', () => {
 	bot.disconnect({reconnect: false});
+	settingsManager.handleShutdown().then(() => process.exit(0));
 	setTimeout(() => { process.exit(0); }, 5000); // Exit procces after 5 seconds.
 });
