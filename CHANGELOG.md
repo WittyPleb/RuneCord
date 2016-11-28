@@ -18,6 +18,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Changed from using `request` library to using `superagent` library.
 - Made commands use a CommandHandler class.
     - Commands are now separated in their own individual files.
+- `~alog` command now truncates text (cuts off) after 40 characters and adds an automatic ellipsis (...).
+- Made `~statues` command have prettier output.
+- Made `)stats` command have prettier output.
 <!-- ### Fixed -->
 ### Removed
 - Removed `.env` stuff, it's now handled in `config.json`.
