@@ -182,7 +182,7 @@ function reloadModule(msg) {
 
 	for (let i = 0; i < CommandManagers.length; i++) { // If arg starts with a prefix for a CommandManager reload/load the file
 		if (arg.startsWith(CommandManagers[i].prefix)) {
-			return CommandManagers[i].reload(bot, msg.channel.id, arg.substr(CommandManagers[i].prefix.length), settingsManager, config);
+			return CommandManagers[i].reload(bot, msg.channel.id, arg.substr(CommandManagers[i].prefix.length), config, settingsManager);
 		}
 	}
 
@@ -213,7 +213,7 @@ function reloadModule(msg) {
 						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
 					});
 					break;
-				case 'settingsManager':
+				case 'settingsManager': {
 					let tempCommandList = settingsManager.commandList;
 					settingsManager.destroy();
 					settingsManager = reload('./utils/settingsManager.js');
@@ -221,6 +221,8 @@ function reloadModule(msg) {
 					msg.channel.createMessage(':white_check_mark: Reloaded utils/settingsManager.js').then(sentMsg => {
 						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
 					});
+					break;
+				}
 				case 'utils':
 					utils = reload('./utils/utils.js');
 					msg.channel.createMessage(':white_check_mark: Reloaded utils/utils.js').then(sentMsg => {
@@ -264,7 +266,7 @@ function reloadModule(msg) {
 			games = reload('./special/games.json');
 			msg.channel.createMessage(':white_check_mark: Reloaded special/games.json').then(sentMsg => {
 				setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
-			});	
+			});
 			break;
 		default:
 			msg.channel.createMessage(":x: That file doesn't exist.").then(sentMsg => {

@@ -94,8 +94,9 @@ class Command {
 	 * @arg {Eris.Message} msg The message that triggered it.
 	 * @arg {String} suffix The text after the command (args).
 	 * @arg {Object} config The config Object.
+	 * @arg {settingsManager} settingsManager
 	 */
-	execute(bot, msg, suffix, config, logger) {
+	execute(bot, msg, suffix, config, settingsManager, logger) {
 		if (this.ownerOnly === true && !config.adminIds.includes(msg.author.id)) { // ownerOnly check
 			return msg.channel.createMessage('Only the owner of this bot can use that command.').then(sentMsg => {
 				setTimeout(() => { msg.delete(); sentMsg.delete() }, 6000); // Delete messages 6 seconds later.
@@ -124,7 +125,7 @@ class Command {
 		this.timesUsed++;
 		commandsProcessed++;
 		try {
-			result = this.task(bot, msg, suffix, config); // Run the command.
+			result = this.task(bot, msg, suffix, config, settingsManager); // Run the command.
 		} catch (err) {
 			logger.error(`${err}\n${err.stack}`, 'COMMAND EXECUTION ERROR');
 			if (config.errorMessage) {
