@@ -76,6 +76,46 @@ exports.formatTime = function(milliseconds) {
 	return `${days} days, ${hours} hours, ${minutes} minutes, and ${seconds} seconds`;
 }
 
+/**
+ * Gets the name of a skill based on an ID.
+ * @arg {Number} id Skill ID.
+ * @returns {String} The skill name.
+ */
+exports.getSkillName = function(id) {
+	let skillNames = [
+		'Overall',
+		'Attack',
+		'Defence',
+		'Strength',
+		'Constitution',
+		'Ranged',
+		'Prayer',
+		'Magic',
+		'Cooking',
+		'Woodcutting',
+		'Fletching',
+		'Fishing',
+		'Firemaking',
+		'Crafting',
+		'Smithing',
+		'Mining',
+		'Herblore',
+		'Agility',
+		'Thieving',
+		'Slayer',
+		'Farming',
+		'Runecrafting',
+		'Hunter',
+		'Construction',
+		'Summoning',
+		'Dungeoneering',
+		'Divination',
+		'Invention'
+	];
+
+	return skillNames[id];
+}
+
 /** Check for a newer version of RuneCord */
 exports.checkForUpdates = function() {
 	let version = ~~(require('../package.json').version.split('.').join('')); // This is used to convert the number that can be compared.
