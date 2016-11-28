@@ -1,5 +1,6 @@
 module.exports = {
 	desc: 'Tells you if there is a raven in Prifddinas.',
+	cooldown: 5,
 	task(bot, msg) {
 		let spawned = false;
 		let daysUntilNext = 0;

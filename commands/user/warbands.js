@@ -1,6 +1,6 @@
 module.exports = {
 	desc: 'Tells you when the next Warbands will be.',
-	cooldown: 2,
+	cooldown: 5,
 	aliases: ['wbs'],
 	task(bot, msg) {
 		let d = new Date();

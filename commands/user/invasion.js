@@ -2,6 +2,7 @@ var Nf = new Intl.NumberFormat('en-US');
 
 module.exports = {
 	desc: 'Tells you how much XP you\'d gain from a fully completed Troll Invasion D&D',
+	cooldown: 5,
 	aliases: ['troll', 'trollinvasion'],
 	usage: '<level>',
 	task(bot, msg, suffix) {

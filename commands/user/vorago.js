@@ -9,6 +9,7 @@ const ROTATIONS = [
 
 module.exports = {
 	desc: 'Tells you the current rotation for Vorago.',
+	cooldown: 5,
 	aliases: ['rago'],
 	task(bot, msg) {
 		let dateNow = Date.now() / 1000;

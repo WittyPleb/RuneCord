@@ -1,5 +1,6 @@
 module.exports = {
 	desc: 'Tells you when the next Guthixian Cache will be.',
+	cooldown: 5,
 	task(bot, msg) {
 		let d = new Date();
 

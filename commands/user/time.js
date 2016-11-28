@@ -1,5 +1,6 @@
 module.exports = {
 	desc: 'Tells you the current in-game time.',
+	cooldown: 5,
 	aliases: ['gametime'],
 	task(bot, msg) {
 		function addZero(i) {

@@ -30,6 +30,7 @@ const MINIGAMES = [
 
 module.exports = {
 	desc: 'Tells you what minigame is currently on spotlight.',
+	cooldown: 5,
 	task(bot, msg) {
 		let currentSpotlight = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * MINIGAMES.length)) / 3);
 		let daysUntilNext = 3 - ((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) - 49) % (3 * MINIGAMES.length) % 3;

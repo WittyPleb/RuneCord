@@ -5,6 +5,7 @@ var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
 
 module.exports = {
 	desc: 'Tells you what the current Voice of Seren is.',
+	cooldown: 10,
 	aliases: ['voice'],
 	task(bot, msg) {
 		superagent.get(`https://cdn.syndication.twimg.com/widgets/timelines/${config.twitterId}?&lang=en&supress_response_codes=true&rnd=${Math.random()}`)

@@ -32,6 +32,7 @@ const ROTATIONS = [
 
 module.exports = {
 	desc: 'Tells you what the current Rise of the Six rotation is.',
+	cooldown: 5,
 	task(bot, msg) {
 		let currentRotation = (Math.floor((Date.now() / 1000) / (24 * 60 * 60)) % 20);
 

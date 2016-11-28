@@ -6,6 +6,7 @@ const ROTATIONS = [
 
 module.exports = {
 	desc: 'Tells you the current rotation for Araxxor/Araxxi.',
+	cooldown: 5,
 	aliases: ['rax', 'spooder', 'araxxor'],
 	task(bot, msg) {
 		let currentRotation = Math.floor((((Math.floor(Math.floor(Date.now() / 1000) / (24 * 60 * 60))) + 3) % (4 * ROTATIONS.length)) / 4);

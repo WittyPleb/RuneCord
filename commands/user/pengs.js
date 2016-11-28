@@ -2,7 +2,7 @@ var Nf = new Intl.NumberFormat('en-US');
 
 module.exports = {
 	desc: 'Tells you how much XP you\'d get or GP you\'d get from penguins.',
-	cooldown: 2,
+	cooldown: 5,
 	usage: '<points> [level]',
 	task(bot, msg, suffix) {
 		if (!suffix) return 'wrong usage';

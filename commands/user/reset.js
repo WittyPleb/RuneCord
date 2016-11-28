@@ -1,5 +1,6 @@
 module.exports = {
 	desc: 'Tells you when the game will reset.',
+	cooldown: 5,
 	task(bot, msg) {
 		let resetTime = new Date().setUTCHours(24, 0, 0, 0) - Date.now();
 		let hours = Math.floor(resetTime / 1000 / 60 / 60);

@@ -1,5 +1,6 @@
 module.exports = {
 	desc: 'Tells you when the next Sinkhole D&D will be.',
+	cooldown: 5,
 	task(bot, msg) {
 		let d = new Date();
 		let secondsUntil = 3600 - (d.getUTCMinutes() + 30) % 60 * 60 - d.getUTCSeconds();

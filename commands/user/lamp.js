@@ -5,7 +5,7 @@ var Nf = new Intl.NumberFormat('en-US');
 module.exports = {
 	desc: 'Tells you how much XP you\'d gain from a specific sized lamp.',
 	usage: '<small|med|large|huge> <level>',
-	cooldown: 2,
+	cooldown: 5,
 	aliases: ['xplamp'],
 	task(bot, msg, suffix) {
 		if (!suffix) return 'wrong usage';

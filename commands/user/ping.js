@@ -13,7 +13,7 @@ module.exports = {
 	desc: 'Responds with pong',
 	help: 'Used to check if the bot is working.\nReplies with "pong" and the response delay.',
 	aliases: ['p'],
-	cooldown: 2,
+	cooldown: 5,
 	task(bot, msg) {
 		let choice = ~~(Math.random() * RESPONSES.length);
 		bot.createMessage(msg.channel.id, RESPONSES[choice]).then(sentMsg => {

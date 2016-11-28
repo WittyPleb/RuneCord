@@ -15,6 +15,7 @@ const LOCATIONS = [
 
 module.exports = {
 	desc: 'Tells you where the Circus is located.',
+	cooldown: 5,
 	task(bot, msg) {
 		let currentLocation = Math.floor((((Math.floor((Date.now() / 1000) / (24 * 60 * 60))) + 1) % (7 * LOCATIONS.length)) / 7);
 		let dateNow = Date.now() / 1000;

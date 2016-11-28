@@ -3,7 +3,7 @@ var Nf = new Intl.NumberFormat('en-US');
 module.exports = {
 	desc: 'Roll a number between the given range.',
 	usage: '[[min-]max]',
-	cooldown: 2,
+	cooldown: 5,
 	aliases: ['random'],
 	task(bot, msg, suffix) {
 		if (!suffix) return 'wrong usage';
