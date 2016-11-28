@@ -1,3 +1,4 @@
+/* SET THE NUMBER FORMAT FOR THE ENTIRE FILE */
 var Nf = new Intl.NumberFormat('en-US');
 
 module.exports = {

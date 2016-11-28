@@ -1,7 +1,9 @@
+/* REQUIRED DEPENDENCIES */
 var superagent = require('superagent');
 var reload = require('require-reload');
 var fs = require('fs');
 
+/* LOCAL VARIABLES */
 var logger = new (reload('./Logger.js'))((reload('../config.json')).logTimestamp);
 
 /**

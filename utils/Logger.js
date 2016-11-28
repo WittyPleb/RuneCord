@@ -1,5 +1,7 @@
+/* REQUIRED DEPENDENCIES */
 var _chalk = require('chalk');
 
+/* LOCAL VARIABLES */
 var chalk = new _chalk.constructor({
 	enabled: true
 });

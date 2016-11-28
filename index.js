@@ -9,12 +9,12 @@ var fs = require('fs');
 var Eris = require('eris');
 
 /* REQUIRED FILES */
-var config = require('./config.json');
-var validateConfig = require('./utils/validateConfig.js');
-var CommandManager = require('./utils/CommandManager.js');
+var config = reload('./config.json');
+var validateConfig = reload('./utils/validateConfig.js');
+var CommandManager = reload('./utils/CommandManager.js');
 var settingsManager = reload('./utils/settingsManager.js');
-var utils = require('./utils/utils.js');
-var games = require('./special/games.json');
+var utils = reload('./utils/utils.js');
+var games = reload('./special/games.json');
 
 /* LOCAL VARIABLES */
 var logger;

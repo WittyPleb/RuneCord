@@ -1,10 +1,13 @@
+/* REQUIRED DEPENDENCIES */
 var reload = require('require-reload');
-var superagent = reload('superagent');
-var config = require('../../config.json');
-var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
-var asciiTable = reload('ascii-table');
 var entities = require('html-entities').AllHtmlEntities;
 var truncate = require('truncate');
+var superagent = require('superagent');
+var asciiTable = require('ascii-table');
+
+/* REQUIRED FILES */
+var config = reload('../../config.json');
+var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
 
 module.exports = {
 	desc: 'Gets the last 5 entries of a user\'s adventurer\'s log.',

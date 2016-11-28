@@ -1,6 +1,11 @@
-var superagent = require('superagent');
+/* REQUIRED DEPENDENCIES */
 var reload = require('require-reload');
-var config = require('../../config.json');
+var superagent = require('superagent');
+
+/* REQUIRED FILES */
+var config = reload('../../config.json');
+
+/* LOCAL VARIABLES */
 var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
 
 module.exports = {

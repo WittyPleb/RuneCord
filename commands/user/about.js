@@ -1,3 +1,4 @@
+/* REQUIRED FILES */
 const libVersion = require('../../node_modules/eris/package.json').version;
 const botVersion = require('../../package.json').version;
 

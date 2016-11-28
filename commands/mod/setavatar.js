@@ -1,4 +1,7 @@
+/* REQUIRED DEPENDENCIES */
 var reload = require('require-reload');
+
+/* REQUIRED FILES */
 var setAvatar = reload('../../utils/utils.js').setAvatar;
 
 module.exports = {

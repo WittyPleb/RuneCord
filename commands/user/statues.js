@@ -1,9 +1,16 @@
-var superagent = require('superagent');
-var reload = require('require-reload');
-var config = require('../../config.json');
-var utils = require('../../utils/utils.js');
-var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
+/* SET THE NUMBER FORMAT FOR THE ENTIRE FILE */
 var Nf = new Intl.NumberFormat('en-US');
+
+/* REQUIRED DEPENDENCIES */
+var reload = require('require-reload');
+var superagent = require('superagent');
+
+/* REQUIRED FILES */
+var config = reload('../../config.json');
+var utils = reload('../../utils/utils.js');
+
+/* LOCAL VARIABLES */
+var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
 
 module.exports = {
 	desc: 'Tells you much XP you\'d gain in various skills from god statues.',

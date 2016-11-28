@@ -1,6 +1,11 @@
-var reload = require('require-reload');
-var utils = reload('../../utils/utils.js');
+/* SET THE NUMBER FORMAT FOR THE ENTIRE FILE */
 var Nf = new Intl.NumberFormat('en-US');
+
+/* REQUIRED DEPENDENCIES */
+var reload = require('require-reload');
+
+/* REQUIRED FILES */
+var utils = reload('../../utils/utils.js');
 
 module.exports = {
 	desc: 'Tells you how much XP you\'d gain from a specific sized lamp.',

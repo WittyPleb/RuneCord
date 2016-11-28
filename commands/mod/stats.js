@@ -1,6 +1,12 @@
-var formatTime = require('../../utils/utils.js').formatTime;
-var version = require('../../package.json').version;
+/* SET THE NUMBER FORMAT FOR THE ENTIRE FILE */
 var Nf = new Intl.NumberFormat('en-US');
+
+/* REQUIRED DEPENDENCIES */
+var reload = require('require-reload');
+
+/* REQUIRED FILES */
+var formatTime = reload('../../utils/utils.js').formatTime;
+var version = reload('../../package.json').version;
 
 module.exports = {
 	desc: 'Displays statistics about the bot.',

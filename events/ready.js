@@ -1,8 +1,11 @@
 /* SET THE NUMBER FORMAT FOR THE ENTIRE FILE */
 var Nf = new Intl.NumberFormat('en-US');
 
+/* REQUIRED DEPENDENCIES */
+var reload = require('require-reload');
+
 /* REQUIRED FILES */
-var _Logger = require('../utils/Logger.js');
+var _Logger = reload('../utils/Logger.js');
 
 /* LOCAL VARIALBES */
 var logger;

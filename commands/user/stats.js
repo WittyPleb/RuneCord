@@ -1,10 +1,17 @@
-var superagent = require('superagent');
-var reload = require('require-reload');
-var config = require('../../config.json');
-var utils = require('../../utils/utils.js');
-var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
-var asciiTable = require('ascii-table');
+/* SET THE NUMBER FORMAT FOR THE ENTIRE FILE */
 var Nf = new Intl.NumberFormat('en-US');
+
+/* REQUIRED DEPENDENCIES */
+var reload = require('require-reload');
+var superagent = require('superagent');
+var asciiTable = require('ascii-table');
+
+/* REQUIRED FILES */
+var config = reload('../../config.json');
+var utils = reload('../../utils/utils.js');
+
+/* LOCAL VARIABLES */
+var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
 
 module.exports = {
 	desc: 'Displays the stats for the username supplied.',
