@@ -248,6 +248,99 @@ function addIgnoreForGuild(guildId, command) {
 }
 
 /**
+ * Remove an ignore setting for a guild.
+ * @arg {String} guildId The guild to apply the setting change for.
+ * @arg {String} command The command to unignore including prefix. Use "all" as the command to unignore all.
+ * @returns {Promise<Boolean>} Resolves when done containing a boolean indicating if a setting was changed.
+ */
+function removeIgnoreForGuild(guildId, command) {
+	return new Promise((resolve, reject) => {
+		if (!command || !guildId) {
+			return reject('Invalid arguments');
+		}
+		if (!commandSettingExistsFor(guildId, 'guildIgnores')) {
+			return resolve(false);
+		}
+
+		let prefix = Object.keys(commandList).find(p => command.startsWith(p));
+		command = command.replace(prefix, '');
+
+		if (command === 'all') {
+			if (prefix === undefined && commandSettings[guildId].guildIgnores.length !== 0) {
+				delete commandSettings[guildId].guildIgnores;
+				removeIfEmpty(commandSettings, guildId, updateCommand);
+			} else if (commandSettings[guildId].guildIgnores.length !== 0) {
+				if (commandSettings[guildId].guildIgnores.includes('all')) {
+					commandSettings[guildId].guildIgnores = [];
+					for (let p in commandList) {
+						if (p !== prefix && commandList.hasOwnProperty(p)) {
+							commandSettings[guildId].guildIgnores.push(p + 'all');
+						}
+					}
+					removeIfEmptyArray(commandSettings[guildId], 'guildIgnores');
+					removeIfEmpty(commandSettings, guildId);
+				} else if(commandSettings[guildId].guildIgnores.includes(prefix + 'all')) {
+					commandSettings[guildId].guildIgnores.splice(commandSettings[guildId].guildIgnores.indexOf(prefix + 'all'), 1);
+					if (commandSettings[guildId].guildIgnores.length === 0) {
+						delete commandSettings[guildId].guildIgnores;
+						removeIfEmpty(commandSettings, guildId);
+					}
+				} else {
+					for (let i = 0; i < commandSettings[guildId].guildIgnores.length; i++) {
+						if (commandSettings[guildId].guildIgnores.startsWith(prefix)) {
+							commandSettings[guildId].guildIgnores.splice(i, 1);
+						}
+					}
+					if (commandSettings[guildId].guildIgnores.length === 0) {
+						delete commandSettings[guildId].guildIgnores;
+						removeIfEmpty(commandSettings, guildId);
+					}
+				}
+			} else {
+				return resolve(false);
+			}
+			updateCommand = true;
+			return resolve(true);
+		} else if (prefix !== undefined && commandList.hasOwnProperty(prefix) && commandList[prefix].includes(command)) {
+			if (commandSettings[guildId].guildIgnores.includes('all')) {
+				commandSettings[guildId].guildIgnores = [];
+				for (let p in commandList) {
+					if (commandList.hasOwnProperty(p)) {
+						if (p === prefix) {
+							for (let c of commandList[p]) {
+								if (c !== command) {
+									commandSettings[guildId].guildIgnores.push(p + c);
+								}
+							}
+						} else {
+							commandSettings[guildId].guildIgnores.push(p + 'all');
+						}
+					}
+				}
+			} else if (commandSettings[guildId].guildIgnores.includes(prefix + 'all')) {
+				commandSettings[guildId].guildIgnores.splice(commandSettings[guildId].guildIgnores.indexOf(prefix + 'all'), 1);
+				for (let c of commandList[prefix]) {
+					if (c !==  command) {
+						commandSettings[guildId].guildIgnores.push(prefix + c);
+					}
+				}
+			} else if (commandSettings[guildId].guildIgnores.includes(prefix + command)) {
+				commandSettings[guildId].guildIgnores.splice(commandSettings[guildId].guildIgnores.indexOf(prefix + command), 1);
+				if (commandSettings[guildId].guildIgnores.length === 0) {
+					delete commandSettings[guildId].guildIgnores;
+					removeIfEmpty(commandSettings, guildId);
+				}
+			} else {
+				return resolve(false);
+			}
+			updateCommand = true;
+			return resolve(true);
+		}
+		resolve(false);
+	});
+}
+
+/**
  * Check if a command is ignored.
  * @arg {String} prefix The command's prefix.
  * @arg {String} command The name of the command including prefix.
@@ -326,6 +419,7 @@ module.exports = {
 	addIgnoreForUserOrChannel,
 	removeIgnoreForUserOrChannel,
 	addIgnoreForGuild,
+	removeIgnoreForGuild,
 	isCommandIgnored,
 	checkIgnoresFor
 };
