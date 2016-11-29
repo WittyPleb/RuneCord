@@ -25,5 +25,10 @@
     "require-reload": "0.2.2",
     "superagent": "3.0.0",
     "truncate": "2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "jsdoc-parse": "2.0.5",
+    "minami": "1.1.1"
   }
 }
