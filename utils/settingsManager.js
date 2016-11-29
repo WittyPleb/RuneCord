@@ -104,34 +104,6 @@ function addIgnoreForUserOrChannel(guildId, type, id, command) {
 }
 
 /**
- * Check if a command is ignored.
- * @arg {String} prefix The command's prefix.
- * @arg {String} command The name of the command including prefix.
- * @arg {String} guildId The guild to check for.
- * @arg {String} channelId The channel to check for.
- * @arg {String} userId The user to check for.
- * @returns {Boolean} If the command is ignored.
- */
-function isCommandIgnored(prefix, command, guildId, channelId, userId) {
-	if (!command || !guildId || !channelId || !userId) {
-		return false;
-	}
-	if (!commandSettings.hasOwnProperty(guildId)) {
-		return false;
-	}
-	if (commandSettings[guildId].hasOwnProperty('guildIgnores') && (commandSettings[guildId].guildIgnores[0] === 'all' || commandSettings[guildId].guildIgnores(prefix + 'all') || commandSettings[guildId].guildIgnores.includes(prefix + command))) {
-		return true;
-	}
-	if (commandSettings[guildId].hasOwnProperty('channelIgnores') && commandSettings[guildId].channelIgnores.hasOwnProperty(channelId) && (commandSettings[guildId].channelIgnores[channelId][0] === 'all' || commandSettings[guildId].channelIgnores[channelId].includes(prefix + 'all') || commandSettings[guildId].channelIgnores[channelId].includes(prefix + command))) {
-		return true;
-	}
-	if (commandSettings[guildId].hasOwnProperty('userIgnores') && commandSettings[guildId].userIgnores.hasOwnProperty(userId) && (commandSettings[guildId].userIgnores[userId][0] === 'all' || commandSettings[guildId].userIgnores[userId].includes(prefix + 'all') || commandSettings[guildId].userIgnores[userId].includes(prefix + command))) {
-		return true;
-	}
-	return false;
-}
-
-/**
  * Add an ignore setting for a guild.
  * @arg {String} guildId The guild to apply the setting change for.
  * @arg {String} command The command to ignore including prefix. Use "all" as the command to ignore all.
@@ -180,6 +152,34 @@ function addIgnoreForGuild(guildId, command) {
 		removeIfEmpty(commandSettings, guildId, updateCommand);
 		resolve(false);
 	});
+}
+
+/**
+ * Check if a command is ignored.
+ * @arg {String} prefix The command's prefix.
+ * @arg {String} command The name of the command including prefix.
+ * @arg {String} guildId The guild to check for.
+ * @arg {String} channelId The channel to check for.
+ * @arg {String} userId The user to check for.
+ * @returns {Boolean} If the command is ignored.
+ */
+function isCommandIgnored(prefix, command, guildId, channelId, userId) {
+	if (!command || !guildId || !channelId || !userId) {
+		return false;
+	}
+	if (!commandSettings.hasOwnProperty(guildId)) {
+		return false;
+	}
+	if (commandSettings[guildId].hasOwnProperty('guildIgnores') && (commandSettings[guildId].guildIgnores[0] === 'all' || commandSettings[guildId].guildIgnores(prefix + 'all') || commandSettings[guildId].guildIgnores.includes(prefix + command))) {
+		return true;
+	}
+	if (commandSettings[guildId].hasOwnProperty('channelIgnores') && commandSettings[guildId].channelIgnores.hasOwnProperty(channelId) && (commandSettings[guildId].channelIgnores[channelId][0] === 'all' || commandSettings[guildId].channelIgnores[channelId].includes(prefix + 'all') || commandSettings[guildId].channelIgnores[channelId].includes(prefix + command))) {
+		return true;
+	}
+	if (commandSettings[guildId].hasOwnProperty('userIgnores') && commandSettings[guildId].userIgnores.hasOwnProperty(userId) && (commandSettings[guildId].userIgnores[userId][0] === 'all' || commandSettings[guildId].userIgnores[userId].includes(prefix + 'all') || commandSettings[guildId].userIgnores[userId].includes(prefix + command))) {
+		return true;
+	}
+	return false;
 }
 
 /**
