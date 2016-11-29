@@ -7,6 +7,11 @@ var fs         = require('fs');
 var logger = new (reload('./Logger.js'))((reload('../config.json')).logTimestamp);
 
 /**
+ * Contains various functions.
+ * @module utils
+ */
+
+/**
  * Save a file safely, preventing it from being cleared.
  * @arg {String} dir Path from root folder including filename. (EX: db/servers)
  * @arg {String} ext File extension.
