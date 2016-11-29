@@ -23,6 +23,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `~alog` command now truncates text (cuts off) after 40 characters and adds an automatic ellipsis (...).
 - Made `~statues` command have prettier output.
 - Made `)stats` command have prettier output.
+- Changed how `)settings` works, see [Documentation](https://unlucky4ever.github.io/RuneCord/) for more information.
+    - You can now ignore each individual command as you wish.
+        - You can ignore the command for a specific user, a specific channel, or the entire server.
 
 <!-- ### Fixed -->
 ### Removed
