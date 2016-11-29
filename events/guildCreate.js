@@ -16,6 +16,6 @@ module.exports = function(bot, _settingsManager, config, guild) {
 		logger.logWithHeader('LEFT BANNED GUILD', 'bgRed', 'black', guild.name);
 		guild.leave();
 	} else {
-		guild.defaultChannel.createMessage(':wave: Hello!\nYou can find my commands at https://unlucky4ever.github.io/RuneCord/commands.html or by doing `~help` and `)help`\nYou can get more information about me by doing ~about');
+		//guild.defaultChannel.createMessage(':wave: Hello!\nYou can find my commands at https://unlucky4ever.github.io/RuneCord/commands.html or by doing `~help` and `)help`\nYou can get more information about me by doing ~about');
 	}
 }
