@@ -6,21 +6,22 @@
     <meta name="author" content="Witty">
     <meta name="description" content="RuneCord is a bot tailored for RuneScape.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RuneCord - Home</title>
+    <title>RuneCord - Settings</title>
 
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/e017955fa3.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/master.css">
+    <style>code{font-size:14px;}.tile .title{text-align:center;}</style>
 </head>
 
 <body>
-    <section class="hero is-medium is-bold is-success">
+    <section class="hero is-medium is-bold is-danger">
         <div class="hero-head">
             <header class="nav has-shadow">
                 <div class="container">
                     <div class="nav-left">
-                        <a class="nav-item nav-name">RuneCord</a>
+                        <a href="index.html" class="nav-item nav-name">RuneCord</a>
                     </div>
                     <span class="nav-toggle">
                         <span></span>
@@ -28,9 +29,9 @@
                         <span></span>
                     </span>
                     <div class="nav-right nav-menu">
-                        <a class="nav-item is-active">Home</a>
+                        <a href="index.html" class="nav-item">Home</a>
                         <a href="commands.html" class="nav-item">Commands</a>
-                        <a href="settings.html" class="nav-item">Settings</a>
+                        <a class="nav-item is-active">Settings</a>
                         <a href="docs/index.html" class="nav-item">Documentation</a>
                         <span class="nav-item">
                             <a href="https://discord.me/runecord" class="button is-discord is-inverted">
@@ -63,28 +64,33 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h1 class="title is-1">RuneCord</h1>
-                <h2 class="subtitle is-3">RuneScape Discord Bot</h2>
+                <h2 class="subtitle is-3">Configuring RuneCord for your Server</h2>
             </div>
         </div>
     </section>
     <section class="section">
-        <div class="container has-text-centered">
-            <h3 class="title">Want me in your server?</h3>
-            <a href="#" target="_blank" class="button is-primary is-large is-outlined">Add me to your server <span class="icon"><i class="fa fa-plus"></i></a>
-            <hr />
-            <h3 class="title is-3">Made just for RuneScape...</h3>
-            <h4 class="subtitle is-4">Some of my features...</h4>
+        <div class="container">
             <div class="tile is-ancestor">
-                <div class="tile is-parent is-4">
+                <div class="tile is-parent is-6">
                     <div class="tile is-child box">
-                        <p class="title">No Setup Required</p>
-                        <p>Everything is based on a user's permissions, meaning you don't need to configure roles with RuneCord.</p>
+                        <h1 class="title">Command Ignoring</h1>
+                        <code>)settings ignore (scopes) (commands)</code>
+                        <p>
+                            <strong>Scopes:</strong> Either a <u>@User</u>, <u>#channel</u>, or the <u>server</u>.<br />
+                            <strong>Commands:</strong> Either a <u>~command</u>, <u>~all</u> of a prefix, or <u>all</u> commands.<br /><br />
+                            Scopes and commands are separated with a |.<br />
+                            Example: <code>)settings ignore (@User | @User 2 | #no-bot) ()all | ~ping)</code><br /><br />
+                            Unignoring works the same way. Just use <code>unignore</code> instead.<br /><br />
+                            If there is only one scope, you can omit the parenthesis.
+                        </p>
                     </div>
                 </div>
-                <div class="tile is-parent is-4">
-                    <div class="tile is-child box">
-                        <p class="title">No Setup Required</p>
-                        <p>Everything is based on a user's permissions, meaning you don't need to configure roles with RuneCord.</p>
+                <div class="tile is-verticle is-6">
+                    <div class="tile is-parent is-verticle is-12">
+                        <div class="tile is-child box">
+                            <h1 class="title">Checking settings</h1>
+                            <code>)settings ignored &lt;server|@user|#channel&gt;</code>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,6 +116,31 @@
 
         ga('create', 'UA-75993904-2', 'auto');
         ga('send', 'pageview');
+    </script>
+
+    <!-- Tabs -->
+    <script type="text/javascript">
+        ['normal', 'moderation'].forEach(function(t) {
+            document.getElementById(t + '-tab').addEventListener('click', function(e) {
+                if (e.currentTarget.classList.contains('is-active') === false) {
+                    var toSearch = e.currentTarget.parentNode.parentNode.parentNode.parentNode.children;
+                    for (var i = 2; i < toSearch.length; i++) {
+                        if (toSearch[i].id === t) {
+                            toSearch[i].classList.remove('is-hidden');
+                            continue;
+                        }
+                        if (toSearch[i].classList.contains('is-hidden') === false)
+                            toSearch[i].classList.add('is-hidden');
+                    }
+                    var toSearch = toSearch[0].parentNode.children[0].children[0].children; //ugh
+                    for (var i = 0; i < toSearch.length; i++) {
+                        if (toSearch[i].classList.contains('is-active'))
+                            toSearch[i].classList.remove('is-active')
+                    }
+                    e.currentTarget.parentNode.classList.add('is-active');
+                }
+            });
+        });
     </script>
 </body>
 

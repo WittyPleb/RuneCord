@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Logger.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Command.html">Command</a><ul class='methods'><li data-type='method'><a href="Command.html#destroy">destroy</a></li><li data-type='method'><a href="Command.html#execute">execute</a></li></ul></li><li><a href="CommandManager.html">CommandManager</a><ul class='methods'><li data-type='method'><a href="CommandManager.html#checkForMatch">checkForMatch</a></li><li data-type='method'><a href="CommandManager.html#help">help</a></li><li data-type='method'><a href="CommandManager.html#initialize">initialize</a></li><li data-type='method'><a href="CommandManager.html#processCommand">processCommand</a></li><li data-type='method'><a href="CommandManager.html#reload">reload</a></li></ul></li><li><a href="Logger.html">Logger</a><ul class='methods'><li data-type='method'><a href="Logger.html#debug">debug</a></li><li data-type='method'><a href="Logger.html#error">error</a></li><li data-type='method'><a href="Logger.html#isValidColor">isValidColor</a></li><li data-type='method'><a href="Logger.html#log">log</a></li><li data-type='method'><a href="Logger.html#logBold">logBold</a></li><li data-type='method'><a href="Logger.html#logCommand">logCommand</a></li><li data-type='method'><a href="Logger.html#logWithBackground">logWithBackground</a></li><li data-type='method'><a href="Logger.html#logWithHeader">logWithHeader</a></li><li data-type='method'><a href="Logger.html#logWithUnderline">logWithUnderline</a></li><li data-type='method'><a href="Logger.html#warn">warn</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-settingsManager.html">settingsManager</a><ul class='methods'><li data-type='method'><a href="module-settingsManager.html#~addIgnoreForGuild">addIgnoreForGuild</a></li><li data-type='method'><a href="module-settingsManager.html#~addIgnoreForUserOrChannel">addIgnoreForUserOrChannel</a></li><li data-type='method'><a href="module-settingsManager.html#~checkIgnoresFor">checkIgnoresFor</a></li><li data-type='method'><a href="module-settingsManager.html#~isCommandIgnored">isCommandIgnored</a></li><li data-type='method'><a href="module-settingsManager.html#~removeIgnoreForGuild">removeIgnoreForGuild</a></li><li data-type='method'><a href="module-settingsManager.html#~removeIgnoreForUserOrChannel">removeIgnoreForUserOrChannel</a></li></ul></li><li><a href="module-utils.html">utils</a><ul class='methods'><li data-type='method'><a href="module-utils.html#.checkForUpdates">checkForUpdates</a></li><li data-type='method'><a href="module-utils.html#.formatTime">formatTime</a></li><li data-type='method'><a href="module-utils.html#.getLampXp">getLampXp</a></li><li data-type='method'><a href="module-utils.html#.getSkillName">getSkillName</a></li><li data-type='method'><a href="module-utils.html#.safeSave">safeSave</a></li><li data-type='method'><a href="module-utils.html#.setAvatar">setAvatar</a></li><li data-type='method'><a href="module-utils.html#.updateAbalBots">updateAbalBots</a></li><li data-type='method'><a href="module-utils.html#.updateCarbon">updateCarbon</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Logger.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* REQUIRED DEPENDENCIES */
+var _chalk = require('chalk');
+
+/* LOCAL VARIABLES */
+var chalk = new _chalk.constructor({
+	enabled: true
+});
+
+/**
+ * @class
+ * @classdesc Used to log text to the console
+ * @prop {Boolean} logTimestamp If a timestamp should be displayed.
+ * @prop {String} {commandColor} The color to use for command logging.
+ */
+class Logger {
+
+	/**
+	 * @constructor
+	 * @arg {Boolean} logTimestamp If a timestamp should be displayed.
+	 * @arg {String} [commandColor] The color to use for command logging. Must be a valid [chalk color]{@link https://github.com/chalk/chalk#colors}.
+	 */
+	constructor(logTimestamp, commandColor) {
+		this.logTimestamp = !!logTimestamp;
+		this.commandColor = commandColor;
+	}
+
+	/**
+	 * Set the color to use for command logging.
+	 * @arg {String} value The color
+	 */
+	set color(value) {
+		this.commandColor = value;
+	}
+
+	/**
+	 * Get a timestamp
+	 * @type {String}
+	 */
+	get timestamp() {
+		return this.logTimestamp === true ? `[${new Date().toLocaleString()}]` : '';
+	}
+
+	/**
+	 * Logs something
+	 * @arg {String} text
+	 * @arg {String} [color] A valid chalk color
+	 */
+	log(text, color) {
+		return console.log(this.timestamp + (color ? chalk[color](text) : text));
+	}
+
+	/**
+	 * Logs something with a background color
+	 * @arg {String} text
+	 * @arg {String} background The background color
+	 * @arg {String} [color] A valid chalk color
+	 */
+	logWithBackground(text, background, color) {
+		return console.log(this.timestamp + (color ? chalk[background][color](text) : chalk[background](text)));
+	}
+
+	/**
+	 * Logs something bold
+	 * @arg {String} text
+	 * @arg {String} [color] A valid chalk color
+	 */
+	logBold(text, color) {
+		return console.log(this.timestamp + (color ? chalk.bold[color](text) : chalk.bold(text)));
+	}
+
+	/**
+	 * Logs something underlined
+	 * @arg {String} text
+	 * @arg {String} [color] A valid chalk color
+	 */
+	logWithUnderline(text, color) {
+		return console.log(this.timestamp + (color ? chalk.underline[color](text) : chalk.underline(text)));
+	}
+
+	/**
+	 * Logs something with a header
+	 * @arg {String} headerText
+	 * @arg {String} headerBackground A valid [chalk background color]{@link https://github.com/chalk/chalk#background-colors}.
+	 * @arg {String} headerColor A valid [chalk color]{@link https://github.com/chalk/chalk#colors}
+	 * @arg {String} text
+	 * @arg {String} [color] A valid chalk color.
+	 */
+	logWithHeader(headerText, headerBackground, headerColor, text, color) {
+		return console.log(this.timestamp + chalk[headerBackground][headerColor || 'black'](` ${headerText} `), (color ? chalk[color](text) : text));
+	}
+
+	/**
+	 * Command logging utility function.
+	 * @arg {String} [guildName]
+	 * @arg {String} userName
+	 * @arg {String} commandName
+	 * @arg {String} suffix
+	 */
+	logCommand(guildName, userName, commandName, suffix) {
+		if (guildName) {
+			return console.log(this.timestamp + `${chalk.bold.magenta(guildName)} >> ${chalk.bold.green(userName)} > ${this.commandColor === undefined ? commandName : chalk.bold[this.commandColor](commandName)} ${suffix}`);
+		}
+		return console.log(this.timestamp + `${chalk.bold.green(userName)} > ${this.commandColor === undefined ? commandName : chalk.bold[this.commandColor](commandName)} ${suffix}`);
+	}
+
+	/**
+	 * Logs a warning.
+	 * @arg {String} text
+	 * @arg {String} [wText="WARN"] The text to display in the warning header
+	 */
+	warn(text, wText = 'WARN') {
+		return console.log(this.timestamp + `${chalk.bgYellow.black(` ${wText} `)} ${text}`);
+	}
+
+	/**
+	 * Logs an error.
+	 * @arg {String} text
+	 * @arg {String} [eText = "ERROR"] The text to display in the error header.
+	 */
+	error(text, eText = 'ERROR') {
+		return console.log(this.timestamp + `${chalk.bgRed.black(` ${eText} `)} ${text}`);
+	}
+
+	/**
+	 * Logs debug information
+	 * @arg {String} text
+	 * @arg {String} [dText="DEBUG"] The text to display in the debug header.
+	 */
+	debug(text, dText = 'DEBUG') {
+		return console.log(this.timestamp + `${chalk.bgWhite.black(` ${dText} `)} ${text}`);
+	}
+
+	/**
+	 * Check if a color or background color is valid.
+	 * @arg {String} color
+	 */
+	isValidColor(color) {
+		return typeof chalk[color] === 'function';
+	}
+}
+
+module.exports = Logger;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Nov 29 2016 15:56:43 GMT-0600 (CST) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
