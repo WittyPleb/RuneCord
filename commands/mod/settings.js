@@ -51,6 +51,63 @@ function addIgnores(bot, msg, suffix, settingsManager) {
 	});
 }
 
+function removeIgnores(bot, msg, suffix, settingsManager) {
+	let args = suffix.match(/\((.+)\) *\((.+)\)/);
+
+	if (args === null || args.length !== 3) {
+		args = suffix.match(/([^ ]+) +(.+)/);
+	}
+
+	if (args === null || args.length !== 3) {
+		return bot.createMessage(msg.channel.id, "Please format your message like this: `unignore (@user | server | #channel) (~command | ~all | )command)`");
+	}
+
+	let commands = args[2].split(/ *\| */).filter(x => x !== '')
+	let scopes = args[1].split(/ *\| */).filter(x => x !== '');
+
+	if (commands.length === 0 || scopes.length === 0) {
+		return bot.createMessage(msg.channel.id, "Please format your message like this: `unignore (@user | server | #channel) (~command | ~all | )command)`");
+	}
+
+	scopes.forEach(scope => {
+		let task;
+		let args;
+
+		if (scope === 'server') {
+			task = settingsManager.removeIgnoreForGuild;
+			args = [msg.channel.guild.id];
+		} else if (/<@!?[0-9]+>/.test(scope)) {
+			let id = scope.match(/[0-9]+/)[0];
+			if (msg.channel.guild.members.has(id)) {
+				task = settingsManager.removeIgnoreForUserOrChannel;
+				args = [msg.channel.guild.id, 'userIgnores', id];
+			} else {
+				return bot.createMessage(msg.channel.id, `Invalid user: ${scope}`);
+			}
+		} else if (/<#[0-9]+>/.test(scope)) {
+			let id = scope.match(/[0-9]+/)[0]
+			let channel = msg.channel.guild.channels.get(id);
+			if (channel === null || channel.type === 'voice') {
+				return bot.createmessage(msg.channel.id, `Invalid text channel: ${scope}`);
+			}
+			task = settingsManager.removeIgnoreForUserOrChannel;
+			args = [msg.channel.guild.id, 'channelIgnores', id];
+		} else {
+			return bot.createMessage(msg.channel.id, `Invalid scope "${scope}"`);
+		}
+
+		ignoreLoop(task, args, commands.slice()).then(modified => {
+			if (modified.length !== 0) {
+				bot.createMessage(msg.channel.id, `**Removed the following ignores for ${scope}:**\n${modified.join(', ')}`);
+			} else {
+				bot.createMessage(msg.channel.id, `**No settings modified for ${scope}`);
+			}
+		}).catch(error => {
+			bot.createMessage(msg.channel.id, `**Error removing ignores for ${scope}:**\n\t${error}`);
+		});
+	});
+}
+
 function ignoreLoop(task, args, commands) {
 	return new Promise((resolve, reject) => {
 		let modified = [];
@@ -111,6 +168,8 @@ module.exports = {
 				checkIgnores(bot, msg, suffix.substr(8).trim().toLowerCase(), settingsManager);
 			} else if (suffix.startsWith('ignore')) {
 				addIgnores(bot, msg, suffix.substr(7).trim().toLowerCase(), settingsManager);
+			} else if (suffix.startsWith('unignore')) {
+				removeIgnores(bot, msg, suffix.substr(9).trim().toLowerCase(), settingsManager);
 			} else {
 				return 'wrong usage';
 			}
