@@ -71,6 +71,30 @@ function ignoreLoop(task, args, commands) {
 	});
 }
 
+function checkIgnores(bot, msg, suffix, settingsManager) {
+	if (suffix) {
+		let ignored;
+		if (suffix === 'server') {
+			console.log(suffix);
+			ignored = settingsManager.checkIgnoresFor(msg.channel.guild.id, 'guild');
+		} else if (msg.channelMentions.length !== 0) {
+			ignored = settingsManager.checkIgnoresFor(msg.channel.guild.id, 'channel', msg.channelMentions[0]);
+		} else if (msg.mentions.length !== 0) {
+			ignored = settingsManager.checkIgnoresFor(msg.channel.guild.id, 'user', msg.mentions[0].id);
+		} else {
+			return bot.createMessage(msg.channel.id, 'Please specify "server", a channel, or a user.');
+		}
+
+		if (ignored.length === 0) {
+			bot.createMessage(msg.channel.id, "I'm not ignoring anything right now.");
+		} else {
+			bot.createMessage(msg.channel.id, "I'm current ignoring:\n" + ignored.join(', '));
+		}
+	} else {
+		bot.createMessage(msg.channel.id, '');
+	}
+}
+
 module.exports = {
 	desc: "Adjust a server's settings.",
 	help: `Modify how the bot works on a server.
@@ -83,7 +107,9 @@ module.exports = {
 	guildOnly: true,
 	task(bot, msg, suffix, config, settingsManager) {
 		if (suffix) {
-			if (suffix.startsWith('ignore')) {
+			if (suffix.startsWith('ignored')) {
+				checkIgnores(bot, msg, suffix.substr(8).trim().toLowerCase(), settingsManager);
+			} else if (suffix.startsWith('ignore')) {
 				addIgnores(bot, msg, suffix.substr(7).trim().toLowerCase(), settingsManager);
 			} else {
 				return 'wrong usage';

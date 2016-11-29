@@ -131,6 +131,77 @@ function isCommandIgnored(prefix, command, guildId, channelId, userId) {
 	return false;
 }
 
+/**
+ * Add an ignore setting for a guild.
+ * @arg {String} guildId The guild to apply the setting change for.
+ * @arg {String} command The command to ignore including prefix. Use "all" as the command to ignore all.
+ * @returns {Promise<Boolean>}
+ */
+function addIgnoreForGuild(guildId, command) {
+	return new Promise((resolve, reject) => {
+		if (!command || !guildId) {
+			return reject('Invalid arguments');
+		}
+		if (!commandSettings.hasOwnProperty(guildId)) {
+			commandSettings[guildId] = {};
+		}
+		if (!commandSettings[guildId].hasOwnProperty('guildIgnores')) {
+			commandSettings[guildId].guildIgnores = [];
+		}
+
+		let prefix = Object.keys(commandList).find(p => command.startsWith(p));
+		command = command.replace(prefix, '');
+
+		if (command === 'all') {
+			if (prefix === undefined) {
+				commandSettings[guildId].guildIgnores = ['all'];
+			} else if (commandSettings[guildId].guildIgnores.length == 0) {
+				commandSettings[guildId].guildIgnores.push(prefix + 'all');
+			} else if (commandSettings[guildId].guildIgnores.includes(prefix + 'all')) {
+				for (let i = 0; i < commandSettings[guildId].guildIgnores.length; i++) {
+					if (commandSettings[guildId].guildIgnores[i][0] === prefix) {
+						commandSettings[guildId].guildIgnores.splice(i, 1);
+					}
+				}
+				commandSettings[guildId].guildIgnores.push(prefix + 'all');
+			} else {
+				removeIfEmptyArray(commandSettings[guildId], 'guildIgnores', updateCommand);
+				removeIfEmpty(commandSettings, guildId, updateCommand);
+				return resolve(false);
+			}
+			updateCommand = true;
+			return resolve(true);
+		} else if (prefix !== undefined && commandList.hasOwnProperty(prefix) && commandList[prefix].includes(command) && !commandSettings[guildId].guildIgnores.includes('all') && !commandSettings[guildId].guildIgnores.includes(prefix + 'all') && !commandSettings[guildId].guildIgnores.includes(prefix + command)) {
+			commandSettings[guildId].guildIgnores.push(prefix + command);
+			updateCommand = true;
+			return resolve(true);
+		}
+		removeIfEmptyArray(commandSettings[guildId], 'guildIgnores', updateCommand);
+		removeIfEmpty(commandSettings, guildId, updateCommand);
+		resolve(false);
+	});
+}
+
+/**
+ * Check what commands are ignored for something
+ * @arg {String} guildId The guild to check in.
+ * @arg {String} type "guild", "channel", or "user".
+ * @arg {String} [id] The id for the channel or user.
+ * @returns {Array<String>} An array containing the ignored commands.
+ */
+function checkIgnoresFor(guildId, type, id) {
+	if (commandSettings.hasOwnProperty(guildId)) {
+		if (type === 'guild' && commandSettings[guildId].hasOwnProperty('guildIgnores')) {
+			return commandSettings[guildId].guildIgnores;
+		} else if (type === 'channel' && commandSettings[guildId].hasOwnProperty('channelIgnores') && commandSettings[guildId].channelIgnores.hasOwnProperty(id)) {
+			return commandSettings[guildId].channelIgnores[id];
+		} else if (type === 'user' && commandSettings[guildId].hasOwnProperty('userIgnores') && commandSettings[guildId].userIgnores.hasOwnProperty(id)) {
+			return commandSettings[guildId].userIgnores[id];
+		}
+	}
+	return [];
+}
+
 // Used to remove unneccesary keys.
 function removeIfEmpty(obj, key, updater) {
 	if (Object.keys(obj[key]).length === 0) {
@@ -155,5 +226,7 @@ module.exports = {
 	handleShutdown,
 	commandList,
 	addIgnoreForUserOrChannel,
-	isCommandIgnored
+	addIgnoreForGuild,
+	isCommandIgnored,
+	checkIgnoresFor
 };
