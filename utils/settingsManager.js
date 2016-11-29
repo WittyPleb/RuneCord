@@ -3,18 +3,12 @@ var reload = require('require-reload')(require);
 
 /* REQUIRED FILES */
 var utils           = reload('./utils.js');
-var genericSettings = reload('../db/genericSettings.json');
 var commandSettings = reload('../db/commandSettings.json');
 
 /* LOCAL VARIABLES */
-var updateGeneric = false;
 var updateCommand = false;
 
 const interval = setInterval(() => {
-	if (updateGeneric === true) {
-		utils.safeSave('db/genericSettings', '.json', JSON.stringify(genericSettings));
-		updateGeneric = false;
-	}
 	if (updateCommand === true) {
 		utils.safeSave('db/commandSettings', '.json', JSON.stringify(commandSettings));
 		updateCommand = false;
@@ -22,14 +16,11 @@ const interval = setInterval(() => {
 }, 20000);
 
 function handleShutdown() {
-	return Promise.all([utils.safeSave('db/genericSettings', '.json', JSON.stringify(genericSettings)), utils.safeSave('db/commandSettings', '.json', JSON.stringify(commandSettings))]);
+	return Promise.all([utils.safeSave('db/commandSettings', '.json', JSON.stringify(commandSettings))]);
 }
 
 function destroy() {
 	clearInterval(interval);
-	if (updateGeneric === true) {
-		utils.safeSave('db/genericSettings', '.json', JSON.stringify(genericSettings));
-	}
 	if (updateCommand === true) {
 		utils.safeSave('db/commandSettings', '.json'. JSON.stringify(commandSettings));
 	}
