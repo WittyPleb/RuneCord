@@ -314,7 +314,7 @@ if (config.abalBotsKey) {
 	setInterval(() => {
 		if (bot.uptime !== 0) {
 			bot.shards.forEach(shard => {
-				utils.updateAbalBots(bot.user.id, shard.id, config.shardCount, config.abalBotsKey, bot.guilds.size);
+				utils.updateAbalBots(bot.user.id, config.abalBotsKey, shard.id, config.shardCount, bot.guilds.size);
 			});
 		}
 	}, 1800000);
