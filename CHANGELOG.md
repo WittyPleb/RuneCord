@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Changed `config.json` to `config.json.example`.
 - Re-enabled welcome message for new guilds.
+- Updated `~roll` command usage.
 
 ### Fixed
 - Fixed an `unhandledRejection` error in multiple cases.
