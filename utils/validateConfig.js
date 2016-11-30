@@ -38,6 +38,11 @@ module.exports = function(config) {
 			return reject();
 		}
 
+		if (!config.twitterId) {
+			logger.erro('You must specify your twitter widget id in twitterId', 'CONFIG ERROR');
+			return reject();
+		}
+
 		for (let prefix in config.commandSets) {
 			if (prefix === '') {
 				logger.error('One of your commandSets has no prefix.', 'CONFIG ERROR');
