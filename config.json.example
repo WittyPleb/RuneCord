@@ -20,6 +20,7 @@
     "carbonKey": "",
     "abalBotsKey": "",
     "twitterId": "",
+    "mixpanelToken": "",
     "cycleGames": true,
     "bannedGuildIds": [],
     "whitelistedGuildIds": []

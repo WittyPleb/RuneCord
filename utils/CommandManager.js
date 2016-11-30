@@ -77,6 +77,16 @@ class CommandManager {
 				return;
 			}
 			this.logger.logCommand(msg.channel.guild === undefined ? null : msg.channel.guild.name, msg.author.username, this.prefix + command.name, msg.cleanContent.replace(this.prefix + name, '').trim());
+			mixpanel.track('command', {
+				id: `${msg.author.id}`,
+				username: `${msg.author.username}#${msg.author.discriminator}`,
+				channelID: `${msg.channel.id}`,
+				channelName: `${msg.channel.name}`,
+				serverID: `${msg.channel.guild.id}`,
+				serverName: `${msg.channel.guild.name}`,
+				command: `${command.name}`,
+				arguments: `${suffix}`
+			});
 			return command.execute(bot, msg, suffix, config, settingsManager, this.logger);
 		} else if (name.toLowerCase() === 'help') {
 			return this.help(bot, msg, msg.content.replace(this.prefix + name, '').trim());
