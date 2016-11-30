@@ -13,7 +13,7 @@ module.exports = function(bot, _settingsManager, config, guild) {
 	}
 	logger.logWithHeader('JOINED GUILD', 'bgGreen', 'black', `${guild.name} owned by ${guild.members.get(guild.ownerID).user.username}`);
 	mixpanel.track('guildCreate', {
-		id: `${guild.id}`,
+		distinct_id: `${guild.id}`,
 		name: `${guild.name}`,
 		channels: `${guild.channels.size}`,
 		members: `${guild.memberCount}`,

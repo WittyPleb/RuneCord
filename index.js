@@ -153,8 +153,8 @@ function miscEvents() {
 		if (bot.listeners('guildDelete').length === 0) {
 			bot.on('guildDelete', (guild, unavailable) => {
 				if (unavailable === false) {
-					mixpanel.track('guildCreate', {
-						id: `${guild.id}`,
+					mixpanel.track('guildDelete', {
+						distinct_id: `${guild.id}`,
 						name: `${guild.name}`,
 						channels: `${guild.channels.size}`,
 						members: `${guild.memberCount}`,
