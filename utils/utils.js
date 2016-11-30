@@ -78,9 +78,11 @@ exports.updateCarbon = function(key, servercount) {
 /**
  * Update the server count on Abalabahaha's bot list.
  * @arg {String} key The bot's key.
+ * @arg {Number} shard_id The id of the shard the bot is on.
+ * @arg {Number} shard_count The total amount of shards the bot has.
  * @arg {Number} server_count Server count.
  */
-exports.updateAbalBots = function(id, key, server_count) {
+exports.updateAbalBots = function(id, key, shard_id, shard_count, server_count) {
 	if (!key || !server_count) return;
 	superagent.post(`https://bots.discord.pw/api/bots/${id}/stats`)
 		.set('Authorization', key)
