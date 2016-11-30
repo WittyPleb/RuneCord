@@ -22,7 +22,7 @@ module.exports = {
 					let vosStart = response.text.indexOf('The Voice of Seren is now active in the ');
 					let vosText = response.text.slice(vosStart, response.text.length);
 
-					vosText = vosText.replace(/Amlodd|Cadarn|Crwys|Hefin|Iorwerth|Ithell|Meilyr|Tragaearn/gi, (x) => {
+					vosText = vosText.replace(/Amlodd|Cadarn|Crwys|Hefin|Iorwerth|Ithell|Meilyr|Trahaearn/gi, (x) => {
 						return `**${x}**`;
 					});
 
