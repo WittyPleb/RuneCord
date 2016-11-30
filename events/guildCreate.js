@@ -12,7 +12,7 @@ module.exports = function(bot, _settingsManager, config, guild) {
 		logger = new _Logger(config.logTimestamp);
 	}
 	logger.logWithHeader('JOINED GUILD', 'bgGreen', 'black', `${guild.name} owned by ${guild.members.get(guild.ownerID).user.username}`);
-	if (config.bannedGuildIds.include(guild.id)) {
+	if (config.bannedGuildIds.includes(guild.id)) {
 		logger.logWithHeader('LEFT BANNED GUILD', 'bgRed', 'black', guild.name);
 		guild.leave();
 	} else {
