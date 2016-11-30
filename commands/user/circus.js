@@ -25,7 +25,7 @@ module.exports = {
 		if (nextLocation === LOCATIONS.length) nextLocation = 0;
 
 		let toSend = [];
-		
+
 		toSend.push(`The circus is currently located at **${LOCATIONS[currentLocation]}**.`);
 		toSend.push(`The next location will be **${LOCATIONS[nextLocation]}** in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
 
