@@ -313,9 +313,7 @@ if (config.carbonKey) {
 if (config.abalBotsKey) {
 	setInterval(() => {
 		if (bot.uptime !== 0) {
-			bot.shards.forEach(shard => {
-				utils.updateAbalBots(bot.user.id, config.abalBotsKey, shard.id, config.shardCount, bot.guilds.size);
-			});
+			utils.updateAbalBots(bot.user.id, config.abalBotsKey, bot.guilds.size);
 		}
 	}, 1800000);
 }

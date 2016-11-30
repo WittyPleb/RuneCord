@@ -66,7 +66,7 @@ exports.safeSave = function(file, ext, data, minSize = 5, log = true) {
  */
 exports.updateCarbon = function(key, servercount) {
 	if (!key || !servercount) return;
-	superagent.post('https://www.carbonitex.com/discord/data/botdata.php')
+	superagent.post('https://www.carbonitex.net/discord/data/botdata.php')
 		.type('application/json')
 		.send({key, servercount})
 		.end(error => {
@@ -78,11 +78,9 @@ exports.updateCarbon = function(key, servercount) {
 /**
  * Update the server count on Abalabahaha's bot list.
  * @arg {String} key The bot's key.
- * @arg {Number} shard_id The id of the shard the bot is on.
- * @arg {Number} shard_count The total amount of shards the bot has.
  * @arg {Number} server_count Server count.
  */
-exports.updateAbalBots = function(id, key, shard_id, shard_count, server_count) {
+exports.updateAbalBots = function(id, key, server_count) {
 	if (!key || !server_count) return;
 	superagent.post(`https://bots.discord.pw/api/bots/${id}/stats`)
 		.set('Authorization', key)
