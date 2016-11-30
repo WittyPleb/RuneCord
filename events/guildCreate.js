@@ -12,14 +12,16 @@ module.exports = function(bot, _settingsManager, config, guild) {
 		logger = new _Logger(config.logTimestamp);
 	}
 	logger.logWithHeader('JOINED GUILD', 'bgGreen', 'black', `${guild.name} owned by ${guild.members.get(guild.ownerID).user.username}`);
-	mixpanel.track('guildCreate', {
-		distinct_id: `${guild.id}`,
-		name: `${guild.name}`,
-		channels: `${guild.channels.size}`,
-		members: `${guild.memberCount}`,
-		ownerID: `${guild.ownerID}`,
-		ownerUsername: `${guild.members.get(guild.ownerID).user.username}#${guild.members.get(guild.ownerID).user.discriminator}`
-	});
+	if (config.mixpanelToken) {
+		mixpanel.track('guildCreate', {
+			distinct_id: `${guild.id}`,
+			name: `${guild.name}`,
+			channels: `${guild.channels.size}`,
+			members: `${guild.memberCount}`,
+			ownerID: `${guild.ownerID}`,
+			ownerUsername: `${guild.members.get(guild.ownerID).user.username}#${guild.members.get(guild.ownerID).user.discriminator}`
+		});
+	}
 	if (config.bannedGuildIds.includes(guild.id)) {
 		logger.logWithHeader('LEFT BANNED GUILD', 'bgRed', 'black', guild.name);
 		guild.leave();

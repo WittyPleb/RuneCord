@@ -7,7 +7,6 @@ if (parseFloat(process.versions.node) < 6) {
 var reload   = require('require-reload')(require);
 var fs       = require('fs');
 var Eris     = require('eris');
-var Mixpanel = require('mixpanel');
 
 /* REQUIRED FILES */
 var config          = reload('./config.json');
@@ -26,7 +25,11 @@ commandsProcessed = 0;
 
 validateConfig(config).catch(() => process.exit(0));
 logger = new (reload('./utils/Logger.js'))(config.logTimestamp);
-mixpanel = Mixpanel.init(config.mixpanelToken);
+
+if (config.mixpanelToken) {
+	var Mixpanel = require('mixpanel');
+	mixpanel = Mixpanel.init(config.mixpanelToken);
+}
 
 var bot = new Eris(config.token, {
 	autoReconnect: true,
@@ -153,14 +156,16 @@ function miscEvents() {
 		if (bot.listeners('guildDelete').length === 0) {
 			bot.on('guildDelete', (guild, unavailable) => {
 				if (unavailable === false) {
-					mixpanel.track('guildDelete', {
-						distinct_id: `${guild.id}`,
-						name: `${guild.name}`,
-						channels: `${guild.channels.size}`,
-						members: `${guild.memberCount}`,
-						ownerID: `${guild.ownerID}`,
-						ownerUsername: `${guild.members.get(guild.ownerID).user.username}#${guild.members.get(guild.ownerID).user.discriminator}`
-					});
+					if (config.mixpanelToken) {
+						mixpanel.track('guildDelete', {
+							distinct_id: `${guild.id}`,
+							name: `${guild.name}`,
+							channels: `${guild.channels.size}`,
+							members: `${guild.memberCount}`,
+							ownerID: `${guild.ownerID}`,
+							ownerUsername: `${guild.members.get(guild.ownerID).user.username}#${guild.members.get(guild.ownerID).user.discriminator}`
+						});
+					}
 					logger.debug(guild.name, 'GUILD REMOVE');
 				}
 			});
