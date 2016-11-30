@@ -24,9 +24,7 @@ module.exports = {
 			.end((error, response) => {
 				if (error) {
 					logger.warn('Error getting stats for a user: ' + (error.status || error.response));
-					bot.createMessage(msg.channel.id, 'There was an error while grabbing the stats for \'' + suffix + '\'. Please try again later.').then(sentMsg => {
-						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 10000); // Delete messages after 10 seconds.
-					});
+					bot.createMessage(msg.channel.id, 'There was an error while grabbing the stats for \'' + suffix + '\'. Please try again later.');
 				} else {
 					let statData = response.text.split('\n');
 					let result = [];

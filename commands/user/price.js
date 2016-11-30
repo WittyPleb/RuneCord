@@ -17,9 +17,7 @@ module.exports = {
 		superagent.get(`http://rscript.org/lookup.php?type=ge&search=${suffix}`).end((error, response) => {
 			if (error) {
 				logger.warn('Error getting price for an item: ' + (error.status || error.response));
-				bot.createMessage(msg.channel.id, 'There was an error while grabbing the price for \'' + suffix + '\'. Please try again later.').then(sentMsg => {
-					setTimeout(() => { msg.delete(); sentMsg.delete(); }, 10000); // Delete messages after 10 seconds.
-				});
+				bot.createMessage(msg.channel.id, 'There was an error while grabbing the price for \'' + suffix + '\'. Please try again later.');
 			} else {
 				let results = response.text.split('RESULTS: ');
 				if (results[1] == null) { bot.createMessage(msg.channel.id, 'Unable to grab prices at this time, please try again later.'); return; }

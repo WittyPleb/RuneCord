@@ -16,9 +16,7 @@ module.exports = {
 			.end((error, response) => {
 				if (error) {
 					logger.warn('Error getting Viswax combination: ' + (error.status || error.response));
-					bot.createMessage(msg.channel.id, 'There was an error while grabbing the Viswax combination. Please try again later.').then(sentMsg => {
-						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 10000); // Delete messages after 10 seconds.
-					});
+					bot.createMessage(msg.channel.id, 'There was an error while grabbing the Viswax combination. Please try again later.');
 				} else {
 					let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(response.text)[1];
 					let day = new Date().getUTCDate();

@@ -17,9 +17,7 @@ module.exports = {
 			.end((error, response) => {
 				if (error) {
 					logger.warn('Error checking VoS: ' + (error.status || error.response));
-					bot.createMessage(msg.channel.id, 'There was an error while grabbing the Voice of Seren. Please try again another time.').then(sentMsg => {
-						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 10000); // Deletes messages after 10 seconds.
-					});
+					bot.createMessage(msg.channel.id, 'There was an error while grabbing the Voice of Seren. Please try again another time.');
 				} else {
 					let vosStart = response.text.indexOf('The Voice of Seren is now active in the ');
 					let vosText = response.text.slice(vosStart, response.text.length);
