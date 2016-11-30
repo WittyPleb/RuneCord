@@ -8,6 +8,25 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+## [4.0.1] - 2016-11-30
+### Added
+- Added CodeClimate code testing (doesn't impact performance at all).
+
+### Changed
+- Changed `config.json` to `config.json.example`.
+- Re-enabled welcome message for new guilds.
+
+### Fixed
+- Fixed an `unhandledRejection` error in multiple cases.
+- Fixed a `guildCreate` event error.
+- Fixed bot server count posting.
+- Fixed a typo in `~vos` command.
+- Fixed a typo in `~price` command.
+- Fixed an ESLint error.
+
+### Removed
+- Some unnecessary code.
+
 ## [4.0.0] - 2016-11-29
 ### Added
 - Cooldowns are back, they are set very low, they are to ensure the bot doesn't get overloaded.
@@ -300,6 +319,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[4.0.1]: https://github.com/unlucky4ever/RuneCord/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/unlucky4ever/RuneCord/compare/3.2.0...4.0.0
 [3.2.0]: https://github.com/unlucky4ever/RuneCord/compare/3.1.2...3.2.0
 [3.1.2]: https://github.com/unlucky4ever/RuneCord/compare/3.1.1...3.1.2
