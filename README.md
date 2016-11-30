@@ -1,6 +1,7 @@
 <img src="http://i.imgur.com/TkiKjWM.png" alt="RuneCord Icon" align="right" />
 [![David](https://david-dm.org/unlucky4ever/RuneCord.svg)](https://david-dm.org/unlucky4ever/RuneCord)
 [![GitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/unlucky4ever/RuneCord/master/LICENSEr/LICENSE)
+[![Code Climate](https://codeclimate.com/github/unlucky4ever/RuneCord/badges/gpa.svg)](https://codeclimate.com/github/unlucky4ever/RuneCord)
 
 # A bot just for RuneScape.
 
