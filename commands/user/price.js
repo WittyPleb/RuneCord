@@ -36,7 +36,7 @@ module.exports = {
 				} else if (results[1].substring(0, 1) > 1) {
 					bot.createMessage(msg.channel.id, 'Too many results, please refine your search term better.');
 				} else {
-					bot.createMessage(msg.channel.id, `Error finding item '${suffix}', please try again.'`);
+					bot.createMessage(msg.channel.id, `Error finding item '${suffix}', please try again.`);
 				}
 			}
 		});
