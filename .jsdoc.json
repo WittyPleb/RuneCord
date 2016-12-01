@@ -12,7 +12,7 @@
 		"plugins/markdown"
 	],
 	"templates": {
-		"cleverLinks": false,
+		"cleverLinks": true,
 		"monospaceLinks": true
 	},
 	"opts": {
@@ -20,6 +20,6 @@
 		"encoding": "utf8",
 		"private": true,
 		"recurse": true,
-		"template": "./node_modules/minami"
+		"template": "./node_modules/latodoc"
 	}
 }
