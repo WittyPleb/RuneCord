@@ -8,6 +8,31 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+## [4.0.2] - Not live
+### Added
+- Added tracking for various things
+    - All commands with the following information is logged and stored:
+        - Server Name
+        - Server ID
+        - Username
+        - User ID
+        - Command Name
+        - Arguments used in command
+        - Channel ID
+        - Channel Name
+    - All guild joins and guild removes store the following information:
+      - Server Name
+      - Server ID
+      - Owner Username
+      - Owner ID
+      - Users Connected
+      - Channels
+
+### Changed
+- Made `)stats` command use embeds to look prettier.
+- Made `~about` command use embeds to look prettier.
+- Made `~statues` command use embeds to look prettier.
+
 ## [4.0.1] - 2016-11-30
 ### Added
 - Added CodeClimate code testing (doesn't impact performance at all).
