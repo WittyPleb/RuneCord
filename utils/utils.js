@@ -133,6 +133,24 @@ exports.formatTime = function(milliseconds) {
 }
 
 /**
+ * Converts to human readable form in a shorter form
+ * @arg {Number} milliseconds Time to format in milliseconds.
+ * @returns {String} The formatted time
+ */
+exports.formatTimeShort = function(milliseconds) {
+	let ms = milliseconds / 1000;
+	let seconds = (ms % 60).toFixed(0);
+	ms /= 60;
+	let minutes = (ms % 60).toFixed(0);
+	ms /= 60;
+	let hours = (ms % 24).toFixed(0);
+	ms /= 24;
+	let days = ms.toFixed(0);
+
+	return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+/**
  * Gets the name of a skill based on an ID.
  * @arg {Number} id Skill ID.
  * @returns {String} The skill name.
