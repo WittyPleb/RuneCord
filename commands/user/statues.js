@@ -37,21 +37,18 @@ module.exports = {
 					let prayerXp = utils.getLampXp(result[6][1], 'medium');
 					let slayerXp = utils.getLampXp(result[19][1], 'medium');
 
-					bot.createMessage(msg.channel.id, `\`\`\`md
-# Statue Statistics for ${suffix}
-
-# Construction XP at level ${result[23][1]}
-${Nf.format(conXp)}
-
-# Prayer XP at level ${result[6][1]}
-${Nf.format(prayerXp)}
-
-# Slayer XP at level ${result[19][1]}
-${Nf.format(slayerXp)}
-
-# Total for all 5 statues
-${Nf.format(conXp * 5)} Construction XP
-${Nf.format(prayerXp * 5)} Prayer XP OR ${Nf.format(slayerXp * 5)} Slayer XP\`\`\``);
+					bot.createMessage(msg.channel.id, {
+						embed: {
+							title: 'God Statue Statistics for ' + suffix,
+							description: "How much XP you'd gain from all 5 statues.\n",
+							fields: [
+								{ name: 'Construction XP', value: `${Nf.format(conXp)}`, inline: true },
+								{ name: 'Prayer XP', value: `${Nf.format(prayerXp)}`, inline: true },
+								{ name: 'Slayer XP', value: `${Nf.format(slayerXp)}`, inline: true },
+								{ name: 'Total XP', value: `**${Nf.format(conXp * 5)}** Construction XP\n**${Nf.format(prayerXp * 5)}** Prayer XP OR **${Nf.format(slayerXp * 5)}** Slayer XP` }
+							]
+						}
+					});
 				}
 			});
 	}
