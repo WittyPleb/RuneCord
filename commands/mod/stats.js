@@ -26,8 +26,8 @@ module.exports = {
 					icon_url: botAuthor.avatarURL
 				},
 				fields: [
-					{name: 'Members', value: `${Nf.format(bot.users.size)} Total Users`, inline: true},
-					{name: 'Channels', value: `${Nf.format(Object.keys(bot.channelGuildMap).length)} Total Guild Channels\n${Nf.format(bot.privateChannels.size)} Private Channels`, inline: true},
+					{name: 'Members', value: `${Nf.format(bot.users.size)} Users`, inline: true},
+					{name: 'Channels', value: `${Nf.format(Object.keys(bot.channelGuildMap).length)} Channels\n${Nf.format(bot.privateChannels.size)} Private Channels`, inline: true},
 					{name: 'Uptime', value: `${formatTime(bot.uptime)}`, inline: true},
 					{name: 'Servers', value: `${Nf.format(bot.guilds.size)}`, inline: true},
 					{name: 'Commands Run', value: `${Nf.format(commandsProcessed)} (AVG: ${(commandsProcessed / (bot.uptime / (1000 * 60))).toFixed(2)}/min)`, inline: true},
