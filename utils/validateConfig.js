@@ -38,7 +38,7 @@ module.exports = function(config) {
 			return reject();
 		}
 
-		if (!config.twitterId) {
+		if (typeof config.twitterId !== 'string' || !config.twitterId) {
 			logger.erro('You must specify your twitter widget id in twitterId', 'CONFIG ERROR');
 			return reject();
 		}
@@ -77,6 +77,10 @@ module.exports = function(config) {
 
 		if (typeof config.logTimestamp !== 'boolean') {
 			logger.warn('logTimestamp needs to be set to true or false.', 'CONFIG WARNING');
+		}
+
+		if (typeof config.mixpanelToken !== 'string') {
+			logger.warn('mixpanelToken must be a string.', 'CONFIG WARNING');
 		}
 
 		return resolve();
