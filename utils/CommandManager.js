@@ -79,11 +79,11 @@ class CommandManager {
 			this.logger.logCommand(msg.channel.guild === undefined ? null : msg.channel.guild.name, msg.author.username, this.prefix + command.name, msg.cleanContent.replace(this.prefix + name, '').trim());
 			if (config.mixpanelToken) {
 				mixpanel.track('command', {
-					distinct_id: `${msg.author.id}`,
+					distinct_id: `${msg.channel.guild.id}`,
 					username: `${msg.author.username}#${msg.author.discriminator}`,
+					userID: `${msg.author.id}`,
 					channelID: `${msg.channel.id}`,
 					channelName: `${msg.channel.name}`,
-					serverID: `${msg.channel.guild.id}`,
 					serverName: `${msg.channel.guild.name}`,
 					command: `${command.name}`,
 					arguments: `${suffix}`
