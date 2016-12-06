@@ -23,7 +23,7 @@ module.exports = {
 					icon_url: botAuthor.avatarURL
 				},
 				fields: [
-					{ name: 'Website', value: 'https://unlucky4ever.github.io/RuneCord/'},
+					{ name: 'Website', value: 'https://runecord.xyz'},
 					{ name: 'GitHub', value: 'https://github.com/unlucky4ever/RuneCord/'},
 					{ name: 'Patreon', value: 'https://patreon.com/witty'}
 				],
