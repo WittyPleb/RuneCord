@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
-## [4.0.2] - Not live
+## [4.0.2] - 2016-12-06
 ### Added
 - Added tracking for various things
     - All commands with the following information is logged and stored:
@@ -32,6 +32,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Made `)stats` command use embeds to look prettier.
 - Made `~about` command use embeds to look prettier.
 - Made `~statues` command use embeds to look prettier.
+- Got a new domain for the website, and updated it in all areas.
 
 ## [4.0.1] - 2016-11-30
 ### Added
@@ -345,6 +346,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[4.0.2]: https://github.com/unlucky4ever/RuneCord/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/unlucky4ever/RuneCord/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/unlucky4ever/RuneCord/compare/3.2.0...4.0.0
 [3.2.0]: https://github.com/unlucky4ever/RuneCord/compare/3.1.2...3.2.0
