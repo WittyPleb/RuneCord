@@ -28,9 +28,9 @@ module.exports = {
 
 				table.setTitle(`VIEWING ADVENTURER'S LOG FOR ${suffix.toUpperCase()}`).setHeading('Achievement', 'Date');
 
-				for (let i = 0; i < 5; i++) {
-					if (alogData[i] == null) break; // Break out of loop if it doesn't have 5 entires.
-					table.addRow(truncate(entities.decode(alogData[i].slice(alogData[i].indexOf('<title>') + 7, alogData[i].indexOf('</title>'))), 40), alogData[0].slice(alogData[0].indexOf('<pubDate>') + 9, alogData[0].indexOf('00:00:00') - 1));
+				for (let i = 0; i < 15; i++) {
+					if (alogData[i] == null) break; // Break out of loop if it doesn't have 15 entires.
+					table.addRow(truncate(entities.decode(alogData[i].slice(alogData[i].indexOf('<title>') + 7, alogData[i].indexOf('</title>'))), 40), alogData[i].slice(alogData[i].indexOf('<pubDate>') + 9, alogData[i].indexOf('00:00:00') - 1));
 				}
 
 				bot.createMessage(msg.channel.id, '```' + table.toString() + '```');
