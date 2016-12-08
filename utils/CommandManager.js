@@ -77,14 +77,24 @@ class CommandManager {
 				return;
 			}
 			this.logger.logCommand(msg.channel.guild === undefined ? null : msg.channel.guild.name, msg.author.username, this.prefix + command.name, msg.cleanContent.replace(this.prefix + name, '').trim());
-			if (config.mixpanelToken) {
-				mixpanel.track('command', {
+			if (config.mixpanelToken && msg.channel.guild !== null) { // Only log command with this information if done in a guild.
+				mixpanel.track('server command', {
 					distinct_id: `${msg.channel.guild.id}`,
+					type: `Guild`,
 					username: `${msg.author.username}#${msg.author.discriminator}`,
 					userID: `${msg.author.id}`,
 					channelID: `${msg.channel.id}`,
 					channelName: `${msg.channel.name}`,
 					serverName: `${msg.channel.guild.name}`,
+					command: `${command.name}`,
+					arguments: `${suffix}`
+				});
+			}
+			if (config.mixpanelToken && msg.channel.guild === null) { // Only log command with this information if done in a DM.
+				mixpanel.track('dm command', {
+					distinct_id: `${msg.author.id}`,
+					type: `DM`,
+					username: `${msg.author.username}#${msg.author.discriminator}`,
 					command: `${command.name}`,
 					arguments: `${suffix}`
 				});
