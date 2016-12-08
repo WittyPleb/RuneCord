@@ -4,9 +4,9 @@ if (parseFloat(process.versions.node) < 6) {
 }
 
 /* REQUIRED DEPENDENCIES */
-var reload   = require('require-reload')(require);
-var fs       = require('fs');
-var Eris     = require('eris');
+var reload          = require('require-reload')(require);
+var fs              = require('fs');
+var Eris            = require('eris');
 var stringifyObject = require('stringify-object');
 
 /* REQUIRED FILES */
