@@ -198,7 +198,7 @@ function reloadModule(msg) {
 
 	for (let i = 0; i < CommandManagers.length; i++) { // If arg starts with a prefix for a CommandManager reload/load the file
 		if (arg.startsWith(CommandManagers[i].prefix)) {
-			return CommandManagers[i].reload(bot, msg.channel.id, arg.substr(CommandManagers[i].prefix.length), config, settingsManager);
+			return CommandManagers[i].reload(bot, msg, arg.substr(CommandManagers[i].prefix.length), config, settingsManager);
 		}
 	}
 
@@ -218,7 +218,7 @@ function reloadModule(msg) {
 	} else if (arg.startsWith('utils/')) {
 		fs.access(`${__dirname}/${arg}.js`, fs.R_OK | fs.F_OK, err => {
 			if (err) {
-				msg.channel.createMessage(':x: That file does not exist!').then(sentMsg => {
+				msg.channel.createMessage(':question: That file does not exist!').then(sentMsg => {
 					setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
 				});
 			} else {
@@ -285,7 +285,7 @@ function reloadModule(msg) {
 			});
 			break;
 		default:
-			msg.channel.createMessage(":x: That file doesn't exist.").then(sentMsg => {
+			msg.channel.createMessage(":question: That file doesn't exist.").then(sentMsg => {
 				setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
 			});
 			break;

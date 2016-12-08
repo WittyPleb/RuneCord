@@ -159,28 +159,34 @@ class CommandManager {
 	/**
 	 * Reload or load a command.
 	 * @arg {Client} bot The client.
-	 * @arg {String} channelId The channel to respond in.
+	 * @arg {Message} msg The message that was sent.
 	 * @arg {String} command The command to reload or load.
 	 * @arg {Object} config The bot's config.
 	 * @arg {settingsManager} settingsManager The bot's {@link settingsManager}
 	 */
-	reload(bot, channelId, command, config, settingsManager) {
+	reload(bot, msg, command, config, settingsManager) {
 		fs.access(`${this.directory}${command}.js`, fs.R_OK | fs.F_OK, error => {
 			if (error) {
-				bot.createMessage(channelId, 'Command does not exist');
+				bot.createMessage(msg.channel.id, ':question: Command does not exist!').then(sentMsg => {
+					setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+				});
 			} else {
 				try {
 					if (this.commands.hasOwnProperty(command)) {
 						this.commands[command].destroy();
 					}
 					this.commands[command] = new Command(command, this.prefix, reload(`${this.directory}${command}.js`), config, bot);
-					bot.createMessage(channelId, `Command ${this.prefix}${command} loaded`);
+					bot.createMessage(msg.channel.id, `:white_check_mark: Command **${this.prefix}${command}** loaded!`).then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
 					if (!settingsManager.commandList[this.prefix].includes(command)) {
 						settingsManager.commandList[this.prefix].push(command);
 					}
 				} catch (error) {
 					this.logger.error(error, 'Error reloading command ' + command);
-					bot.createMessage(channelId, `Error loading command: ${error}`);
+					bot.createMessage(msg.channel.id, `:x: Error loading command: ${error}`).then(sentMsg => {
+						setTimeout(() => { msg.delete(); sentMsg.delete(); }, 5000); // Delete messages after 5 seconds.
+					});
 				}
 			}
 		});
