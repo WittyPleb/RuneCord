@@ -7,6 +7,7 @@ if (parseFloat(process.versions.node) < 6) {
 var reload   = require('require-reload')(require);
 var fs       = require('fs');
 var Eris     = require('eris');
+var stringifyObject = require('stringify-object');
 
 /* REQUIRED FILES */
 var config          = reload('./config.json');
@@ -312,6 +313,14 @@ function evaluate(msg) {
 	}
 
 	if (result !== ':x: Eval Failed :x:') {
+		if (result instanceof Object) {
+			result = stringifyObject(result);
+			logger.debug(result, 'EVAL RESULT');
+			if (result.length >= 1900) {
+				msg.channel.createMessage(`__**Result:**__\n\`\`\`${result.substr(0, 1840)}\`\`\`\nData was over 1900 characters. Check console for full data.`);
+			}
+			return;
+		}
 		logger.debug(result, 'EVAL RESULT');
 		msg.channel.createMessage(`__**Result:**__\n${result}`);
 	}
