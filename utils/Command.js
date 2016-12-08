@@ -90,8 +90,8 @@ class Command {
 
 	/**
 	 * Execute the command. If the command returns "wrong usage" will show the {@link Command#correctUsage}
-	 * @arg {Eris} bot The client.
-	 * @arg {Eris.Message} msg The message that triggered it.
+	 * @arg {Client} bot The client.
+	 * @arg {Message} msg The message that triggered it.
 	 * @arg {String} suffix The text after the command (args).
 	 * @arg {Object} config The config Object.
 	 * @arg {settingsManager} settingsManager

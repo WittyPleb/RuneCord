@@ -63,8 +63,8 @@ class CommandManager {
 
 	/**
 	 * Called when a message is detected with the prefix. Decides what to do.
-	 * @arg {Eris} bot The client.
-	 * @arg {Eris.Message} msg The matching message.
+	 * @arg {Client} bot The client.
+	 * @arg {Message} msg The matching message.
 	 * @arg {Object} config The JSON formatted config file.
 	 * @arg {settingsManager} settingsManager The bot's {@link settingsManager}
 	 */

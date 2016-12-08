@@ -94,7 +94,7 @@ exports.updateAbalBots = function(id, key, server_count) {
 
 /**
  * Set the bot's avatar from /avatars/
- * @arg {Eris.Client} bot The client.
+ * @arg {Client} bot The client.
  * @arg {String} url The direct url to the image.
  * @returns {Promise}
  */

@@ -26,7 +26,7 @@ class Logger {
 
 	/**
 	 * Set the color to use for command logging.
-	 * @arg {String} value The color
+	 * @arg {String} value A valid [chalk color]{@link https://github.com/chalk/chalk#colors}.
 	 */
 	set color(value) {
 		this.commandColor = value;
@@ -43,7 +43,7 @@ class Logger {
 	/**
 	 * Logs something
 	 * @arg {String} text
-	 * @arg {String} [color] A valid chalk color
+	 * @arg {String} [color] A valid [chalk color]{@link https://github.com/chalk/chalk#colors}.
 	 */
 	log(text, color) {
 		return console.log(this.timestamp + (color ? chalk[color](text) : text));
@@ -52,8 +52,8 @@ class Logger {
 	/**
 	 * Logs something with a background color
 	 * @arg {String} text
-	 * @arg {String} background The background color
-	 * @arg {String} [color] A valid chalk color
+	 * @arg {String} background A valid [chalk background color]{@link https://github.com/chalk/chalk#background-colors}.
+	 * @arg {String} [color] A valid [chalk color]{@link https://github.com/chalk/chalk#colors}/
 	 */
 	logWithBackground(text, background, color) {
 		return console.log(this.timestamp + (color ? chalk[background][color](text) : chalk[background](text)));
@@ -62,7 +62,7 @@ class Logger {
 	/**
 	 * Logs something bold
 	 * @arg {String} text
-	 * @arg {String} [color] A valid chalk color
+	 * @arg {String} [color] A valid [chalk color]{@link https://github.com/chalk/chalk#colors}/
 	 */
 	logBold(text, color) {
 		return console.log(this.timestamp + (color ? chalk.bold[color](text) : chalk.bold(text)));
@@ -71,7 +71,7 @@ class Logger {
 	/**
 	 * Logs something underlined
 	 * @arg {String} text
-	 * @arg {String} [color] A valid chalk color
+	 * @arg {String} [color] A valid [chalk color]{@link https://github.com/chalk/chalk#colors}/
 	 */
 	logWithUnderline(text, color) {
 		return console.log(this.timestamp + (color ? chalk.underline[color](text) : chalk.underline(text)));
@@ -83,7 +83,7 @@ class Logger {
 	 * @arg {String} headerBackground A valid [chalk background color]{@link https://github.com/chalk/chalk#background-colors}.
 	 * @arg {String} headerColor A valid [chalk color]{@link https://github.com/chalk/chalk#colors}
 	 * @arg {String} text
-	 * @arg {String} [color] A valid chalk color.
+	 * @arg {String} [color] A valid [chalk color]{@link https://github.com/chalk/chalk#colors}.
 	 */
 	logWithHeader(headerText, headerBackground, headerColor, text, color) {
 		return console.log(this.timestamp + chalk[headerBackground][headerColor || 'black'](` ${headerText} `), (color ? chalk[color](text) : text));
