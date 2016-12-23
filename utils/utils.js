@@ -229,6 +229,7 @@ exports.logCommandToMixpanel = function(msg, command, suffix, type) {
 			arguments: `${suffix}`
 		});
 		break;
+	}
 }
 
 /** Check for a newer version of RuneCord */
