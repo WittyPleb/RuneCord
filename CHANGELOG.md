@@ -8,6 +8,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+## [4.0.3] - 2016-12-23
+### Changed
+- Made `eval` command 'stringify' objects now if the result is an object.
+- Cleaned up reloads.
+- Cleaned up docs.
+
+### Fixed
+- Fixed `alog` command showing invalid dates.
+- Fixed not being able to DM commands to RuneCord.
+- Fixed `lamp` command not working for medium lamps.
+
 ## [4.0.2] - 2016-12-06
 ### Added
 - Added tracking for various things
@@ -346,6 +357,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[4.0.3]: https://github.com/unlucky4ever/RuneCord/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/unlucky4ever/RuneCord/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/unlucky4ever/RuneCord/compare/4.0.0...4.0.1
 [4.0.0]: https://github.com/unlucky4ever/RuneCord/compare/3.2.0...4.0.0
