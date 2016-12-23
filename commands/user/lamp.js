@@ -28,7 +28,7 @@ module.exports = {
 
 		if (size === 'med' || size === 'medium') {
 			size = 'Medium';
-			xp = utils.getLampXp(level, 'med');
+			xp = utils.getLampXp(level, 'medium');
 		}
 
 		if (size === 'large') {
