@@ -3,6 +3,7 @@ var reload = require('require-reload')(require);
 var fs     = require('fs');
 
 /* REQUIRED FILES */
+var utils   = reload('./utils.js');
 var Command = reload('./Command.js');
 var _Logger = reload('./Logger.js');
 
@@ -77,28 +78,8 @@ class CommandManager {
 				return;
 			}
 			this.logger.logCommand(msg.channel.guild === undefined ? null : msg.channel.guild.name, msg.author.username, this.prefix + command.name, msg.cleanContent.replace(this.prefix + name, '').trim());
-			if (config.mixpanelToken && msg.channel.guild !== null) { // Only log command with this information if done in a guild.
-				mixpanel.track('server command', {
-					distinct_id: `${msg.channel.guild.id}`,
-					type: `Guild`,
-					username: `${msg.author.username}#${msg.author.discriminator}`,
-					userID: `${msg.author.id}`,
-					channelID: `${msg.channel.id}`,
-					channelName: `${msg.channel.name}`,
-					serverName: `${msg.channel.guild.name}`,
-					command: `${command.name}`,
-					arguments: `${suffix}`
-				});
-			}
-			if (config.mixpanelToken && msg.channel.guild === null) { // Only log command with this information if done in a DM.
-				mixpanel.track('dm command', {
-					distinct_id: `${msg.author.id}`,
-					type: `DM`,
-					username: `${msg.author.username}#${msg.author.discriminator}`,
-					command: `${command.name}`,
-					arguments: `${suffix}`
-				});
-			}
+			if (msg.channel.guild !== null) utils.logCommandToMixpanel(msg, command, suffix, 'SERVER');
+			if (msg.channel.guild === null) utils.logCommandToMixpanel(msg, command, suffix, 'DM');
 			return command.execute(bot, msg, suffix, config, settingsManager, this.logger);
 		} else if (name.toLowerCase() === 'help') {
 			return this.help(bot, msg, msg.content.replace(this.prefix + name, '').trim());
