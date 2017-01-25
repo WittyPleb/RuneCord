@@ -13,7 +13,7 @@ module.exports = {
 	cooldown: 10,
 	aliases: ['voice'],
 	task(bot, msg) {
-		superagent.get(`https://cdn.syndication.twimg.com/widgets/timelines/${config.twitterId}?&lang=en&supress_response_codes=true&rnd=${Math.random()}`)
+		superagent.get(`https://cdn.syndication.twimg.com/widgets/timelines/733073833553321985?&lang=en&supress_response_codes=true&rnd=${Math.random()}`)
 			.end((error, response) => {
 				if (error) {
 					logger.warn('Error checking VoS: ' + (error.status || error.response));
