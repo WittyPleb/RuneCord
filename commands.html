@@ -1,572 +1,259 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>RuneCord - Commands</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" href="images/runecord.png" />
+		<link rel="apple-touch-icon-precomposed" href="images/runecord.png" />
+	</head>
+	<body>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="author" content="Witty">
-    <meta name="description" content="RuneCord is a bot tailored for RuneScape.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RuneCord - Commands</title>
+		<!-- Header -->
+			<header id="header">
+				<h1><strong><a href="index.html"><img src="images/runecord32.png" style="padding: 0px 10px; float: left; margin-top: calc(2.25em - 16px);">RuneCord</a></strong></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="commands.html">Commands</a></li>
+						<li><a href="settings.html">Settings</a></li>
+						<li><a href="donate.html">Donate</a></li>
+					</ul>
+				</nav>
+			</header>
 
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/e017955fa3.js"></script>
+			<a href="#menu" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 
-    <link rel="stylesheet" type="text/css" href="css/master.min.css">
-</head>
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<div class="container">
 
-<body>
-    <section class="hero is-medium is-bold is-info">
-        <div class="hero-head">
-            <header class="nav has-shadow">
-                <div class="container">
-                    <div class="nav-left">
-                        <a href="index.html" class="nav-item nav-name">RuneCord</a>
-                    </div>
-                    <span class="nav-toggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                    <div class="nav-right nav-menu">
-                        <a href="index.html" class="nav-item">Home</a>
-                        <a class="nav-item is-active">Commands</a>
-                        <a href="settings.html" class="nav-item">Settings</a>
-                        <a href="docs/index.html" class="nav-item">Documentation</a>
-                        <span class="nav-item">
-                            <a href="https://discord.me/runecord" class="button is-discord is-inverted">
-                                <span class="icon">
-                                    <img src="images/Discord-Logo-Color.png" />
-                                </span>
-                                <span>Discord</span>
-                            </a>
-                        </span>
-                        <span class="nav-item">
-                            <a href="https://github.com/unlucky4ever/RuneCord" class="button is-dark is-inverted">
-                                <span class="icon">
-                                    <i class="fa fa-github"></i>
-                                </span>
-                                <span>GitHub</span>
-                            </a>
-                        </span>
-                        <span class="nav-item">
-                            <a href="https://www.patreon.com/witty" class="button is-danger is-inverted">
-                                <span class="icon">
-                                    <i class="fa fa-gift"></i>
-                                </span>
-                                <span>Patreon</span>
-                            </a>
-                        </span>
-                    </div>
-                </div>
-            </header>
-        </div>
-        <div class="hero-body">
-            <div class="container has-text-centered">
-                <h1 class="title is-1">RuneCord</h1>
-                <h2 class="subtitle is-3">Command List</h2>
-            </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="tabs is-centered is-boxed">
-                <ul>
-                    <li class="is-active">
-                        <a id="normal-tab">Normal</a>
-                    </li>
-                    <li><a id="moderation-tab">Moderation</a></li>
-                </ul>
-            </div>
-            <p class="has-text-centered">Key: <code>[optional]</code> <code>&lt;required&gt;</code><br />
-            <div id="normal">
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">About</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Shows you some info about RuneCord. Also contains some useful links.<br />
-                            <code>~about</code><br />
-                            <small>Aliases: info</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Adenturer's Log</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Gets a small table of the last 5 entries of a user's adventurer's log.<br />
-                            <code>~alog &lt;username&gt;</code><br />
-                            <small>Aliases: advlog, log</small><br />
-                            <small>Cooldown: 10 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Araxxi Rotation</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you what path is currently closed for Araxxor/Araxxi. Also tells you what the next path to be closed will be and how many days until then.<br />
-                            <code>~araxxi</code><br />
-                            <small>Aliases: rax, spooder</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Big Chinchompa</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you when the next Big Chinchompa D&amp;D will begin.<br />
-                            <code>~bigchin</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Guthixan Cache</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you when the next Guthixan Cache D&amp;D will begin.<br />
-                            <code>~cache</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Circus Location</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Gives you the current location of the circus. Also gives you the next location and many days until it switches.<br />
-                            <code>~circus</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Troll Invasion</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you the amount of experience you would gain if you completed the Troll Invasion D&amp;D in its entirety.<br />
-                            <code>~invasion &lt;level&gt;</code><br />
-                            <small>Aliases: troll, trollinvasion</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Invite</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Get the link to add the bot to another server.<br />
-                            <code>~invite</code><br />
-                            <small>Aliases: join, oauth</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Jack of Trades</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you the amount of experience you'd gain if you completed your Jack of Trades aura. Accepts all tiers.<br />
-                            <code>~jot &lt;normal|master|supreme|legendary&gt; &lt;level&gt;</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Experience Lamps</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you how much experience you'd get from a lamp. Accepts all sizes.<br />
-                            <code>~lamp &lt;small|med|large|huge&gt; &lt;level&gt;</code><br />
-                            <small>Aliases: xplamp</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Penguins</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you how much experience you'd gain or how much gold you'd gain based on how many points you have and your level.<br /><br />
-                            If you don't enter a level, it will tell you how much gold you'd gain.<br />
-                            <code>~pengs &lt;points&gt; [level]</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Ping</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Used to check if the bot is working. Replies with various sayings and the response delay.<br />
-                            <code>~ping</code><br />
-                            <small>Aliases: p</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Item Prices</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Returns the price for an item based on item name.<br />
-                            <code>~price &lt;item name&gt;</code><br />
-                            <small>Cooldown: 10 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Prifddina Raven</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Informs you if there is a raven in Prifddinas or not.<br />
-                            <code>~raven</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Reset Time</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Used to get the time when the game resets. Replies with how long until reset.<br />
-                            <code>~reset</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Roll / Random Number</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Roll a number between the given range. By default 1-10.<br />
-                            <code>~roll [[min-]max]</code><br />
-                            <small>Aliases: random</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Rise of the Six Rotation</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you what brothers are on what side for Rise of the Six. Also tells you where they'll be next time they switch and when they switch.<br />
-                            <code>~rots</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Sinholes</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you how long until the next Sinkhole D&amp;D spawns.<br />
-                            <code>~sinkhole</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Minigame Spotlight</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you what minigame is currently on spotlight, as well as what minigame will be on spotlight next and when.<br />
-                            <code>~spotlight</code><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">User Stats</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Gives you a nice table with a user's statistics.<br />
-                            <code>~stats &lt;username&gt;</code><br />
-                            <small>Aliases: hs</small><br />
-                            <small>Cooldown: 10 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">God Statues</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Gives you how much experience you'd gain for completing God Statues, based on your username.<br />
-                            <code>~statues &lt;username&gt;</code><br />
-                            <small>Cooldown: 10 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Game Time</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you the current ingame time.<br />
-                            <code>~time</code><br />
-                            <small>Aliases: gametime</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Viswax Combination</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Gets the current combination for Viswax from the RuneScape Official Forums.<br />
-                            <code>~viswax</code><br />
-                            <small>Cooldown: 10 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Vorago Rotation</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you what rotation Vorago is on currently, as well as what and when he'll be on next time.<br />
-                            <code>~vorago</code><br />
-                            <small>Aliases: rago</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Voice of Seren</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you what the current Voice of Seren is.<br />
-                            <code>~vos</code><br />
-                            <small>Aliases: voice</small><br />
-                            <small>Cooldown: 10 seconds</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Warbands</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Tells you when the next Warbands D&amp;D will begin.<br />
-                            <code>~warbands</code><br />
-                            <small>Aliases: wbs</small><br />
-                            <small>Cooldown: 5 seconds</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="moderation" class="is-hidden">
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Settings</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Adjust the settings for how the bot works on the server. More information here: <a href="settings.html">Settings</a>.<br />
-                            <code>See page for usage</code><br />
-                            <small>Required Permission: manageGuild</small><br />
-                            <small>Aliases: set, config</small><br />
-                            <small>Cooldown: 3 seconds</small><br />
-                            <small>Can only be used in a server</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="card is-customwidth">
-                    <header class="card-header">
-                        <p class="card-header-title">Bot Statistics</p>
-                        <a class="card-header-icon card-toggle">
-                            <i class="fa fa-angle-down"></i>
-                        </a>
-                    </header>
-                    <div class="card-content is-hidden">
-                        <div class="content">
-                            Get a wide range of statistics about the bot.<br />
-                            <code>)stats</code><br />
-                            <small>Cooldown: 10 seconds</small><br />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/master.js" charset="utf-8"></script>
+					<header class="major special">
+						<h2>Normal Commands</h2>
+						<p>Commands that can be used by everyone</p>
+					</header>
+					<table class="alt">
+						<thead>
+							<tr>
+								<th>Command</th>
+								<th>Description</th>
+								<th>Cooldown</th>
+								<th>Aliases</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>About</td>
+								<td>Shows you some information about RuneCord. Also contains some useful links.<br />Usage: <code>~about</code></td>
+								<td>5 seconds</td>
+								<td>info</td>
+							</tr>
+							<tr>
+								<td>Adventurer's Log</td>
+								<td>Gets a small table of the last 10 entries of user's adventurer's log. <strong>Username required.</strong><br />Usage: <code>~alog &lt;username&gt;</code></td>
+								<td>10 seconds</td>
+								<td>advlog, log</td>
+							</tr>
+							<tr>
+								<td>Araxxi Rotation</td>
+								<td>Tells you the current rotation for Araxxor/Araxxi. Also tells you when the next path closes.<br />Usage: <code>~araxxi</code></td>
+								<td>5 seconds</td>
+								<td>rax, spooder</td>
+							</tr>
+							<tr>
+								<td>Big Chinchompa</td>
+								<td>Tells you when the next Big Chinchompa D&amp;D will begin.<br />Usage: <code>~bigchin</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Guthixian Cache</td>
+								<td>Tells you when the next Guthixian Cache D&amp;D will begin.<br />Usage: <code>~cache</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Circus Location</td>
+								<td>Gives you the curent location of the circus.<br />Usage: <code>~circus</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Troll Invation</td>
+								<td>Tells you the amount of experience you'd gain if you completed a full round of Troll Invasion. <strong>Level required.</strong><br />Usage: <code>~invasion &lt;level&gt;</code></td>
+								<td>5 seconds</td>
+								<td>troll, trollinvasion</td>
+							</tr>
+							<tr>
+								<td>Invite</td>
+								<td>Get the link to add the bot to another server.<br />Usage: <code>~invite</code></td>
+								<td>5 seconds</td>
+								<td>join, oauth</td>
+							</tr>
+							<tr>
+								<td>Jack of Trades</td>
+								<td>Tells you the amount of experience you'd gain if you completed your Jack of Trades aura. <strong>Tier &amp; level required.</strong><br />Usage: <code>~jot &lt;normal|master|supreme|legendary&gt; &lt;level&gt;</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Experience Lamps</td>
+								<td>Tells you how much experience you'd get from a lamp. <strong>Size &amp; level required.</strong><br />Usage: <code>~lamp &lt;small|med|large|huge&gt; &lt;level&gt;</code></td>
+								<td>5 seconds</td>
+								<td>xplamp</td>
+							</tr>
+							<tr>
+								<td>Penguins</td>
+								<td>Tells you how much experience or gold you'd get from penguins. <strong>Points required, level optional.</strong><br />Usage: <code>~pengs &lt;points&gt; [level]</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Ping</td>
+								<td>Used to check if the bot is working.<br />Usage: <code>~ping</code></td>
+								<td>5 seconds</td>
+								<td>p</td>
+							</tr>
+							<tr>
+								<td>Item Prices</td>
+								<td>Returns the price for an item. <strong>Item name required.</strong><br />Usage: <code>~price &lt;item name&gt;</code></td>
+								<td>10 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Prifddinas Raven</td>
+								<td>Informs you if there is a raven in Prifddinas or nor.<br />Usage: <code>~raven</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Reset Time</td>
+								<td>Used to get how long until the game resets.<br />Usage: <code>~reset</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Roll / Random Number</td>
+								<td>Roll a number between the given range. <strong>Min &amp; Max required.</strong><br />Usage: <code>~roll &lt;min&gt; &lt;max&gt;</code></td>
+								<td>5 seconds</td>
+								<td>random</td>
+							</tr>
+							<tr>
+								<td>Rise of the Six Rotation</td>
+								<td>Tells you what brothers are what side.<br />Usage: <code>~rots</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Sinkholes</td>
+								<td>Tells you how long until the next Sinkhole D&amp;D spawns.<br />Usage: <code>~sinkhole</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Spotlight</td>
+								<td>Tells you what minigame is currently on spotlight.<br />Usage: <code>~spotlight</code></td>
+								<td>5 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>User Stats</td>
+								<td>Gives you a nice table with a user's statistics. <strong>Username required.</strong><br />Usage: <code>~stats &lt;username&gt;</code></td>
+								<td>10 seconds</td>
+								<td>hs</td>
+							</tr>
+							<tr>
+								<td>God Statues</td>
+								<td>Gives you how much experience you'd gain for completing God Statues.<br />Usage: <code>~statues &lt;username&gt;</code></td>
+								<td>10 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Vis wax Combination</td>
+								<td>Gets the current Vis wax combination from the RuneScape Official Forums.<br />Usage: <code>~viswax</code></td>
+								<td>10 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td>Vorago Rotation</td>
+								<td>Tells you what rotation Vorago is currently on.<br />Usage: <code>~vorago</code></td>
+								<td>5 seconds</td>
+								<td>rago</td>
+							</tr>
+							<tr>
+								<td>Voice of Seren</td>
+								<td>Tells you what the current Voice of Seren is.<br />Usage: <code>~vos</code></td>
+								<td>10 seconds</td>
+								<td>voice</td>
+							</tr>
+							<tr>
+								<td>Warbands</td>
+								<td>Tells you when the next Warbands D&amp;D will begin.<br />Usage: <code>~warbands</code></td>
+								<td>5 seconds</td>
+								<td>wbs</td>
+							</tr>
+						</tbody>
+					</table>
 
-    <!-- Google Analytics -->
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+					<header class="major special">
+						<h2>Moderator Commands</h2>
+						<p>Commands that can only be used by the server owner.</p>
+					</header>
+					<table class="alt">
+						<thead>
+							<tr>
+								<th>Command</th>
+								<th>Description</th>
+								<th>Cooldown</th>
+								<th>Aliases</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Settings</td>
+								<td>Adjust the settings for how the bot works on the server.<br />Usage: See <a href="settings.html">Settings</a>.</td>
+								<td>3 seconds</td>
+								<td>set, config</td>
+							</tr>
+							<tr>
+								<td>Bot Statistics</td>
+								<td>Get a wide range of statistics about the bot.<br />Usage: <code>)stats</code></td>
+								<td>10 seconds</td>
+								<td>&nbsp;</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
 
-        ga('create', 'UA-75993904-2', 'auto');
-        ga('send', 'pageview');
-    </script>
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<ul class="icons">
+						<li><a href="https://github.com/unlucky4ever/RuneCord" class="icon fa-github" target="_blank"></a></li>
+						<li><a href="https://twitter.com/wittyrs" class="icon fa-twitter" target="_blank"></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; RuneCord</li>
+						<li>Design: <a href="http://templated.co">TEMPLATED</a></li>
+					</ul>
+					<ul style="margin-top: -35px;">
+						<span style="font-size: 10px;">RuneCord is not endorsed, sponsored, affiliated with or otherwise authorized by Jagex Corporation or Discord.</span>
+					</ul>
+				</div>
+			</footer>
 
-    <!-- Tabs -->
-    <script type="text/javascript">
-        ['normal', 'moderation'].forEach(function(t) {
-            document.getElementById(t + '-tab').addEventListener('click', function(e) {
-                if (e.currentTarget.classList.contains('is-active') === false) {
-                    var toSearch = e.currentTarget.parentNode.parentNode.parentNode.parentNode.children;
-                    for (var i = 2; i < toSearch.length; i++) {
-                        if (toSearch[i].id === t) {
-                            toSearch[i].classList.remove('is-hidden');
-                            continue;
-                        }
-                        if (toSearch[i].classList.contains('is-hidden') === false)
-                            toSearch[i].classList.add('is-hidden');
-                    }
-                    var toSearch = toSearch[0].parentNode.children[0].children[0].children; //ugh
-                    for (var i = 0; i < toSearch.length; i++) {
-                        if (toSearch[i].classList.contains('is-active'))
-                            toSearch[i].classList.remove('is-active')
-                    }
-                    e.currentTarget.parentNode.classList.add('is-active');
-                }
-            });
-        });
-    </script>
-</body>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
+	</body>
 </html>

@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>RuneCord - Settings</title>
+		<title>RuneCord - Donate</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -35,25 +35,31 @@
 				<div class="container">
 
 					<header class="major special">
-						<h2>Settings</h2>
-						<p>How to configure RuneCord</p>
+						<h2>Donate</h2>
+						<p>RuneCord relies on generous users to stay running</p>
 					</header>
 
-					<header>
-						<h4>Command Ignoring</h4>
-						<p>Ignore specific commands</p>
-					</header>
-					<p>Usage: <code>)settings ignored (scopes) (commands)</code></p>
-					<p><strong>Scopes:</strong> Either a <em>@User</em>, <em>#channel</em>, or <em>server</em>.<br /><strong>Commands:</strong> Either a <em>~command</em>, <em>~all</em> of a prefix, or <em>all</em> commands.</p>
-					<p>Scopes and commands are separated with a <code>|</code>.<br />Example: <code>)settings ignored (@User 1 | @User 2 | #no-bot) ()all | ~ping)</code></p>
-					<p>Unignoring wworks the same way, just use <code>unignore</code> instead.</p>
-					<p><strong>If there is only one scope, you can omit the parenthesis.</strong></p>
+					<p>
+						<span class="image left"><img src="images/patreon.png" alt="" /></span>
+						The majority of RuneCord's support comes from pledges made on <a href="https://www.patreon.com/witty" target="_blank">Patreon</a>. Patreon supporters get a special role in the community Discord, and have a chance to get their own custom message in the bot.
+					</p>
+					<ul class="actions">
+						<li><a href="https://www.patreon.com/witty" class="button big">Donate via Patreon</a></li>
+					</ul>
 					<hr />
-					<header>
-						<h4>Checking Settings</h4>
-						<p>Check the current settings for RuneCord.</p>
-					</header>
-					<p>Usage: <code>)settings ignored &lt;server|@User|#channel&gt;</code><br />Example: <code>)settings ignored #channel-name</code></p>
+					<p>
+						<span class="image left"><img src="images/paypal.png" alt="" /></span>
+						If you'd like to make a one-time donation, we accept donations via PayPal. Please donate more than $0.50 USD, otherwise the entire amount will go to PayPal fees.
+					</p>
+					<ul class="actions">
+						<li>
+							<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+								<input type="hidden" name="cmd" value="_s-xclick">
+								<input type="hidden" name="hosted_button_id" value="G3K8DVAPLCKJJ">
+								<input type="submit" class="button big" name="submit" value="Donate via PayPal">
+							</form>
+						</li>
+					</ul>
 				</div>
 			</section>
 
