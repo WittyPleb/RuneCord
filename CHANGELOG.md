@@ -8,6 +8,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+[4.0.4] - 2017-01-31
+### Added
+- Added `~memberinfo` command.
+
+### Changed
+- Updated deprecated code.
+
+### Fixed
+- Fix for people who don't use MixPanel.
+
+### Removed
+- Removed `twitterId` requireming for `~vos` command.
+
 ## [4.0.3] - 2016-12-23
 ### Changed
 - Made `eval` command 'stringify' objects now if the result is an object.
@@ -357,6 +370,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[4.0.4]: https://github.com/unlucky4ever/RuneCord/compare/4.0.3...4.0.4
 [4.0.3]: https://github.com/unlucky4ever/RuneCord/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/unlucky4ever/RuneCord/compare/4.0.1...4.0.2
 [4.0.1]: https://github.com/unlucky4ever/RuneCord/compare/4.0.0...4.0.1
