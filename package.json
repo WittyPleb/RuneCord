@@ -31,7 +31,6 @@
   },
   "devDependencies": {
     "eslint": "*",
-    "ink-docstrap": "1.3.0",
     "jsdoc-parse": "2.0.5",
     "latodoc": "github:smeijer/latodoc"
   }
