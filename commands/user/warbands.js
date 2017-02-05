@@ -29,18 +29,26 @@ module.exports = {
 
 		let timestr = '';
 
-		if (hours > 0) {
-			timestr += `${hours} hour${hours > 1 ? 's' : ''}`;
+		// No minutes left, on the hour
+		if (hours > 0 && minutes == 0) {
+			timestr += `**${hours} hour${hours > 1 ? 's' : ''}**`;
 		}
 
-		if (hours >= 1 && minutes < 1) {
-			timestr += `${minutes} minute${minutes > 0 && minutes < 2 ? '' : 's'}`;
+		// The usual message X hours and X minutes
+		if (hours > 0 && minutes > 1) {
+			timestr += `**${hours} hour${hours > 1 ? 's' : ''}** and **${minutes} minute${minutes > 0 && minutes < 2 ? '' : 's'}**`;
 		}
 
+		// No hours left, only minutes left
+		if (hours < 1 && minutes > 1) {
+			timestr += `**${minutes} minute${minutes > 0 && minutes < 2 ? '' : 's'}**`;
+		}
+
+		// Less than a minute to go
 		if (minutes < 1 && hours < 1) {
-			timestr += 'less than a minute';
+			timestr += '**less than a minute**';
 		}
 
-		bot.createMessage(msg.channel.id, `Next Warbands will begin in **${timestr}**.`);
+		bot.createMessage(msg.channel.id, `Next Warbands will begin in ${timestr}.`);
 	}
 }
