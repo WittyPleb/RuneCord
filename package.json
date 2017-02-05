@@ -26,7 +26,7 @@
     "moment": "2.17.1",
     "require-reload": "0.2.2",
     "stringify-object": "3.1.0",
-    "superagent": "3.3.2",
+    "superagent": "3.4.2",
     "truncate": "2.0.0"
   },
   "devDependencies": {
