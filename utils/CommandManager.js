@@ -78,8 +78,6 @@ class CommandManager {
 				return;
 			}
 			this.logger.logCommand(msg.channel.guild === undefined ? null : msg.channel.guild.name, msg.author.username, this.prefix + command.name, msg.cleanContent.replace(this.prefix + name, '').trim());
-			if (msg.channel.guild !== undefined && config.mixpanelToken) utils.logCommandToMixpanel(msg, command, suffix, 'SERVER');
-			if (msg.channel.guild === undefined && config.mixpanelToken) utils.logCommandToMixpanel(msg, command, suffix, 'DM');
 			return command.execute(bot, msg, suffix, config, settingsManager, this.logger);
 		} else if (name.toLowerCase() === 'help') {
 			return this.help(bot, msg, msg.content.replace(this.prefix + name, '').trim());

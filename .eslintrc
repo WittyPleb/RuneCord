@@ -24,8 +24,7 @@
     "indent": ["error", "tab"]
   },
   "globals": {
-    "commandsProcessed": true,
-    "mixpanel": true
+    "commandsProcessed": true
   },
   "extends": "eslint:recommended"
 }

@@ -74,10 +74,6 @@ module.exports = function(config) {
 			logger.warn('logTimestamp needs to be set to true or false.', 'CONFIG WARNING');
 		}
 
-		if (typeof config.mixpanelToken !== 'string') {
-			logger.warn('mixpanelToken must be a string.', 'CONFIG WARNING');
-		}
-
 		return resolve();
 	});
 };

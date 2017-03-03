@@ -207,31 +207,6 @@ exports.getLampXp = function(level, type) {
 	return lamps[type][Math.min(97, level - 1)];
 }
 
-exports.logCommandToMixpanel = function(msg, command, suffix, type) {
-	if (!msg || !command) return;
-	switch (type) {
-	case 'DM':
-		mixpanel.track('dm command', {
-			distinct_id: `${msg.author.id}`,
-			username: `${msg.author.username}#${msg.author.discriminator}`,
-			command: `${command.name}`,
-			arguments: `${suffix}`
-		});
-		break;
-	case 'SERVER':
-		mixpanel.track('server command', { // Command was in a server
-			distinct_id: `${msg.channel.guild.id}`,
-			username: `${msg.author.username}#${msg.author.discriminator}`,
-			userID: `${msg.author.id}`,
-			channelID: `${msg.channel.id}`,
-			serverName: `${msg.channel.guild.name}`,
-			command: `${command.name}`,
-			arguments: `${suffix}`
-		});
-		break;
-	}
-}
-
 /** Check for a newer version of RuneCord */
 exports.checkForUpdates = function() {
 	let version = ~~(require('../package.json').version.split('.').join('')); // This is used to convert the number that can be compared.
