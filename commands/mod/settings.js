@@ -157,7 +157,7 @@ module.exports = {
 	help: `Modify how the bot works on a server.
 	__ignore__: Block commands \`ignore #no-bot >all\`.
 	__unignore__: Allow commands \`unignore @User >ping | >roll\`.`,
-	usage: "Usage at <https://runecord.xyz/settings.html>",
+	usage: "Usage at <http://unlucky4ever.github.io/RuneCord/settings.html>",
 	aliases: ['set', 'config'],
 	cooldown: 3,
 	requiredPermission: 'manageGuild',

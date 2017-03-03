@@ -5,7 +5,7 @@
 
 # A bot just for RuneScape.
 
-#### [Website](https://runecord.xyz) | [Support on Patreon](http://patreon.com/witty) | [Documentation](https://runecord.xyz/docs/index.html) | [Discord Server](https://discord.me/runecord)
+#### [Website](http://unlucky4ever.github.io/RuneCord/index.html) | [Support on Patreon](http://patreon.com/witty) | [Documentation](http://unlucky4ever.github.io/RuneCord/docs/index.html) | [Discord Server](https://discord.me/runecord)
 
 ## Adding the official bot to your server
 You can add the official RuneCord bot to your server without making your own by clicking the link below.
