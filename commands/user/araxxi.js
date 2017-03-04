@@ -31,10 +31,14 @@ module.exports = {
 					url: 'http://i.imgur.com/9m39UaE.png'
 				},
 				fields: [
-					{ name: 'Top Path', value: topPath },
-					{ name: 'Middle Path', value: midPath },
-					{ name: 'Bottom Path', value: botPath }
-				]
+					{ name: 'Top Path (Minions)', value: topPath },
+					{ name: 'Middle Path (Acid)', value: midPath },
+					{ name: 'Bottom Path (Darkness)', value: botPath }
+				],
+				footer: {
+					text: `Next path to be closed will be ${ROTATIONS[nextRotation]} in ${daysUntilNext} day${(daysUntilNext > 1 ? 's' : '')}.`,
+					icon_url: 'http://i.imgur.com/9m39UaE.png'
+				}
 			}
 		});
 	}
