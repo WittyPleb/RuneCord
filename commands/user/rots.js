@@ -1,3 +1,4 @@
+var Nf = new Intl.NumberFormat('en-US');
 const NAMES = {
 	A: 'Ahrim',
 	D: 'Dharok',
@@ -38,19 +39,21 @@ module.exports = {
 
 		if (currentRotation === -1 || currentRotation >= ROTATIONS.length) currentRotation = 0;
 
-		let westSide = ROTATIONS[currentRotation][0].join(' - ');
-		let eastSide = ROTATIONS[currentRotation][1].join(' - ');
+		let westSide = ROTATIONS[currentRotation][0];
+		let eastSide = ROTATIONS[currentRotation][1];
 
-		let toSend = [];
-
-		toSend.push('```md');
-		toSend.push('# Curent Rise of the Six rotation');
-		toSend.push(`West Side: ${westSide}`);
-		toSend.push(`East Side: ${eastSide}`);
-		toSend.push('```');
-
-		toSend = toSend.join('\n');
-
-		bot.createMessage(msg.channel.id, toSend);
+		bot.createMessage(msg.channel.id, {
+			embed: {
+				title: 'Current Rise of the Six Rotation',
+				color: 0x36073d,
+				thumbnail: {
+					url: 'http://i.imgur.com/xy8pXsM.png'
+				},
+				fields: [
+					{ name: 'West Side', value: westSide.join("\n"), inline: true },
+					{ name: 'East Side', value: eastSide.join("\n"), inline: true }
+				]
+			}
+		});
 	}
 }
