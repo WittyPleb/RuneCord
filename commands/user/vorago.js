@@ -19,14 +19,21 @@ module.exports = {
 
 		if (nextRotation === ROTATIONS.length) nextRotation = 0;
 
-		let toSend = [];
-
-
-		toSend.push(`The current rotation for Vorago is **${ROTATIONS[currentRotation]}**.`);
-		toSend.push(`The next rotation for Vorago will be **${ROTATIONS[nextRotation]}** in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
-
-		toSend = toSend.join('\n');
-
-		bot.createMessage(msg.channel.id, toSend);
+		bot.createMessage(msg.channel.id, {
+			embed: {
+				name: 'Vorago Rotation',
+				color: 0xb89946,
+				thumbnail: {
+					url: 'http://i.imgur.com/e4WOs8J.png'
+				},
+				fields: [
+					{ name: 'Vorago Rotation', value: ROTATIONS[currentRotation] }
+				],
+				footer: {
+					text: `The next rotation will be ${ROTATIONS[nextRotation]} in ${daysUntilNext} day${(daysUntilNext > 1 ? 's' : '')}.`,
+					icon_url: 'http://i.imgur.com/e4WOs8J.png'
+				}
+			}
+		});
 	}
 }
