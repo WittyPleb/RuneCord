@@ -15,13 +15,27 @@ module.exports = {
 
 		if (nextRotation === ROTATIONS.length) nextRotation = 0; // Resets it back to the beginning
 
-		let toSend = [];
+		let topPath = 'OPEN';
+		let midPath = 'OPEN';
+		let botPath = 'OPEN';
 
-		toSend.push(`The current path that is closed for Araxxor/Araxxi is **${ROTATIONS[currentRotation]}**.`);
-		toSend.push(`The next path to be closed will be **${ROTATIONS[nextRotation]}** in **${daysUntilNext}** day${(daysUntilNext > 1 ? 's' : '')}.`);
+		if (currentRotation == 0) { topPath = 'CLOSED'; }
+		if (currentRotation == 1) { midPath = 'CLOSED'; }
+		if (currentRotation == 2) { botPath = 'CLOSED'; }
 
-		toSend = toSend.join('\n');
-
-		bot.createMessage(msg.channel.id, toSend);
+		bot.createMessage(msg.channel.id, {
+			embed: {
+				title: 'Arraxor/Araxxi Rotation',
+				color: 0x38fe4f,
+				thumbnail: {
+					url: 'http://i.imgur.com/9m39UaE.png'
+				},
+				fields: [
+					{ name: 'Top Path', value: topPath },
+					{ name: 'Middle Path', value: midPath },
+					{ name: 'Bottom Path', value: botPath }
+				]
+			}
+		});
 	}
 }
