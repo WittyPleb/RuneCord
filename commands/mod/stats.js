@@ -7,7 +7,7 @@ var moment = require('moment');
 
 /* REQUIRED FILES */
 var formatTime = reload('../../utils/utils.js').formatTimeShort;
-var botVersion    = reload('../../package.json').version;
+var botVersion = reload('../../package.json').version;
 var libVersion = require('../../node_modules/eris/package.json').version;
 var config     = reload('../../config.json');
 
@@ -20,7 +20,7 @@ module.exports = {
 			embed: {
 				title: 'Official GitHub Page',
 				url: 'https://github.com/unlucky4ever/RuneCord',
-				description: 'A bot just for RuneScaoe.\n\tMore details at https://github.com/unlucky4ever/RuneCord',
+				description: 'A bot just for RuneScape.\n\tMore details at https://github.com/unlucky4ever/RuneCord',
 				author: {
 					name: botAuthor.username + '#' + botAuthor.discriminator,
 					icon_url: botAuthor.avatarURL
