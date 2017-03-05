@@ -5,7 +5,7 @@
 	},
 	"source": {
 		"include": ["utils"],
-		"includePattern": ".js$",
+		"includePattern": "\\.js$",
 		"excludePattern": "(node_modules/|docs)"
 	},
 	"plugins": [
