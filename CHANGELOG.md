@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
-[Unpublished] - 2017-03-05
+[4.1.0] - 2017-03-05
 ### Added
 - Added `~vis` and `~wax` aliases to the `~viswax` command.
 
@@ -17,8 +17,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Cleaned up `~vorago` command.
 - Cleaned up `~araxxi` command.
 - Updated all dependencies.
-
-### Fixed
 
 ### Removed
 - Removed everything to do with MixPanel.
@@ -385,6 +383,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 2.0.0 - 2016-05-14
 - Initial Re-release
 
+[4.1.0]: https://github.com/unlucky4ever/RuneCord/compare/4.0.4...4.1.0
 [4.0.4]: https://github.com/unlucky4ever/RuneCord/compare/4.0.3...4.0.4
 [4.0.3]: https://github.com/unlucky4ever/RuneCord/compare/4.0.2...4.0.3
 [4.0.2]: https://github.com/unlucky4ever/RuneCord/compare/4.0.1...4.0.2
