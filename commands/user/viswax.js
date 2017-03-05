@@ -11,6 +11,7 @@ var logger = new (reload('../../utils/Logger.js'))(config.logTimestamp);
 module.exports = {
 	desc: 'Get the current Viswax combination.',
 	cooldown: 10,
+	aliases: ['vis', 'wax'],
 	task(bot, msg) {
 		superagent.get('http://services.runescape.com/m=forum/forums.ws?75,76,387,65763383')
 			.end((error, response) => {
