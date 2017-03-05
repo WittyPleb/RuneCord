@@ -8,6 +8,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+[Unpublished] - 2017-03-05
+### Added
+- Added `~vis` and `~wax` aliases to the `~viswax` command.
+
+### Changed
+- Cleaned up `~rots` command.
+- Cleaned up `~vorago` command.
+- Cleaned up `~araxxi` command.
+- Updated all dependencies.
+
+### Fixed
+
+### Removed
+- Removed everything to do with MixPanel.
+
 [4.0.4] - 2017-01-31
 ### Added
 - Added `~memberinfo` command.
