@@ -15,16 +15,13 @@ module.exports = {
 		let botAuthor = bot.users.get(config.adminIds[0]);
 		bot.createMessage(msg.channel.id, {
 			embed: {
-				title: 'Official Server Invite',
-				url: 'https://discord.me/runecord',
+				title: 'Official Website',
+				url: 'http://runecord.xyz',
 				description: 'RuneCord is a bot made to allow you to get RuneScape information in your Discord server.\n\nIf you have any feedback or suggestions head over to my server.\nFor a list of commands do `~help` and `)help`.',
-				author: {
-					name: botAuthor.username + '#' + botAuthor.discriminator,
-					icon_url: botAuthor.avatarURL
-				},
 				fields: [
-					{ name: 'Website', value: 'http://unlucky4ever.github.io/RuneCord/index.html'},
+					{ name: 'Website', value: 'http://runecord.xyz'},
 					{ name: 'GitHub', value: 'https://github.com/unlucky4ever/RuneCord/'},
+					{ name: 'Support Server', value: 'http://discord.me/runecord' },
 					{ name: 'Patreon', value: 'https://patreon.com/witty'}
 				],
 				footer: {
