@@ -342,3 +342,10 @@ process.on('SIGINT', () => {
 	settingsManager.handleShutdown().then(() => process.exit(0));
 	setTimeout(() => { process.exit(0); }, 5000); // Exit procces after 5 seconds.
 });
+
+/* IF THE PROCESS EXPEREIENCES AN UNCAUGHTEXCEPTION, DISCONNECT AND RECONNECT */
+process.on('uncaughtException', (err) => {
+	bot.disconnect({reconnect: true});
+	settingsManager.handleShutdown().then(() => process.exit(0));
+	setTimeout(() => { process.exit(0); }, 5000); // Exit process after 5 seconds.
+})
