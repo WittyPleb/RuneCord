@@ -1,6 +1,6 @@
 {
   "name": "runecord",
-  "version": "4.0.4",
+  "version": "4.1.0",
   "description": "A Discord bot tailored for RuneScape.",
   "main": "index.js",
   "scripts": {
