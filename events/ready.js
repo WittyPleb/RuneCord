@@ -19,6 +19,5 @@ module.exports = function(bot, config, games, utils) {
 		let name = games[~~(Math.random() * games.length)];
 		shard.editStatus(null, {name});
 	});
-	process.send('ready'); // Send a ready event for process managing
 	logger.logWithHeader('READY', 'bgGreen', 'black', `Guilds: ${Nf.format(bot.guilds.size)} Users: ${Nf.format(bot.users.size)} AVG: ${Nf.format((bot.users.size / bot.guilds.size).toFixed(2))}`);
 }

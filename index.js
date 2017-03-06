@@ -348,4 +348,4 @@ process.on('uncaughtException', (err) => {
 	bot.disconnect({reconnect: true});
 	settingsManager.handleShutdown().then(() => process.exit(0));
 	setTimeout(() => { process.exit(0); }, 5000); // Exit process after 5 seconds.
-})
+});
