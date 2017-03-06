@@ -29,6 +29,12 @@ module.exports = {
 
 					memberInfo = JSON.parse(jsonString);
 
+					process.on('unhandledRejection', (err) => {
+						if (err.code == 50013) {
+							bot.createMessage(msg.channel.id, "I don't have permission to embed things, please give me the `Embed Links` permission!");
+						}
+					});
+
 					bot.createMessage(msg.channel.id, {
 						embed: {
 							url: `https://apps.runescape.com/runemetrics/app/overview/player/${memberInfo.name}`,

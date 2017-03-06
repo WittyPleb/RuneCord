@@ -35,6 +35,12 @@ module.exports = {
 					let prayerXp = utils.getLampXp(result[6][1], 'medium');
 					let slayerXp = utils.getLampXp(result[19][1], 'medium');
 
+					process.on('unhandledRejection', (err) => {
+						if (err.code == 50013) {
+							bot.createMessage(msg.channel.id, "I don't have permission to embed things, please give me the `Embed Links` permission!");
+						}
+					});
+
 					bot.createMessage(msg.channel.id, {
 						embed: {
 							title: 'God Statue Statistics for ' + suffix,

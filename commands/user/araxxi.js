@@ -23,6 +23,12 @@ module.exports = {
 		if (currentRotation == 1) { midPath = 'CLOSED'; }
 		if (currentRotation == 2) { botPath = 'CLOSED'; }
 
+		process.on('unhandledRejection', (err) => {
+			if (err.code == 50013) {
+				bot.createMessage(msg.channel.id, "I don't have permission to embed things, please give me the `Embed Links` permission!");
+			}
+		});
+
 		bot.createMessage(msg.channel.id, {
 			embed: {
 				title: 'Arraxor/Araxxi Rotation',

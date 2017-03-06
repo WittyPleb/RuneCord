@@ -19,6 +19,12 @@ module.exports = {
 
 		if (nextRotation === ROTATIONS.length) nextRotation = 0;
 
+		process.on('unhandledRejection', (err) => {
+			if (err.code == 50013) {
+				bot.createMessage(msg.channel.id, "I don't have permission to embed things, please give me the `Embed Links` permission!");
+			}
+		});
+
 		bot.createMessage(msg.channel.id, {
 			embed: {
 				name: 'Vorago Rotation',
