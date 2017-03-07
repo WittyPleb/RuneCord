@@ -17,12 +17,6 @@ module.exports = {
 	task(bot, msg) {
 		let botAuthor = bot.users.get(config.adminIds[0]);
 
-		process.on('unhandledRejection', (err) => {
-			if (err.code == 50013) {
-				bot.createMessage(msg.channel.id, "I don't have permission to embed things, please give me the `Embed Links` permission!");
-			}
-		});
-		
 		bot.createMessage(msg.channel.id, {
 			embed: {
 				title: 'Official GitHub Page',
@@ -44,6 +38,13 @@ module.exports = {
 					text: `Made with Eris v${libVersion} | Current Version: ${botVersion} | ${moment(msg.timestamp).format('ddd MMM do, YYYY [at] h:mm A')}`,
 					icon_url: 'http://i.imgur.com/hiyc0GM.png'
 				}
+			}
+		}).catch((err) => {
+			console.log(err + " ERROR\n");
+			let error = JSON.parse(err);
+			console.log(error + " ERROR CODE\n");
+			if (err.code == 50013) {
+				bot.createMessage(msg.channel.id, "I don't have permission to embed things, please give me the `Embed Links` permission!");
 			}
 		});
 	}
