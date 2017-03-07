@@ -65,7 +65,6 @@ module.exports = function(bot, settingsManager, config, guild) {
 - **carbonKey:** Your key for updating carbon information.
 - **abalBotsKey:** Your https://bot.discord.pw/ API key.
 - **cycleGames:** Randomly changes the bot's status.
-- **bannedGuildIds:** Servers that can not add the bot.
 - **whitelistedGuildIds:** For future use.
 
 ## Naming commands and invalid prefixes

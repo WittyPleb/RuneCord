@@ -4,7 +4,7 @@ var reload     = require('require-reload');
 var fs         = require('fs');
 
 /* LOCAL VARIABLES */
-var logger = new (reload('./Logger.js'))((reload('../config.json')).logTimestamp);
+var logger     = new (reload('./Logger.js'))((reload('../config.json')).logTimestamp);
 
 /**
  * Contains various functions.

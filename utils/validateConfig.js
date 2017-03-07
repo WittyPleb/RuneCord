@@ -28,11 +28,6 @@ module.exports = function(config) {
 			return reject();
 		}
 
-		if (!Array.isArray(config.bannedGuildIds)) {
-			logger.error('bannedGuildIds must be an array of strings.', 'CONFIG ERROR');
-			return reject();
-		}
-
 		if (!Array.isArray(config.whitelistedGuildIds)) {
 			logger.error('whitelistedGuildIds must be an array of strings.', 'CONFIG ERROR');
 			return reject();

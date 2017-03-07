@@ -3,6 +3,7 @@ var reload = require('require-reload');
 
 /* REQUIRED FILES */
 var _Logger = reload('../utils/Logger.js');
+var blacklist = reload('../db/blacklist.json');
 
 /* LOCAL VARIABLES */
 var logger;
@@ -12,7 +13,7 @@ module.exports = function(bot, _settingsManager, config, guild) {
 		logger = new _Logger(config.logTimestamp);
 	}
 	logger.logWithHeader('JOINED GUILD', 'bgGreen', 'black', `${guild.name} owned by ${guild.members.get(guild.ownerID).user.username}`);
-	if (config.bannedGuildIds.includes(guild.id)) {
+	if (blacklist.hasOwnProperty(guild.id)) {
 		logger.logWithHeader('LEFT BANNED GUILD', 'bgRed', 'black', guild.name);
 		guild.leave();
 	} else {

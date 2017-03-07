@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Removed -->
 
+[Unpublished]
+### Added
+- Added a new blacklist command for bot owners.
+
 [4.1.0] - 2017-03-05
 ### Added
 - Added `~vis` and `~wax` aliases to the `~viswax` command.
