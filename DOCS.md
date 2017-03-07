@@ -7,7 +7,7 @@
 ## Installing:
 1. Install `NodeJS` `Git` and `Python 2.7` (and add them to your PATH).
 2. Download RuneCord and configure it using the reference below.
-3. Run `npm i --no-optional --production` and then, optionally, `npm i eventemitter3 bluebird --no-optional --production`.
+3. Run `npm i --no-optional --production` and then, optionally, `npm i eventemitter3 --no-optional --production`.
 4. Make any modifications.
 5. Add your bot using `https://discordapp.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&scope=bot`.
 6. Run the bot with `node index.js`.
