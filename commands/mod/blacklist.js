@@ -42,6 +42,7 @@ module.exports = {
 	hidden: true,
 	ownerOnly: true,
 	task(bot, msg, suffix) {
+		if (!suffix) return 'wrong usage';
 		manageBlacklist(bot, msg, suffix, blacklist);
 	}
 }
