@@ -65,7 +65,6 @@ module.exports = function(bot, settingsManager, config, guild) {
 - **carbonKey:** Your key for updating carbon information.
 - **abalBotsKey:** Your https://bot.discord.pw/ API key.
 - **cycleGames:** Randomly changes the bot's status.
-- **whitelistedGuildIds:** For future use.
 
 ## Naming commands and invalid prefixes
 Command names must not contain a `space` or a `|`. Prefixed must not contain a `|`. Avoid using `@` as it may resolve into a user.

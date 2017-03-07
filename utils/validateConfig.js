@@ -28,11 +28,6 @@ module.exports = function(config) {
 			return reject();
 		}
 
-		if (!Array.isArray(config.whitelistedGuildIds)) {
-			logger.error('whitelistedGuildIds must be an array of strings.', 'CONFIG ERROR');
-			return reject();
-		}
-
 		for (let prefix in config.commandSets) {
 			if (prefix === '') {
 				logger.error('One of your commandSets has no prefix.', 'CONFIG ERROR');
