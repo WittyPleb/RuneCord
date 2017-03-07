@@ -6,6 +6,7 @@ var reload = require('require-reload');
 
 /* REQUIRED FILES */
 var _Logger = reload('../utils/Logger.js');
+var blacklist = reload('../db/blacklist.json');
 
 /* LOCAL VARIALBES */
 var logger;
@@ -19,5 +20,5 @@ module.exports = function(bot, config, games, utils) {
 		let name = games[~~(Math.random() * games.length)];
 		shard.editStatus(null, {name});
 	});
-	logger.logWithHeader('READY', 'bgGreen', 'black', `Guilds: ${Nf.format(bot.guilds.size)} Users: ${Nf.format(bot.users.size)} AVG: ${Nf.format((bot.users.size / bot.guilds.size).toFixed(2))}`);
+	logger.logWithHeader('READY', 'bgGreen', 'black', `Guilds: ${Nf.format(bot.guilds.size)} (${Nf.format(Object.keys(blacklist).length)}) Users: ${Nf.format(bot.users.size)} AVG: ${Nf.format((bot.users.size / bot.guilds.size).toFixed(2))}`);
 }
