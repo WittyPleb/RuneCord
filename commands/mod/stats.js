@@ -35,7 +35,7 @@ module.exports = {
 					{name: 'Memory Usage', value: `${Math.round(process.memoryUsage().rss / 1024 / 1000)}MB`, inline: true}
 				],
 				footer: {
-					text: `Made with Eris v${libVersion} | Current Version: ${botVersion} | ${moment(msg.timestamp).format('ddd MMM do, YYYY [at] h:mm A')}`,
+					text: `Made with Eris v${libVersion} | Current Version: ${botVersion} | ${moment(msg.timestamp).format('ddd MMM Do, YYYY [at] h:mm A')}`,
 					icon_url: 'http://i.imgur.com/hiyc0GM.png'
 				}
 			}
