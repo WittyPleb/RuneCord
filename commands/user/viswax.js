@@ -19,7 +19,13 @@ module.exports = {
 					logger.warn('Error getting Viswax combination: ' + (error.status || error.response));
 					bot.createMessage(msg.channel.id, 'There was an error while grabbing the Viswax combination. Please try again later.');
 				} else {
-					let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(response.text)[1];
+					try {
+						let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(response.text)[1];
+					} catch (err) {
+						logger.warn('Error getting Viswax combination: ' + err);
+						bot.createMessage(msg.channel.id, "There was an error while grabbing the Viswax combination. Please try again later.");
+						return;
+					}
 					let day = new Date().getUTCDate();
 
 					// Checks if combination is updated
