@@ -15,12 +15,13 @@ module.exports = {
 	task(bot, msg) {
 		superagent.get('http://services.runescape.com/m=forum/forums.ws?75,76,387,65763383')
 			.end((error, response) => {
+				let dateMatch;
 				if (error) {
 					logger.warn('Error getting Viswax combination: ' + (error.status || error.response));
 					bot.createMessage(msg.channel.id, 'There was an error while grabbing the Viswax combination. Please try again later.');
 				} else {
 					try {
-						let dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(response.text)[1];
+						dateMatch = new RegExp(/combination\s+?for.+?(\d+)(?:..)?;/i).exec(response.text)[1];
 					} catch (err) {
 						logger.warn('Error getting Viswax combination: ' + err);
 						bot.createMessage(msg.channel.id, "There was an error while grabbing the Viswax combination. Please try again later.");
