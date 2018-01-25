@@ -19,5 +19,6 @@
     "errorMessage": "Uh oh! There was an error processing your request, please report this to my owner!",
     "carbonKey": "",
     "abalBotsKey": "",
+    "discordBotsKey": "",
     "cycleGames": true
 }

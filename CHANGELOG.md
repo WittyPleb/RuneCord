@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [Unpublished]
 ### Added
 - Added a new blacklist command for bot owners.
+- Added stat posting to DiscordBots.
 
 [4.1.0] - 2017-03-05
 ### Added

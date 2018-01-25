@@ -327,6 +327,14 @@ if (config.abalBotsKey) {
 	}, 1800000);
 }
 
+if (config.discordBotsKey) {
+	setInterval(() => {
+		if (bot.uptime !== 0) {
+			utils.updateDiscordBots(bot.user.id, config.discordBotsKey, bot.guilds.size);
+		}
+	}, 1800000);
+}
+
 setInterval(() => { // Update the bot's status for each shard every 10 minutes
 	if (games.length !== 0 && bot.uptime !== 0 && config.cycleGames === true) {
 		bot.shards.forEach(shard => {

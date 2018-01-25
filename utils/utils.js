@@ -93,6 +93,23 @@ exports.updateAbalBots = function(id, key, server_count) {
 }
 
 /**
+ * Update the server count on DiscordBots list.
+ * @arg {String} key The bot's key.
+ * @arg {Number} server_count Server count.
+ */
+exports.updateDiscordBots = function(id, key, server_count) {
+	if (!key || !server_count) return;
+	superagent.post(`https://discordbots.org/api/bots/${id}/stats`)
+		.set('Authorization', key)
+		.type('application/json')
+		.send({server_count})
+		.end(error => {
+			logger.debug('Updated bot server count to ' + server_count, 'DISCORDBOT LIST UPDATE');
+			if (error) logger.error(error.status || error.response, 'DISCORDBOT LIST UPDATE ERROR');
+		});
+}
+
+/**
  * Set the bot's avatar from /avatars/
  * @arg {Client} bot The client.
  * @arg {String} url The direct url to the image.
