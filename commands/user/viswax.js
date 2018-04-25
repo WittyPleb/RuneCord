@@ -13,7 +13,7 @@ module.exports = {
 	cooldown: 10,
 	aliases: ['vis', 'wax'],
 	task(bot, msg) {
-		superagent.get('http://services.runescape.com/m=forum/forums.ws?75,76,387,65763383')
+		superagent.get('http://services.runescape.com/m=forum/forums.ws?75,76,331,66006366')
 			.end((error, response) => {
 				let dateMatch;
 				if (error) {
